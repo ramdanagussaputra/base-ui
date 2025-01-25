@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "./color.css";
+@import "./typography.css";
+
+@layer base {
+  html {
+    font-size: 80%;
+  }
+}

@@ -1,0 +1,106 @@
+@theme {
+  --color-*: initial;
+  --color-error-0: rgba(255, 251, 251, 0.8);
+  --color-error-50: rgba(255, 241, 242, 0.8);
+  --color-error-100: rgba(255, 225, 227, 0.8);
+  --color-error-200: rgba(255, 199, 203, 0.8);
+  --color-error-300: rgba(255, 160, 166, 0.8);
+  --color-error-400: rgba(255, 90, 101, 0.8);
+  --color-error-500: rgba(248, 59, 72, 0.8);
+  --color-error-600: rgba(229, 29, 42, 0.8);
+  --color-error-700: rgba(193, 20, 32, 0.8);
+  --color-error-800: rgba(160, 20, 29, 0.8);
+  --color-error-900: rgba(132, 24, 31, 0.8);
+  --color-error-950: rgba(72, 7, 11, 0.8);
+
+  --color-primary-0: rgba(255, 246, 249, 0.8);
+  --color-primary-50: rgba(255, 247, 236, 0.8);
+  --color-primary-100: rgba(255, 238, 211, 0.8);
+  --color-primary-200: rgba(255, 217, 165, 0.8);
+  --color-primary-300: rgba(255, 189, 109, 0.8);
+  --color-primary-400: rgba(255, 149, 50, 0.8);
+  --color-primary-500: rgba(255, 118, 10, 0.8);
+  --color-primary-600: rgba(255, 93, 1, 0.8);
+  --color-primary-700: rgba(204, 65, 2, 0.8);
+  --color-primary-800: rgba(161, 51, 11, 0.8);
+  --color-primary-900: rgba(130, 44, 12, 0.8);
+  --color-primary-950: rgba(70, 19, 4, 0.8);
+
+  --color-warning-0: rgba(255, 254, 249, 0.8);
+  --color-warning-50: rgba(255, 252, 235, 0.8);
+  --color-warning-100: rgba(255, 238, 173, 0.8);
+  --color-warning-200: rgba(254, 231, 137, 0.8);
+  --color-warning-300: rgba(254, 211, 75, 0.8);
+  --color-warning-400: rgba(253, 189, 26, 0.8);
+  --color-warning-500: rgba(247, 158, 9, 0.8);
+  --color-warning-600: rgba(219, 118, 4, 0.8);
+  --color-warning-700: rgba(182, 82, 7, 0.8);
+  --color-warning-800: rgba(147, 64, 13, 0.8);
+  --color-warning-900: rgba(121, 53, 14, 0.8);
+  --color-warning-950: rgba(70, 26, 2, 0.8);
+
+  --color-success-0: rgba(250, 255, 252, 0.8);
+  --color-success-50: rgba(238, 255, 246, 0.8);
+  --color-success-100: rgba(216, 255, 236, 0.8);
+  --color-success-200: rgba(180, 254, 218, 0.8);
+  --color-success-300: rgba(121, 252, 189, 0.8);
+  --color-success-400: rgba(56, 240, 152, 0.8);
+  --color-success-500: rgba(14, 217, 121, 0.8);
+  --color-success-600: rgba(5, 193, 104, 0.8);
+  --color-success-700: rgba(8, 141, 79, 0.8);
+  --color-success-800: rgba(12, 111, 66, 0.8);
+  --color-success-900: rgba(12, 91, 55, 0.8);
+  --color-success-950: rgba(0, 51, 29, 0.8);
+
+  --color-info1-0: rgba(250, 253, 255, 0.8);
+  --color-info1-50: rgba(237, 249, 255, 0.8);
+  --color-info1-100: rgba(216, 240, 255, 0.8);
+  --color-info1-200: rgba(185, 229, 255, 0.8);
+  --color-info1-300: rgba(137, 215, 255, 0.8);
+  --color-info1-400: rgba(81, 191, 255, 0.8);
+  --color-info1-500: rgba(41, 161, 255, 0.8);
+  --color-info1-600: rgba(29, 136, 254, 0.8);
+  --color-info1-700: rgba(16, 85, 189, 0.8);
+  --color-info1-800: rgba(20, 74, 148, 0.8);
+  --color-info1-900: rgba(17, 46, 90, 0.8);
+  --color-info1-950: rgba(10, 26, 55, 0.8);
+
+  --color-info2-0: rgba(249, 251, 255, 0.8);
+  --color-info2-50: rgba(235, 241, 255, 0.8);
+  --color-info2-100: rgba(219, 227, 255, 0.8);
+  --color-info2-200: rgba(190, 203, 255, 0.8);
+  --color-info2-300: rgba(151, 168, 255, 0.8);
+  --color-info2-400: rgba(110, 120, 255, 0.8);
+  --color-info2-500: rgba(76, 76, 255, 0.8);
+  --color-info2-600: rgba(74, 58, 255, 0.8);
+  --color-info2-700: rgba(42, 29, 182, 0.8);
+  --color-info2-800: rgba(39, 32, 143, 0.8);
+  --color-info2-900: rgba(25, 19, 83, 0.8);
+  --color-info2-950: rgba(14, 11, 50, 0.8);
+
+  --color-secondary-0: rgba(251, 249, 251, 0.8);
+  --color-secondary-50: rgba(246, 246, 248, 0.8);
+  --color-secondary-100: rgba(233, 234, 240, 0.8);
+  --color-secondary-200: rgba(217, 219, 228, 0.8);
+  --color-secondary-300: rgba(190, 193, 210, 0.8);
+  --color-secondary-400: rgba(159, 163, 187, 0.8);
+  --color-secondary-500: rgba(135, 137, 170, 0.8);
+  --color-secondary-600: rgba(117, 117, 155, 0.8);
+  --color-secondary-700: rgba(107, 105, 140, 0.8);
+  --color-secondary-800: rgba(84, 82, 107, 0.8);
+  --color-secondary-900: rgba(75, 74, 94, 0.8);
+  --color-secondary-950: rgba(43, 39, 63, 0.8);
+
+  --color-neutral-0: rgba(253, 253, 253, 0.8);
+  --color-neutral-50: rgba(246, 246, 246, 0.8);
+  --color-neutral-100: rgba(231, 231, 231, 0.8);
+  --color-neutral-200: rgba(209, 209, 209, 0.8);
+  --color-neutral-300: rgba(176, 176, 176, 0.8);
+  --color-neutral-400: rgba(136, 136, 136, 0.8);
+  --color-neutral-500: rgba(109, 109, 109, 0.8);
+  --color-neutral-600: rgba(93, 93, 93, 0.8);
+  --color-neutral-700: rgba(79, 79, 79, 0.8);
+  --color-neutral-800: rgba(69, 69, 69, 0.8);
+  --color-neutral-900: rgba(61, 61, 61, 0.8);
+  --color-neutral-950: rgba(18, 18, 18, 0.8);
+}
