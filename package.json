@@ -21,7 +21,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prerelease-alpha": "version prerelease --preid=alpha"
+    "prerelease-alpha": "pnpm version prerelease --preid=alpha"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
