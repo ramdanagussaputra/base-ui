@@ -2,14 +2,21 @@ import { cn } from "#/utils";
 import { ReactNode } from "react";
 
 interface SmallTextProps {
-  readonly as: JSX.ElementType;
+  readonly as?: JSX.ElementType;
   readonly className?: JSX.ElementType;
-  readonly bold: "medium" | "normal" | "light";
+  readonly bold?: "medium" | "normal" | "light";
   readonly children: ReactNode;
+  readonly isColorInherit?: boolean;
 }
 
-export function SmallText({ as, children, className, bold }: SmallTextProps) {
-  const Comp = as || "span";
+export function SmallText({
+  as = "span",
+  bold = "normal",
+  isColorInherit = false,
+  children,
+  className,
+}: SmallTextProps) {
+  const Comp = as;
 
   const isFontWeightMedium = bold === "medium";
   const isFontWeightNormal = bold === "normal";
@@ -18,13 +25,14 @@ export function SmallText({ as, children, className, bold }: SmallTextProps) {
   return (
     <Comp
       className={cn(
-        "text-neutral-800 text-xxs tracking-[-0.3px]",
+        "text-[0.625rem] tracking-[-0.3px] text-neutral-800",
         {
           "font-medium": isFontWeightMedium,
           "font-normal": isFontWeightNormal,
           "font-light": isFontWeightLight,
+          "text-inherit": isColorInherit,
         },
-        className
+        className,
       )}
     >
       {children}

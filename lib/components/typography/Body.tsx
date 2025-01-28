@@ -5,12 +5,20 @@ interface BodyProps {
   readonly as: JSX.ElementType;
   readonly className?: JSX.ElementType;
   readonly children: ReactNode;
-  readonly bold: "medium" | "normal" | "semibold";
+  readonly bold?: "medium" | "normal" | "semibold";
   readonly level: "1" | "2" | "3" | "4";
+  readonly isColorInherit?: boolean;
 }
 
-export function Body({ as, children, className, bold, level }: BodyProps) {
-  const Comp = as || "p";
+export function Body({
+  as = "p",
+  bold = "normal",
+  level = "1",
+  isColorInherit = false,
+  children,
+  className,
+}: BodyProps) {
+  const Comp = as;
 
   const isFontWeightMedium = bold === "medium";
   const isFontWeightNormal = bold === "normal";
@@ -24,7 +32,7 @@ export function Body({ as, children, className, bold, level }: BodyProps) {
   return (
     <Comp
       className={cn(
-        "text-neutral-800 leading-[140%]",
+        "leading-[140%] text-neutral-800",
         {
           "font-medium": isFontWeightMedium,
           "font-normal": isFontWeightNormal,
@@ -33,8 +41,9 @@ export function Body({ as, children, className, bold, level }: BodyProps) {
           "text-base": isLevel2,
           "text-sm": isLevel3,
           "text-xs": isLevel4,
+          "text-inherit": isColorInherit,
         },
-        className
+        className,
       )}
     >
       {children}
