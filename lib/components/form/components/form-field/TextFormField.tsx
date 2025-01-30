@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/components/form-field/model/formField";
@@ -10,15 +10,14 @@ export function TextFormField({
   rules,
   label,
   fieldName,
+  placeholder,
+  control,
   isRequired = false,
   isDisabled = false,
-  placeholder,
   onChange = () => {},
   type = "text",
   size = "medium",
 }: Readonly<FormFieldProps>) {
-  const { control } = useFormContext();
-
   return (
     <Controller
       name={name}

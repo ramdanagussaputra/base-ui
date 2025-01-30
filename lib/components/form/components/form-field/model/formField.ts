@@ -1,4 +1,4 @@
-import { FieldValues, RegisterOptions } from "react-hook-form";
+import { Control, FieldValues, RegisterOptions } from "react-hook-form";
 import type { FieldsetProps } from "#/components/form/components/fieldset/Fieldset";
 
 export interface FormFieldProps
@@ -6,6 +6,7 @@ export interface FormFieldProps
   readonly label: string;
   readonly name: string;
   readonly placeholder: string;
+  readonly control: Control<any>;
   readonly fieldName?: string;
   readonly type?: "text" | "email" | "password" | "number";
   readonly rules?: Omit<
