@@ -1,18 +1,23 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { Fieldset, TextFormField } from "massive-base-ui";
+import { Fieldset, PasswordFormField } from "massive-base-ui";
 
 function Forms() {
   const formMethods = useForm({
     defaultValues: {
       text: null,
     },
+    mode: "all",
   });
 
   return (
     <section className="flex flex-col gap-4">
       <FormProvider {...formMethods}>
         <div className="w-1/3">
-          <TextFormField label="Label" name="text" placeholder="Placeholder" />
+          <PasswordFormField
+            label="Label"
+            name="text"
+            placeholder="Placeholder"
+          />
         </div>
 
         <div className="w-1/3">

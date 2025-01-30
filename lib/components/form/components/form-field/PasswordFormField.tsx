@@ -1,11 +1,13 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller, useFormContext } from "react-hook-form";
+import { useState } from "react";
+import { Eye, EyeSlash } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/components/form-field/model/formField";
 
-export function TextFormField({
+export function PasswordFormField({
   name,
   rules,
   label,
@@ -14,19 +16,29 @@ export function TextFormField({
   isDisabled = false,
   placeholder,
   onChange = () => {},
-  type = "text",
   size = "medium",
 }: Readonly<FormFieldProps>) {
   const { control } = useFormContext();
+  const [isShow, setIsShow] = useState(false);
+
+  console.log(isShow);
 
   return (
     <Controller
-      name={name}
       control={control}
+      name={name}
       rules={{
         required: {
           value: isRequired,
           message: `${fieldName || label} is required`,
+        },
+        minLength: {
+          value: 8,
+          message: `must be at least 8 characters`,
+        },
+        pattern: {
+          value: /^(?=.*[A-Za-z])(?=.*\d).+$/,
+          message: "must contain number and letter",
         },
         ...rules,
       }}
@@ -42,7 +54,7 @@ export function TextFormField({
           </Fieldset.Label>
 
           <Fieldset.TextInput
-            type={type}
+            type={isShow ? "text" : "password"}
             placeholder={placeholder}
             value={field.value || ""}
             onChange={(event) => {
@@ -50,7 +62,15 @@ export function TextFormField({
               field.onChange(event);
             }}
             onBlur={field.onBlur}
-          />
+          >
+            <Fieldset.Icon className="cursor-pointer">
+              {isShow ? (
+                <EyeSlash onClick={() => setIsShow(false)} />
+              ) : (
+                <Eye onClick={() => setIsShow(true)} />
+              )}
+            </Fieldset.Icon>
+          </Fieldset.TextInput>
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
