@@ -7,6 +7,11 @@ import { Eye, EyeSlash } from "iconsax-react";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/components/form-field/model/formField";
 
+interface PasswordFormFieldProps extends FormFieldProps {
+  isConfirmPassword?: boolean;
+  passwordName?: string;
+}
+
 export function PasswordFormField({
   name,
   rules,
@@ -18,7 +23,9 @@ export function PasswordFormField({
   control,
   onChange = () => {},
   size = "medium",
-}: Readonly<FormFieldProps>) {
+  isConfirmPassword = false,
+  passwordName,
+}: Readonly<PasswordFormFieldProps>) {
   const [isShow, setIsShow] = useState(false);
 
   return (
@@ -37,6 +44,14 @@ export function PasswordFormField({
         pattern: {
           value: /^(?=.*[A-Za-z])(?=.*\d).+$/,
           message: "must contain number and letter",
+        },
+        validate: {
+          validate: (value, formValue) => {
+            if (!isConfirmPassword && !passwordName) return true;
+            return (
+              value === formValue[passwordName!] || "Password does not match"
+            );
+          },
         },
         ...rules,
       }}
