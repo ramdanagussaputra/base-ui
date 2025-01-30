@@ -33,6 +33,7 @@ export function TextFormField({
   placeholder,
   onChange = () => {},
   type = "text",
+  size = "medium",
 }: TextFormFieldProps) {
   return (
     <Controller
@@ -49,6 +50,7 @@ export function TextFormField({
           isError={!!fieldState.error}
           isRequired={isRequired}
           isDisabled={isDisabled}
+          size={size}
         >
           <Fieldset.Label type={isRequired ? "required" : "optional"}>
             {label}
