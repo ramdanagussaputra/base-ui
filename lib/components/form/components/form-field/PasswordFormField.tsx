@@ -37,14 +37,6 @@ export function PasswordFormField({
           value: isRequired,
           message: `${fieldName || label} is required`,
         },
-        minLength: {
-          value: 8,
-          message: `must be at least 8 characters`,
-        },
-        pattern: {
-          value: /^(?=.*[A-Za-z])(?=.*\d).+$/,
-          message: "must contain number and letter",
-        },
         validate: {
           validate: (value, formValue) => {
             if (!isConfirmPassword && !passwordName) return true;
@@ -53,6 +45,15 @@ export function PasswordFormField({
             );
           },
         },
+        minLength: {
+          value: 8,
+          message: `must be at least 8 characters`,
+        },
+        pattern: {
+          value: /^(?=.*[A-Za-z])(?=.*\d).+$/,
+          message: "must contain number and letter",
+        },
+
         ...rules,
       }}
       render={({ field, fieldState }) => (
