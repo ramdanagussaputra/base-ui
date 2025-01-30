@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 
-import { FieldsetLabel } from "#/components/form/FieldsetLabel";
-import { FieldsetInput } from "#/components/form/FieldsetInput";
-import { FieldsetIcon } from "#/components/form/FieldsetIcon";
-import { FieldsetMessage } from "#/components/form/FieldsetMessage";
-import { FieldsetCheckbox } from "#/components/form/FieldsetCheckbox";
+import { FieldsetLabel } from "#/components/form/components/fieldset/FieldsetLabel";
+import { FieldsetInput } from "#/components/form/components/fieldset/FieldsetInput";
+import { FieldsetIcon } from "#/components/form/components/fieldset/FieldsetIcon";
+import { FieldsetMessage } from "#/components/form/components/fieldset/FieldsetMessage";
+import { FieldsetCheckbox } from "#/components/form/components/fieldset/FieldsetCheckbox";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
