@@ -1,11 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller, useFormContext } from "react-hook-form";
+import {
+  // Control,
+  Controller,
+  // FieldValues,
+  // useFormContext,
+} from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeSlash } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/components/form-field/model/formField";
+
+interface PasswordFormFieldProps extends FormFieldProps {
+  control: any;
+}
 
 export function PasswordFormField({
   name,
@@ -17,8 +27,8 @@ export function PasswordFormField({
   placeholder,
   onChange = () => {},
   size = "medium",
-}: Readonly<FormFieldProps>) {
-  const { control } = useFormContext();
+  control,
+}: Readonly<PasswordFormFieldProps>) {
   const [isShow, setIsShow] = useState(false);
 
   console.log(isShow);

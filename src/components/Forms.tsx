@@ -17,6 +17,7 @@ function Forms() {
             label="Label"
             name="text"
             placeholder="Placeholder"
+            control={formMethods.control}
           />
         </div>
 
