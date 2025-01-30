@@ -1,8 +1,6 @@
 import React, { useMemo } from "react";
 
 import { ButtonIcon } from "#/components/button/ButtonIcon";
-import { Body } from "#/components/typography/Body";
-import { SmallText } from "#/components/typography/SmallText";
 
 import { buttonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
@@ -16,9 +14,6 @@ interface ButtonProps {
   readonly isDisabled?: boolean;
   readonly className?: string;
 }
-
-type BodySize = "large" | "medium" | "small";
-type BodyLevel = "1" | "2" | "3" | "4";
 
 export function Button({
   children,
@@ -43,15 +38,6 @@ export function Button({
   const isNoBackground = type === "no-background";
   const isOutline = type === "outline";
   const isLink = type === "link";
-
-  const bodyLevel = useMemo(
-    () => ({
-      large: "2",
-      medium: "3",
-      small: "4",
-    }),
-    [],
-  );
 
   const value = useMemo(
     () => ({
@@ -90,12 +76,12 @@ export function Button({
         disabled={isDisabled}
         onClick={onClick}
         className={cn(
-          "cursor-pointer rounded-md duration-200 disabled:cursor-auto disabled:opacity-50 disabled:shadow-none",
+          "flex cursor-pointer items-center justify-center rounded-md whitespace-nowrap outline-hidden duration-200 disabled:cursor-auto disabled:opacity-50 disabled:shadow-none",
           {
-            "h-[3rem] px-4": isLarge,
-            "h-10 px-4": isMedium,
-            "h-8 px-3": isSmall,
-            "h-7 px-2": isExtraSmall,
+            "!text-b2-500 h-[3rem] gap-2 px-4": isLarge,
+            "!text-b3-500 h-10 gap-1 px-4": isMedium,
+            "!text-b4-500 h-8 gap-1 px-3": isSmall,
+            "!text-small-text-500 h-7 gap-1 px-2": isExtraSmall,
             "bg-primary-600 hover:bg-primary-700 hover:shadow-button-primary-solid disabled:hover:bg-primary-600 text-neutral-0":
               isSolid && isPrimary,
             "bg-secondary-900 hover:bg-secondary-950 hover:shadow-button-secondary-solid disabled:hover:bg-secondary-900 text-neutral-0":
@@ -124,33 +110,7 @@ export function Button({
           className,
         )}
       >
-        {!isExtraSmall && (
-          <Body
-            as="span"
-            level={bodyLevel[size as BodySize] as BodyLevel}
-            bold="semibold"
-            className={cn(
-              "flex items-center justify-center whitespace-nowrap",
-              {
-                "gap-2": isLarge,
-                "gap-1": isMedium || isSmall || isExtraSmall,
-              },
-            )}
-            isColorInherit
-          >
-            {children}
-          </Body>
-        )}
-
-        {isExtraSmall && (
-          <SmallText
-            className="flex items-center justify-center whitespace-nowrap"
-            bold="medium"
-            isColorInherit
-          >
-            {children}
-          </SmallText>
-        )}
+        {children}
       </button>
     </buttonContext.Provider>
   );

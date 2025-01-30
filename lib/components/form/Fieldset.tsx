@@ -1,0 +1,61 @@
+import { useMemo } from "react";
+
+import { FieldsetLabel } from "#/components/form/FieldsetLabel";
+import { FieldsetInput } from "#/components/form/FieldsetInput";
+import { FieldsetIcon } from "#/components/form/FieldsetIcon";
+import { FieldsetMessage } from "#/components/form/FieldsetMessage";
+import { FieldsetCheckbox } from "#/components/form/FieldsetCheckbox";
+
+import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
+import { cn } from "#/utils";
+
+export interface FieldsetProps {
+  readonly children: React.ReactNode;
+  readonly size?: "small" | "medium" | "large";
+  readonly isRequired?: boolean;
+  readonly isDisabled?: boolean;
+  readonly isError?: boolean;
+  readonly isSuccess?: boolean;
+  readonly className?: string;
+}
+
+export function Fieldset({
+  children,
+  className,
+  size = "medium",
+  isRequired = true,
+  isDisabled = false,
+  isError = false,
+  isSuccess = false,
+}: FieldsetProps) {
+  const isSmall = size === "small";
+  const isMedium = size === "medium";
+  const isLarge = size === "large";
+
+  const contextValue = useMemo(
+    () => ({
+      isSmall,
+      isMedium,
+      isLarge,
+      isRequired,
+      isSuccess,
+      isDisabled,
+      isError,
+    }),
+    [isSmall, isMedium, isLarge, isRequired, isDisabled, isError, isSuccess],
+  );
+
+  return (
+    <fieldsetContext.Provider value={contextValue}>
+      <fieldset className={cn("flex flex-col gap-1.5", className)}>
+        {children}
+      </fieldset>
+    </fieldsetContext.Provider>
+  );
+}
+
+Fieldset.Label = FieldsetLabel;
+Fieldset.TextInput = FieldsetInput;
+Fieldset.Icon = FieldsetIcon;
+Fieldset.Message = FieldsetMessage;
+Fieldset.Checkbox = FieldsetCheckbox;

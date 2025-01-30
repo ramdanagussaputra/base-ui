@@ -10,14 +10,5 @@ interface BigTextProps {
 export function BigText({ as, children, className }: BigTextProps) {
   const Comp = as || "span";
 
-  return (
-    <Comp
-      className={cn(
-        "text-neutral-800 text-[3.125rem] font-bold leading-[120%] tracking-[1px]",
-        className
-      )}
-    >
-      {children}
-    </Comp>
-  );
+  return <Comp className={cn("text-big-text", className)}>{children}</Comp>;
 }

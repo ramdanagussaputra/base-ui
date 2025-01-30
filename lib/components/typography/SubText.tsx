@@ -5,26 +5,34 @@ interface SubTextProps {
   readonly as: JSX.ElementType;
   readonly className?: JSX.ElementType;
   readonly children: ReactNode;
-  readonly bold: "medium" | "bold" | "semibold";
+  readonly bold?: "normal" | "semibold" | "bold";
+  readonly isColorInherit?: boolean;
 }
 
-export function SubText({ as, children, className, bold }: SubTextProps) {
+export function SubText({
+  as,
+  children,
+  className,
+  bold = "normal",
+  isColorInherit = false,
+}: SubTextProps) {
   const Comp = as || "span";
 
-  const isFontWeightMedium = bold === "medium";
-  const isFontWeightBold = bold === "bold";
+  const isFontWeightNormal = bold === "normal";
   const isFontWeightSemibold = bold === "semibold";
+  const isFontWeightBold = bold === "bold";
 
   return (
     <Comp
       className={cn(
-        "text-xl leading-[140%] tracking-[0.4px] text-neutral-800",
+        "text-neutral-800",
         {
-          "font-medium": isFontWeightMedium,
-          "font-bold": isFontWeightBold,
-          "font-semibold": isFontWeightSemibold,
+          "text-subtext-500": isFontWeightNormal,
+          "text-subtext-600": isFontWeightSemibold,
+          "text-subtext-700": isFontWeightBold,
+          "text-inherit": isColorInherit,
         },
-        className
+        className,
       )}
     >
       {children}

@@ -6,6 +6,7 @@ interface HeadingProps {
   readonly bold?: boolean;
   readonly className?: JSX.ElementType;
   readonly children: ReactNode;
+  readonly isColorInherit?: boolean;
 }
 
 export function Heading({
@@ -13,6 +14,7 @@ export function Heading({
   children,
   className,
   bold = true,
+  isColorInherit = false,
 }: HeadingProps) {
   const Comp = as;
 
@@ -26,23 +28,23 @@ export function Heading({
   return (
     <Comp
       className={cn(
-        "text-[3.125rem] leading-[120%] tracking-[1px] font-semibold text-neutral-800",
+        "text-neutral-800",
         {
-          "font-bold": bold,
-          "text-[2.75rem] leading-[120%] font-semibold": isHeading1,
-          "tracking-[0.055rem]": isHeading1 && bold,
-          "text-[2.25rem] leading-[140%] tracking-[0.045rem]": isHeading2,
-          "tracking-[0.045rem]": isHeading2 && bold,
-          "text-[2rem] leading-[140%] tracking-[0.04rem]": isHeading3,
-          "tracking-[0.04rem]": isHeading3 && bold,
-          "text-[1.875rem] leading-[140%] tracking-[0.0375rem]": isHeading4,
-          "tracking-[0.0375rem]": isHeading4 && bold,
-          "text-[1.5rem] leading-[140%]": isHeading5,
-          "tracking-[0.03rem]": isHeading5 && bold,
-          "text-[1.375rem] leading-[140%]": isHeading6,
-          "tracking-[0.0275rem]": isHeading6 && bold,
+          "text-h1-600": isHeading1,
+          "text-h1-700": isHeading1 && bold,
+          "text-h2-600": isHeading2,
+          "text-h2-700": isHeading2 && bold,
+          "text-h3-600": isHeading3,
+          "text-h3-700": isHeading3 && bold,
+          "text-h4-600": isHeading4,
+          "text-h4-700": isHeading4 && bold,
+          "text-h5-600": isHeading5,
+          "text-h5-700": isHeading5 && bold,
+          "text-h6-600": isHeading6,
+          "text-h6-700": isHeading6 && bold,
+          "text-inherit": isColorInherit,
         },
-        className
+        className,
       )}
     >
       {children}

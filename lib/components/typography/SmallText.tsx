@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 interface SmallTextProps {
   readonly as?: JSX.ElementType;
   readonly className?: JSX.ElementType;
-  readonly bold?: "medium" | "normal" | "light";
+  readonly bold?: "semibold" | "normal" | "light";
   readonly children: ReactNode;
   readonly isColorInherit?: boolean;
 }
@@ -18,18 +18,18 @@ export function SmallText({
 }: SmallTextProps) {
   const Comp = as;
 
-  const isFontWeightMedium = bold === "medium";
+  const isFontWeightSemiBold = bold === "semibold";
   const isFontWeightNormal = bold === "normal";
   const isFontWeightLight = bold === "light";
 
   return (
     <Comp
       className={cn(
-        "text-[0.625rem] tracking-[-0.3px] text-neutral-800",
+        "text-neutral-800",
         {
-          "font-medium": isFontWeightMedium,
-          "font-normal": isFontWeightNormal,
-          "font-light": isFontWeightLight,
+          "text-small-text-600": isFontWeightSemiBold,
+          "text-small-text-500": isFontWeightNormal,
+          "font-small-text-400": isFontWeightLight,
           "text-inherit": isColorInherit,
         },
         className,

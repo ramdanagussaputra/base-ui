@@ -2,9 +2,14 @@
 @import "./color.css";
 @import "./typography.css";
 @import "./shadow.css";
+@import "./input.css";
 
 @layer base {
   html {
-    font-size: 80%;
+    font-size: 90%;
+  }
+
+  body {
+    color: var(--color-neutral-800);
   }
 }
