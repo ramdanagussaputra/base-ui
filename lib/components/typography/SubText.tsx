@@ -2,7 +2,7 @@ import { cn } from "#/utils";
 import { ReactNode } from "react";
 
 interface SubTextProps {
-  readonly as: JSX.ElementType;
+  readonly as?: JSX.ElementType;
   readonly className?: JSX.ElementType;
   readonly children: ReactNode;
   readonly bold?: "normal" | "semibold" | "bold";
@@ -10,13 +10,13 @@ interface SubTextProps {
 }
 
 export function SubText({
-  as,
+  as = "span",
   children,
   className,
   bold = "normal",
   isColorInherit = false,
 }: SubTextProps) {
-  const Comp = as || "span";
+  const Comp = as;
 
   const isFontWeightNormal = bold === "normal";
   const isFontWeightSemibold = bold === "semibold";
