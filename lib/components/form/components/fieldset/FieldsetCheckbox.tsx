@@ -20,7 +20,7 @@ export function FieldsetCheckbox({
       onChange={onChange}
       className={cn(
         "group bg-neutral-0 ring-secondary-100 data-checked:bg-primary-600 data-checked:ring-primary-600 flex size-[1.125rem] cursor-pointer items-center justify-center rounded-[4px] p-1 ring-1 ring-inset",
-        { "cursor-default": !!onChange },
+        { "cursor-auto": !onChange },
       )}
     >
       <img

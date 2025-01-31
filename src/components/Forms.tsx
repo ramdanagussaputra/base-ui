@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { Fieldset, PasswordFormField } from "massive-base-ui";
+import { CheckboxFormField, PasswordFormField } from "massive-base-ui";
 
 function Forms() {
   const formMethods = useForm({
@@ -22,12 +22,11 @@ function Forms() {
         </div>
 
         <div className="w-1/3">
-          <Fieldset>
-            <div className="flex items-center gap-2">
-              <Fieldset.Checkbox />
-              <Fieldset.Label>Label</Fieldset.Label>
-            </div>
-          </Fieldset>
+          <CheckboxFormField
+            name="checkbox"
+            label="Label"
+            control={formMethods.control}
+          />
         </div>
 
         <div className="w-1/3"></div>
