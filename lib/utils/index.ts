@@ -66,3 +66,10 @@ export function extractNumbersFromString(input: string) {
   // Return matches as an array of strings
   return matches ? matches?.join("") : "";
 }
+
+export function generateUniqueId(prefix: string = "") {
+  const timestamp = Date.now().toString(36); // Convert current timestamp to base36.
+  const randomPart = Math.random().toString(36).substring(2, 10); // Generate a random base36 string.
+
+  return `${prefix}${timestamp}${randomPart}`;
+}

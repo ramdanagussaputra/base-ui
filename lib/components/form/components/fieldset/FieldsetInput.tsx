@@ -1,6 +1,7 @@
+import { useCallback } from "react";
+
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn, extractNumbersFromString } from "#/utils";
-import { useCallback } from "react";
 
 interface FieldsetInputProps {
   readonly placeholder: string;

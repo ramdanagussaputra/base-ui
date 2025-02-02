@@ -3,7 +3,7 @@
 import { Controller } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
-import { FormFieldProps } from "#/components/form/components/form-field/model/formField";
+import { FormFieldProps } from "#/components/form/model";
 
 export function TextFormField({
   name,
