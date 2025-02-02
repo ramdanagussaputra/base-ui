@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { MouseEvent } from "react";
 
 import { BreadcrumbLabels } from "#/components/breadcrumb/model";
@@ -13,20 +12,21 @@ import { cn } from "#/utils";
 interface BreadcrumbProps {
   urlPath: string;
   breadcrumbSeparator: React.ReactNode;
+  navigateFunction?: (path: string) => void;
   type?: "home" | "detail";
   homeTitle?: React.ReactNode;
   homeHref?: string;
   pathToIgnore?: string[];
   forDetailModal?: boolean;
   onBreadcrumbClick?: (
-    event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>,
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
   ) => void;
 }
 
 export function Breadcrumb({
-  // labels,
   urlPath,
   breadcrumbSeparator,
+  navigateFunction,
   homeHref = "/",
   homeTitle = "Home",
   pathToIgnore = [],
@@ -57,12 +57,17 @@ export function Breadcrumb({
     <div className="flex items-center gap-(--breadcrumb-item-gap) leading-(--breadcrumb-item-line-height) text-(--breadcrumb-item-color) text-(--breadcrumb-item-size)">
       {!isDetail && (
         <>
-          <Link
-            to={homeHref}
-            className="text-(length:--breadcrumb-item-size) leading-(--breadcrumb-item-line-height) font-(--breadcrumb-item-font-weight) text-(--breadcrumb-item-color)"
+          <button
+            onClick={() => navigateFunction?.(homeHref)}
+            className={cn(
+              "text-(length:--breadcrumb-item-size) leading-(--breadcrumb-item-line-height) font-(--breadcrumb-item-font-weight) text-(--breadcrumb-item-color)",
+              {
+                "cursor-pointer": !!navigateFunction,
+              },
+            )}
           >
             {homeTitle}
-          </Link>
+          </button>
 
           {breadcrumbItems.length > 0 && (
             <BreadcrumbSeparator>{breadcrumbSeparator}</BreadcrumbSeparator>
@@ -87,13 +92,17 @@ export function Breadcrumb({
             {isLastItem && <span>{item.label.name}</span>}
 
             {!isLastItem && (
-              <Link
-                onClick={(event) => onBreadcrumbClick(event)}
-                to={item.label.path}
-                className="text-(--breadcrumb-item-size)"
+              <button
+                onClick={(event) => {
+                  onBreadcrumbClick(event);
+                  navigateFunction?.(item.label.path);
+                }}
+                className={cn("text-(--breadcrumb-item-size)", {
+                  "cursor-pointer": !!navigateFunction,
+                })}
               >
                 {item.label.name}
-              </Link>
+              </button>
             )}
 
             {!isLastItem && (

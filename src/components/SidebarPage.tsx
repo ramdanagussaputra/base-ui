@@ -172,6 +172,7 @@ function SidebarPage() {
           <Breadcrumb
             urlPath={pathname}
             breadcrumbSeparator={<ArrowRight2 />}
+            navigateFunction={navigate}
           />
         </header>
       )}
