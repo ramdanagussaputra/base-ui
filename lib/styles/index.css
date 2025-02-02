@@ -6,6 +6,7 @@
 @import "./input.css";
 
 @import "./components/sidebar.css";
+@import "./components/breadcrumb.css";
 
 @layer base {
   html {

@@ -1,0 +1,15 @@
+@layer components {
+  :root {
+    --breadcrumb-separator-size: 0.75rem;
+    --breadcrumb-separator-color: var(--color-secondary-400);
+
+    --breadcrumb-item-color: var(--color-secondary-700);
+    --breadcrumb-item-color--active: var(--color-secondary-900);
+
+    --breadcrumb-item-size: 0.875rem;
+    --breadcrumb-item-line-height: 1.225rem;
+    --breadcrumb-item-font-weight: 400;
+    --breadcrumb-item-font-weight--active: 500;
+    --breadcrumb-item-gap: 0.5rem;
+  }
+}

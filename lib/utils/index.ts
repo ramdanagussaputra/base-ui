@@ -73,3 +73,15 @@ export function generateUniqueId(prefix: string = "") {
 
   return `${prefix}${timestamp}${randomPart}`;
 }
+
+export function capitalizeFirstWord(name: string) {
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+}
+
+export function capitalizeEveryWord(input: string) {
+  return input
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}

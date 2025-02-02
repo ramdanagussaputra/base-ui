@@ -1,4 +1,5 @@
 import {
+  ArrowRight2,
   Buildings2,
   Category,
   Musicnote,
@@ -8,7 +9,7 @@ import {
 } from "iconsax-react";
 
 import { generateUniqueId } from "#/utils";
-import { Sidebar } from "massive-base-ui";
+import { Sidebar, MainLayout, Breadcrumb } from "massive-base-ui";
 import { useLocation, useNavigate } from "react-router";
 
 const SidebarConfig = [
@@ -165,22 +166,34 @@ function SidebarPage() {
   const { pathname } = useLocation();
 
   return (
-    <div>
-      <Sidebar navigateFunction={navigate} currentPath={pathname}>
-        <div className="flex h-full flex-col justify-between">
-          <div>
-            <Sidebar.Header>Test</Sidebar.Header>
-            <Sidebar.Body sidebarConfig={SidebarConfig} />
-          </div>
+    <MainLayout
+      renderHeader={() => (
+        <header>
+          <Breadcrumb
+            urlPath={pathname}
+            breadcrumbSeparator={<ArrowRight2 />}
+          />
+        </header>
+      )}
+      renderSidebar={() => (
+        <Sidebar navigateFunction={navigate} currentPath={pathname}>
+          <div className="flex h-full flex-col justify-between">
+            <div>
+              <Sidebar.Header>Test</Sidebar.Header>
+              <Sidebar.Body sidebarConfig={SidebarConfig} />
+            </div>
 
-          <Sidebar.Footer>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-          </Sidebar.Footer>
-        </div>
-      </Sidebar>
-    </div>
+            <Sidebar.Footer>
+              <div>Test</div>
+              <div>Test</div>
+              <div>Test</div>
+            </Sidebar.Footer>
+          </div>
+        </Sidebar>
+      )}
+    >
+      Test
+    </MainLayout>
   );
 }
 
