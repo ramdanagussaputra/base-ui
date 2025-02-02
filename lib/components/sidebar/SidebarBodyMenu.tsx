@@ -12,7 +12,7 @@ export function SidebarBodyMenu({
   icon,
   title,
   subMenus,
-  name,
+  routerPathname,
   href,
 }: Readonly<Omit<SidebarBodyMenuType, "id">>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +42,10 @@ export function SidebarBodyMenu({
   useEffect(() => {
     const splittedPath = currentPath.split("/");
 
-    if (splittedPath.includes(name)) {
+    if (splittedPath.includes(routerPathname)) {
       setIsOpen(true);
     }
-  }, [name, currentPath]);
+  }, [routerPathname, currentPath]);
 
   return (
     <div

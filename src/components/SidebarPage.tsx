@@ -17,49 +17,49 @@ const SidebarConfig = [
     groupTitle: "Membership",
     menus: [
       {
-        name: "sidebar",
+        routerPathname: "sidebar",
         icon: <Profile2User />,
         title: "Membership",
         subMenus: [
           {
-            name: "sidebar-overview",
+            routerPathname: "sidebar-overview",
             title: "Overview",
             href: "/sidebar/overview",
           },
           {
-            name: "membership-request",
+            routerPathname: "membership-request",
             title: "Request",
             href: "/membership/request",
             subItems: [
               {
-                name: "membership-request-on-request",
+                routerPathname: "membership-request-on-request",
                 title: "On Request",
                 href: "/membership/request/on-request",
               },
               {
-                name: "membership-request-on-validation",
+                routerPathname: "membership-request-on-validation",
                 title: "On Validation",
                 href: "/membership/request/on-validation",
               },
               {
-                name: "membership-request-on-revised",
+                routerPathname: "membership-request-on-revised",
                 title: "On Revised",
                 href: "/membership/request/on-revised",
               },
               {
-                name: "membership-request-on-approval",
+                routerPathname: "membership-request-on-approval",
                 title: "On Approval",
                 href: "/membership/request/on-approval",
               },
             ],
           },
           {
-            name: "membership-contract",
+            routerPathname: "membership-contract",
             title: "Contract",
             href: "/membership/contract",
           },
           {
-            name: "membership-list",
+            routerPathname: "membership-list",
             title: "List",
             href: "/membership/list",
           },
@@ -72,7 +72,7 @@ const SidebarConfig = [
     groupTitle: null,
     menus: [
       {
-        name: "dashboard",
+        routerPathname: "dashboard",
         icon: <Category />,
         title: "Dashboard",
         href: "/",
@@ -84,50 +84,50 @@ const SidebarConfig = [
     groupTitle: "Documentation",
     menus: [
       {
-        name: "company",
+        routerPathname: "company",
         icon: <Buildings2 />,
         title: "Company",
         href: "/company",
       },
       {
-        name: "member",
+        routerPathname: "member",
         icon: <People />,
         title: "Member",
         subMenus: [
           {
-            name: "member-beneficiary",
+            routerPathname: "member-beneficiary",
             title: "Beneficiary",
             href: "/member/beneficiary",
           },
           {
-            name: "member-beneficiary-contract",
+            routerPathname: "member-beneficiary-contract",
             title: "Beneficiary Contract",
             href: "/member/beneficiary-contract",
           },
         ],
       },
       {
-        name: "catalogue",
+        routerPathname: "catalogue",
         icon: <Musicnote />,
         title: "Catalogue",
         subMenus: [
           {
-            name: "catalogue-song",
+            routerPathname: "catalogue-song",
             title: "Song",
             href: "/catalogue/song",
           },
           {
-            name: "catalogue-publisher",
+            routerPathname: "catalogue-publisher",
             title: "Publisher",
             href: "/catalogue/publisher",
           },
           {
-            name: "catalogue-composer",
+            routerPathname: "catalogue-composer",
             title: "Composer",
             href: "/catalogue/composer",
           },
           {
-            name: "catalogue-product",
+            routerPathname: "catalogue-product",
             title: "Product",
             href: "/catalogue/product",
           },
@@ -140,17 +140,17 @@ const SidebarConfig = [
     groupTitle: null,
     menus: [
       {
-        name: "configuration",
+        routerPathname: "configuration",
         icon: <Setting />,
         title: "Configuration",
         subMenus: [
           {
-            name: "configuration-society",
+            routerPathname: "configuration-society",
             title: "Society",
             href: "/configuration/society",
           },
           {
-            name: "configuration-territory",
+            routerPathname: "configuration-territory",
             title: "Territory",
             href: "/configuration/territory",
           },

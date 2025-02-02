@@ -11,7 +11,7 @@ export function SidebarBodySubMenus({
   return (
     <div>
       {subMenus.map((subMenu) => (
-        <SidebarBodySubMenu key={subMenu.name} {...subMenu} />
+        <SidebarBodySubMenu key={subMenu.routerPathname} {...subMenu} />
       ))}
     </div>
   );

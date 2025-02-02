@@ -7,7 +7,7 @@ import type { SidebarBodySubMenu } from "#/components/sidebar/model";
 import { useSidebarContext } from "#/components/sidebar/context/useSidebarContext";
 
 export function SidebarBodySubMenu({
-  name,
+  routerPathname,
   title,
   href,
   subItems,
@@ -43,13 +43,13 @@ export function SidebarBodySubMenu({
       ?.slice(0, 2)
       ?.join();
 
-    const splittedName = name.split("-").slice(0, 2)?.join();
+    const splittedName = routerPathname.split("-").slice(0, 2)?.join();
     const isParentActive = splittedPath === splittedName;
 
     if (isParentActive) {
       setIsOpen(true);
     }
-  }, [name, currentPath]);
+  }, [routerPathname, currentPath]);
 
   return (
     <div>

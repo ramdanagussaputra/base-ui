@@ -8,8 +8,8 @@ export function SidebarBodyMenus({
     <>
       {menus.map((menu) => (
         <SidebarBodyMenu
-          key={menu.name}
-          name={menu.name}
+          key={menu.routerPathname}
+          routerPathname={menu.routerPathname}
           icon={menu.icon}
           title={menu.title}
           subMenus={menu.subMenus}

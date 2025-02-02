@@ -1,12 +1,12 @@
 export interface SidebarBodySubMenu {
-  name: string;
+  routerPathname: string;
   title: string;
   href?: string;
   subItems?: Omit<SidebarBodySubMenu, "subItems">[];
 }
 
 export interface SidebarBodyMenu {
-  name: string;
+  routerPathname: string;
   icon: React.ReactNode;
   title: string;
   href?: string;
