@@ -14,7 +14,7 @@ export function SidebarBody({ sidebarConfig }: Readonly<SidebarBodyProps>) {
         if (hasGroup) {
           return (
             <div key={sidebarGroup.id} className="mb-[0.625rem] px-5">
-              <span className="text-primary-500 b-13-20-500 px-1 uppercase">
+              <span className="b-13-20-500 px-1 text-(--sidebar-group-title-color) uppercase">
                 {sidebarGroup?.groupTitle}
               </span>
               <SidebarBodyMenus menus={sidebarGroup.menus} />

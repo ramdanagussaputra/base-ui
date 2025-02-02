@@ -1,16 +1,8 @@
-// import "#/styles/index.css";
-// import Buttons from "./components/Buttons";
-import Forms from "./components/Forms";
-import Sidebar from "./components/Sidebar";
+import { RouterProvider } from "react-router";
+import { router } from "@/router/Router";
 
 function App() {
-  return (
-    <main className="p-11">
-      {/* <Buttons /> */}
-      <Forms />
-      <Sidebar />
-    </main>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -1,8 +1,11 @@
 @import "tailwindcss";
+
 @import "./color.css";
 @import "./typography.css";
 @import "./shadow.css";
 @import "./input.css";
+
+@import "./components/sidebar.css";
 
 @layer base {
   html {

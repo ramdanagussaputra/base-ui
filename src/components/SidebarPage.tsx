@@ -9,6 +9,7 @@ import {
 
 import { generateUniqueId } from "#/utils";
 import { Sidebar } from "massive-base-ui";
+import { useLocation, useNavigate } from "react-router";
 
 const SidebarConfig = [
   {
@@ -16,14 +17,14 @@ const SidebarConfig = [
     groupTitle: "Membership",
     menus: [
       {
-        name: "membership",
+        name: "sidebar",
         icon: <Profile2User />,
         title: "Membership",
         subMenus: [
           {
-            name: "membership-overview",
+            name: "sidebar-overview",
             title: "Overview",
-            href: "/membership/overview",
+            href: "/sidebar/overview",
           },
           {
             name: "membership-request",
@@ -160,13 +161,25 @@ const SidebarConfig = [
 ];
 
 function SidebarPage() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   return (
     <div>
-      <Sidebar>
-        <Sidebar.Header>Test</Sidebar.Header>
-        <Sidebar.Body sidebarConfig={SidebarConfig} />
+      <Sidebar navigateFunction={navigate} currentPath={pathname}>
+        <div className="flex h-full flex-col justify-between">
+          <div>
+            <Sidebar.Header>Test</Sidebar.Header>
+            <Sidebar.Body sidebarConfig={SidebarConfig} />
+          </div>
+
+          <Sidebar.Footer>
+            <div>Test</div>
+            <div>Test</div>
+            <div>Test</div>
+          </Sidebar.Footer>
+        </div>
       </Sidebar>
-      test
     </div>
   );
 }
