@@ -28,7 +28,7 @@ export function Breadcrumb({
   breadcrumbSeparator,
   navigateFunction,
   homeHref = "/",
-  homeTitle = "Home",
+  homeTitle,
   pathToIgnore = [],
   type = "home",
   onBreadcrumbClick = () => {},
@@ -55,7 +55,7 @@ export function Breadcrumb({
 
   return (
     <div className="flex items-center gap-(--breadcrumb-item-gap) leading-(--breadcrumb-item-line-height) text-(--breadcrumb-item-color) text-(--breadcrumb-item-size)">
-      {!isDetail && (
+      {homeTitle && (
         <>
           <button
             onClick={() => navigateFunction?.(homeHref)}
