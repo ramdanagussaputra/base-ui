@@ -10,9 +10,7 @@ interface FieldsetInputProps {
   readonly children?: React.ReactNode;
   readonly type: "text" | "email" | "password" | "number";
   readonly isReverseIcon?: boolean;
-  readonly onChange?: (
-    event: React.ChangeEvent<HTMLInputElement> | string,
-  ) => void;
+  readonly onChange?: (event: string) => void;
   readonly onBlur?: () => void;
   readonly onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
@@ -37,12 +35,12 @@ export function FieldsetInput({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const number = extractNumbersFromString(event.target.value);
 
-      onChange(event);
+      onChange(event.target.value);
 
       if (isNumber) {
         onChange(number);
       } else {
-        onChange(event);
+        onChange(event.target.value);
       }
     },
     [isNumber, onChange],

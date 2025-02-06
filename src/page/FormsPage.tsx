@@ -1,9 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  CheckboxFormField,
-  PasswordFormField,
-  Searchbar,
-} from "massive-base-ui";
+import { CheckboxFormField, PasswordFormField } from "massive-base-ui";
 
 function FormsPage() {
   const formMethods = useForm({
@@ -31,12 +27,6 @@ function FormsPage() {
             label="Label"
             control={formMethods.control}
           />
-        </div>
-
-        <div className="w-1/3"></div>
-
-        <div>
-          <Searchbar />
         </div>
       </FormProvider>
     </section>

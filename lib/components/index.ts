@@ -3,3 +3,4 @@ export * from "#/components/form";
 export * from "#/components/typography";
 export * from "#/components/sidebar/Sidebar";
 export * from "#/components/breadcrumb";
+export * from "#/components/table";

@@ -1,25 +1,17 @@
 import { SearchNormal1 } from "iconsax-react";
-import { Fieldset } from "#/components";
+import { Fieldset } from "massive-base-ui";
 
 import useQueryParams from "#/hook/useQueryParams";
 
-interface SearchbarProps {
-  paramsName?: string;
-  placeholder?: string;
-}
-
-export function Searchbar({
-  paramsName = "search",
-  placeholder = "Search",
-}: Readonly<SearchbarProps>) {
+function Searchbar() {
   const [searchParams, setSearchParams] = useQueryParams();
-  const searchValue = searchParams.get(paramsName);
+  const searchValue = searchParams.get("search");
 
   function handleChange(value: string) {
-    searchParams.set(paramsName, value);
+    searchParams.set("search", value);
 
     if (value === "") {
-      searchParams.delete(paramsName);
+      searchParams.delete("search");
     }
 
     setSearchParams();
@@ -27,7 +19,7 @@ export function Searchbar({
   return (
     <Fieldset>
       <Fieldset.TextInput
-        placeholder={placeholder}
+        placeholder="Search"
         type="text"
         value={searchValue ?? ""}
         onChange={handleChange}
@@ -40,3 +32,5 @@ export function Searchbar({
     </Fieldset>
   );
 }
+
+export default Searchbar;

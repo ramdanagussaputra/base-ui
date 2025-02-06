@@ -1,0 +1,30 @@
+import { useState, useEffect } from "react";
+
+function useQueryParams(): [URLSearchParams, () => void] {
+  const [queryParams, setQueryParams] = useState<URLSearchParams>(
+    () => new URLSearchParams(window.location.search),
+  );
+
+  const setSearchParams = () => {
+    const newSearchParams = new URLSearchParams(queryParams);
+
+    const newSearch = newSearchParams.toString();
+    window.history.replaceState({}, "", "?" + newSearch); // Update the URL without reloading
+    setQueryParams(newSearchParams);
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setQueryParams(new URLSearchParams(window.location.search));
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  return [queryParams, setSearchParams];
+}
+
+export default useQueryParams;
