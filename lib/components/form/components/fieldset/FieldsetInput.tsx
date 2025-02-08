@@ -4,15 +4,15 @@ import { useFieldsetContext } from "#/components/form/context/useFieldsetContext
 import { cn, extractNumbersFromString } from "#/utils";
 
 interface FieldsetInputProps {
-  readonly placeholder: string;
-  readonly value: string | readonly string[] | undefined;
-  readonly lengthCap?: number;
-  readonly children?: React.ReactNode;
-  readonly type: "text" | "email" | "password" | "number";
-  readonly isReverseIcon?: boolean;
-  readonly onChange?: (event: string) => void;
-  readonly onBlur?: () => void;
-  readonly onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  value: string | readonly string[] | undefined;
+  lengthCap?: number;
+  children?: React.ReactNode;
+  type: "text" | "email" | "password" | "number";
+  isReverseIcon?: boolean;
+  onChange?: (event: string) => void;
+  onBlur?: () => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export function FieldsetInput({
@@ -25,7 +25,7 @@ export function FieldsetInput({
   onChange = () => {},
   onFocus = () => {},
   type = "text",
-}: FieldsetInputProps) {
+}: Readonly<FieldsetInputProps>) {
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
     useFieldsetContext();
 
@@ -49,13 +49,17 @@ export function FieldsetInput({
   return (
     <div
       className={cn(
-        "border-secondary-100 bg-neutral-0 flex items-center justify-between gap-2 rounded-md border px-[0.8125rem]",
+        "flex items-center justify-between gap-2 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-[0.8125rem] duration-100 focus-within:border-(--fieldset-border-color--focus)",
         {
-          "h-[3rem] gap-1.5": isLarge,
-          "h-[2.5rem] gap-1.5": isMedium,
-          "h-[2rem] gap-1": isSmall,
-          "bg-neutral-50": isDisabled,
-          "bg-error-0 border-error-200": isError,
+          "h-(--fieldset-height-large) gap-(--fieldset-container-gap-large)":
+            isLarge,
+          "h-(--fieldset-height-medium) gap-(--fieldset-container-gap-medium)":
+            isMedium,
+          "h-(--fieldset-height-small) gap-(--fieldset-container-gap-small)":
+            isSmall,
+          "bg-(--fieldset-bg--disabled)": isDisabled,
+          "border-(--fieldset-border-color--error) bg-(--fieldset-bg--error)":
+            isError,
           "flex-row-reverse": isReverseIcon,
         },
       )}
@@ -70,7 +74,7 @@ export function FieldsetInput({
         onChange={handleChange}
         onFocus={onFocus}
         className={cn(
-          "placeholder:text-secondary-400 disabled:text-secondary-400 disabled:placeholder:text-secondary-400 text-secondary-800 h-full w-full bg-transparent outline-none autofill:bg-transparent",
+          "h-full w-full bg-transparent text-(--fieldset-text-color) outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
           {
             "text-b2-500 placeholder:text-b2-500": isLarge,
             "text-b3-500 placeholder:text-b3-500": isMedium,

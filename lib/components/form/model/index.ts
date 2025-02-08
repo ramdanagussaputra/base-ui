@@ -17,3 +17,8 @@ export interface FormFieldProps
     event: React.ChangeEvent<HTMLInputElement> | string,
   ) => void;
 }
+
+export interface FieldsetSelectOption {
+  value: string | number | boolean;
+  label: string;
+}

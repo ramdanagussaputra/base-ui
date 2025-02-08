@@ -7,7 +7,8 @@ import { Eye, EyeSlash } from "iconsax-react";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 
-interface PasswordFormFieldProps extends Omit<FormFieldProps, "type"> {
+interface PasswordFormFieldProps
+  extends Omit<FormFieldProps, "type" | "isError"> {
   isConfirmPassword?: boolean;
   passwordName?: string;
 }
