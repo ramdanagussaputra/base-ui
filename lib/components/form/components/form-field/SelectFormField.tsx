@@ -42,6 +42,10 @@ function SelectFormField({
       }}
       render={({ field }) => (
         <Fieldset size={size} isRequired={isRequired} isDisabled={isDisabled}>
+          <Fieldset.Label type={isRequired ? "required" : "optional"}>
+            {label}
+          </Fieldset.Label>
+
           <Fieldset.Select
             isSearchable={isSearchable}
             placeholder={placeholder}
