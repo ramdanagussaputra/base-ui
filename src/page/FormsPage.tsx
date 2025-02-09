@@ -1,9 +1,6 @@
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import {
-  CheckboxFormField,
-  Fieldset,
-  PasswordFormField,
-} from "massive-base-ui";
+import { FormProvider, useForm } from "react-hook-form";
+import { CheckboxFormField, PasswordFormField } from "massive-base-ui";
+import SelectFormField from "#/components/form/components/form-field/SelectFormField";
 
 function FormsPage() {
   const formMethods = useForm({
@@ -35,32 +32,16 @@ function FormsPage() {
         </div>
 
         <div className="w-1/3">
-          <Controller
+          <SelectFormField
             name="select"
             control={formMethods.control}
-            render={({ field }) => (
-              <Fieldset isError>
-                <Fieldset.Label type="required">
-                  Select component
-                </Fieldset.Label>
-
-                <Fieldset.Select
-                  options={[
-                    {
-                      label: "Option 1",
-                      value: "option-1",
-                    },
-                    {
-                      label: "Option 2",
-                      value: "option-2",
-                    },
-                  ]}
-                  placeholder="Placeholder"
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              </Fieldset>
-            )}
+            label="Select"
+            options={[
+              { label: "Option 1", value: "option-1" },
+              { label: "Option 2", value: "option-2" },
+              { label: "Option 3", value: "option-3" },
+            ]}
+            placeholder="Placeholder"
           />
         </div>
       </FormProvider>

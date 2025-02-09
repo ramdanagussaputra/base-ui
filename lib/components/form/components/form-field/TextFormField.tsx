@@ -56,8 +56,8 @@ export function TextFormField({
             placeholder={placeholder}
             value={field.value || ""}
             onChange={(event) => {
-              onChange(event);
               field.onChange(event);
+              onChange?.(event);
             }}
             onBlur={field.onBlur}
           />

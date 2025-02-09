@@ -2,7 +2,10 @@ import { Control, FieldValues, RegisterOptions } from "react-hook-form";
 import type { FieldsetProps } from "#/components/form/components/fieldset/Fieldset";
 
 export interface FormFieldProps
-  extends Omit<FieldsetProps, "children" | "className"> {
+  extends Omit<
+    FieldsetProps,
+    "children" | "className" | "isError" | "isSuccess"
+  > {
   readonly label: string;
   readonly name: string;
   readonly placeholder: string;
