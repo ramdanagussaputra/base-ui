@@ -7,17 +7,11 @@ function NavigationPage() {
         tabs={[
           {
             name: "Tab 1",
-            item: {
-              id: "tab-1",
-              content: <div>Tab 1 content</div>,
-            },
+            content: <div>Tab 1 content</div>,
           },
           {
             name: "Tab 2",
-            item: {
-              id: "tab-2",
-              content: <div>Tab 2 content</div>,
-            },
+            content: <div>Tab 2 content</div>,
           },
         ]}
       />

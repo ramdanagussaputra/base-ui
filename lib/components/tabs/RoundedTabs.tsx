@@ -3,10 +3,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 interface TabsProps {
   tabs: {
     name: string;
-    item: {
-      id: string;
-      content: React.ReactNode;
-    };
+    content: React.ReactNode;
   }[];
   onTabClick?: () => void;
 }
@@ -33,8 +30,8 @@ export function RoundedTabs({ tabs, onTabClick }: TabsProps) {
 
       <TabPanels className="outline-hidden">
         {tabs.map((tab) => (
-          <TabPanel key={tab.item.id} className="outline-hidden">
-            {tab.item.content}
+          <TabPanel key={tab.name} className="outline-hidden">
+            {tab.content}
           </TabPanel>
         ))}
       </TabPanels>
