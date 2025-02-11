@@ -41,5 +41,16 @@
     --fieldset-select-option-font-weight--selected: var(
       --text-b3-500--font-weight
     );
+
+    --fieldset-radio-size: 1.125rem;
+
+    --fieldset-radio-border-color: var(--color-secondary-100);
+    --fieldset-radio-border-color--checked: transparent;
+
+    --fieldset-radio-bg: var(--color-neutral-0);
+    --fieldset-radio-bg--checked: var(--color-primary-600);
+
+    --fieldset-radio-checked-fill-color: var(--color-neutral-0);
+    --fieldset-radio-checked-fill-size: 0.625rem;
   }
 }

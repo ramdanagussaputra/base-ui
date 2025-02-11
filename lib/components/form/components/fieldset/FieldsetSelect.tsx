@@ -57,7 +57,7 @@ export function FieldsetSelect({
       }}
       // className="duration-150"
       classNames={{
-        container: () => cn("cursor-pointer h-8!"),
+        container: () => cn("cursor-pointer"),
         control: (state) =>
           cn(
             "rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem]",

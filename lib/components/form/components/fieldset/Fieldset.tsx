@@ -6,6 +6,8 @@ import { FieldsetIcon } from "#/components/form/components/fieldset/FieldsetIcon
 import { FieldsetMessage } from "#/components/form/components/fieldset/FieldsetMessage";
 import { FieldsetCheckbox } from "#/components/form/components/fieldset/FieldsetCheckbox";
 import { FieldsetSelect } from "#/components/form/components/fieldset/FieldsetSelect";
+import { FieldsetRadio } from "#/components/form/components/fieldset/FieldsetRadio";
+import { FieldsetRadioGroup } from "#/components/form/components/fieldset/FieldsetRadioGroup";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -61,3 +63,5 @@ Fieldset.Icon = FieldsetIcon;
 Fieldset.Message = FieldsetMessage;
 Fieldset.Checkbox = FieldsetCheckbox;
 Fieldset.Select = FieldsetSelect;
+Fieldset.Radio = FieldsetRadio;
+Fieldset.RadioGroup = FieldsetRadioGroup;

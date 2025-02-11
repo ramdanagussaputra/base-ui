@@ -6,19 +6,17 @@ export interface FormFieldProps
     FieldsetProps,
     "children" | "className" | "isError" | "isSuccess"
   > {
-  readonly label: string;
-  readonly name: string;
-  readonly placeholder: string;
-  readonly control: Control<any>;
-  readonly fieldName?: string;
-  readonly type?: "text" | "email" | "password" | "number";
-  readonly rules?: Omit<
+  label: string;
+  name: string;
+  placeholder: string;
+  control: Control<any>;
+  fieldName?: string;
+  type?: "text" | "email" | "password" | "number";
+  rules?: Omit<
     RegisterOptions<FieldValues, string>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
-  readonly onChange?: (
-    event: React.ChangeEvent<HTMLInputElement> | string,
-  ) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
 export interface FieldsetSelectOption {

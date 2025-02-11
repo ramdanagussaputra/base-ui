@@ -14,7 +14,7 @@ interface SelectFormFieldProps
   defaultValue?: SingleValue<FieldsetSelectOption> | null;
 }
 
-function SelectFormField({
+export function SelectFormField({
   control,
   name,
   label,
@@ -40,8 +40,13 @@ function SelectFormField({
         },
         ...rules,
       }}
-      render={({ field }) => (
-        <Fieldset size={size} isRequired={isRequired} isDisabled={isDisabled}>
+      render={({ field, fieldState }) => (
+        <Fieldset
+          size={size}
+          isRequired={isRequired}
+          isDisabled={isDisabled}
+          isError={!!fieldState.error}
+        >
           <Fieldset.Label type={isRequired ? "required" : "optional"}>
             {label}
           </Fieldset.Label>
@@ -58,10 +63,12 @@ function SelectFormField({
             value={field.value}
             onBlur={field.onBlur}
           />
+
+          {fieldState.error?.message && (
+            <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
+          )}
         </Fieldset>
       )}
     />
   );
 }
-
-export default SelectFormField;
