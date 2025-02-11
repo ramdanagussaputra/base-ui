@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 import SidebarPage from "@/page/SidebarPage";
 import TablePage from "@/page/TablePage";
 import FormsPage from "@/page/FormsPage";
+import NavigationPage from "@/page/NavigationPage";
 
 export const router = createBrowserRouter([
   {
@@ -16,5 +17,9 @@ export const router = createBrowserRouter([
   {
     path: "/forms",
     element: <FormsPage />,
+  },
+  {
+    path: "/navigation",
+    element: <NavigationPage />,
   },
 ]);

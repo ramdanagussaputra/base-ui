@@ -1,0 +1,18 @@
+@layer components {
+  :root {
+    --rounded-tabs-border-color: var(--color-secondary-500);
+    --rounded-tabs-border-color--active: var(--color-secondary-900);
+
+    --rounded-tabs-bg-color--active: var(--color-secondary-950);
+
+    --rounded-tabs-color: var(--color-secondary-500);
+    --rounded-tabs-color--active: var(--color-neutral-0);
+
+    --rounded-tabs-padding: 0.625rem;
+    --rounded-tabs-gap: 0.5rem;
+
+    --rounded-tabs-font-size: var(--text-b4);
+    --rounded-tabs-line-height: var(--text-b4--line-height);
+    --rounded-tabs-font-weight: var(--text-b4-500--font-weight);
+  }
+}

@@ -9,6 +9,7 @@
 @import "./components/breadcrumb.css";
 @import "./components/table.css";
 @import "./components/form//fieldset.css";
+@import "./components/tabs/rounded-tabs.css";
 
 @layer base {
   html {
