@@ -47,9 +47,7 @@ export function SelectFormField({
           isDisabled={isDisabled}
           isError={!!fieldState.error}
         >
-          <Fieldset.Label type={isRequired ? "required" : "optional"}>
-            {label}
-          </Fieldset.Label>
+          <Fieldset.Label>{label}</Fieldset.Label>
 
           <Fieldset.Select
             isSearchable={isSearchable}

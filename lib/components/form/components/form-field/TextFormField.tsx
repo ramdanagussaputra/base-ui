@@ -47,9 +47,7 @@ export function TextFormField({
           isDisabled={isDisabled}
           size={size}
         >
-          <Fieldset.Label type={isRequired ? "required" : "optional"}>
-            {label}
-          </Fieldset.Label>
+          <Fieldset.Label>{label}</Fieldset.Label>
 
           <Fieldset.TextInput
             type={type}
