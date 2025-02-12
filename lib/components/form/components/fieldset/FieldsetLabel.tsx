@@ -3,16 +3,18 @@ import { cn } from "#/utils";
 
 interface FieldsetProps {
   children: React.ReactNode;
-  type?: "required" | "optional";
-  onClick?: () => void;
+  className?: string;
   id?: string;
+  withoutTag?: boolean;
 }
 
-export function FieldsetLabel({ children, type, onClick, id }: FieldsetProps) {
-  const { isLarge, isMedium, isSmall } = useFieldsetContext();
-
-  const isRequired = type === "required";
-  const isOptional = type === "optional";
+export function FieldsetLabel({
+  children,
+  id,
+  className,
+  withoutTag = false,
+}: FieldsetProps) {
+  const { isLarge, isMedium, isSmall, isRequired } = useFieldsetContext();
 
   return (
     <label
@@ -23,14 +25,15 @@ export function FieldsetLabel({ children, type, onClick, id }: FieldsetProps) {
           "text-b2-600": isLarge,
           "text-b3-600": isMedium,
           "text-b4-600": isSmall,
-          "cursor-pointer": !!onClick,
         },
+        className,
       )}
-      onClick={onClick}
     >
       {children}
-      {isRequired && <span className="text-error-500">*</span>}
-      {isOptional && <span className="text-secondary-300">(optional)</span>}
+      {isRequired && !withoutTag && <span className="text-error-500">*</span>}
+      {!isRequired && !withoutTag && (
+        <span className="text-secondary-300">(optional)</span>
+      )}
     </label>
   );
 }

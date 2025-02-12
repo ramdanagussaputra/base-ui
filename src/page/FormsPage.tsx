@@ -57,6 +57,7 @@ function FormsPage() {
 
         <div className="h-fit w-1/3">
           <RadioGroupFormField
+            label="Radio Group"
             control={formMethods.control}
             name="radio"
             fields={[

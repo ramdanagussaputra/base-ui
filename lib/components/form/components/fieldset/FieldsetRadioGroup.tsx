@@ -1,3 +1,4 @@
+import { cn } from "#/utils";
 import { RadioGroup } from "@headlessui/react";
 
 interface FieldsetRadioGroupProps {
@@ -5,6 +6,7 @@ interface FieldsetRadioGroupProps {
   value: string;
   children: React.ReactNode;
   onChange?: (value: string) => void;
+  isVertical?: boolean;
 }
 
 export function FieldsetRadioGroup({
@@ -12,12 +14,15 @@ export function FieldsetRadioGroup({
   name,
   value,
   onChange = () => {},
+  isVertical = false,
 }: Readonly<FieldsetRadioGroupProps>) {
   return (
     <RadioGroup
       name={name}
       value={value}
-      className="flex items-center gap-5"
+      className={cn("flex w-fit items-center gap-5", {
+        "flex-col": isVertical,
+      })}
       onChange={onChange}
     >
       {children}
