@@ -21,7 +21,7 @@ export function FieldsetRadioGroup({
       name={name}
       value={value}
       className={cn("flex w-fit items-center gap-5", {
-        "flex-col": isVertical,
+        "flex-col items-start justify-center gap-2.5": isVertical,
       })}
       onChange={onChange}
     >

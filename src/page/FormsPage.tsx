@@ -60,6 +60,7 @@ function FormsPage() {
             label="Radio Group"
             control={formMethods.control}
             name="radio"
+            isVertical
             fields={[
               { label: "Radio 1", value: "radio1" },
               { label: "Radio 2", value: "radio2" },
