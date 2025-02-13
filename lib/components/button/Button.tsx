@@ -6,13 +6,14 @@ import { buttonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
 
 interface ButtonProps {
-  readonly children: React.ReactNode;
-  readonly onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  readonly size?: "extra-small" | "small" | "medium" | "large";
-  readonly color?: "primary" | "secondary" | "error";
-  readonly type?: "solid" | "light" | "no-background" | "outline" | "link";
-  readonly isDisabled?: boolean;
-  readonly className?: string;
+  children: React.ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  size?: "extra-small" | "small" | "medium" | "large";
+  color?: "primary" | "secondary" | "error";
+  variant?: "solid" | "light" | "no-background" | "outline" | "link";
+  isDisabled?: boolean;
+  className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 export function Button({
@@ -21,9 +22,10 @@ export function Button({
   className,
   size = "medium",
   color = "primary",
-  type = "solid",
+  variant = "solid",
+  type = "button",
   isDisabled = false,
-}: ButtonProps) {
+}: Readonly<ButtonProps>) {
   const isExtraSmall = size === "extra-small";
   const isSmall = size === "small";
   const isMedium = size === "medium";
@@ -33,11 +35,11 @@ export function Button({
   const isSecondary = color === "secondary";
   const isError = color === "error";
 
-  const isSolid = type === "solid";
-  const isLight = type === "light";
-  const isNoBackground = type === "no-background";
-  const isOutline = type === "outline";
-  const isLink = type === "link";
+  const isSolid = variant === "solid";
+  const isLight = variant === "light";
+  const isNoBackground = variant === "no-background";
+  const isOutline = variant === "outline";
+  const isLink = variant === "link";
 
   const value = useMemo(
     () => ({
@@ -73,6 +75,7 @@ export function Button({
   return (
     <buttonContext.Provider value={value}>
       <button
+        type={type}
         disabled={isDisabled}
         onClick={onClick}
         className={cn(
