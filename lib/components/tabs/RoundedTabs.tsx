@@ -6,16 +6,16 @@ interface TabsProps {
     name: string;
     content: React.ReactNode;
   }[];
-  tabItemClassName?: string;
-  tabContentClassName?: string;
+  tabsContainerClassName?: string;
+  contentContainerClassName?: string;
   onTabClick?: () => void;
 }
 
 export function RoundedTabs({
   tabs,
   onTabClick,
-  tabItemClassName,
-  tabContentClassName,
+  tabsContainerClassName,
+  contentContainerClassName,
 }: TabsProps) {
   return (
     <TabGroup
@@ -28,7 +28,7 @@ export function RoundedTabs({
       <TabList
         className={cn(
           "flex w-full items-end gap-(--rounded-tabs-gap) outline-hidden",
-          tabItemClassName,
+          tabsContainerClassName,
         )}
       >
         {tabs.map((tab) => (
@@ -41,7 +41,7 @@ export function RoundedTabs({
         ))}
       </TabList>
 
-      <TabPanels className={cn("outline-hidden", tabContentClassName)}>
+      <TabPanels className={cn("outline-hidden", contentContainerClassName)}>
         {tabs.map((tab) => (
           <TabPanel key={tab.name} className="outline-hidden">
             {tab.content}
