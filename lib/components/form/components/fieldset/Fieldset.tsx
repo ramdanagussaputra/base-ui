@@ -13,13 +13,13 @@ import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
 
 export interface FieldsetProps {
-  readonly children: React.ReactNode;
-  readonly size?: "small" | "medium" | "large";
-  readonly isRequired?: boolean;
-  readonly isDisabled?: boolean;
-  readonly isError?: boolean;
-  readonly isSuccess?: boolean;
-  readonly className?: string;
+  children: React.ReactNode;
+  size?: "small" | "medium" | "large";
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isSuccess?: boolean;
+  className?: string;
 }
 
 export function Fieldset({
@@ -30,7 +30,7 @@ export function Fieldset({
   isDisabled = false,
   isError = false,
   isSuccess = false,
-}: FieldsetProps) {
+}: Readonly<FieldsetProps>) {
   const isSmall = size === "small";
   const isMedium = size === "medium";
   const isLarge = size === "large";
