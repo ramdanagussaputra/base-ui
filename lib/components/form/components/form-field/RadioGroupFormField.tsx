@@ -35,7 +35,7 @@ export function RadioGroupFormField({
         <Fieldset
           isRequired={isRequired}
           isDisabled={isDisabled}
-          className={containerClassName}
+          className={cn("gap-3", containerClassName)}
         >
           {label && <Fieldset.Label>{label}</Fieldset.Label>}
 
