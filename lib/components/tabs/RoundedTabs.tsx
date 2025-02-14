@@ -1,3 +1,4 @@
+import { cn } from "#/utils";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
 interface TabsProps {
@@ -5,10 +6,17 @@ interface TabsProps {
     name: string;
     content: React.ReactNode;
   }[];
+  tabItemClassName?: string;
+  tabContentClassName?: string;
   onTabClick?: () => void;
 }
 
-export function RoundedTabs({ tabs, onTabClick }: TabsProps) {
+export function RoundedTabs({
+  tabs,
+  onTabClick,
+  tabItemClassName,
+  tabContentClassName,
+}: TabsProps) {
   return (
     <TabGroup
       onChange={() => {
@@ -17,7 +25,12 @@ export function RoundedTabs({ tabs, onTabClick }: TabsProps) {
         }
       }}
     >
-      <TabList className="flex w-full items-end gap-(--rounded-tabs-gap) outline-hidden">
+      <TabList
+        className={cn(
+          "flex w-full items-end gap-(--rounded-tabs-gap) outline-hidden",
+          tabItemClassName,
+        )}
+      >
         {tabs.map((tab) => (
           <Tab
             className="cursor-pointer rounded-full border border-(--rounded-tabs-border-color) px-(--rounded-tabs-padding-horizontal) py-(--rounded-tabs-padding-vertical) text-(length:--rounded-tabs-font-size) leading-(--rounded-tabs-line-height) font-(--rounded-tabs-font-weight) whitespace-nowrap text-(--rounded-tabs-border-color) outline-hidden duration-100 data-selected:bg-(--rounded-tabs-bg-color--active) data-selected:text-(--rounded-tabs-color--active)"
@@ -28,7 +41,7 @@ export function RoundedTabs({ tabs, onTabClick }: TabsProps) {
         ))}
       </TabList>
 
-      <TabPanels className="outline-hidden">
+      <TabPanels className={cn("outline-hidden", tabContentClassName)}>
         {tabs.map((tab) => (
           <TabPanel key={tab.name} className="outline-hidden">
             {tab.content}
