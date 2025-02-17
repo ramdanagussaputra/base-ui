@@ -5,3 +5,4 @@ export * from "#/components/sidebar/Sidebar";
 export * from "#/components/breadcrumb";
 export * from "#/components/table";
 export * from "#/components/tabs";
+export * from "#/components/dialog";

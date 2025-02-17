@@ -1,50 +1,25 @@
-# React + TypeScript + Vite
+# Massive Base UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![npm version](https://img.shields.io/npm/v/@massivemusicui/massive-base-ui.svg)](https://www.npmjs.com/package/@massivemusicui/massive-base-ui)
 
-Currently, two official plugins are available:
+Welcome to the **Massive Base UI** component library! This library is an internal tool developed exclusively for the Massive Music Entertainment project. It is _not_ a publicly available library. Massive Base UI provides a foundational set of reusable React components designed to accelerate development within our company. Built with **React** and **Tailwind CSS**, it allows for extensive customization and seamless integration into our various projects.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Vision
 
-## Expanding the ESLint configuration
+Massive Base UI's vision is to serve as a core component library for all Massive Music Entertainment projects. Its purpose is to standardize UI elements, improve developer efficiency, and ensure a consistent user experience across our applications. Each component is designed for flexibility and customization, allowing developers to tailor the appearance and functionality to meet the specific needs of each project.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- **Built with React**: Leverages the power and efficiency of React for building interactive UIs.
+- **Tailwind CSS Integration**: Utilizes Tailwind CSS for styling, enabling customization through both Tailwind's utility-first classes and CSS variables (allowing for theme variations and brand consistency).
+- **Reusable Components**: Saves development time and effort by providing a readily available collection of pre-built, tested, and consistent components.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Installation
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+To install the Massive Base UI library, use one of the following package managers. Remember that this library is for internal use within Massive Music Entertainment.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Using pnpm (Recommended)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+pnpm install massive-base-ui
 ```
