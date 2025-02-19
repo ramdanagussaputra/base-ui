@@ -3,6 +3,7 @@ import {
   CheckboxFormField,
   PasswordFormField,
   SelectFormField,
+  TextFormField,
 } from "massive-base-ui";
 
 import { RadioGroupFormField } from "#/components/form/components/form-field/RadioGroupFormField";
@@ -10,25 +11,55 @@ import { RadioGroupFormField } from "#/components/form/components/form-field/Rad
 function FormsPage() {
   const formMethods = useForm({
     defaultValues: {
-      text: null,
+      password: null,
       select: null,
       radio: null,
+      email: null,
+      text: null,
+      number: null,
     },
     mode: "all",
   });
-
-  const radioWatch = formMethods.watch("radio");
-
-  console.log("radioWatch", radioWatch);
 
   return (
     <section className="flex flex-col gap-4 p-10">
       <FormProvider {...formMethods}>
         <div className="w-1/3">
-          <PasswordFormField
-            label="Label"
+          <TextFormField
+            label="Text"
             name="text"
-            placeholder="Placeholder"
+            placeholder="Enter text"
+            control={formMethods.control}
+            isRequired
+          />
+        </div>
+
+        <div className="w-1/3">
+          <TextFormField
+            label="Number"
+            name="number"
+            placeholder="Enter number"
+            control={formMethods.control}
+            type="number"
+            isDisabled
+          />
+        </div>
+
+        <div className="w-1/3">
+          <TextFormField
+            label="Email"
+            name="email"
+            placeholder="Enter email"
+            type="email"
+            control={formMethods.control}
+          />
+        </div>
+
+        <div className="w-1/3">
+          <PasswordFormField
+            label="Password"
+            name="password"
+            placeholder="Enter password"
             control={formMethods.control}
           />
         </div>

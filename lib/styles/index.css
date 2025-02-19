@@ -10,6 +10,7 @@
 @import "./components/table.css";
 @import "./components/form//fieldset.css";
 @import "./components/tabs/rounded-tabs.css";
+@import "./components/dialog.css";
 
 @layer base {
   html {

@@ -31,7 +31,7 @@ export function CheckboxFormField({
                 setChecked((checked) => !checked);
               }}
             />
-            <Fieldset.Label>{label}</Fieldset.Label>
+            <Fieldset.Label withoutTag>{label}</Fieldset.Label>
           </div>
         </Fieldset>
       )}

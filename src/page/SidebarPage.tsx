@@ -168,7 +168,7 @@ function SidebarPage() {
   return (
     <MainLayout
       renderHeader={() => (
-        <header>
+        <header className="flex h-[80px] items-center px-5">
           <Breadcrumb
             urlPath={pathname}
             breadcrumbSeparator={<ArrowRight2 />}
@@ -180,20 +180,22 @@ function SidebarPage() {
         <Sidebar navigateFunction={navigate} currentPath={pathname}>
           <div className="flex h-full flex-col justify-between">
             <div>
-              <Sidebar.Header>Test</Sidebar.Header>
+              <Sidebar.Header> </Sidebar.Header>
               <Sidebar.Body sidebarConfig={SidebarConfig} />
             </div>
-
+            {/* 
             <Sidebar.Footer>
-              <div>Test</div>
-              <div>Test</div>
-              <div>Test</div>
-            </Sidebar.Footer>
+              <div className="px-10">
+                <div>Footer Content Item</div>
+                <div>Footer Content Item</div>
+                <div>Footer Content Item</div>
+              </div>
+            </Sidebar.Footer> */}
           </div>
         </Sidebar>
       )}
     >
-      Test
+      <div className="px-5">This is content</div>
     </MainLayout>
   );
 }

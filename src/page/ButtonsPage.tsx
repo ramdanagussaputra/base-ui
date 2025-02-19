@@ -1,9 +1,9 @@
 import { AddSquare } from "iconsax-react";
 import { Button } from "massive-base-ui";
 
-function Buttons() {
+function ButtonsPage() {
   return (
-    <section className="grid grid-cols-[min-content_min-content_min-content_min-content] items-center gap-4">
+    <section className="grid grid-cols-[min-content_min-content_min-content_min-content] items-center gap-4 p-10">
       <Button color="primary" size="large" variant="solid">
         <Button.Icon>
           <AddSquare variant="Outline" />
@@ -229,4 +229,4 @@ function Buttons() {
   );
 }
 
-export default Buttons;
+export default ButtonsPage;

@@ -1,19 +1,30 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
-type DialogContext = {
-  onConfirm: () => void;
-  onCancel: () => void;
-  showDialog: () => void;
-  closeDialog: () => void;
-  isDialogOpen: boolean;
+import { Dialog } from "#/components/dialog/Dialog";
+import { Button } from "#/components/button/Button";
+
+export type DialogContext = {
+  setOnConfirm?: (callback: () => void) => void;
+  setOnCancel?: (callback: () => void) => void;
+  showDialog?: () => void;
+  closeDialog?: () => void;
+  setTitle?: (title: string) => void;
+  setDescription?: (text: string) => void;
+  setConfirmText?: (text: string) => void;
+  setCancelText?: (text: string) => void;
+  setIcon?: (icon: React.ReactNode) => void;
 };
 
 export const dialogContext = createContext<DialogContext | undefined>({
-  onConfirm: () => {},
-  onCancel: () => {},
-  showDialog: () => {},
   closeDialog: () => {},
-  isDialogOpen: false,
+  showDialog: () => {},
+  setCancelText: () => {},
+  setConfirmText: () => {},
+  setDescription: () => {},
+  setIcon: () => {},
+  setOnCancel: () => {},
+  setOnConfirm: () => {},
+  setTitle: () => {},
 });
 
 export function useDialogContext() {
@@ -24,4 +35,76 @@ export function useDialogContext() {
   }
 
   return context;
+}
+
+interface DialogProviderProps {
+  children: React.ReactNode;
+}
+
+export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [cancelText, setCancelText] = useState("");
+  const [confirmText, setConfirmText] = useState("");
+  const [descriptionText, setDescriptionText] = useState("");
+  const [icon, setIcon] = useState<null | React.ReactNode>(null);
+  const [onCancel, setOnCancel] = useState<null | (() => void)>(null);
+  const [onConfirm, setOnConfirm] = useState<null | (() => void)>(null);
+  const [title, setTitle] = useState("");
+
+  const value = useMemo(
+    () => ({
+      closeDialog: () => setIsDialogOpen(false),
+      showDialog: () => setIsDialogOpen(true),
+      setCancelText: (text: string) => setCancelText(text),
+      setConfirmText: (text: string) => setConfirmText(text),
+      setDescription: (text: string) => setDescriptionText(text),
+      setIcon: (icon: React.ReactNode) => setIcon(icon),
+      setOnCancel: (callback: () => void) => setOnCancel(callback),
+      setOnConfirm: (callback: () => void) => setOnConfirm(callback),
+      setTitle: (text: string) => setTitle(text),
+    }),
+    [],
+  );
+
+  return (
+    <dialogContext.Provider value={value}>
+      {children}
+
+      <Dialog
+        isDialogOpen={isDialogOpen}
+        closeDialog={() => setIsDialogOpen(false)}
+        showDialog={() => setIsDialogOpen(true)}
+        onCancel={onCancel || (() => {})}
+        onConfirm={onConfirm || (() => {})}
+      >
+        <Dialog.Panel className="flex items-center justify-center">
+          {icon}
+
+          <div className="flex flex-col items-center justify-center gap-5">
+            <Dialog.Panel.Title>{title}</Dialog.Panel.Title>
+
+            <Dialog.Panel.Description>
+              {descriptionText}
+            </Dialog.Panel.Description>
+          </div>
+
+          <div className="flex w-full gap-2.5">
+            {cancelText && (
+              <Dialog.Panel.SlotButtonCancel>
+                <Button variant="outline" color="secondary" className="w-full">
+                  {cancelText}
+                </Button>
+              </Dialog.Panel.SlotButtonCancel>
+            )}
+
+            {confirmText && (
+              <Dialog.Panel.SlotButtonConfirm>
+                <Button className="w-full">{confirmText}</Button>
+              </Dialog.Panel.SlotButtonConfirm>
+            )}
+          </div>
+        </Dialog.Panel>
+      </Dialog>
+    </dialogContext.Provider>
+  );
 }

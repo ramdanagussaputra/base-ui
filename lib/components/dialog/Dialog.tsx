@@ -1,36 +1,44 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
-import DialogTrigger from "#/components/dialog/DialogTrigger";
+import { DialogTrigger } from "#/components/dialog/DialogTrigger";
+import { DialogPanel } from "#/components/dialog/DialogPanel";
 
-import { dialogContext } from "#/components/dialog/context/useDialogContext";
+import { dialogContextInternal } from "#/components/dialog/context/useDialogContextInternal";
 
 interface DialogProps {
   onConfirm: () => void;
   onCancel: () => void;
+  isDialogOpen: boolean;
+  showDialog: () => void;
+  closeDialog: () => void;
   children: React.ReactNode;
 }
 
 export function Dialog({
-  onCancel,
-  onConfirm,
+  onCancel = () => {},
+  onConfirm = () => {},
+  closeDialog = () => {},
+  showDialog = () => {},
+  isDialogOpen = false,
   children,
 }: Readonly<DialogProps>) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const value = useMemo(
     () => ({
       onConfirm,
       onCancel,
-      showDialog: () => setIsDialogOpen(true),
-      closeDialog: () => setIsDialogOpen(false),
+      showDialog,
+      closeDialog,
       isDialogOpen,
     }),
-    [onConfirm, onCancel, isDialogOpen],
+    [onConfirm, onCancel, isDialogOpen, showDialog, closeDialog],
   );
 
   return (
-    <dialogContext.Provider value={value}>{children}</dialogContext.Provider>
+    <dialogContextInternal.Provider value={value}>
+      {children}
+    </dialogContextInternal.Provider>
   );
 }
 
 Dialog.Trigger = DialogTrigger;
+Dialog.Panel = DialogPanel;

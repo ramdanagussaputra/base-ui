@@ -1,14 +1,12 @@
 import { Slot } from "@radix-ui/react-slot";
-import { useDialogContext } from "#/components/dialog/context/useDialogContext";
+import { useDialogContextInternal } from "#/components/dialog/context/useDialogContextInternal";
 
 interface DialogTriggerProps {
   children: React.ReactNode;
 }
 
-function DialogTrigger({ children }: Readonly<DialogTriggerProps>) {
-  const { showDialog } = useDialogContext();
+export function DialogTrigger({ children }: Readonly<DialogTriggerProps>) {
+  const { showDialog } = useDialogContextInternal();
 
   return <Slot onClick={showDialog}>{children}</Slot>;
 }
-
-export default DialogTrigger;

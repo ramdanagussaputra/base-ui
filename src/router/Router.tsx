@@ -5,6 +5,7 @@ import TablePage from "@/page/TablePage";
 import FormsPage from "@/page/FormsPage";
 import NavigationPage from "@/page/NavigationPage";
 import Dialogpage from "@/page/DialogPage";
+import ButtonsPage from "@/page/ButtonsPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,5 +27,9 @@ export const router = createBrowserRouter([
   {
     path: "/dialog",
     element: <Dialogpage />,
+  },
+  {
+    path: "/buttons",
+    element: <ButtonsPage />,
   },
 ]);
