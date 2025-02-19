@@ -1,5 +1,15 @@
 import { useDialogContext } from "#/components/dialog/context/useDialogContext";
 
+interface ShowDialogProps {
+  title?: string;
+  description?: string;
+  confirmText?: string;
+  cancelText?: string;
+  icon?: React.ReactNode;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+}
+
 export function useDialog() {
   const {
     closeDialog,
@@ -21,15 +31,7 @@ export function useDialog() {
     icon,
     onConfirm,
     onCancel,
-  }: {
-    title?: string;
-    description?: string;
-    confirmText?: string;
-    cancelText?: string;
-    icon?: React.ReactNode;
-    onConfirm?: () => void;
-    onCancel?: () => void;
-  }) {
+  }: Readonly<ShowDialogProps>) {
     closeDialog?.();
 
     setCancelText?.(cancelText || "");
@@ -44,7 +46,7 @@ export function useDialog() {
   }
 
   return {
-    closeDialog,
+    closeDialog: closeDialog!,
     showDialog,
   };
 }
