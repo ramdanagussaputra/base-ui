@@ -30,6 +30,8 @@ export function useDialog() {
     onConfirm?: () => void;
     onCancel?: () => void;
   }) {
+    closeDialog?.();
+
     setCancelText?.(cancelText || "");
     setConfirmText?.(confirmText || "");
     setDescription?.(description || "");
