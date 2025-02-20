@@ -3,6 +3,7 @@ import {
   CheckboxFormField,
   PasswordFormField,
   SelectFormField,
+  TextAreaFormField,
   TextFormField,
 } from "massive-base-ui";
 
@@ -17,6 +18,7 @@ function FormsPage() {
       email: null,
       text: null,
       number: null,
+      textarea: null,
     },
     mode: "all",
   });
@@ -97,6 +99,15 @@ function FormsPage() {
               { label: "Radio 2", value: "radio2" },
               { label: "Radio 3", value: "radio3" },
             ]}
+          />
+        </div>
+
+        <div className="h-fit w-1/3">
+          <TextAreaFormField
+            control={formMethods.control}
+            name="textarea"
+            label="Textarea"
+            placeholder="Placeholder"
           />
         </div>
       </FormProvider>

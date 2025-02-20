@@ -16,6 +16,8 @@ export function FieldsetLabel({
 }: FieldsetProps) {
   const { isLarge, isMedium, isSmall, isRequired } = useFieldsetContext();
 
+  console.log(isRequired, "isRequired");
+
   return (
     <label
       htmlFor={id}

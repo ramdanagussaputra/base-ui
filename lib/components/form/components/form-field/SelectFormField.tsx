@@ -47,7 +47,7 @@ export function SelectFormField({
           isDisabled={isDisabled}
           isError={!!fieldState.error}
         >
-          <Fieldset.Label>{label}</Fieldset.Label>
+          {label && <Fieldset.Label>{label}</Fieldset.Label>}
 
           <Fieldset.Select
             isSearchable={isSearchable}

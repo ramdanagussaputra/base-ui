@@ -1,34 +1,24 @@
-// WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
-
 import { Controller } from "react-hook-form";
-
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { extractMaxLengthValue } from "#/utils";
 
-export function TextFormField({
-  name,
-  rules,
-  label,
-  fieldName,
-  placeholder,
-  control,
-  isRequired = false,
-  isDisabled = false,
-  onChange = () => {},
-  type = "text",
-  size = "medium",
-}: Readonly<FormFieldProps>) {
-  const emailValidation =
-    type === "email"
-      ? {
-          pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Enter a valid email address",
-          },
-        }
-      : {};
+interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
+  height?: number;
+}
 
+export function TextAreaFormField({
+  control,
+  label,
+  name,
+  placeholder,
+  fieldName,
+  height,
+  rules,
+  isDisabled = false,
+  isRequired = false,
+  onChange = () => {},
+}: Readonly<TextAreaFormFieldProps>) {
   let maxLength: number;
 
   if (rules?.maxLength) {
@@ -44,7 +34,6 @@ export function TextFormField({
           value: isRequired,
           message: `${fieldName || label} is required`,
         },
-        ...emailValidation,
         ...rules,
       }}
       render={({ field, fieldState }) => (
@@ -52,24 +41,23 @@ export function TextFormField({
           isError={!!fieldState.error}
           isRequired={isRequired}
           isDisabled={isDisabled}
-          size={size}
         >
           {label && <Fieldset.Label>{label}</Fieldset.Label>}
 
-          <Fieldset.TextInput
-            type={type}
-            placeholder={placeholder}
-            value={field.value || ""}
+          <Fieldset.Textarea
+            onBlur={field.onBlur}
             onChange={(value) => {
               field.onChange(value);
-              onChange?.(value);
+              onChange(value);
             }}
-            onBlur={field.onBlur}
+            value={field.value || ""}
+            placeholder={placeholder}
+            height={height}
             lengthCap={maxLength}
           />
 
-          {fieldState.error?.message && (
-            <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
+          {!!fieldState.error?.message && (
+            <Fieldset.Message>{fieldState.error?.message}</Fieldset.Message>
           )}
         </Fieldset>
       )}

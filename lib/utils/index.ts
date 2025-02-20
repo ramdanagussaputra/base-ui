@@ -1,4 +1,5 @@
 import clsx, { ClassValue } from "clsx";
+import { ValidationRule } from "react-hook-form";
 import { extendTailwindMerge } from "tailwind-merge";
 
 const customTwMerge = extendTailwindMerge({
@@ -84,4 +85,14 @@ export function capitalizeEveryWord(input: string) {
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+}
+
+export function extractMaxLengthValue(value: number | ValidationRule<number>) {
+  if (typeof value === "number") {
+    return value;
+  }
+
+  if (typeof value === "object") {
+    return value.value;
+  }
 }

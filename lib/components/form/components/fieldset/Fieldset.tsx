@@ -8,6 +8,7 @@ import { FieldsetCheckbox } from "#/components/form/components/fieldset/Fieldset
 import { FieldsetSelect } from "#/components/form/components/fieldset/FieldsetSelect";
 import { FieldsetRadio } from "#/components/form/components/fieldset/FieldsetRadio";
 import { FieldsetRadioGroup } from "#/components/form/components/fieldset/FieldsetRadioGroup";
+import { FieldsetTextArea } from "#/components/form/components/fieldset/FieldsetTextArea";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -26,7 +27,7 @@ export function Fieldset({
   children,
   className,
   size = "medium",
-  isRequired = true,
+  isRequired = false,
   isDisabled = false,
   isError = false,
   isSuccess = false,
@@ -65,3 +66,4 @@ Fieldset.Checkbox = FieldsetCheckbox;
 Fieldset.Select = FieldsetSelect;
 Fieldset.Radio = FieldsetRadio;
 Fieldset.RadioGroup = FieldsetRadioGroup;
+Fieldset.Textarea = FieldsetTextArea;
