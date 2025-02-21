@@ -1,22 +1,13 @@
 import { cn } from "#/utils";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-
-interface TabsProps {
-  tabs: {
-    name: string;
-    content: React.ReactNode;
-  }[];
-  tabsContainerClassName?: string;
-  contentContainerClassName?: string;
-  onTabClick?: () => void;
-}
+import { TabsProps } from "#/components/tabs/model";
 
 export function RoundedTabs({
   tabs,
   onTabClick,
   tabsContainerClassName,
   contentContainerClassName,
-}: TabsProps) {
+}: Readonly<TabsProps>) {
   return (
     <TabGroup
       onChange={() => {

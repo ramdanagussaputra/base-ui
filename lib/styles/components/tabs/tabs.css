@@ -1,0 +1,14 @@
+@layer components {
+  :root {
+    --tabs-font-color: var(--color-secondary-400);
+    --tabs-font-color--selected: var(--color-primary-600);
+    --tabs-font-size: var(--text-b3);
+    --tabs-font-weight: 500;
+    --tabs-border-color--selected: var(--color-primary-600);
+    --tabs-font-weight--selected: 600;
+    --tabs-border-width: 2px;
+    --tabs-line-height: 1px;
+    --tabs-line-color: var(--color-secondary-100);
+    --tabs-padding: 0.625rem;
+  }
+}
