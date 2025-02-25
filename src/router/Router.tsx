@@ -6,6 +6,7 @@ import FormsPage from "@/page/FormsPage";
 import NavigationPage from "@/page/NavigationPage";
 import Dialogpage from "@/page/DialogPage";
 import ButtonsPage from "@/page/ButtonsPage";
+import { BadgesPage } from "@/page/BadgesPage";
 
 export const router = createBrowserRouter([
   {
@@ -31,5 +32,9 @@ export const router = createBrowserRouter([
   {
     path: "/buttons",
     element: <ButtonsPage />,
+  },
+  {
+    path: "/badges",
+    element: <BadgesPage />,
   },
 ]);
