@@ -3,6 +3,8 @@ import Select, { GroupBase, OptionProps, SingleValue } from "react-select";
 import { FieldsetSelectOption } from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
 import { FieldsetSelectDefaultOptionComponent } from "#/components/form/components/fieldset/FieldsetSelectDefaultOptionComponent";
+import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
+import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -13,6 +15,7 @@ interface FieldsetSelectProps {
   onChange: (value: SingleValue<FieldsetSelectOption>) => void;
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: SingleValue<FieldsetSelectOption> | null;
   value: SingleValue<FieldsetSelectOption> | null;
@@ -28,6 +31,7 @@ export function FieldsetSelect({
   options,
   placeholder,
   isSearchable = true,
+  isMultiSelect = false,
   defaultValue = null,
   value = null,
   children,
@@ -43,19 +47,22 @@ export function FieldsetSelect({
         onChange?.(value as SingleValue<FieldsetSelectOption>);
       }}
       onBlur={onBlur}
+      isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement="auto"
       menuPosition="fixed"
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       defaultValue={defaultValue}
+      closeMenuOnSelect={!isMultiSelect}
       value={value}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: FieldsetSelectDropdownIndicator,
+        ClearIndicator: FieldsetSelectClearIndicator,
         Option: children ?? FieldsetSelectDefaultOptionComponent,
+        MultiValueRemove: FieldsetSelectMultiValueRemove,
       }}
-      // className="duration-150"
       classNames={{
         container: () => cn("cursor-pointer"),
         control: (state) =>
@@ -66,18 +73,23 @@ export function FieldsetSelect({
                 isError,
               "ring-0! border-(--fieldset-border-color--focus)! hover:border-(--fieldset-border-color--focus)!":
                 state.isFocused,
-              "h-(--fieldset-height-large)! min-h-(--fieldset-height-large)! px-[0.875rem]":
-                isLarge,
-              "h-(--fieldset-height-medium)! min-h-(--fieldset-height-medium)! px-3":
-                isMedium,
-              "h-(--fieldset-height-small)! min-h-(--fieldset-height-small)! px-[0.625rem]":
-                isSmall,
+              " min-h-(--fieldset-height-large)! px-[0.875rem]": isLarge,
+              " min-h-(--fieldset-height-medium)! px-3": isMedium,
+              " min-h-(--fieldset-height-small)! px-[0.625rem]": isSmall,
             },
           ),
-        dropdownIndicator() {
+        dropdownIndicator(state) {
+          return cn({
+            "size-[1.375rem]": isLarge,
+            "size-4": isMedium,
+            "size-[1.125rem]": isSmall,
+            hidden: state.selectProps.menuIsOpen && isMultiSelect,
+          });
+        },
+        clearIndicator() {
           return cn({
             "size-[1.125rem]": isLarge,
-            "size-4": isMedium,
+            "size-5": isMedium,
             "size-[0.875rem]": isSmall,
           });
         },
@@ -109,6 +121,18 @@ export function FieldsetSelect({
                 state.isSelected || state.isFocused,
             },
           ),
+        multiValue: () =>
+          cn(
+            "border border-secondary-200 bg-secondary-50! rounded-sm! min-h-[1.75rem]!",
+          ),
+        multiValueLabel: () =>
+          cn("text-b3-500! text-secondary-700! flex items-center!"),
+        multiValueRemove: () =>
+          cn("hover:bg-transparent!", {
+            "size-[1.875rem]": isLarge,
+            "size-7": isMedium,
+            "size-[1.625rem]": isSmall,
+          }),
       }}
     />
   );

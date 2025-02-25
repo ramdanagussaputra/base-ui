@@ -14,6 +14,7 @@ function FormsPage() {
     defaultValues: {
       password: null,
       select: null,
+      multi_select: null,
       radio: null,
       email: null,
       text: null,
@@ -22,6 +23,10 @@ function FormsPage() {
     },
     mode: "all",
   });
+
+  const selectValue = formMethods.watch("select");
+
+  console.log(selectValue, "selectValue");
 
   return (
     <section className="flex flex-col gap-4 p-10">
@@ -85,6 +90,21 @@ function FormsPage() {
               { label: "Option 3", value: "option-3" },
             ]}
             placeholder="Placeholder"
+          />
+        </div>
+
+        <div className="w-1/3">
+          <SelectFormField
+            name="multi_select"
+            control={formMethods.control}
+            label="Multi Select"
+            options={[
+              { label: "Option 1", value: "option-1" },
+              { label: "Option 2", value: "option-2" },
+              { label: "Option 3", value: "option-3" },
+            ]}
+            placeholder="Placeholder"
+            isMultiSelect
           />
         </div>
 

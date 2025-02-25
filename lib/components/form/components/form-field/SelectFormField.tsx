@@ -11,6 +11,7 @@ interface SelectFormFieldProps
   options: FieldsetSelectOption[];
   onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
   isSearchable?: boolean;
+  isMultiSelect?: boolean;
   defaultValue?: SingleValue<FieldsetSelectOption> | null;
 }
 
@@ -21,6 +22,7 @@ export function SelectFormField({
   options,
   onChange,
   isSearchable = true,
+  isMultiSelect = false,
   defaultValue,
   placeholder,
   fieldName,
@@ -50,6 +52,7 @@ export function SelectFormField({
           {label && <Fieldset.Label>{label}</Fieldset.Label>}
 
           <Fieldset.Select
+            isMultiSelect={isMultiSelect}
             isSearchable={isSearchable}
             placeholder={placeholder}
             options={options}
