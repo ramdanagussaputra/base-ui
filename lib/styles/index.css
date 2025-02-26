@@ -13,6 +13,7 @@
 @import "./components/tabs/tabs.css";
 @import "./components/dialog.css";
 @import "./components/tag/tag.css";
+@import "./components/badge.css";
 
 @layer base {
   html {

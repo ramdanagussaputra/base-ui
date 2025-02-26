@@ -13,7 +13,7 @@ function TagRemoveButton({
   const { onRemove } = useTagContext();
 
   return (
-    <button className="cursor-pointer" onClick={onRemove}>
+    <button className="has-hover:cursor-pointer" onClick={onRemove}>
       {children}
     </button>
   );
