@@ -6,6 +6,7 @@ import FormsPage from "@/page/FormsPage";
 import NavigationPage from "@/page/NavigationPage";
 import Dialogpage from "@/page/DialogPage";
 import ButtonsPage from "@/page/ButtonsPage";
+import StepperPage from "@/page/StepperPage";
 import { BadgesPage } from "@/page/BadgesPage";
 
 export const router = createBrowserRouter([
@@ -36,5 +37,9 @@ export const router = createBrowserRouter([
   {
     path: "/badges",
     element: <BadgesPage />,
+  },
+  {
+    path: "/stepper",
+    element: <StepperPage />,
   },
 ]);

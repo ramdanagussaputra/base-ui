@@ -9,3 +9,4 @@ export * from "#/components/dialog";
 export * from "#/components/tag";
 export * from "#/components/provider/MassiveBaseUIProvider";
 export * from "#/components/badge";
+export * from "#/components/stepper";

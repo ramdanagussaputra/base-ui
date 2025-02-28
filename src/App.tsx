@@ -1,12 +1,12 @@
 import { RouterProvider } from "react-router";
 import { router } from "@/router/Router";
-import { DialogProvider } from "massive-base-ui";
+import { MassiveBaseUIProvider } from "massive-base-ui";
 
 function App() {
   return (
-    <DialogProvider>
+    <MassiveBaseUIProvider>
       <RouterProvider router={router} />
-    </DialogProvider>
+    </MassiveBaseUIProvider>
   );
 }
 

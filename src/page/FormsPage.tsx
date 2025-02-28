@@ -24,10 +24,6 @@ function FormsPage() {
     mode: "all",
   });
 
-  const selectValue = formMethods.watch("select");
-
-  console.log(selectValue, "selectValue");
-
   return (
     <section className="flex flex-col gap-4 p-10">
       <FormProvider {...formMethods}>

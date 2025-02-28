@@ -2,7 +2,7 @@ import { Tag, Badge } from "massive-base-ui";
 
 export function BadgesPage() {
   return (
-    <section className="grid grid-cols-2 gap-4 p-10">
+    <section className="grid grid-cols-[max-content_1fr] gap-4 p-10">
       <Tag onRemove={() => console.log("remove")}>
         Tag Badge <Tag.RemoveButton />
       </Tag>

@@ -1,4 +1,6 @@
 import { DialogProvider } from "#/components/dialog";
+import { StepperProvider } from "#/components/stepper/context/useStepperContext";
+import { QueryParamsProvider } from "#/context/useQueryParamsContext";
 
 interface MassiveBaseUIProviderProps {
   children: React.ReactNode;
@@ -7,5 +9,11 @@ interface MassiveBaseUIProviderProps {
 export function MassiveBaseUIProvider({
   children,
 }: MassiveBaseUIProviderProps) {
-  return <DialogProvider>{children}</DialogProvider>;
+  return (
+    <QueryParamsProvider>
+      <StepperProvider>
+        <DialogProvider>{children}</DialogProvider>
+      </StepperProvider>
+    </QueryParamsProvider>
+  );
 }

@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useQueryParamsContext } from "#/context/useQueryParamsContext";
+import { useEffect } from "react";
 
 function useQueryParams(): [URLSearchParams, () => void] {
-  const [queryParams, setQueryParams] = useState<URLSearchParams>(
-    () => new URLSearchParams(window.location.search),
-  );
+  // const [queryParams, setQueryParams] = useState<URLSearchParams>(
+  //   () => new URLSearchParams(window.location.search),
+  // );
+
+  const { queryParams, setQueryParams } = useQueryParamsContext();
 
   const setSearchParams = () => {
     const newSearchParams = new URLSearchParams(queryParams);
@@ -22,7 +25,7 @@ function useQueryParams(): [URLSearchParams, () => void] {
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, []);
+  }, [setQueryParams]);
 
   return [queryParams, setSearchParams];
 }
