@@ -67,12 +67,13 @@ export function FieldsetSelect({
         container: () => cn("cursor-pointer"),
         control: (state) =>
           cn(
-            "rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem]",
+            "ring-0! rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem]",
             {
-              "ring-0! border-(--fieldset-border-color--error)! hover:border-(--fieldset-border-color--error)! bg-(--fieldset-bg--error)!":
+              "border-(--fieldset-border-color--error)! hover:border-(--fieldset-border-color--error)! bg-(--fieldset-bg--error)!":
                 isError,
-              "ring-0! border-(--fieldset-border-color--focus)! hover:border-(--fieldset-border-color--focus)!":
+              "border-(--fieldset-border-color--focus)! hover:border-(--fieldset-border-color--focus)!":
                 state.isFocused,
+              "bg-(--fieldset-bg--disabled)!": state.isDisabled,
               " min-h-(--fieldset-height-large)! px-[0.875rem]": isLarge,
               " min-h-(--fieldset-height-medium)! px-3": isMedium,
               " min-h-(--fieldset-height-small)! px-[0.625rem]": isSmall,
