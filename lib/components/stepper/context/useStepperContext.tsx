@@ -1,5 +1,5 @@
 import useQueryParams from "#/hook/useQueryParams";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 
 type StepperContext = {
   currentStep: number;
@@ -36,13 +36,13 @@ export function StepperProvider({ children }: Readonly<StepperProviderProps>) {
     ? Number(searchParams.get("step"))
     : 0;
 
-  useEffect(() => {
-    if (currentStep === 0 || !currentStep) {
-      searchParams.delete("step");
-      searchParams.set("step", "1");
-      setSearchParams();
-    }
-  }, [currentStep, searchParams, setSearchParams]);
+  // useEffect(() => {
+  //   if (currentStep === 0 || !currentStep) {
+  //     searchParams.delete("step");
+  //     searchParams.set("step", "1");
+  //     setSearchParams();
+  //   }
+  // }, [currentStep, searchParams, setSearchParams]);
 
   function setStep(step: number) {
     searchParams.set("step", String(step));
