@@ -14,6 +14,7 @@
 @import "./components/dialog.css";
 @import "./components/tag/tag.css";
 @import "./components/badge.css";
+@import "./components/snackbar.css";
 
 @layer base {
   html {
