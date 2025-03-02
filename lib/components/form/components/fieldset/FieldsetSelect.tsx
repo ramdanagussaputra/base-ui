@@ -58,7 +58,7 @@ export function FieldsetSelect({
       value={value}
       components={{
         IndicatorSeparator: () => null,
-        DropdownIndicator: FieldsetSelectDropdownIndicator,
+        DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
         ClearIndicator: FieldsetSelectClearIndicator,
         Option: children ?? FieldsetSelectDefaultOptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
