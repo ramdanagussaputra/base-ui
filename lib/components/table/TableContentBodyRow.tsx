@@ -10,16 +10,7 @@ export function TableContentBodyRow({
   children,
   className,
 }: Readonly<TableContentBodyRowProps>) {
-  return (
-    <tr
-      className={cn(
-        "group divide-x divide-transparent duration-150",
-        className,
-      )}
-    >
-      {children}
-    </tr>
-  );
+  return <tr className={cn("group duration-150", className)}>{children}</tr>;
 }
 
 TableContentBodyRow.Cell = TableContentCell;

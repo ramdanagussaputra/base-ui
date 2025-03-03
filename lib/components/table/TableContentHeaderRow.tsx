@@ -10,7 +10,7 @@ export function TableContentHeaderRow({
   children,
   className,
 }: Readonly<TableContentHeaderRowProps>) {
-  return <tr className={cn("", className)}>{children}</tr>;
+  return <tr className={cn(className)}>{children}</tr>;
 }
 
 TableContentHeaderRow.Head = TableContentHead;
