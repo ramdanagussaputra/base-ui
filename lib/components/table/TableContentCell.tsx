@@ -21,7 +21,7 @@ export function TableContentCell({
       <div
         className={cn(
           "text-primary-700 h-(--table-cell-height) px-5 py-3 text-(length:--table-cell-font-size) leading-(--table-cell-line-height) font-normal text-(--table-cell-color) duration-100",
-          className,
+          // className,
         )}
       >
         <span

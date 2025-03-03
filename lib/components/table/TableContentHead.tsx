@@ -20,7 +20,7 @@ export function TableContentHead({
       <div
         className={cn(
           "flex h-(--table-cell-height) items-center justify-between gap-[0.625rem] border-x border-y border-(--table-head-border-color) px-5 py-3 duration-100 first:border-l-0",
-          className,
+          // className,
         )}
       >
         {children}
@@ -29,4 +29,4 @@ export function TableContentHead({
   );
 }
 
-TableContentHead.Icon = TableContentHeadSortIcon;
+TableContentHead.SortIcon = TableContentHeadSortIcon;
