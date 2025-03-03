@@ -7,7 +7,7 @@ interface TableContentProps {
 
 export function TableContent({ children }: Readonly<TableContentProps>) {
   return (
-    <div className="relative h-[27.5rem] overflow-x-auto">
+    <div className="relative max-h-[31.1rem] overflow-x-auto">
       <table className="w-full">{children}</table>
     </div>
   );
