@@ -14,6 +14,7 @@ export function TableContentHead({
     <th
       className={cn(
         "bg-(--table-head-bg-color) text-(length:--table-cell-font-size) leading-(--table-cell-line-height) font-bold text-(--table-cell-color)",
+        className,
       )}
     >
       <div

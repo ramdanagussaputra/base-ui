@@ -18,10 +18,10 @@ function StepperPage() {
           Next Step
         </Button>
       </div>
-
+      {/* 
       <div className="mt-10">
         <Button>Open Snackbar</Button>
-      </div>
+      </div> */}
 
       <div className="mt-10 flex flex-col gap-5">
         <Snackbar>
