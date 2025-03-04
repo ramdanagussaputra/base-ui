@@ -18,6 +18,7 @@ export function TextAreaFormField({
   isDisabled = false,
   isRequired = false,
   onChange = () => {},
+  withoutTagLabel = false,
 }: Readonly<TextAreaFormFieldProps>) {
   let maxLength: number;
 
@@ -42,7 +43,11 @@ export function TextAreaFormField({
           isRequired={isRequired}
           isDisabled={isDisabled}
         >
-          {label && <Fieldset.Label>{label}</Fieldset.Label>}
+          {label && (
+            <Fieldset.Label withoutTag={withoutTagLabel}>
+              {label}
+            </Fieldset.Label>
+          )}
 
           <Fieldset.Textarea
             onBlur={field.onBlur}

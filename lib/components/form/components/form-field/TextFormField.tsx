@@ -18,6 +18,7 @@ export function TextFormField({
   onChange = () => {},
   type = "text",
   size = "medium",
+  withoutTagLabel = false,
 }: Readonly<FormFieldProps>) {
   const emailValidation =
     type === "email"
@@ -54,7 +55,11 @@ export function TextFormField({
           isDisabled={isDisabled}
           size={size}
         >
-          {label && <Fieldset.Label>{label}</Fieldset.Label>}
+          {label && (
+            <Fieldset.Label withoutTag={withoutTagLabel}>
+              {label}
+            </Fieldset.Label>
+          )}
 
           <Fieldset.TextInput
             type={type}

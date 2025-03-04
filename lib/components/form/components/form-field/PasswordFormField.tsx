@@ -26,6 +26,7 @@ export function PasswordFormField({
   size = "medium",
   isConfirmPassword = false,
   passwordName,
+  withoutTagLabel = false,
 }: Readonly<PasswordFormFieldProps>) {
   const [isShow, setIsShow] = useState(false);
 
@@ -64,7 +65,7 @@ export function PasswordFormField({
           isDisabled={isDisabled}
           size={size}
         >
-          <Fieldset.Label>{label}</Fieldset.Label>
+          <Fieldset.Label withoutTag={withoutTagLabel}>{label}</Fieldset.Label>
 
           <Fieldset.TextInput
             type={isShow ? "text" : "password"}

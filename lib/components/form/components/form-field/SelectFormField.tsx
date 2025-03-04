@@ -30,6 +30,7 @@ export function SelectFormField({
   isRequired = false,
   rules,
   size = "medium",
+  withoutTagLabel = false,
 }: SelectFormFieldProps) {
   return (
     <Controller
@@ -49,7 +50,11 @@ export function SelectFormField({
           isDisabled={isDisabled}
           isError={!!fieldState.error}
         >
-          {label && <Fieldset.Label>{label}</Fieldset.Label>}
+          {label && (
+            <Fieldset.Label withoutTag={withoutTagLabel}>
+              {label}
+            </Fieldset.Label>
+          )}
 
           <Fieldset.Select
             isMultiSelect={isMultiSelect}

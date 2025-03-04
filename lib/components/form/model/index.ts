@@ -17,6 +17,7 @@ export interface FormFieldProps
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   onChange?: (event: React.ChangeEvent<HTMLInputElement> | string) => void;
+  withoutTagLabel?: boolean;
 }
 
 export interface FieldsetSelectOption {
