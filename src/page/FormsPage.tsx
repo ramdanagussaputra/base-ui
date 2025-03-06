@@ -79,6 +79,7 @@ function FormsPage() {
           <SelectFormField
             name="select"
             control={formMethods.control}
+            isDisabled
             label="Select"
             options={[
               { label: "Option 1", value: "option-1" },

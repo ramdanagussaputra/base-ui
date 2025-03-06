@@ -112,6 +112,7 @@ export function FieldsetSelect({
               isMedium,
             "text-(length:--filedset-font-size-small)! leading-(--fieldset-line-height-small)! font-(--fieldset-font-weight-small)!":
               isSmall,
+            "text-(--fieldset-text-color--disabled)": isDisabled,
           }),
         menu: () => cn("p-[0.625rem] rounded-lg! shadow-secondary-100"),
         option: (state) =>
