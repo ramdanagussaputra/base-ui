@@ -3,6 +3,7 @@ import { cn } from "#/utils";
 interface TableContentCellProps {
   children: React.ReactNode;
   className?: string;
+  innerContainerClassName?: string;
   isNoWrap?: boolean;
   onClick?: () => void;
 }
@@ -11,6 +12,7 @@ export function TableContentCell({
   children,
   onClick,
   className,
+  innerContainerClassName,
   isNoWrap,
 }: Readonly<TableContentCellProps>) {
   return (
@@ -21,7 +23,7 @@ export function TableContentCell({
       <div
         className={cn(
           "text-primary-700 h-(--table-cell-height) px-5 py-3 text-(length:--table-cell-font-size) leading-(--table-cell-line-height) font-normal text-(--table-cell-color) duration-100",
-          // className,
+          innerContainerClassName,
         )}
       >
         <span
