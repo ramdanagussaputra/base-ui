@@ -1,7 +1,12 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
-import { SingleValue } from "react-select";
+import {
+  GroupBase,
+  OptionProps,
+  SelectComponentsConfig,
+  SingleValue,
+} from "react-select";
 
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -13,6 +18,12 @@ interface SelectFormFieldProps
   isSearchable?: boolean;
   isMultiSelect?: boolean;
   defaultValue?: SingleValue<FieldsetSelectOption> | null;
+  children?: React.ComponentType<
+    OptionProps<unknown, boolean, GroupBase<unknown>>
+  >; // for option component
+  selectComponentOptions?: Partial<
+    SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
+  >;
 }
 
 export function SelectFormField({
@@ -31,6 +42,8 @@ export function SelectFormField({
   rules,
   size = "medium",
   withoutTagLabel = false,
+  children,
+  selectComponentOptions,
 }: SelectFormFieldProps) {
   return (
     <Controller
@@ -68,7 +81,10 @@ export function SelectFormField({
             defaultValue={defaultValue}
             value={field.value}
             onBlur={field.onBlur}
-          />
+            selectComponentOptions={selectComponentOptions}
+          >
+            {children}
+          </Fieldset.Select>
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>

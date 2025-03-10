@@ -1,4 +1,9 @@
-import Select, { GroupBase, OptionProps, SingleValue } from "react-select";
+import Select, {
+  GroupBase,
+  OptionProps,
+  SelectComponentsConfig,
+  SingleValue,
+} from "react-select";
 
 import { FieldsetSelectOption } from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
@@ -22,6 +27,9 @@ interface FieldsetSelectProps {
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
+  selectComponentOptions?: Partial<
+    SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
+  >;
 }
 
 export function FieldsetSelect({
@@ -34,6 +42,7 @@ export function FieldsetSelect({
   isMultiSelect = false,
   defaultValue = null,
   value = null,
+  selectComponentOptions,
   children,
 }: Readonly<FieldsetSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
@@ -62,6 +71,7 @@ export function FieldsetSelect({
         ClearIndicator: FieldsetSelectClearIndicator,
         Option: children ?? FieldsetSelectDefaultOptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
+        ...selectComponentOptions,
       }}
       classNames={{
         container: () => cn("cursor-pointer"),
