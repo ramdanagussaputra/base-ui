@@ -59,7 +59,7 @@ export function FieldsetSelect({
       isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement="auto"
-      menuPosition="fixed"
+      // menuPosition="fixed"
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       defaultValue={defaultValue}
