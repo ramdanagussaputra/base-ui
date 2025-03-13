@@ -14,17 +14,24 @@ import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fie
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
 
-interface FieldsetSelectProps {
+interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   placeholder: string;
   options: FieldsetSelectOption[];
-  onChange: (value: SingleValue<FieldsetSelectOption>) => void;
+  onChange: (
+    value: MultiSelect extends true
+      ? FieldsetSelectOption[]
+      : SingleValue<FieldsetSelectOption>,
+  ) => void;
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   isMultiSelect?: boolean;
   isSearchable?: boolean;
-  defaultValue?: SingleValue<FieldsetSelectOption> | null;
-  value: unknown | null;
-  // value: SingleValue<FieldsetSelectOption> | null;
+  defaultValue?: MultiSelect extends true
+    ? FieldsetSelectOption[]
+    : SingleValue<FieldsetSelectOption> | null;
+  value: MultiSelect extends true
+    ? FieldsetSelectOption[]
+    : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -49,24 +56,12 @@ export function FieldsetSelect({
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
-  let formatedValue: unknown = value as SingleValue<FieldsetSelectOption>;
-
-  if (isMultiSelect) {
-    formatedValue = value as SingleValue<FieldsetSelectOption>[];
-  }
-
   return (
     <Select
       options={options}
       placeholder={placeholder}
       onChange={(value) => {
-        if (isMultiSelect) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-          onChange?.(value as SingleValue<FieldsetSelectOption>[]);
-        } else {
-          onChange?.(value as SingleValue<FieldsetSelectOption>);
-        }
+        onChange?.(value as SingleValue<FieldsetSelectOption>);
       }}
       onBlur={onBlur}
       isMulti={isMultiSelect}
@@ -77,7 +72,7 @@ export function FieldsetSelect({
       isSearchable={isSearchable}
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
-      value={formatedValue}
+      value={value}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
