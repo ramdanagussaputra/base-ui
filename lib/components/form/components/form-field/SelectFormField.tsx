@@ -11,13 +11,19 @@ import {
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface SelectFormFieldProps
+interface SelectFormFieldProps<MultiSelect extends boolean = false>
   extends Omit<FormFieldProps, "type" | "onChange"> {
   options: FieldsetSelectOption[];
-  onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
+  onChange: (
+    value: MultiSelect extends true
+      ? FieldsetSelectOption[]
+      : SingleValue<FieldsetSelectOption>,
+  ) => void;
   isSearchable?: boolean;
   isMultiSelect?: boolean;
-  defaultValue?: SingleValue<FieldsetSelectOption> | null;
+  defaultValue?: MultiSelect extends true
+    ? FieldsetSelectOption[]
+    : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
