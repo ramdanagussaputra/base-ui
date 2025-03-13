@@ -92,21 +92,6 @@ function FormsPage() {
 
         <div className="w-1/3">
           <SelectFormField
-            name="select"
-            control={formMethods.control}
-            label="Select"
-            options={[
-              { label: "Option 1", value: "option-1" },
-              { label: "Option 2", value: "option-2" },
-              { label: "Option 3", value: "option-3" },
-            ]}
-            placeholder="Placeholder"
-            isRequired
-          />
-        </div>
-
-        <div className="w-1/3">
-          <SelectFormField
             name="multi_select"
             control={formMethods.control}
             label="Multi Select"
@@ -140,6 +125,21 @@ function FormsPage() {
             name="textarea"
             label="Textarea"
             placeholder="Placeholder"
+          />
+        </div>
+
+        <div className="w-1/3">
+          <SelectFormField
+            name="select"
+            control={formMethods.control}
+            label="Select"
+            options={[
+              { label: "Option 1", value: "option-1" },
+              { label: "Option 2", value: "option-2" },
+              { label: "Option 3", value: "option-3" },
+            ]}
+            placeholder="Placeholder"
+            isRequired
           />
         </div>
       </FormProvider>

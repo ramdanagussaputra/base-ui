@@ -15,7 +15,7 @@ import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fie
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
 
-interface FieldsetSelectProps {
+interface FieldsetAsyncSelectProps {
   placeholder: string;
   options: FieldsetSelectOption[];
   onChange: (value: SingleValue<FieldsetSelectOption>) => void;
@@ -34,7 +34,7 @@ interface FieldsetSelectProps {
   loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
 }
 
-export function FieldsetSelect({
+export function FieldsetAsyncSelect({
   onBlur,
   onChange,
   onFocus,
@@ -47,7 +47,7 @@ export function FieldsetSelect({
   selectComponentOptions,
   children,
   loadOptions,
-}: Readonly<FieldsetSelectProps>) {
+}: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
