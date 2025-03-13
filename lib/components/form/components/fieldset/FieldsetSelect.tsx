@@ -60,7 +60,13 @@ export function FieldsetSelect({
       options={options}
       placeholder={placeholder}
       onChange={(value) => {
-        onChange?.(value as SingleValue<FieldsetSelectOption>);
+        if (isMultiSelect) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          onChange?.(value as SingleValue<FieldsetSelectOption>[]);
+        } else {
+          onChange?.(value as SingleValue<FieldsetSelectOption>);
+        }
       }}
       onBlur={onBlur}
       isMulti={isMultiSelect}
