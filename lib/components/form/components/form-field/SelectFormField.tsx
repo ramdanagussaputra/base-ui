@@ -32,7 +32,7 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   >;
 }
 
-export function SelectFormField({
+export function SelectFormField<MultiSelect extends boolean = false>({
   control,
   name,
   label,
@@ -50,7 +50,7 @@ export function SelectFormField({
   withoutTagLabel = false,
   children,
   selectComponentOptions,
-}: SelectFormFieldProps) {
+}: SelectFormFieldProps<MultiSelect>) {
   return (
     <Controller
       name={name}
