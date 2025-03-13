@@ -14,7 +14,7 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 interface SelectFormFieldProps<MultiSelect extends boolean = false>
   extends Omit<FormFieldProps, "type" | "onChange"> {
   options: FieldsetSelectOption[];
-  onChange: (
+  onChange?: (
     value: MultiSelect extends true
       ? FieldsetSelectOption[]
       : SingleValue<FieldsetSelectOption>,
