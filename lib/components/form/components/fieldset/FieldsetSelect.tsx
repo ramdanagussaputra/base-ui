@@ -27,10 +27,10 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: MultiSelect extends true
-    ? FieldsetSelectOption[]
+    ? FieldsetSelectOption[] | null
     : SingleValue<FieldsetSelectOption> | null;
   value: MultiSelect extends true
-    ? FieldsetSelectOption[]
+    ? FieldsetSelectOption[] | null
     : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
@@ -40,7 +40,7 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   >;
 }
 
-export function FieldsetSelect({
+export function FieldsetSelect<MultiSelect extends boolean = false>({
   onBlur,
   onChange,
   onFocus,
@@ -52,7 +52,7 @@ export function FieldsetSelect({
   value = null,
   selectComponentOptions,
   children,
-}: Readonly<FieldsetSelectProps>) {
+}: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
@@ -61,7 +61,11 @@ export function FieldsetSelect({
       options={options}
       placeholder={placeholder}
       onChange={(value) => {
-        onChange?.(value as SingleValue<FieldsetSelectOption>);
+        onChange?.(
+          value as MultiSelect extends true
+            ? FieldsetSelectOption[]
+            : SingleValue<FieldsetSelectOption>,
+        );
       }}
       onBlur={onBlur}
       isMulti={isMultiSelect}
