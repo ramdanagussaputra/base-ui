@@ -23,7 +23,8 @@ interface FieldsetSelectProps {
   isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: SingleValue<FieldsetSelectOption> | null;
-  value: SingleValue<FieldsetSelectOption> | null;
+  value: unknown | null;
+  // value: SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -48,6 +49,12 @@ export function FieldsetSelect({
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
+  let formatedValue: unknown = value as SingleValue<FieldsetSelectOption>;
+
+  if (isMultiSelect) {
+    formatedValue = value as SingleValue<FieldsetSelectOption>[];
+  }
+
   return (
     <Select
       options={options}
@@ -64,7 +71,7 @@ export function FieldsetSelect({
       isSearchable={isSearchable}
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
-      value={value}
+      value={formatedValue}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
