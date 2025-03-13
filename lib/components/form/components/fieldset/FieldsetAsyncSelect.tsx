@@ -17,7 +17,7 @@ import { cn } from "#/utils";
 
 interface FieldsetAsyncSelectProps {
   placeholder: string;
-  options: FieldsetSelectOption[];
+  defaultOptions: FieldsetSelectOption[];
   onChange: (value: SingleValue<FieldsetSelectOption>) => void;
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -38,7 +38,7 @@ export function FieldsetAsyncSelect({
   onBlur,
   onChange,
   onFocus,
-  options,
+  defaultOptions,
   placeholder,
   isSearchable = true,
   isMultiSelect = false,
@@ -53,7 +53,7 @@ export function FieldsetAsyncSelect({
 
   return (
     <AsyncSelect
-      options={options}
+      defaultOptions={defaultOptions}
       loadOptions={loadOptions}
       placeholder={placeholder}
       onChange={(value) => {

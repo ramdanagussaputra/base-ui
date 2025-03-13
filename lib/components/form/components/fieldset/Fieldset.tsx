@@ -9,6 +9,7 @@ import { FieldsetSelect } from "#/components/form/components/fieldset/FieldsetSe
 import { FieldsetRadio } from "#/components/form/components/fieldset/FieldsetRadio";
 import { FieldsetRadioGroup } from "#/components/form/components/fieldset/FieldsetRadioGroup";
 import { FieldsetTextArea } from "#/components/form/components/fieldset/FieldsetTextArea";
+import { FieldsetAsyncSelect } from "#/components/form/components/fieldset/FieldsetAsyncSelect";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -67,3 +68,4 @@ Fieldset.Select = FieldsetSelect;
 Fieldset.Radio = FieldsetRadio;
 Fieldset.RadioGroup = FieldsetRadioGroup;
 Fieldset.Textarea = FieldsetTextArea;
+Fieldset.AsyncSelect = FieldsetAsyncSelect;

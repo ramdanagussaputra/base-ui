@@ -1,10 +1,9 @@
-import {
+import Select, {
   GroupBase,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
 } from "react-select";
-import AsyncSelect from "react-select/async";
 
 import { FieldsetSelectOption } from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
@@ -31,7 +30,6 @@ interface FieldsetSelectProps {
   selectComponentOptions?: Partial<
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
-  loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
 }
 
 export function FieldsetSelect({
@@ -46,15 +44,13 @@ export function FieldsetSelect({
   value = null,
   selectComponentOptions,
   children,
-  loadOptions,
 }: Readonly<FieldsetSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
   return (
-    <AsyncSelect
+    <Select
       options={options}
-      loadOptions={loadOptions}
       placeholder={placeholder}
       onChange={(value) => {
         onChange?.(value as SingleValue<FieldsetSelectOption>);
