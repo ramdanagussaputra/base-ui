@@ -27,14 +27,14 @@ export function DialogPanel({
     <Dialog
       open={isDialogOpen}
       onClose={closeDialog}
-      className="relative z-20 outline-none"
+      className="relative z-50 outline-none"
     >
-      <DialogBackdrop className="fixed inset-0 z-20 bg-(--dialog-backdrop-color)" />
+      <DialogBackdrop className="fixed inset-0 z-50 bg-(--dialog-backdrop-color)" />
 
-      <div className="fixed inset-0 z-20 flex min-h-full w-screen items-center justify-center overflow-y-auto p-4">
+      <div className="fixed inset-0 z-50 flex min-h-full w-screen items-center justify-center overflow-y-auto p-4">
         <DialogPanelHeadless
           transition
-          className="z-20 h-auto w-auto duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+          className="z-50 h-auto w-auto duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
         >
           <div
             className={cn(
