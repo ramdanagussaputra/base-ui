@@ -1,5 +1,5 @@
 import { Warning2 } from "iconsax-react";
-import { Dialog, Button, useDialog } from "massive-base-ui";
+import { Dialog, Button, useDialog, useModal } from "massive-base-ui";
 import { useState } from "react";
 
 function DialogPage() {
@@ -14,6 +14,7 @@ function DialogPage() {
   }
 
   const { showDialog } = useDialog();
+  const { showModal } = useModal();
 
   return (
     <div className="p-10">
@@ -70,6 +71,18 @@ function DialogPage() {
           }
         >
           Dialog Programmatically
+        </Button>
+      </div>
+
+      <div className="mt-10">
+        <Button
+          onClick={() =>
+            showModal({
+              component: <p>test</p>,
+            })
+          }
+        >
+          Modal Programmatically
         </Button>
       </div>
     </div>
