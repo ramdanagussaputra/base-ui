@@ -12,3 +12,4 @@ export * from "#/components/badge";
 export * from "#/components/stepper";
 export * from "#/components/snackbar";
 export * from "#/components/modal";
+export * from "#/components/tooltip";

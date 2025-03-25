@@ -81,25 +81,25 @@ export function ModalProvider({ children }: ModalProviderProps) {
       <Dialog
         open={isModalOpen}
         onClose={closeModal}
-        className={cn("relative z-20 outline-none", containerClassName)}
+        className={cn("relative z-50 outline-none", containerClassName)}
       >
         <DialogBackdrop
           className={cn(
-            "fixed inset-0 z-20 bg-[rgba(18,18,18,0.4)]",
+            "fixed inset-0 z-50 bg-[rgba(18,18,18,0.4)]",
             backdropClassName,
           )}
         />
 
         <div
           className={cn(
-            "fixed inset-0 z-20 flex min-h-full w-screen items-center justify-center overflow-y-auto p-4",
+            "fixed inset-0 z-50 flex min-h-full w-screen items-center justify-center overflow-y-auto p-4",
             panelContainerClassName,
           )}
         >
           <DialogPanel
             transition
             className={cn(
-              "bg-neutral-0 z-20 h-auto w-[54rem] rounded-xl shadow-[0px_0px_18px_0px_rgba(0,0,0,0.09)] duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0",
+              "bg-neutral-0 z-50 h-auto w-[54rem] rounded-xl shadow-[0px_0px_18px_0px_rgba(0,0,0,0.09)] duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0",
               panelClassName,
             )}
           >
