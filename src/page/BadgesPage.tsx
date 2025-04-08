@@ -1,13 +1,17 @@
-import { Tag, Badge } from "massive-base-ui";
+import { Tag, Badge, Tooltip, Spinner } from "massive-base-ui";
 
 export function BadgesPage() {
   return (
     <section className="grid grid-cols-[max-content_1fr] gap-4 p-10">
+      <Spinner />
+
       <Tag onRemove={() => console.log("remove")}>
         Tag Badge <Tag.RemoveButton />
       </Tag>
 
-      <Tag onRemove={() => {}}>Tag Badge</Tag>
+      <Tooltip message="asd">
+        <Tag onRemove={() => {}}>Tag Badge</Tag>
+      </Tooltip>
 
       <Tag onRemove={() => console.log("remove")} isRounded>
         <span className="divide-secondary-200 divide-x">
@@ -21,42 +25,42 @@ export function BadgesPage() {
         Tag Badge
       </Tag>
 
-      <Badge>Badge</Badge>
-      <Badge size="small">Badge</Badge>
+      <Badge>Default</Badge>
+      <Badge size="small">Default</Badge>
 
-      <Badge color="error">Badge</Badge>
+      <Badge color="error">Error</Badge>
       <Badge size="small" color="error">
-        Badge
+        Error
       </Badge>
 
-      <Badge color="info1">Badge</Badge>
+      <Badge color="info1">Info1</Badge>
       <Badge size="small" color="info1">
-        Badge
+        Info1
       </Badge>
 
-      <Badge color="info2">Badge</Badge>
+      <Badge color="info2">Info2</Badge>
       <Badge size="small" color="info2">
-        Badge
+        Info2
       </Badge>
 
-      <Badge color="primary">Badge</Badge>
+      <Badge color="primary">Primary</Badge>
       <Badge size="small" color="primary">
-        Badge
+        Primary
       </Badge>
 
-      <Badge color="secondary">Badge</Badge>
+      <Badge color="secondary">Secondary</Badge>
       <Badge size="small" color="secondary">
-        Badge
+        Secondary
       </Badge>
 
-      <Badge color="warning">Badge</Badge>
+      <Badge color="warning">Warning</Badge>
       <Badge size="small" color="warning">
-        Badge
+        Warning
       </Badge>
 
-      <Badge color="success">Badge</Badge>
+      <Badge color="success">Success</Badge>
       <Badge size="small" color="success">
-        Badge
+        Success
       </Badge>
     </section>
   );

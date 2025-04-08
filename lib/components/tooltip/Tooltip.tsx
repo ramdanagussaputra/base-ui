@@ -14,7 +14,7 @@ export function Tooltip({ children, message, position = "top" }: TooltipProps) {
   const isRight = position === "right";
 
   return (
-    <div className="group/tooltip relative">
+    <div className="group/tooltip relative w-fit">
       {children}
       <div
         className={cn(
