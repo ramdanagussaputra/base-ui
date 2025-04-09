@@ -1,10 +1,13 @@
 import { AddSquare } from "iconsax-react";
-import { Button } from "massive-base-ui";
+import { Button, Spinner } from "massive-base-ui";
 
 function ButtonsPage() {
   return (
     <section className="grid grid-cols-[min-content_min-content_min-content_min-content] items-center gap-4 p-10">
       <Button color="primary" size="large" variant="solid">
+        <div className="mx-4">
+          <Spinner color="neutral" size={24} />
+        </div>
         <Button.Icon>
           <AddSquare variant="Outline" />
         </Button.Icon>

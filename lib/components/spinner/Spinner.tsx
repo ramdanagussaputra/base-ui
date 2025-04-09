@@ -9,7 +9,8 @@ interface SpinnerProps {
     | "warning"
     | "success"
     | "info1"
-    | "info2";
+    | "info2"
+    | "neutral";
 }
 
 const colors = {
@@ -20,6 +21,7 @@ const colors = {
   success: "border-success-600",
   info1: "border-info1-600",
   info2: "border-info2-600",
+  neutral: "border-neutral-0",
 } as {
   primary: string;
   secondary: string;
@@ -28,6 +30,7 @@ const colors = {
   success: string;
   info1: string;
   info2: string;
+  neutral: string;
 };
 
 export function Spinner({ size = 32, color = "primary" }: SpinnerProps) {
@@ -42,14 +45,14 @@ export function Spinner({ size = 32, color = "primary" }: SpinnerProps) {
     <div className="relative flex w-fit items-center justify-center rounded-xl">
       <div
         className={cn(
-          "absolute rounded-full border-4 opacity-20",
+          "absolute rounded-full border-[3px] opacity-20",
           spinnerColor,
         )}
         style={style}
       />
       <div
         className={cn(
-          "absolute animate-spin rounded-full border-4",
+          "absolute animate-spin rounded-full border-[3px]",
           `${spinnerColor} border-t-transparent border-r-transparent`,
         )}
         style={style}
