@@ -107,7 +107,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
 
             {confirmText && (
               <Dialog.Panel.SlotButtonConfirm>
-                <Button className="w-full">
+                <Button className="w-full" isDisabled={isConfirmLoading}>
                   {isConfirmLoading && (
                     <div className="mx-3.5">
                       <Spinner color="neutral" size={20} />
