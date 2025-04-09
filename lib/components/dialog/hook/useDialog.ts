@@ -36,7 +36,6 @@ export function useDialog() {
     isConfirmLoading = false,
   }: Readonly<ShowDialogProps>) {
     closeDialog?.();
-    setIsConfirmLoading?.(false);
 
     setCancelText?.(cancelText || "");
     setConfirmText?.(confirmText || "");
@@ -46,6 +45,7 @@ export function useDialog() {
     setOnConfirm?.(() =>
       onConfirm
         ? () => {
+            setIsConfirmLoading?.(false);
             onConfirm();
 
             if (isConfirmLoading) {
