@@ -66,7 +66,10 @@ export function useDialog() {
   }
 
   return {
-    closeDialog: closeDialog!,
+    closeDialog: () => {
+      closeDialog?.();
+      setIsConfirmLoading?.(false);
+    },
     showDialog,
   };
 }
