@@ -8,6 +8,7 @@ interface ShowDialogProps {
   icon?: React.ReactNode;
   onConfirm?: () => void;
   onCancel?: () => void;
+  isConfirmLoading?: boolean;
 }
 
 export function useDialog() {
@@ -21,6 +22,7 @@ export function useDialog() {
     setOnCancel,
     setOnConfirm,
     setTitle,
+    setIsConfirmLoading,
   } = useDialogContext();
 
   function showDialog({
@@ -31,6 +33,7 @@ export function useDialog() {
     icon,
     onConfirm,
     onCancel,
+    isConfirmLoading = false,
   }: Readonly<ShowDialogProps>) {
     closeDialog?.();
 
@@ -39,7 +42,17 @@ export function useDialog() {
     setDescription?.(description || "");
     setIcon?.(icon || null);
     setOnCancel?.(() => onCancel || (() => {}));
-    setOnConfirm?.(() => onConfirm || (() => {}));
+    setOnConfirm?.(() =>
+      onConfirm
+        ? () => {
+            onConfirm();
+
+            if (isConfirmLoading) {
+              setIsConfirmLoading?.(true);
+            }
+          }
+        : () => {},
+    );
     setTitle?.(title || "");
 
     showDialogInternal?.();

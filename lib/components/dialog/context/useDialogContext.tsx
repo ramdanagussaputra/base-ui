@@ -2,6 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 import { Dialog } from "#/components/dialog/Dialog";
 import { Button } from "#/components/button/Button";
+import { Spinner } from "#/components/spinner";
 
 export type DialogContext = {
   setOnConfirm?: (callback: () => void) => void;
@@ -13,6 +14,7 @@ export type DialogContext = {
   setConfirmText?: (text: string) => void;
   setCancelText?: (text: string) => void;
   setIcon?: (icon: React.ReactNode) => void;
+  setIsConfirmLoading?: (loading: boolean) => void;
 };
 
 export const dialogContext = createContext<DialogContext | undefined>({
@@ -25,6 +27,7 @@ export const dialogContext = createContext<DialogContext | undefined>({
   setOnCancel: () => {},
   setOnConfirm: () => {},
   setTitle: () => {},
+  setIsConfirmLoading: () => {},
 });
 
 export function useDialogContext() {
@@ -50,6 +53,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
   const [onCancel, setOnCancel] = useState<null | (() => void)>(null);
   const [onConfirm, setOnConfirm] = useState<null | (() => void)>(null);
   const [title, setTitle] = useState("");
+  const [isConfirmLoading, setIsConfirmLoading] = useState(false);
 
   const value = useMemo(
     () => ({
@@ -62,6 +66,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
       setOnCancel: (callback: () => void) => setOnCancel(callback),
       setOnConfirm: (callback: () => void) => setOnConfirm(callback),
       setTitle: (text: string) => setTitle(text),
+      setIsConfirmLoading: (value: boolean) => setIsConfirmLoading(value),
     }),
     [],
   );
@@ -99,7 +104,14 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
 
             {confirmText && (
               <Dialog.Panel.SlotButtonConfirm>
-                <Button className="w-full">{confirmText}</Button>
+                <Button className="w-full">
+                  {isConfirmLoading && (
+                    <div className="mx-3.5">
+                      <Spinner color="neutral" size={20} />
+                    </div>
+                  )}
+                  {confirmText}
+                </Button>
               </Dialog.Panel.SlotButtonConfirm>
             )}
           </div>
