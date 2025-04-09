@@ -41,11 +41,17 @@ export function useDialog() {
     setConfirmText?.(confirmText || "");
     setDescription?.(description || "");
     setIcon?.(icon || null);
-    setOnCancel?.(() => onCancel || (() => {}));
+    setOnCancel?.(() =>
+      onCancel
+        ? () => {
+            onCancel();
+            setIsConfirmLoading?.(false);
+          }
+        : () => {},
+    );
     setOnConfirm?.(() =>
       onConfirm
         ? () => {
-            setIsConfirmLoading?.(false);
             onConfirm();
 
             if (isConfirmLoading) {

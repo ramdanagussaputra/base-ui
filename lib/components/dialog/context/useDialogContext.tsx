@@ -77,7 +77,10 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
 
       <Dialog
         isDialogOpen={isDialogOpen}
-        closeDialog={() => setIsDialogOpen(false)}
+        closeDialog={() => {
+          setIsConfirmLoading(false);
+          setIsDialogOpen(false);
+        }}
         showDialog={() => setIsDialogOpen(true)}
         onCancel={onCancel || (() => {})}
         onConfirm={onConfirm || (() => {})}
