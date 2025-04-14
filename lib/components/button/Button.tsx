@@ -67,6 +67,7 @@ export function Button({
       isNoBackground,
       isOutline,
       isLink,
+      isLoading,
     }),
     [
       isError,
@@ -81,6 +82,7 @@ export function Button({
       isNoBackground,
       isOutline,
       isLink,
+      isLoading,
     ],
   );
 
@@ -88,7 +90,7 @@ export function Button({
     <buttonContext.Provider value={value}>
       <button
         type={type}
-        disabled={isDisabled}
+        disabled={isDisabled || isLoading}
         onClick={onClick}
         className={cn(
           "flex cursor-pointer items-center justify-center rounded-md whitespace-nowrap outline-hidden duration-200 disabled:cursor-auto disabled:opacity-50 disabled:shadow-none",
@@ -138,7 +140,7 @@ export function Button({
           </div>
         )}
 
-        {children}
+        {isLoading ? <span>Please wait...</span> : children}
       </button>
     </buttonContext.Provider>
   );

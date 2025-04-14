@@ -1,4 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
+
 import { useButtonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
 
@@ -8,20 +9,8 @@ interface ButtonIconProps {
 }
 
 export function ButtonIcon({ children, className }: ButtonIconProps) {
-  const {
-    isExtraSmall,
-    isSmall,
-    isMedium,
-    isLarge,
-    // isPrimary,
-    // isSecondary,
-    // isError,
-    // isSolid,
-    // isLight,
-    // isNoBackground,
-    // isOutline,
-    // isLink,
-  } = useButtonContext();
+  const { isExtraSmall, isSmall, isMedium, isLarge, isLoading } =
+    useButtonContext();
 
   return (
     <Slot
@@ -32,6 +21,7 @@ export function ButtonIcon({ children, className }: ButtonIconProps) {
           "size-[1.125rem]": isMedium,
           "size-3.5": isSmall,
           "size-3": isExtraSmall,
+          hidden: isLoading,
         },
         className,
       )}

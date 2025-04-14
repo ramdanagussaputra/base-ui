@@ -13,6 +13,7 @@ type ButtonContext = {
   isNoBackground: boolean;
   isOutline: boolean;
   isLink: boolean;
+  isLoading: boolean;
 };
 
 export const buttonContext = createContext<ButtonContext | undefined>({
@@ -28,6 +29,7 @@ export const buttonContext = createContext<ButtonContext | undefined>({
   isNoBackground: false,
   isOutline: false,
   isLink: false,
+  isLoading: false,
 });
 
 export function useButtonContext() {
