@@ -2,7 +2,6 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 import { Dialog } from "#/components/dialog/Dialog";
 import { Button } from "#/components/button/Button";
-import { Spinner } from "#/components/spinner";
 
 export type DialogContext = {
   setOnConfirm?: (callback: () => void) => void;
@@ -107,12 +106,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
 
             {confirmText && (
               <Dialog.Panel.SlotButtonConfirm>
-                <Button className="w-full" isDisabled={isConfirmLoading}>
-                  {isConfirmLoading && (
-                    <div className="mx-3.5">
-                      <Spinner color="neutral" size={20} />
-                    </div>
-                  )}
+                <Button className="w-full" isLoading={isConfirmLoading}>
                   {confirmText}
                 </Button>
               </Dialog.Panel.SlotButtonConfirm>
