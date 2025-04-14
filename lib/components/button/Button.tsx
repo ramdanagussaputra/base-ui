@@ -140,9 +140,7 @@ export function Button({
           </div>
         )}
 
-        {isLoading
-          ? children && <span>Please wait...</span>
-          : (children ?? null)}
+        {isLoading ? <span>Please wait...</span> : children}
       </button>
     </buttonContext.Provider>
   );

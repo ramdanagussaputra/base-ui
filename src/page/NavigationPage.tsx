@@ -17,6 +17,7 @@ function NavigationPage() {
       />
 
       <Tabs
+        id="test"
         tabs={[
           {
             name: "Tab 1",

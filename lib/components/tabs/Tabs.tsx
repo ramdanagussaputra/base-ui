@@ -1,13 +1,19 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+
 import { TabsProps } from "#/components/tabs/model";
 import { cn } from "#/utils";
 
+import { useSetTabParam } from "#/components/tabs/hook/useSetTabParam";
+
 export function Tabs({
+  id,
   tabs,
   contentContainerClassName,
   onTabClick,
   tabsContainerClassName,
 }: Readonly<TabsProps>) {
+  const { setTabParam } = useSetTabParam();
+
   return (
     <TabGroup
       onChange={() => {
@@ -26,6 +32,9 @@ export function Tabs({
                 tabsContainerClassName,
               )}
               key={tab.name}
+              onClick={() =>
+                setTabParam({ tabName: tab.name, tabId: id || "" })
+              }
             >
               {tab.name}
             </Tab>
