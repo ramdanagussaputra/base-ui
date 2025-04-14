@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 import { ButtonIcon } from "#/components/button/ButtonIcon";
+import { Spinner } from "#/components/spinner";
 
 import { buttonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
@@ -14,6 +15,7 @@ interface ButtonProps {
   isDisabled?: boolean;
   className?: string;
   type?: "button" | "submit" | "reset";
+  isLoading?: boolean;
 }
 
 export function Button({
@@ -25,6 +27,7 @@ export function Button({
   variant = "solid",
   type = "button",
   isDisabled = false,
+  isLoading = false,
 }: Readonly<ButtonProps>) {
   const isExtraSmall = size === "extra-small";
   const isSmall = size === "small";
@@ -40,6 +43,15 @@ export function Button({
   const isNoBackground = variant === "no-background";
   const isOutline = variant === "outline";
   const isLink = variant === "link";
+
+  const spinnerSizes = {
+    large: 24,
+    medium: 20,
+    small: 16,
+    "extra-small": 12,
+  };
+
+  const spinnerColors = isSolid ? "neutral" : color;
 
   const value = useMemo(
     () => ({
@@ -113,6 +125,19 @@ export function Button({
           className,
         )}
       >
+        {isLoading && !isNoBackground && (
+          <div
+            className={cn({
+              "mx-4": isLarge,
+              "mx-3.5": isMedium,
+              "mx-2.5": isSmall,
+              "mx-2": isExtraSmall,
+            })}
+          >
+            <Spinner color={spinnerColors} size={spinnerSizes[size]} />
+          </div>
+        )}
+
         {children}
       </button>
     </buttonContext.Provider>

@@ -41,12 +41,18 @@ export function Spinner({ size = 32, color = "primary" }: SpinnerProps) {
     height: size,
   };
 
+  const isSmallSize = size <= 20;
+  const smallSizeBorder = {
+    "border-[2px]": isSmallSize,
+  };
+
   return (
     <div className="relative flex w-fit items-center justify-center rounded-xl">
       <div
         className={cn(
           "absolute rounded-full border-[3px] opacity-20",
           spinnerColor,
+          smallSizeBorder,
         )}
         style={style}
       />
@@ -54,6 +60,7 @@ export function Spinner({ size = 32, color = "primary" }: SpinnerProps) {
         className={cn(
           "absolute animate-spin rounded-full border-[3px]",
           `${spinnerColor} border-t-transparent border-r-transparent`,
+          smallSizeBorder,
         )}
         style={style}
       />

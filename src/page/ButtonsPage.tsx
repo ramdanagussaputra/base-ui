@@ -1,13 +1,10 @@
 import { AddSquare } from "iconsax-react";
-import { Button, Spinner } from "massive-base-ui";
+import { Button } from "massive-base-ui";
 
 function ButtonsPage() {
   return (
     <section className="grid grid-cols-[min-content_min-content_min-content_min-content] items-center gap-4 p-10">
-      <Button color="primary" size="large" variant="solid">
-        <div className="mx-4">
-          <Spinner color="neutral" size={24} />
-        </div>
+      <Button color="primary" size="large" variant="solid" isLoading>
         <Button.Icon>
           <AddSquare variant="Outline" />
         </Button.Icon>
@@ -17,7 +14,7 @@ function ButtonsPage() {
         </Button.Icon>
       </Button>
 
-      <Button color="primary" size="medium" variant="solid">
+      <Button color="primary" size="medium" variant="solid" isLoading>
         <Button.Icon>
           <AddSquare variant="Outline" />
         </Button.Icon>
@@ -27,11 +24,17 @@ function ButtonsPage() {
         </Button.Icon>
       </Button>
 
-      <Button color="primary" size="small" variant="solid">
+      <Button color="primary" size="small" variant="solid" isLoading>
         Solid Primer
       </Button>
 
-      <Button color="primary" size="extra-small" variant="solid" isDisabled>
+      <Button
+        color="primary"
+        size="extra-small"
+        variant="solid"
+        isDisabled
+        isLoading
+      >
         Solid Primer
       </Button>
 
@@ -67,7 +70,7 @@ function ButtonsPage() {
         Solid Error
       </Button>
 
-      <Button color="primary" size="large" variant="light">
+      <Button color="primary" size="large" variant="light" isLoading>
         <Button.Icon>
           <AddSquare variant="Outline" />
         </Button.Icon>
@@ -86,7 +89,7 @@ function ButtonsPage() {
         Light Primary
       </Button>
 
-      <Button color="secondary" size="large" variant="light">
+      <Button color="secondary" size="large" variant="light" isLoading>
         Light Secondary
       </Button>
 
@@ -102,7 +105,7 @@ function ButtonsPage() {
         Light Secondary
       </Button>
 
-      <Button color="error" size="large" variant="light">
+      <Button color="error" size="large" variant="light" isLoading>
         Light Error
       </Button>
 
