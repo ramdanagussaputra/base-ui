@@ -6,6 +6,6 @@ export interface TabsProps {
   }[];
   tabsContainerClassName?: string;
   contentContainerClassName?: string;
-  onTabClick?: () => void;
+  onTabClick?: (tabIndex: number) => void;
   selectedIndex?: number;
 }

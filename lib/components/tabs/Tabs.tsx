@@ -12,9 +12,9 @@ export function Tabs({
 }: Readonly<TabsProps>) {
   return (
     <TabGroup
-      onChange={() => {
+      onChange={(index: number) => {
         if (onTabClick) {
-          setTimeout(onTabClick, 0);
+          setTimeout(() => onTabClick(index), 0);
         }
       }}
       className="relative"
