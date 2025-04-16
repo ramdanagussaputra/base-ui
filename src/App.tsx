@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router";
-import { router } from "@/router/Router";
 import { MassiveBaseUIProvider } from "massive-base-ui";
+
+import { router } from "@/router/Router";
 
 function App() {
   return (

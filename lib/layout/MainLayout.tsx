@@ -1,6 +1,6 @@
 interface MainLayoutProps {
   renderSidebar: () => React.ReactNode;
-  renderHeader: () => React.ReactNode;
+  renderHeader?: () => React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -15,7 +15,7 @@ export function MainLayout({
 
       <div className="relative ml-(--sidebar-width)">
         <div className="sticky top-0 right-0 left-(--sidebar-width) z-10">
-          {renderHeader()}
+          {renderHeader && renderHeader()}
         </div>
         {children}
       </div>

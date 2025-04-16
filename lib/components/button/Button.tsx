@@ -127,7 +127,7 @@ export function Button({
           className,
         )}
       >
-        {isLoading && !isNoBackground && (
+        {isLoading && (
           <div
             className={cn({
               "mx-4": isLarge,

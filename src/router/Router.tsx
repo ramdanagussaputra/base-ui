@@ -8,8 +8,21 @@ import Dialogpage from "@/page/DialogPage";
 import ButtonsPage from "@/page/ButtonsPage";
 import StepperPage from "@/page/StepperPage";
 import { BadgesPage } from "@/page/BadgesPage";
+import MainLayout from "@/layout/MainLayout";
+import StyleguidePage from "@/page/StyleguidePage";
 
 export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        path: "/overview/styleguide",
+        element: <StyleguidePage />,
+      },
+    ],
+  },
   {
     path: "/sidebar/overview",
     element: <SidebarPage />,
