@@ -36,21 +36,15 @@ export function StepperProvider({ children }: Readonly<StepperProviderProps>) {
     ? Number(searchParams.get("step"))
     : 0;
 
-  // useEffect(() => {
-  //   if (currentStep === 0 || !currentStep) {
-  //     searchParams.delete("step");
-  //     searchParams.set("step", "1");
-  //     setSearchParams();
-  //   }
-  // }, [currentStep, searchParams, setSearchParams]);
-
   function setStep(step: number) {
     searchParams.set("step", String(step));
     setSearchParams();
   }
 
   function nextStep() {
-    setStep(currentStep + 1);
+    if (currentStep <= 6) {
+      setStep(currentStep + 1);
+    }
   }
 
   function prevStep() {
