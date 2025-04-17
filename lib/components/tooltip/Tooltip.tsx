@@ -18,7 +18,7 @@ export function Tooltip({ children, message, position = "top" }: TooltipProps) {
       {children}
       <div
         className={cn(
-          "bg-secondary-900 text-b4-400 text-secondary-0 absolute z-[9999] hidden w-max rounded-sm px-1 py-0.5 opacity-0 group-hover/tooltip:block group-hover/tooltip:opacity-100",
+          "bg-secondary-900 text-b4-400 text-secondary-0 absolute z-[9999] hidden w-max rounded-sm px-1.5 py-1 opacity-0 group-hover/tooltip:block group-hover/tooltip:opacity-100",
           {
             "-bottom-full left-1/2 -translate-x-1/2": isBottom,
             "-top-full left-1/2 -translate-x-1/2": isTop,
