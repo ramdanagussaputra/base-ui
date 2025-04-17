@@ -2,6 +2,7 @@ import BadgesTags from "@/component/styleguide/badges-tags/BadgesTags";
 import Buttons from "@/component/styleguide/buttons/Buttons";
 import Colors from "@/component/styleguide/colors/Colors";
 import Fonts from "@/component/styleguide/fonts/Fonts";
+import Forms from "@/component/styleguide/forms/Forms";
 import Tooltips from "@/component/styleguide/tooltip/Tooltips";
 
 function StyleguidePage() {
@@ -17,6 +18,7 @@ function StyleguidePage() {
         <Buttons />
         <BadgesTags />
         <Tooltips />
+        <Forms />
       </div>
     </section>
   );

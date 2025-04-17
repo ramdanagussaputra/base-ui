@@ -6,6 +6,10 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { extractMaxLengthValue } from "#/utils";
 
+type FormatedFormFieldProps = Omit<FormFieldProps, "type"> & {
+  type?: "text" | "email" | "number";
+};
+
 export function TextFormField({
   name,
   rules,
@@ -19,7 +23,7 @@ export function TextFormField({
   type = "text",
   size = "medium",
   withoutTagLabel = false,
-}: Readonly<FormFieldProps>) {
+}: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
       ? {
