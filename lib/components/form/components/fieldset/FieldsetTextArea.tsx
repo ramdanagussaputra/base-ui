@@ -12,6 +12,7 @@ interface FieldsetTextAreaProps {
   height?: number;
   minHeight?: number;
   maxHeight?: number;
+  isResizable?: boolean;
 }
 
 export function FieldsetTextArea({
@@ -24,6 +25,7 @@ export function FieldsetTextArea({
   height = 200,
   minHeight,
   maxHeight,
+  isResizable = true,
 }: Readonly<FieldsetTextAreaProps>) {
   const { isDisabled, isError } = useFieldsetContext();
 
@@ -44,8 +46,10 @@ export function FieldsetTextArea({
       onFocus={onFocus}
       onChange={handleChange}
       className={cn(
-        "text-b3-500 placeholder:text-b3-500 resize-y rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-3 py-2.5 text-(--fieldset-text-color) duration-100 outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent focus:border-(--fieldset-border-color--focus) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
+        "text-b3-500 placeholder:text-b3-500 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-3 py-2.5 text-(--fieldset-text-color) duration-100 outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent focus:border-(--fieldset-border-color--focus) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
         {
+          "resize-y": isResizable,
+          "resize-none": !isResizable,
           "bg-(--fieldset-bg--disabled)": isDisabled,
           "border-(--fieldset-border-color--error) bg-(--fieldset-bg--error)":
             isError,
