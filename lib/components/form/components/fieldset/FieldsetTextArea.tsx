@@ -10,6 +10,8 @@ interface FieldsetTextAreaProps {
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   height?: number;
+  minHeight?: number;
+  maxHeight?: number;
 }
 
 export function FieldsetTextArea({
@@ -20,6 +22,8 @@ export function FieldsetTextArea({
   onChange = () => {},
   onFocus = () => {},
   height = 200,
+  minHeight,
+  maxHeight,
 }: Readonly<FieldsetTextAreaProps>) {
   const { isDisabled, isError } = useFieldsetContext();
 
@@ -49,6 +53,8 @@ export function FieldsetTextArea({
       )}
       style={{
         height: `${height}px`,
+        minHeight: minHeight ? `${minHeight}px` : undefined,
+        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
       }}
     />
   );

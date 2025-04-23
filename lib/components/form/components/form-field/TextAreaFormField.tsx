@@ -5,6 +5,8 @@ import { extractMaxLengthValue } from "#/utils";
 
 interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
   height?: number;
+  minHeight?: number;
+  maxHeight?: number;
 }
 
 export function TextAreaFormField({
@@ -14,6 +16,8 @@ export function TextAreaFormField({
   placeholder,
   fieldName,
   height,
+  minHeight,
+  maxHeight,
   rules,
   isDisabled = false,
   isRequired = false,
@@ -59,6 +63,8 @@ export function TextAreaFormField({
             placeholder={placeholder}
             height={height}
             lengthCap={maxLength}
+            maxHeight={maxHeight || 600}
+            minHeight={minHeight || 200}
           />
 
           {!!fieldState.error?.message && (
