@@ -10,7 +10,8 @@ interface SpinnerProps {
     | "success"
     | "info1"
     | "info2"
-    | "neutral";
+    | "neutral"
+    | "default";
 }
 
 const colors = {
@@ -22,6 +23,7 @@ const colors = {
   info1: "border-info1-600",
   info2: "border-info2-600",
   neutral: "border-neutral-0",
+  default: "border-secondary-200",
 } as {
   primary: string;
   secondary: string;
@@ -31,9 +33,10 @@ const colors = {
   info1: string;
   info2: string;
   neutral: string;
+  default: string;
 };
 
-export function Spinner({ size = 32, color = "primary" }: SpinnerProps) {
+export function Spinner({ size = 32, color = "default" }: SpinnerProps) {
   const spinnerColor = colors[color];
 
   const style = {
