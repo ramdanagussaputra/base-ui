@@ -14,6 +14,7 @@ export type DialogContext = {
   setCancelText?: (text: string) => void;
   setIcon?: (icon: React.ReactNode) => void;
   setIsConfirmLoading?: (loading: boolean) => void;
+  setOnClose?: (callback: () => void) => void;
 };
 
 export const dialogContext = createContext<DialogContext | undefined>({
@@ -27,6 +28,7 @@ export const dialogContext = createContext<DialogContext | undefined>({
   setOnConfirm: () => {},
   setTitle: () => {},
   setIsConfirmLoading: () => {},
+  setOnClose: () => {},
 });
 
 export function useDialogContext() {
@@ -45,6 +47,7 @@ interface DialogProviderProps {
 
 export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [onClose, setOnClose] = useState<null | (() => void)>(null);
   const [cancelText, setCancelText] = useState("");
   const [confirmText, setConfirmText] = useState("");
   const [descriptionText, setDescriptionText] = useState("");
@@ -66,6 +69,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
       setOnConfirm: (callback: () => void) => setOnConfirm(callback),
       setTitle: (text: string) => setTitle(text),
       setIsConfirmLoading: (value: boolean) => setIsConfirmLoading(value),
+      setOnClose: (callback: () => void) => setOnClose(callback),
     }),
     [],
   );
@@ -79,6 +83,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
         closeDialog={() => {
           setIsConfirmLoading(false);
           setIsDialogOpen(false);
+          onClose?.();
         }}
         showDialog={() => setIsDialogOpen(true)}
         onCancel={onCancel || (() => {})}

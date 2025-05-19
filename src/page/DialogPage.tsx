@@ -68,6 +68,7 @@ function DialogPage() {
               onCancel: () => console.log("Cancel"),
               icon: <Warning2 className="h-auto w-[13.1875rem]" />,
               isConfirmLoading: true,
+              onClose: () => console.log("on Close"),
             })
           }
         >
