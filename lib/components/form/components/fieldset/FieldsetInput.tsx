@@ -10,7 +10,7 @@ interface FieldsetInputProps {
   children?: React.ReactNode;
   type: "text" | "email" | "password" | "number";
   isReverseIcon?: boolean;
-  onChange?: (event: string) => void;
+  onChange?: (value: string) => void;
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }

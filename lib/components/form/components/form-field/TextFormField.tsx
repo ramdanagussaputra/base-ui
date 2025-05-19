@@ -8,6 +8,7 @@ import { extractMaxLengthValue } from "#/utils";
 
 type FormatedFormFieldProps = Omit<FormFieldProps, "type"> & {
   type?: "text" | "email" | "number";
+  onChange?: (value: string) => void;
 };
 
 export function TextFormField({
