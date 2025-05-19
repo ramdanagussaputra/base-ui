@@ -6,7 +6,7 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { extractMaxLengthValue } from "#/utils";
 
-type FormatedFormFieldProps = Omit<FormFieldProps, "type"> & {
+type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
 };
