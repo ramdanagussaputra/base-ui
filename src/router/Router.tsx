@@ -1,0 +1,58 @@
+import { createBrowserRouter } from "react-router";
+
+import SidebarPage from "@/page/SidebarPage";
+import TablePage from "@/page/TablePage";
+import FormsPage from "@/page/FormsPage";
+import NavigationPage from "@/page/NavigationPage";
+import Dialogpage from "@/page/DialogPage";
+import ButtonsPage from "@/page/ButtonsPage";
+import StepperPage from "@/page/StepperPage";
+import { BadgesPage } from "@/page/BadgesPage";
+import MainLayout from "@/layout/MainLayout";
+import StyleguidePage from "@/page/StyleguidePage";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        path: "/overview/styleguide",
+        element: <StyleguidePage />,
+      },
+    ],
+  },
+  {
+    path: "/sidebar/overview",
+    element: <SidebarPage />,
+  },
+  {
+    path: "/table",
+    element: <TablePage />,
+  },
+  {
+    path: "/forms",
+    element: <FormsPage />,
+  },
+  {
+    path: "/navigation",
+    element: <NavigationPage />,
+  },
+  {
+    path: "/dialog",
+    element: <Dialogpage />,
+  },
+  {
+    path: "/buttons",
+    element: <ButtonsPage />,
+  },
+  {
+    path: "/badges",
+    element: <BadgesPage />,
+  },
+  {
+    path: "/stepper",
+    element: <StepperPage />,
+  },
+]);

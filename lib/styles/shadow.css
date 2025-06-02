@@ -1,0 +1,8 @@
+@theme {
+  --shadow-button-primary-solid: 0px 4px 12px 0px rgba(255, 93, 1, 0.35);
+  --shadow-button-secondary-solid: 0px 4px 12px 0px rgba(75, 74, 94, 0.35);
+  --shadow-button-error-solid: 0px 4px 12px 0px rgba(229, 29, 42, 0.35);
+  --shadow-button-primary-outline: 0px 4px 12px 0px rgba(255, 93, 1, 0.07);
+  --shadow-button-secondary-outline: 0px 4px 12px 0px rgba(107, 105, 140, 0.07);
+  --shadow-button-error-outline: 0px 4px 12px 0px rgba(255, 93, 1, 0.07);
+}

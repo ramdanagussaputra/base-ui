@@ -1,0 +1,17 @@
+@layer components {
+  :root {
+    --dialog-panel-width: 31.25rem;
+
+    --dialog-backdrop-color: rgba(18, 18, 18, 0.4);
+
+    --dialog-title-font-size: var(--text-b1);
+    --dialog-title-line-height: var(--text-b1--line-height);
+    --dialog-title-font-weight: var(--text-b1-600--font-weight);
+    --dialog-title-color: var(--color-secondary-900);
+
+    --dialog-description-font-size: var(--text-b3);
+    --dialog-description-line-height: var(--text-b3--line-height);
+    --dialog-description-font-weight: var(--text-b3-500--font-weight);
+    --dialog-description-color: var(--color-secondary-700);
+  }
+}

@@ -1,0 +1,17 @@
+@layer components {
+  :root {
+    --table-border-color: var(--color-secondary-100);
+    --table-border-radius: 0.75rem;
+
+    --table-head-bg-color: var(--color-secondary-50);
+    --table-head-border-color: var(--color-secondary-100);
+    --table-head-sort-icon-size: 0.75rem;
+    --table-head-sort-icon-selected-bg-color: var(--color-secondary-100);
+
+    --table-cell-bg-color: var(--color-neutral-0);
+    --table-cell-height: 2.75rem;
+    --table-cell-color: var(--color-secondary-700);
+    --table-cell-line-height: 1.225rem;
+    --table-cell-font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,41 @@
+@layer components {
+  :root {
+    --badge-rounded: 4px;
+
+    --badge-medium-font-size: var(--text-b4);
+    --badge-medium-line-height: var(--text-b4--line-height);
+
+    --badge-small-font-size: var(--text-small-text);
+    --badge-small-line-height: var(--text-small-text--line-height);
+
+    --badge-font-weight: 500;
+
+    --badge-primary-text-color: var(--color-primary-600);
+    --badge-primary-bg: var(--color-primary-50);
+    --badge-primary-border-color: rgba(255, 189, 109, 0.2);
+
+    --badge-secondary-text-color: var(--color-secondary-600);
+    --badge-secondary-bg: var(--color-secondary-50);
+    --badge-secondary-border-color: rgba(117, 117, 155, 0.2);
+
+    --badge-success-text-color: var(--color-success-600);
+    --badge-success-bg: var(--color-success-50);
+    --badge-success-border-color: rgba(5, 193, 104, 0.2);
+
+    --badge-error-text-color: var(--color-error-600);
+    --badge-error-bg: var(--color-error-50);
+    --badge-error-border-color: rgba(229, 29, 42, 0.2);
+
+    --badge-warning-text-color: var(--color-warning-600);
+    --badge-warning-bg: var(--color-warning-50);
+    --badge-warning-border-color: rgba(247, 158, 9, 0.2);
+
+    --badge-info1-text-color: var(--color-info1-600);
+    --badge-info1-bg: var(--color-info1-50);
+    --badge-info1-border-color: rgba(29, 136, 254, 0.2);
+
+    --badge-info2-text-color: var(--color-info2-600);
+    --badge-info2-bg: var(--color-info2-50);
+    --badge-info2-border-color: rgba(74, 58, 255, 0.2);
+  }
+}

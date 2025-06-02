@@ -1,9 +1,27 @@
 @import "tailwindcss";
+
 @import "./color.css";
 @import "./typography.css";
+@import "./shadow.css";
+@import "./input.css";
+
+@import "./components/sidebar.css";
+@import "./components/breadcrumb.css";
+@import "./components/table.css";
+@import "./components/form//fieldset.css";
+@import "./components/tabs/rounded-tabs.css";
+@import "./components/tabs/tabs.css";
+@import "./components/dialog.css";
+@import "./components/tag/tag.css";
+@import "./components/badge.css";
+@import "./components/snackbar.css";
 
 @layer base {
   html {
-    font-size: 80%;
+    font-size: 90%;
+  }
+
+  body {
+    color: var(--color-neutral-800);
   }
 }

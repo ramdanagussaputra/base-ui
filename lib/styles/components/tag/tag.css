@@ -1,0 +1,14 @@
+@layer components {
+  :root {
+    --tag-bg: var(--color-secondary-50);
+    --tag-bg--hover: var(--color-secondary-100);
+    --tag-border-color: var(--color-secondary-200);
+    --tag-rounded: 4px;
+    --tag-font-size: var(--text-b3);
+    --tag-font-color: var(--color-secondary-700);
+    --tag-line-height: var(--text-b3--line-height);
+    --tag-font-weight: 500;
+    --tag-close-button-color: var(--color-secondary-500);
+    --tag-close-button-size: 16px;
+  }
+}

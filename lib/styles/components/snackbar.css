@@ -1,0 +1,21 @@
+@layer components {
+  :root {
+    --snackbar-rounded: 9px;
+
+    --snackbar-title-font-size: var(--text-b3);
+    --snackbar-title-line-height: var(--text-b3--line-height);
+    --snackbar-title-font-weight: 500;
+    --snackbar-title-text-color: var(--color-secondary-800);
+
+    --snackbar-description-font-size: var(--text-b4);
+    --snackbar-description-line-height: var(--text-b4--line-height);
+    --snackbar-description-font-weight: 400;
+    --snackbar-description-text-color: var(--color-secondary-600);
+
+    --snackbar-success-bg: var(--color-success-0);
+    --snackbar-success-border-color: var(--color-success-100);
+
+    --snackbar-error-bg: var(--color-error-0);
+    --snackbar-error-border-color: var(--color-error-100);
+  }
+}

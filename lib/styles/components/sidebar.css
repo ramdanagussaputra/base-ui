@@ -1,0 +1,22 @@
+@layer components {
+  :root {
+    --sidebar-width: 17.5rem;
+
+    --sidebar-bg-color: rgba(18, 18, 18);
+    --sidebar-header-bg-color: rgba(18, 18, 18);
+    --sidebar-footer-bg-color: rgba(18, 18, 18);
+
+    --sidebar-group-title-color: var(--color-neutral-500);
+
+    --sidebar-item-color: var(--color-neutral-400);
+    --sidebar-item-color--hover: rgba(255, 93, 1, 1);
+
+    --sidebar-icon-color: var(--color-neutral-500);
+    --sidebar-icon-color--hover: rgba(255, 93, 1, 1);
+
+    --sidebar-item-bg-color--hover: rgba(61, 61, 61, 0.2);
+
+    --sidebar-submenu-groupline-color: var(--color-neutral-600);
+    --sidebar-submenu-dot-color: rgba(255, 93, 1, 1);
+  }
+}
