@@ -19,6 +19,17 @@ function ButtonsPage() {
           <Button.DropZone
             onDrop={handleFiles}
             className="flex items-center gap-2 px-4 py-2"
+            dragActiveText={
+              <>
+                <Button.Icon>
+                  <AddSquare variant="Bold" />
+                </Button.Icon>
+                <span className="text-primary-700 font-semibold">
+                  Release to upload
+                </span>
+              </>
+            }
+            dragActiveClassName="bg-primary-50"
           >
             <Button.Icon>
               <AddSquare variant="Outline" />
