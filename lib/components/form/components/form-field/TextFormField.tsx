@@ -41,8 +41,6 @@ export function TextFormField({
     maxLength = extractMaxLengthValue(rules?.maxLength)!;
   }
 
-  console.log(rules);
-
   return (
     <Controller
       name={name}
