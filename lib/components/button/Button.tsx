@@ -5,6 +5,8 @@ import { Spinner } from "#/components/spinner";
 
 import { buttonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
+import { ButtonDropZone } from "#/components/button/ButtonDropZone";
+import { ButtonFileInput } from "#/components/button/ButtonFileInput";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -53,6 +55,8 @@ export function Button({
 
   const spinnerColors = isSolid ? "neutral" : color;
 
+  const [isDragging, setIsDragging] = React.useState(false);
+
   const value = useMemo(
     () => ({
       isError,
@@ -68,6 +72,8 @@ export function Button({
       isOutline,
       isLink,
       isLoading,
+      isDragging,
+      setIsDragging,
     }),
     [
       isError,
@@ -83,6 +89,8 @@ export function Button({
       isOutline,
       isLink,
       isLoading,
+      isDragging,
+      setIsDragging,
     ],
   );
 
@@ -147,3 +155,5 @@ export function Button({
 }
 
 Button.Icon = ButtonIcon;
+Button.DropZone = ButtonDropZone;
+Button.FileInput = ButtonFileInput;
