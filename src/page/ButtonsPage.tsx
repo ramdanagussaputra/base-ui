@@ -35,7 +35,13 @@ function ButtonsPage() {
               <AddSquare variant="Outline" />
             </Button.Icon>
             <span>Drag files here or</span>
-            <Button.FileInput onChange={handleFiles} accept="image/*">
+            <Button.FileInput
+              onChange={handleFiles}
+              accept="image/*"
+              onInvalidFile={(files, acceptedTypes) => {
+                console.log(files, acceptedTypes);
+              }}
+            >
               <span className="ml-1 cursor-pointer underline">
                 click to upload
               </span>

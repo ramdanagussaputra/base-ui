@@ -6,7 +6,7 @@ interface ButtonFileInputProps {
   multiple?: boolean;
   className?: string;
   children?: React.ReactNode;
-  onInvalidFile?: (files: FileList) => void;
+  onInvalidFile?: (files: FileList, allowedTypes: string[]) => void;
 }
 
 // Checks if a file matches the accept string (extension or MIME type)
@@ -51,12 +51,15 @@ export function ButtonFileInput({
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const selectedFiles = event.target.files;
+    const acceptedTypes = accept
+      ? accept.split(",").map((type) => type.trim())
+      : [];
     if (selectedFiles && accept) {
       const invalidFiles = Array.from(selectedFiles).filter(
         (file) => !doesFileMatchAccept(file, accept),
       );
       if (invalidFiles.length > 0) {
-        if (onInvalidFile) onInvalidFile(selectedFiles);
+        if (onInvalidFile) onInvalidFile(selectedFiles, acceptedTypes);
         // Clear the input so the user can try again
         event.target.value = "";
         return;
