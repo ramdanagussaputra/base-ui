@@ -14,6 +14,8 @@ type ButtonContext = {
   isOutline: boolean;
   isLink: boolean;
   isLoading: boolean;
+  isDragging: boolean;
+  setIsDragging: (dragging: boolean) => void;
 };
 
 export const buttonContext = createContext<ButtonContext | undefined>({
@@ -30,6 +32,8 @@ export const buttonContext = createContext<ButtonContext | undefined>({
   isOutline: false,
   isLink: false,
   isLoading: false,
+  isDragging: false,
+  setIsDragging: () => {},
 });
 
 export function useButtonContext() {
