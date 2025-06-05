@@ -38,8 +38,8 @@ function ButtonsPage() {
             <Button.FileInput
               onChange={handleFiles}
               accept="image/*"
-              onInvalidFile={(files, acceptedTypes) => {
-                console.log(files, acceptedTypes);
+              onInvalidFile={() => {
+                console.log("invalid file");
               }}
             >
               <span className="ml-1 cursor-pointer underline">
