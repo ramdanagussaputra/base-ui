@@ -10,6 +10,7 @@ interface ShowDialogProps {
   onCancel?: () => void;
   onClose?: () => void;
   isConfirmLoading?: boolean;
+  dialogContent?: React.ReactNode;
 }
 
 export function useDialog() {
@@ -25,6 +26,7 @@ export function useDialog() {
     setTitle,
     setIsConfirmLoading,
     setOnClose,
+    setDialogContent,
   } = useDialogContext();
 
   function showDialog({
@@ -37,6 +39,7 @@ export function useDialog() {
     onCancel,
     onClose,
     isConfirmLoading = false,
+    dialogContent,
   }: Readonly<ShowDialogProps>) {
     closeDialog?.();
 
@@ -44,6 +47,7 @@ export function useDialog() {
     setConfirmText?.(confirmText || "");
     setDescription?.(description || "");
     setIcon?.(icon || null);
+
     setOnCancel?.(() =>
       onCancel
         ? () => {
@@ -52,6 +56,7 @@ export function useDialog() {
           }
         : () => {},
     );
+
     setOnConfirm?.(() =>
       onConfirm
         ? () => {
@@ -63,8 +68,10 @@ export function useDialog() {
           }
         : () => {},
     );
+
     setTitle?.(title || "");
     setOnClose?.(() => (onClose ? onClose : () => {}));
+    setDialogContent?.(dialogContent || null);
 
     showDialogInternal?.();
   }

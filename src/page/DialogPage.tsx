@@ -62,6 +62,9 @@ function DialogPage() {
             showDialog({
               title: "Are you sure want to discard changes?",
               description: "All the changes will be lost.",
+              dialogContent: (
+                <div className="bg-error-300 max-w-[400px]">test lagi</div>
+              ),
               confirmText: "Discard",
               cancelText: "Keep Editing",
               onConfirm: () => console.log("Cancel"),
