@@ -11,6 +11,7 @@ type ModalContext = {
   setBackdropClassname: (className: string) => void;
   setPanelContainerClassname: (className: string) => void;
   setPanelClassname: (className: string) => void;
+  setIsClickOutsideClose: (isClickOutsideClose: boolean) => void;
 };
 
 export const modalContext = createContext<ModalContext | undefined>({
@@ -21,6 +22,7 @@ export const modalContext = createContext<ModalContext | undefined>({
   setContainerClassname: () => {},
   setPanelClassname: () => {},
   setPanelContainerClassname: () => {},
+  setIsClickOutsideClose: () => {},
 });
 
 export function useModalContext() {
@@ -39,6 +41,7 @@ interface ModalProviderProps {
 
 export function ModalProvider({ children }: ModalProviderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClickOutsideClose, setIsClickOutsideClose] = useState(true);
   const [modalComponent, setModalComponent] = useState<ReactNode | null>(null);
   const [containerClassName, setContainerClassName] = useState<string>("");
   const [backdropClassName, setBackdropClassName] = useState<string>("");
@@ -53,6 +56,8 @@ export function ModalProvider({ children }: ModalProviderProps) {
   function showModal() {
     setIsModalOpen(true);
   }
+
+  console.log(isClickOutsideClose, "isClickOutsideClose");
 
   return (
     <modalContext.Provider
@@ -74,13 +79,16 @@ export function ModalProvider({ children }: ModalProviderProps) {
         setPanelClassname(className) {
           setPanelClassName(className);
         },
+        setIsClickOutsideClose(isClose) {
+          setIsClickOutsideClose(isClose);
+        },
       }}
     >
       {children}
 
       <Dialog
         open={isModalOpen}
-        onClose={closeModal}
+        onClose={isClickOutsideClose ? closeModal : () => {}}
         className={cn("relative z-50 outline-none", containerClassName)}
       >
         <DialogBackdrop

@@ -14,7 +14,7 @@ function DialogPage() {
   }
 
   const { showDialog } = useDialog();
-  const { showModal } = useModal();
+  const { showModal, closeModal } = useModal();
 
   return (
     <div className="p-10">
@@ -80,7 +80,14 @@ function DialogPage() {
         <Button
           onClick={() =>
             showModal({
-              component: <p>test</p>,
+              component: (
+                <div>
+                  <p>test</p>
+                  <button onClick={closeModal}>close</button>
+                </div>
+              ),
+              panelClassname: "bg-primary-100 w-[200px]",
+              // isClickOutsideClose: false,
             })
           }
         >

@@ -10,6 +10,7 @@ export function useModal() {
     setModalComponent,
     setPanelClassname,
     setPanelContainerClassname,
+    setIsClickOutsideClose,
   } = useModalContext();
 
   function showModal({
@@ -18,12 +19,14 @@ export function useModal() {
     containerClassname,
     panelClassname,
     panelContainerClassname,
+    isClickOutsideClose,
   }: {
     component: ReactNode;
     containerClassname?: string;
     backdropClassname?: string;
     panelContainerClassname?: string;
     panelClassname?: string;
+    isClickOutsideClose?: boolean;
   }) {
     closeModal();
 
@@ -32,6 +35,12 @@ export function useModal() {
     setBackdropClassname(backdropClassname || "");
     setPanelContainerClassname(panelContainerClassname || "");
     setPanelClassname(panelClassname || "");
+    console.log(isClickOutsideClose, "isClickOutsideClose 2");
+    setIsClickOutsideClose(
+      isClickOutsideClose === undefined || isClickOutsideClose === null
+        ? true
+        : isClickOutsideClose,
+    );
 
     showModalContext();
   }
