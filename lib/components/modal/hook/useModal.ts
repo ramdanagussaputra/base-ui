@@ -35,12 +35,7 @@ export function useModal() {
     setBackdropClassname(backdropClassname || "");
     setPanelContainerClassname(panelContainerClassname || "");
     setPanelClassname(panelClassname || "");
-    console.log(isClickOutsideClose, "isClickOutsideClose 2");
-    setIsClickOutsideClose(
-      isClickOutsideClose === undefined || isClickOutsideClose === null
-        ? true
-        : isClickOutsideClose,
-    );
+    setIsClickOutsideClose(isClickOutsideClose ?? true);
 
     showModalContext();
   }

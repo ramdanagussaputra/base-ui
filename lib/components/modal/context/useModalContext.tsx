@@ -57,8 +57,6 @@ export function ModalProvider({ children }: ModalProviderProps) {
     setIsModalOpen(true);
   }
 
-  console.log(isClickOutsideClose, "isClickOutsideClose");
-
   return (
     <modalContext.Provider
       value={{
