@@ -52,7 +52,9 @@ export function ButtonFileInput({
   const context = useContext(ButtonFileInputContext);
 
   // Triggers the hidden file input when called
-  const triggerFileDialog = () => inputElementReference.current?.click();
+  const triggerFileDialog = React.useCallback(() => {
+    inputElementReference.current?.click();
+  }, []);
 
   // Register/unregister the trigger with the context
   useEffect(() => {
@@ -60,7 +62,7 @@ export function ButtonFileInput({
       context.registerTrigger(triggerFileDialog);
       return () => context.unregisterTrigger();
     }
-  }, [context]);
+  }, [context, triggerFileDialog]);
 
   // Handles file selection and validation
   const handleFileInputChange = (
