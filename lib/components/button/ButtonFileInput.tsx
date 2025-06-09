@@ -92,9 +92,7 @@ export function ButtonFileInput({
         onChange={handleFileInputChange}
         className={className}
       />
-      <span onClick={triggerFileDialog} style={{ cursor: "pointer" }}>
-        {children}
-      </span>
+      {children}
     </>
   );
 }

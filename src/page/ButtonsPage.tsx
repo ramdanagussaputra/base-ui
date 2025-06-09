@@ -31,10 +31,6 @@ function ButtonsPage() {
             }
             dragActiveClassName="bg-primary-50"
           >
-            <Button.Icon>
-              <AddSquare variant="Outline" />
-            </Button.Icon>
-            <span>Drag files here or</span>
             <Button.FileInput
               onChange={handleFiles}
               accept="image/*"
@@ -42,9 +38,15 @@ function ButtonsPage() {
                 console.log("invalid file");
               }}
             >
-              <span className="ml-1 cursor-pointer underline">
-                click to upload
-              </span>
+              <div className="flex items-center gap-2">
+                <Button.Icon>
+                  <AddSquare variant="Outline" />
+                </Button.Icon>
+                <span>Drag files here or</span>
+                <span className="ml-1 cursor-pointer underline">
+                  click to upload
+                </span>
+              </div>
             </Button.FileInput>
           </Button.DropZone>
         </Button>
