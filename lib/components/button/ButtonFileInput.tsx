@@ -1,6 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 
-interface ButtonFileInputProps {
+export interface ButtonFileInputProps {
   onChange?: (files: FileList | null) => void;
   accept?: string;
   multiple?: boolean;
@@ -40,16 +46,21 @@ function doesFileMatchAccept(file: File, acceptString: string): boolean {
   });
 }
 
-export function ButtonFileInput({
-  onChange,
-  accept,
-  multiple,
-  className,
-  children,
-  onInvalidFile,
-}: ButtonFileInputProps) {
-  const inputElementReference = React.useRef<HTMLInputElement>(null);
+export const ButtonFileInput = forwardRef<
+  HTMLInputElement,
+  ButtonFileInputProps
+>(function ButtonFileInput(
+  { onChange, accept, multiple, className, children, onInvalidFile },
+  ref,
+) {
+  const inputElementReference = useRef<HTMLInputElement>(null);
   const context = useContext(ButtonFileInputContext);
+
+  // Expose the input ref to parent
+  useImperativeHandle(
+    ref,
+    () => inputElementReference.current as HTMLInputElement,
+  );
 
   // Triggers the hidden file input when called
   const triggerFileDialog = React.useCallback(() => {
@@ -75,7 +86,6 @@ export function ButtonFileInput({
       );
       if (invalidFiles.length > 0) {
         if (onInvalidFile) onInvalidFile(selectedFiles, accept);
-        // Clear the input so the user can try again
         event.target.value = "";
         return;
       }
@@ -97,4 +107,4 @@ export function ButtonFileInput({
       {children}
     </>
   );
-}
+});

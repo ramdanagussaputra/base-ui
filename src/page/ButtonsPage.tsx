@@ -1,11 +1,18 @@
 import { AddSquare } from "iconsax-react";
 import { Button } from "massive-base-ui";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function ButtonsPage() {
   const [files, setFiles] = useState<FileList | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFiles = (fileList: FileList | null) => {
     setFiles(fileList);
+  };
+  const clearFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+      setFiles(null);
+    }
   };
 
   return (
@@ -32,8 +39,9 @@ function ButtonsPage() {
             dragActiveClassName="bg-primary-50"
           >
             <Button.FileInput
+              ref={fileInputRef}
               onChange={handleFiles}
-              accept="image/*"
+              accept=".csv"
               onInvalidFile={() => {
                 console.log("invalid file");
               }}
@@ -50,6 +58,13 @@ function ButtonsPage() {
             </Button.FileInput>
           </Button.DropZone>
         </Button>
+        <button
+          type="button"
+          className="mt-2 rounded bg-neutral-200 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-300"
+          onClick={clearFileInput}
+        >
+          Clear File Input
+        </button>
         {files && (
           <div className="mt-2 text-sm text-neutral-700">
             <strong>Selected files:</strong>
