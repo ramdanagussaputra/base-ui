@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 interface ButtonFileInputProps {
   onChange?: (files: FileList | null) => void;
@@ -6,8 +6,16 @@ interface ButtonFileInputProps {
   multiple?: boolean;
   className?: string;
   children?: React.ReactNode;
-  onInvalidFile?: (files: FileList) => void;
+  onInvalidFile?: (files: FileList, accept: string) => void;
 }
+
+// Context for registering the file input trigger
+interface ButtonFileInputContextType {
+  registerTrigger: (trigger: () => void) => void;
+  unregisterTrigger: () => void;
+}
+export const ButtonFileInputContext =
+  React.createContext<ButtonFileInputContextType | null>(null);
 
 // Checks if a file matches the accept string (extension or MIME type)
 function doesFileMatchAccept(file: File, acceptString: string): boolean {
@@ -41,10 +49,18 @@ export function ButtonFileInput({
   onInvalidFile,
 }: ButtonFileInputProps) {
   const inputElementReference = React.useRef<HTMLInputElement>(null);
+  const context = useContext(ButtonFileInputContext);
 
-  // Triggers the hidden file input when the visible element is clicked
-  const handleVisibleElementClick = () =>
-    inputElementReference.current?.click();
+  // Triggers the hidden file input when called
+  const triggerFileDialog = () => inputElementReference.current?.click();
+
+  // Register/unregister the trigger with the context
+  useEffect(() => {
+    if (context) {
+      context.registerTrigger(triggerFileDialog);
+      return () => context.unregisterTrigger();
+    }
+  }, [context]);
 
   // Handles file selection and validation
   const handleFileInputChange = (
@@ -56,7 +72,7 @@ export function ButtonFileInput({
         (file) => !doesFileMatchAccept(file, accept),
       );
       if (invalidFiles.length > 0) {
-        if (onInvalidFile) onInvalidFile(selectedFiles);
+        if (onInvalidFile) onInvalidFile(selectedFiles, accept);
         // Clear the input so the user can try again
         event.target.value = "";
         return;
@@ -76,7 +92,7 @@ export function ButtonFileInput({
         onChange={handleFileInputChange}
         className={className}
       />
-      <span onClick={handleVisibleElementClick} style={{ cursor: "pointer" }}>
+      <span onClick={triggerFileDialog} style={{ cursor: "pointer" }}>
         {children}
       </span>
     </>
