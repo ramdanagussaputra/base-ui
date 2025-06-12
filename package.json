@@ -29,6 +29,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "@tanstack/react-table": "^8.20.6",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "iconsax-react": "^0.0.8",
     "notistack": "^3.0.2",
     "react": "^18.3.1",
