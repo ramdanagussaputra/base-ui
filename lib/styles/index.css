@@ -15,6 +15,7 @@
 @import "./components/tag/tag.css";
 @import "./components/badge.css";
 @import "./components/snackbar.css";
+@import "./components/progresstooltip.css";
 
 @layer base {
   html {
