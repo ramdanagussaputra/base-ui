@@ -10,21 +10,24 @@ export function ProgressIndicator({
   isLastItem,
 }: ProgressIndicatorProps) {
   return (
-    <>
-      <div className="border-secondary-200 z-10 flex h-[28px] w-[28px] items-center justify-center rounded-full border bg-(--progress-tooltip-bg)">
+    <div className="relative flex justify-center">
+      <div className="border-secondary-200 z-10 flex size-[1.75rem] items-center justify-center rounded-full border bg-(--progress-tooltip-bg)">
         {status === "completed" && (
-          <TickCircle variant="Bold" size={22} className="text-primary-600" />
+          <TickCircle
+            variant="Bold"
+            className="text-primary-600 size-[1.375rem]"
+          />
         )}
 
         {status === "in-progress" && (
-          <span className="bg-primary-600 flex size-[18px] items-center justify-center rounded-full">
-            <span className="size-[8px] rounded-full bg-(--progress-tooltip-bg)" />
+          <span className="bg-primary-600 flex size-[1.125rem] items-center justify-center rounded-full">
+            <span className="size-[0.6rem] rounded-full bg-(--progress-tooltip-bg)" />
           </span>
         )}
       </div>
       {!isLastItem && (
-        <span className="bg-secondary-200 absolute ms-[13.5px] h-full w-[0.5px]" />
+        <span className="bg-secondary-200 absolute h-full w-[0.5px]" />
       )}
-    </>
+    </div>
   );
 }

@@ -30,8 +30,8 @@ export function ProgressTooltip({
         className={cn(
           "absolute z-[9999] hidden items-center rounded-(--progress-tooltip-rounded) bg-(--progress-tooltip-bg) p-5 shadow-(--progress-tooltip-shadow) group-hover/progress-tooltip:flex",
           {
-            "left-0 -translate-x-[calc(100%+16px)]": position === "left",
-            "right-0 translate-x-[calc(100%+16px)]": position === "right",
+            "left-0 -translate-x-[calc(100%+1rem)]": position === "left",
+            "right-0 translate-x-[calc(100%+1rem)]": position === "right",
           },
         )}
       >
@@ -58,8 +58,8 @@ export function ProgressTooltip({
           src={chevron}
           alt="chevron"
           className={cn("absolute", {
-            "right-0 translate-x-[13px]": position === "left",
-            "left-0 -translate-x-[13px] rotate-180": position === "right",
+            "right-0 translate-x-[0.9rem]": position === "left",
+            "left-0 -translate-x-[0.9rem] rotate-180": position === "right",
           })}
         />
       </div>

@@ -1,7 +1,7 @@
 @layer components {
   :root {
-    --progress-tooltip-rounded: 12px;
-    --progress-tooltip-shadow: 0 0 32px 0 rgba(43, 39, 64, 0.1);
+    --progress-tooltip-rounded: 0.75rem;
+    --progress-tooltip-shadow: 0 0 2rem 0 rgba(43, 39, 64, 0.1);
     --progress-tooltip-bg: #fdfdfd;
   }
 }

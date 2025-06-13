@@ -19,8 +19,8 @@ export function ProgressCard({ content, isLastItem }: ProgressCardProps) {
       <ProgressIndicator status={content.status} isLastItem={isLastItem} />
       <div
         className={cn("flex flex-col gap-1", {
-          "mb-[17px]": content?.date && !isLastItem,
-          "mb-[35px]": !content?.date && !isLastItem,
+          "mb-[1.0625rem]": content?.date && !isLastItem,
+          "mb-[2.1875rem]": !content?.date && !isLastItem,
         })}
       >
         <p
