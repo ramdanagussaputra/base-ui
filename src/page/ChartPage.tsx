@@ -74,8 +74,10 @@ export default function ChartPage() {
               showLegend
               showGrid
               showYAxis
-              xAxisTick={{ fontSize: 12, fill: "#6b7280" }}
-              yAxisTick={{ fontSize: 12, fill: "#6b7280" }}
+              xAxisOptions={{
+                tick: { fontSize: 12, fill: "#6b7280" },
+              }}
+              yAxisOptions={{ tick: { fontSize: 12, fill: "#6b7280" } }}
             />
           </div>
 
