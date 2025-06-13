@@ -10,6 +10,7 @@ import StepperPage from "@/page/StepperPage";
 import { BadgesPage } from "@/page/BadgesPage";
 import MainLayout from "@/layout/MainLayout";
 import StyleguidePage from "@/page/StyleguidePage";
+import ChartPage from "@/page/ChartPage";
 
 export const router = createBrowserRouter([
   {
@@ -54,5 +55,9 @@ export const router = createBrowserRouter([
   {
     path: "/stepper",
     element: <StepperPage />,
+  },
+  {
+    path: "/chart",
+    element: <ChartPage />,
   },
 ]);
