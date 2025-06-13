@@ -14,3 +14,4 @@ export * from "#/components/snackbar";
 export * from "#/components/modal";
 export * from "#/components/tooltip";
 export * from "#/components/spinner";
+export * from "#/components/chart";
