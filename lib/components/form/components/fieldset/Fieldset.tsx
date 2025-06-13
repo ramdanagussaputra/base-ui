@@ -10,7 +10,7 @@ import { FieldsetRadio } from "#/components/form/components/fieldset/FieldsetRad
 import { FieldsetRadioGroup } from "#/components/form/components/fieldset/FieldsetRadioGroup";
 import { FieldsetTextArea } from "#/components/form/components/fieldset/FieldsetTextArea";
 import { FieldsetAsyncSelect } from "#/components/form/components/fieldset/FieldsetAsyncSelect";
-import FieldsetToggle from "#/components/form/components/fieldset/FieldsetToggle";
+import { FieldsetToggle } from "#/components/form/components/fieldset/FieldsetToggle";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
