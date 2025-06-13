@@ -10,13 +10,14 @@ import { FieldsetRadio } from "#/components/form/components/fieldset/FieldsetRad
 import { FieldsetRadioGroup } from "#/components/form/components/fieldset/FieldsetRadioGroup";
 import { FieldsetTextArea } from "#/components/form/components/fieldset/FieldsetTextArea";
 import { FieldsetAsyncSelect } from "#/components/form/components/fieldset/FieldsetAsyncSelect";
+import FieldsetToggle from "#/components/form/components/fieldset/FieldsetToggle";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
 
 export interface FieldsetProps {
   children: React.ReactNode;
-  size?: "small" | "medium" | "large";
+  size?: "extra-small" | "small" | "medium" | "large";
   isRequired?: boolean;
   isDisabled?: boolean;
   isError?: boolean;
@@ -33,12 +34,14 @@ export function Fieldset({
   isError = false,
   isSuccess = false,
 }: Readonly<FieldsetProps>) {
+  const isExtraSmall = size === "extra-small";
   const isSmall = size === "small";
   const isMedium = size === "medium";
   const isLarge = size === "large";
 
   const contextValue = useMemo(
     () => ({
+      isExtraSmall,
       isSmall,
       isMedium,
       isLarge,
@@ -47,7 +50,16 @@ export function Fieldset({
       isDisabled,
       isError,
     }),
-    [isSmall, isMedium, isLarge, isRequired, isDisabled, isError, isSuccess],
+    [
+      isExtraSmall,
+      isSmall,
+      isMedium,
+      isLarge,
+      isRequired,
+      isDisabled,
+      isError,
+      isSuccess,
+    ],
   );
 
   return (
@@ -69,3 +81,4 @@ Fieldset.Radio = FieldsetRadio;
 Fieldset.RadioGroup = FieldsetRadioGroup;
 Fieldset.Textarea = FieldsetTextArea;
 Fieldset.AsyncSelect = FieldsetAsyncSelect;
+Fieldset.Toggle = FieldsetToggle;

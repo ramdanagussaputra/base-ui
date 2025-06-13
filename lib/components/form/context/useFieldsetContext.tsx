@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 
 type FieldsetContext = {
+  isExtraSmall?: boolean;
   isSmall: boolean;
   isMedium: boolean;
   isLarge: boolean;

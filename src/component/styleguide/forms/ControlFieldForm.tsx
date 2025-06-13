@@ -3,6 +3,8 @@ import { useFormContext } from "react-hook-form";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
+import { ToggleFormField } from "#/components/form/components/form-field/ToggleFormField";
+
 function ControlFieldForm() {
   const { control } = useFormContext();
   return (
@@ -23,6 +25,10 @@ function ControlFieldForm() {
             { label: "Radio 3", value: "radio3" },
           ]}
         />
+
+        <ToggleFormField name="toggle2" control={control} size="small" />
+        <ToggleFormField name="toggle3" control={control} size="medium" />
+        <ToggleFormField name="toggle4" control={control} size="large" />
       </div>
     </>
   );
