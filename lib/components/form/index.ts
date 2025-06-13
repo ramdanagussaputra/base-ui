@@ -7,5 +7,6 @@ export { SelectFormField } from "#/components/form/components/form-field/SelectF
 export { RadioGroupFormField } from "#/components/form/components/form-field/RadioGroupFormField";
 export { TextAreaFormField } from "#/components/form/components/form-field/TextAreaFormField";
 export { AsyncSelectFormField } from "#/components/form/components/form-field/AsyncSelectFormField";
+export { ToggleFormField } from "#/components/form/components/form-field/ToggleFormField";
 
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";
