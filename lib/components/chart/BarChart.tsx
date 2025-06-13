@@ -45,6 +45,8 @@ export interface BarChartProps {
     colors?: string[];
   };
   showDataLabels?: boolean;
+  xAxisTick?: React.SVGAttributes<SVGTextElement>;
+  yAxisTick?: React.SVGAttributes<SVGTextElement>;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -62,6 +64,8 @@ export const BarChart: React.FC<BarChartProps> = ({
   margin = { top: 5, right: 30, left: 20, bottom: 5 },
   backgroundBar,
   showDataLabels = false,
+  xAxisTick,
+  yAxisTick,
 }) => {
   const CustomLabel = (props: any) => {
     const { x, y, width, height, value } = props;
@@ -179,15 +183,16 @@ export const BarChart: React.FC<BarChartProps> = ({
         <RechartsBarChart
           data={transformedData}
           margin={margin}
-          barCategoryGap="20%"
+          barCategoryGap="10%"
         >
           {showGrid && <CartesianGrid strokeDasharray="3 3" />}
-          {showXAxis && <XAxis dataKey={xAxisDataKey} />}
+          {showXAxis && <XAxis dataKey={xAxisDataKey} tick={xAxisTick} />}
           {showYAxis && (
             <YAxis
               domain={
                 backgroundBar ? [0, backgroundBar.maxValue || 100] : undefined
               }
+              tick={yAxisTick}
             />
           )}
           {showTooltip && <Tooltip />}

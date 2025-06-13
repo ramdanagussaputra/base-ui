@@ -17,12 +17,12 @@ const barData = [
   { name: "Apr", stream: 18 },
   { name: "May", stream: 68 },
   { name: "Jun", stream: 21 },
-  { name: "Jul", stream: 46 },
-  { name: "Aug", stream: 46 },
-  { name: "Sep", stream: 64 },
-  { name: "Oct", stream: 79 },
-  { name: "Nov", stream: 43 },
-  { name: "Dec", stream: 85 },
+  // { name: "Jul", stream: 46 },
+  // { name: "Aug", stream: 46 },
+  // { name: "Sep", stream: 64 },
+  // { name: "Oct", stream: 79 },
+  // { name: "Nov", stream: 43 },
+  // { name: "Dec", stream: 85 },
 ];
 
 const pieData = [
@@ -69,8 +69,13 @@ export default function ChartPage() {
                 maxValue: 100,
               }}
               height={300}
-              // showTooltip={false}
-              showDataLabels={true}
+              showTooltip={false}
+              showDataLabels
+              showLegend
+              showGrid
+              showYAxis
+              xAxisTick={{ fontSize: 12, fill: "#6b7280" }}
+              yAxisTick={{ fontSize: 12, fill: "#6b7280" }}
             />
           </div>
 
