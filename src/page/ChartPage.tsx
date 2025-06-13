@@ -64,12 +64,12 @@ export default function ChartPage() {
                   name: "2024",
                 },
               ]}
-              backgroundBar={{
-                fill: "#f1d4d7",
-                maxValue: 100,
-              }}
+              // backgroundBar={{
+              //   fill: "#f1d4d7",
+              //   maxValue: 100,
+              // }}
               height={300}
-              showTooltip={false}
+              showTooltip
               showDataLabels
               showLegend
               showGrid

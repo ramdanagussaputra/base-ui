@@ -180,7 +180,9 @@ export const BarChart: React.FC<BarChartProps> = ({
               fill={bar.colors![cellIndex % bar.colors!.length]}
             />
           ))}
-        {showDataLabels && <LabelList dataKey={bar.dataKey} position="top" />}
+        {showDataLabels && (
+          <LabelList dataKey={bar.dataKey} content={CustomLabel} />
+        )}
       </Bar>
     ));
   };
