@@ -9,7 +9,7 @@ interface FieldsetToggleProps {
   onChange?: (state: boolean) => void;
 }
 
-export default function FieldsetToggle({
+export function FieldsetToggle({
   value,
   onChange,
 }: Readonly<FieldsetToggleProps>) {
