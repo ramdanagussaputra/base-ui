@@ -55,6 +55,9 @@ export interface BarChartProps {
   showDataLabels?: boolean;
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
+  legendOptions?: {
+    formatter?: (value: string, entry: any, index: number) => React.ReactNode;
+  };
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -74,6 +77,7 @@ export const BarChart: React.FC<BarChartProps> = ({
   showDataLabels = false,
   xAxisOptions,
   yAxisOptions,
+  legendOptions,
 }) => {
   const CustomLabel = (props: any) => {
     const { x, y, width, height, value } = props;
@@ -96,6 +100,64 @@ export const BarChart: React.FC<BarChartProps> = ({
         {value}
       </text>
     );
+  };
+
+  const CustomTooltip = (props: any) => {
+    const { active, payload, label } = props;
+
+    if (active && payload && payload.length) {
+      // Filter out the empty bar data from the tooltip
+      const filteredPayload = payload.filter(
+        (p: any) => !p.dataKey.startsWith("__empty"),
+      );
+
+      if (filteredPayload.length === 0) {
+        return null;
+      }
+
+      return (
+        <div
+          className="recharts-default-tooltip"
+          style={{
+            margin: "0px",
+            padding: "10px",
+            backgroundColor: "rgb(255, 255, 255)",
+            border: "1px solid rgb(204, 204, 204)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <p className="recharts-tooltip-label" style={{ margin: "0px" }}>
+            {label}
+          </p>
+          <ul
+            className="recharts-tooltip-item-list"
+            style={{ padding: "0px", margin: "0px" }}
+          >
+            {filteredPayload.map((p: any, index: number) => (
+              <li
+                key={`item-${index}`}
+                className="recharts-tooltip-item"
+                style={{
+                  display: "block",
+                  paddingTop: "4px",
+                  paddingBottom: "4px",
+                  color: p.color || "#000",
+                }}
+              >
+                <span className="recharts-tooltip-item-name">{p.name}</span>
+                <span className="recharts-tooltip-item-separator"> : </span>
+                <span className="recharts-tooltip-item-value">{p.value}</span>
+                <span className="recharts-tooltip-item-unit">
+                  {p.unit || ""}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const transformedData = React.useMemo(() => {
@@ -205,14 +267,20 @@ export const BarChart: React.FC<BarChartProps> = ({
               {...yAxisOptions}
             />
           )}
-          {showTooltip && <Tooltip />}
+          {showTooltip && <Tooltip content={<CustomTooltip />} />}
           {showLegend && (
             <Legend
               payload={
                 backgroundBar && bars.length > 0
                   ? [
                       {
-                        value: bars[0].name,
+                        value: legendOptions?.formatter
+                          ? legendOptions.formatter(
+                              bars[0].name || "",
+                              bars[0],
+                              0,
+                            )
+                          : bars[0].name,
                         type: "square",
                         id: bars[0].dataKey,
                         color: bars[0].fill,
@@ -220,6 +288,7 @@ export const BarChart: React.FC<BarChartProps> = ({
                     ]
                   : undefined
               }
+              formatter={legendOptions?.formatter}
             />
           )}
           {renderBars()}

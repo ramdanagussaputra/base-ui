@@ -61,13 +61,13 @@ export default function ChartPage() {
                 {
                   dataKey: "stream",
                   fill: "#EB2127",
-                  name: "2024",
+                  name: "Streams",
                 },
               ]}
-              // backgroundBar={{
-              //   fill: "#f1d4d7",
-              //   maxValue: 100,
-              // }}
+              backgroundBar={{
+                fill: "#f1d4d780",
+                maxValue: 100,
+              }}
               height={300}
               showTooltip
               showDataLabels
@@ -78,6 +78,9 @@ export default function ChartPage() {
                 tick: { fontSize: 12, fill: "#6b7280" },
               }}
               yAxisOptions={{ tick: { fontSize: 12, fill: "#6b7280" } }}
+              legendOptions={{
+                formatter: () => <span className="text-neutral-900">2024</span>,
+              }}
             />
           </div>
 
