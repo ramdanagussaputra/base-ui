@@ -1,4 +1,9 @@
-import { Badge, capitalizeFirstWord, Tooltip } from "massive-base-ui";
+import {
+  Badge,
+  capitalizeFirstWord,
+  Tooltip,
+  ProgressTooltip,
+} from "massive-base-ui";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideTitle from "@/component/styleguide/StyleguideTitle";
@@ -7,8 +12,6 @@ import {
   progressTooltipConfigs,
   tooltipConfigs,
 } from "@/component/styleguide/tooltip/data";
-
-import { ProgressTooltip } from "#/components/tooltip/ProgressTooltip";
 
 function Tooltips() {
   return (
