@@ -19,6 +19,10 @@ function Forms() {
       multiSelect: null,
       customOptionSelect: null,
       checkbox: null,
+      toggle1: false,
+      toggle2: false,
+      toggle3: false,
+      toggle4: false,
     },
     mode: "all",
   });
