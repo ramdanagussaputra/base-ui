@@ -11,7 +11,7 @@ import {
   LabelList,
   Cell,
 } from "recharts";
-import { cn } from "#/utils";
+import { cn, formatToShortScale } from "#/utils";
 
 export interface AxisOptions {
   tick?: React.SVGAttributes<SVGTextElement>;
@@ -97,7 +97,7 @@ export const BarChart: React.FC<BarChartProps> = ({
         fontSize="12"
         fontWeight="bold"
       >
-        {value}
+        {typeof value === "number" ? formatToShortScale(value) : value}
       </text>
     );
   };
@@ -146,7 +146,11 @@ export const BarChart: React.FC<BarChartProps> = ({
               >
                 <span className="recharts-tooltip-item-name">{p.name}</span>
                 <span className="recharts-tooltip-item-separator"> : </span>
-                <span className="recharts-tooltip-item-value">{p.value}</span>
+                <span className="recharts-tooltip-item-value">
+                  {typeof p?.value === "number"
+                    ? p.value.toLocaleString()
+                    : p.value}
+                </span>
                 <span className="recharts-tooltip-item-unit">
                   {p.unit || ""}
                 </span>
@@ -263,6 +267,9 @@ export const BarChart: React.FC<BarChartProps> = ({
             <YAxis
               domain={
                 backgroundBar ? [0, backgroundBar.maxValue || 100] : undefined
+              }
+              tickFormatter={(value) =>
+                typeof value === "number" ? formatToShortScale(value) : value
               }
               {...yAxisOptions}
             />
