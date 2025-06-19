@@ -15,6 +15,7 @@ export type DialogContext = {
   setIcon?: (icon: React.ReactNode) => void;
   setIsConfirmLoading?: (loading: boolean) => void;
   setOnClose?: (callback: () => void) => void;
+  setDialogContent?: (content: React.ReactNode) => void;
 };
 
 export const dialogContext = createContext<DialogContext | undefined>({
@@ -29,6 +30,7 @@ export const dialogContext = createContext<DialogContext | undefined>({
   setTitle: () => {},
   setIsConfirmLoading: () => {},
   setOnClose: () => {},
+  setDialogContent: () => {},
 });
 
 export function useDialogContext() {
@@ -56,6 +58,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
   const [onConfirm, setOnConfirm] = useState<null | (() => void)>(null);
   const [title, setTitle] = useState("");
   const [isConfirmLoading, setIsConfirmLoading] = useState(false);
+  const [dialogContent, setDialogContent] = useState<React.ReactNode>(null);
 
   const value = useMemo(
     () => ({
@@ -70,6 +73,7 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
       setTitle: (text: string) => setTitle(text),
       setIsConfirmLoading: (value: boolean) => setIsConfirmLoading(value),
       setOnClose: (callback: () => void) => setOnClose(callback),
+      setDialogContent: (content: React.ReactNode) => setDialogContent(content),
     }),
     [],
   );
@@ -98,6 +102,8 @@ export function DialogProvider({ children }: Readonly<DialogProviderProps>) {
             <Dialog.Panel.Description>
               {descriptionText}
             </Dialog.Panel.Description>
+
+            {dialogContent}
           </div>
 
           <div className="flex w-full gap-2.5">

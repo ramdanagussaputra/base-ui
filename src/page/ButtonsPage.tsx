@@ -1,11 +1,18 @@
 import { AddSquare } from "iconsax-react";
 import { Button } from "massive-base-ui";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function ButtonsPage() {
   const [files, setFiles] = useState<FileList | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFiles = (fileList: FileList | null) => {
     setFiles(fileList);
+  };
+  const clearFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+      setFiles(null);
+    }
   };
 
   return (
@@ -31,17 +38,33 @@ function ButtonsPage() {
             }
             dragActiveClassName="bg-primary-50"
           >
-            <Button.Icon>
-              <AddSquare variant="Outline" />
-            </Button.Icon>
-            <span>Drag files here or</span>
-            <Button.FileInput onChange={handleFiles} accept="image/*">
-              <span className="ml-1 cursor-pointer underline">
-                click to upload
-              </span>
+            <Button.FileInput
+              ref={fileInputRef}
+              onChange={handleFiles}
+              accept=".csv"
+              onInvalidFile={() => {
+                console.log("invalid file");
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <Button.Icon>
+                  <AddSquare variant="Outline" />
+                </Button.Icon>
+                <span>Drag files here or</span>
+                <span className="ml-1 cursor-pointer underline">
+                  click to upload
+                </span>
+              </div>
             </Button.FileInput>
           </Button.DropZone>
         </Button>
+        <button
+          type="button"
+          className="mt-2 rounded bg-neutral-200 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-300"
+          onClick={clearFileInput}
+        >
+          Clear File Input
+        </button>
         {files && (
           <div className="mt-2 text-sm text-neutral-700">
             <strong>Selected files:</strong>

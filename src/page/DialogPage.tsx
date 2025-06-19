@@ -14,7 +14,7 @@ function DialogPage() {
   }
 
   const { showDialog } = useDialog();
-  const { showModal } = useModal();
+  const { showModal, closeModal } = useModal();
 
   return (
     <div className="p-10">
@@ -62,6 +62,9 @@ function DialogPage() {
             showDialog({
               title: "Are you sure want to discard changes?",
               description: "All the changes will be lost.",
+              dialogContent: (
+                <div className="bg-error-300 max-w-[400px]">test lagi</div>
+              ),
               confirmText: "Discard",
               cancelText: "Keep Editing",
               onConfirm: () => console.log("Cancel"),
@@ -80,7 +83,14 @@ function DialogPage() {
         <Button
           onClick={() =>
             showModal({
-              component: <p>test</p>,
+              component: (
+                <div>
+                  <p>test</p>
+                  <button onClick={closeModal}>close</button>
+                </div>
+              ),
+              panelClassname: "bg-primary-100 w-[200px]",
+              // isClickOutsideClose: false,
             })
           }
         >
