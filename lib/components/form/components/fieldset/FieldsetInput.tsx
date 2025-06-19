@@ -76,9 +76,9 @@ export function FieldsetInput({
         className={cn(
           "h-full w-full bg-transparent text-(--fieldset-text-color) outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
           {
-            "text-b2-500 placeholder:text-b2-500": isLarge,
-            "text-b3-500 placeholder:text-b3-500": isMedium,
-            "text-b4-500 placeholder:text-b4-500": isSmall,
+            "text-b2-400 placeholder:text-b2-400": isLarge,
+            "text-b3-400 placeholder:text-b3-400": isMedium,
+            "text-b4-400 placeholder:text-b4-400": isSmall,
           },
         )}
       />
