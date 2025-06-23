@@ -14,8 +14,10 @@ function MessageBoxes() {
           title="Success Message"
           icon={<TickCircle variant="Bulk" />}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
 
         <MessageBox
@@ -33,8 +35,10 @@ function MessageBoxes() {
             </Button>
           }
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
 
         <MessageBox
@@ -45,8 +49,10 @@ function MessageBoxes() {
             console.log("close");
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
 
         <MessageBox
@@ -54,8 +60,10 @@ function MessageBoxes() {
           title="Error Message"
           icon={<Warning2 variant="Bulk" />}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
       </div>
     </StyleguideGroup>

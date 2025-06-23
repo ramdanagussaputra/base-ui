@@ -54,9 +54,9 @@ export function MessageBox({
           {title}
         </h6>
 
-        <p className="text-b3-400 text-[var(--messagebox-description-color)]">
+        <div className="text-b3-400 text-[var(--messagebox-description-color)]">
           {children}
-        </p>
+        </div>
       </div>
 
       {action && <div className="self-center">{action}</div>}
