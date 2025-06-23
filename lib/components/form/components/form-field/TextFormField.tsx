@@ -79,7 +79,7 @@ export function TextFormField({
             onBlur={field.onBlur}
             lengthCap={maxLength}
           >
-            {endElement}
+            <div className="flex items-center gap-1">{endElement}</div>
           </Fieldset.TextInput>
 
           {fieldState.error?.message && (
