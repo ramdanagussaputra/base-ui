@@ -9,6 +9,7 @@ import { extractMaxLengthValue } from "#/utils";
 type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
+  endElement?: React.ReactNode;
 };
 
 export function TextFormField({
@@ -24,6 +25,7 @@ export function TextFormField({
   type = "text",
   size = "medium",
   withoutTagLabel = false,
+  endElement,
 }: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
@@ -76,7 +78,9 @@ export function TextFormField({
             }}
             onBlur={field.onBlur}
             lengthCap={maxLength}
-          />
+          >
+            <div className="flex items-center gap-1">{endElement}</div>
+          </Fieldset.TextInput>
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
