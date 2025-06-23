@@ -1,0 +1,22 @@
+@layer components {
+  :root {
+    --messagebox-title-color: var(--color-secondary-800);
+    --messagebox-description-color: var(--color-secondary-600);
+
+    --messagebox-success-bg-color: var(--color-success-0);
+    --messagebox-success-border-color: var(--color-success-100);
+    --messagebox-success-icon-color: var(--color-success-500);
+
+    --messagebox-info-bg-color: var(--color-info1-0);
+    --messagebox-info-border-color: var(--color-info1-100);
+    --messagebox-info-icon-color: var(--color-info1-500);
+
+    --messagebox-warning-bg-color: var(--color-warning-0);
+    --messagebox-warning-border-color: var(--color-warning-100);
+    --messagebox-warning-icon-color: var(--color-warning-500);
+
+    --messagebox-error-bg-color: var(--color-error-0);
+    --messagebox-error-border-color: var(--color-error-100);
+    --messagebox-error-icon-color: var(--color-error-500);
+  }
+}
