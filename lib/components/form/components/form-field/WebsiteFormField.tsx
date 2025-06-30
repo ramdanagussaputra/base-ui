@@ -1,6 +1,7 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
+import { useCallback } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
@@ -36,11 +37,28 @@ export function WebsiteFormField({
   withoutTagLabel = false,
   includePrefix = true,
 }: Readonly<FormatedWebsiteFormFieldProps>) {
-  let maxLength: number;
+  const maxLength = rules?.maxLength
+    ? extractMaxLengthValue(rules.maxLength)
+    : undefined;
 
-  if (rules?.maxLength) {
-    maxLength = extractMaxLengthValue(rules?.maxLength)!;
-  }
+  const handleInputChange = useCallback(
+    (inputValue: string, fieldOnChange: (value: string) => void) => {
+      const value = includePrefix
+        ? getFullValue(inputValue, "https://")
+        : inputValue;
+      fieldOnChange(value);
+      onChange?.(value);
+    },
+    [includePrefix, onChange],
+  );
+
+  const getInputDisplayValue = useCallback(
+    (fieldValue: string) => {
+      if (!includePrefix) return fieldValue || "";
+      return getDisplayValue(fieldValue, "https://");
+    },
+    [includePrefix],
+  );
 
   return (
     <Controller
@@ -73,7 +91,7 @@ export function WebsiteFormField({
                 getHeightClass(size),
               )}
             >
-              <span className="text-b3-400 text-primary-600 px-[0.75em]">
+              <span className="text-b3-400 text-primary-600 px-[0.8125em]">
                 https://
               </span>
             </div>
@@ -81,18 +99,10 @@ export function WebsiteFormField({
             <Fieldset.TextInput
               type={type}
               placeholder={placeholder}
-              value={
-                includePrefix
-                  ? getDisplayValue(field.value, "https://")
-                  : field.value
+              value={getInputDisplayValue(field.value)}
+              onChange={(inputValue) =>
+                handleInputChange(inputValue, field.onChange)
               }
-              onChange={(inputValue) => {
-                const value = includePrefix
-                  ? getFullValue(inputValue, "https://")
-                  : inputValue;
-                field.onChange(value);
-                onChange?.(value);
-              }}
               onBlur={field.onBlur}
               lengthCap={maxLength}
               className="border-s-primary-600/20 grow rounded-s-none"
