@@ -1,4 +1,4 @@
-import { Button, SelectFormField } from "massive-base-ui";
+import { Button, PhoneNumberFormField, SelectFormField } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
 import { Add } from "iconsax-react";
@@ -63,6 +63,83 @@ function SelectFieldForm() {
               </>
             ),
           }}
+        />
+
+        <PhoneNumberFormField
+          control={formMethods.control}
+          label="Phone number input"
+          name="phoneNumber"
+          placeholder="Enter phone number"
+          options={[
+            {
+              label: "Indonesia",
+              value: "+62",
+            },
+            {
+              label: "United States",
+              value: "+1",
+            },
+            {
+              label: "United Kingdom",
+              value: "+44",
+            },
+            {
+              label: "Australia",
+              value: "+61",
+            },
+            {
+              label: "Canada",
+              value: "+1",
+            },
+            {
+              label: "Germany",
+              value: "+49",
+            },
+            {
+              label: "France",
+              value: "+33",
+            },
+            {
+              label: "Japan",
+              value: "+81",
+            },
+            {
+              label: "South Korea",
+              value: "+82",
+            },
+            {
+              label: "India",
+              value: "+91",
+            },
+            {
+              label: "Brazil",
+              value: "+55",
+            },
+            {
+              label: "Mexico",
+              value: "+52",
+            },
+            {
+              label: "Russia",
+              value: "+7",
+            },
+            {
+              label: "Italy",
+              value: "+39",
+            },
+            {
+              label: "Spain",
+              value: "+34",
+            },
+            {
+              label: "Netherlands",
+              value: "+31",
+            },
+            {
+              label: "Sweden",
+              value: "+46",
+            },
+          ]}
         />
       </div>
     </>

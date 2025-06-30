@@ -2,7 +2,6 @@ import {
   PasswordFormField,
   TextAreaFormField,
   TextFormField,
-  PhoneNumberFormField,
   WebsiteFormField,
 } from "massive-base-ui";
 
@@ -53,13 +52,6 @@ function InputFieldForm() {
           label="Password input"
           name="password"
           placeholder="Enter text"
-        />
-
-        <PhoneNumberFormField
-          control={control}
-          label="Phone number input"
-          name="phoneNumber"
-          placeholder="Enter phone number"
         />
 
         <WebsiteFormField
