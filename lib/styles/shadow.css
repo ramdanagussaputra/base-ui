@@ -5,4 +5,5 @@
   --shadow-button-primary-outline: 0px 4px 12px 0px rgba(255, 93, 1, 0.07);
   --shadow-button-secondary-outline: 0px 4px 12px 0px rgba(107, 105, 140, 0.07);
   --shadow-button-error-outline: 0px 4px 12px 0px rgba(255, 93, 1, 0.07);
+  --shadow-select-panel: 0px 10px 14px 0px rgba(43, 39, 63, 0.03);
 }

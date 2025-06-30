@@ -2,6 +2,7 @@ import {
   PasswordFormField,
   TextAreaFormField,
   TextFormField,
+  WebsiteFormField,
 } from "massive-base-ui";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
@@ -51,6 +52,13 @@ function InputFieldForm() {
           label="Password input"
           name="password"
           placeholder="Enter text"
+        />
+
+        <WebsiteFormField
+          control={control}
+          label="Website input"
+          name="website"
+          placeholder="Enter website URL"
         />
 
         <TextAreaFormField
