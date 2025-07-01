@@ -6,7 +6,7 @@ interface Props extends IconProps {
 }
 
 function Icon({ icon: IconComponent, ...props }: Props) {
-  return <IconComponent size={50} color="currentColor" {...props} />;
+  return <IconComponent size={24} color="currentColor" {...props} />;
 }
 
 export default Icon;
