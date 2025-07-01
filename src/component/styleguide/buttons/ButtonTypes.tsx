@@ -1,5 +1,6 @@
 import { Button } from "massive-base-ui";
 import { AddSquare } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
@@ -31,7 +32,7 @@ function ButtonTypes({ buttonConfigs, subtitle }: Readonly<ButtonTypesProps>) {
           >
             {config.size === "large" && (
               <Button.Icon>
-                <AddSquare />
+                <Icon icon={AddSquare} />
               </Button.Icon>
             )}
             Button

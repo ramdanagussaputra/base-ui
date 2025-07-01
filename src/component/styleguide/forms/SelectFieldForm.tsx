@@ -2,6 +2,7 @@ import { Button, PhoneNumberFormField, SelectFormField } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
 import { Add } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
@@ -56,7 +57,7 @@ function SelectFieldForm() {
 
                 <Button variant="light" className="w-full">
                   <Button.Icon>
-                    <Add />
+                    <Icon icon={Add} />
                   </Button.Icon>
                   Add Something
                 </Button>

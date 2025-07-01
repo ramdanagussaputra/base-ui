@@ -1,5 +1,6 @@
 import { Breadcrumb } from "massive-base-ui";
 import { ArrowRight2 } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
@@ -11,7 +12,7 @@ function Breadcrumbs() {
       <Breadcrumb
         navigateFunction={() => {}}
         urlPath="/overview/item/item/last-item"
-        breadcrumbSeparator={<ArrowRight2 />}
+        breadcrumbSeparator={<Icon icon={ArrowRight2} />}
       />
     </div>
   );

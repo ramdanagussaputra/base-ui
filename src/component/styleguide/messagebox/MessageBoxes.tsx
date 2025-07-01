@@ -1,5 +1,6 @@
 import { InfoCircle, TickCircle, Warning2 } from "iconsax-react";
 import { Button, MessageBox } from "massive-base-ui";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
@@ -12,7 +13,7 @@ function MessageBoxes() {
         <MessageBox
           variant="success"
           title="Success Message"
-          icon={<TickCircle variant="Bulk" />}
+          icon={<Icon icon={TickCircle} variant="Bulk" />}
         >
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -23,7 +24,7 @@ function MessageBoxes() {
         <MessageBox
           variant="info"
           title="Info Message"
-          icon={<InfoCircle variant="Bulk" />}
+          icon={<Icon icon={InfoCircle} variant="Bulk" />}
           action={
             <Button
               variant="outline"
@@ -44,7 +45,7 @@ function MessageBoxes() {
         <MessageBox
           variant="warning"
           title="Warning Message"
-          icon={<Warning2 variant="Bulk" />}
+          icon={<Icon icon={Warning2} variant="Bulk" />}
           onClose={() => {
             console.log("close");
           }}
@@ -58,7 +59,7 @@ function MessageBoxes() {
         <MessageBox
           variant="error"
           title="Error Message"
-          icon={<Warning2 variant="Bulk" />}
+          icon={<Icon icon={Warning2} variant="Bulk" />}
         >
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

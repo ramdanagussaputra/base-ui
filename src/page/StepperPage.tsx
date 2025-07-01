@@ -1,5 +1,6 @@
 import { Add, TickSquare } from "iconsax-react";
 import { Button, Stepper, useStepper, Snackbar } from "massive-base-ui";
+import Icon from "#/components/icon/Icon";
 
 function StepperPage() {
   const { nextStep, prevStep } = useStepper();
@@ -27,7 +28,8 @@ function StepperPage() {
         <Snackbar>
           <div className="flex items-start justify-between gap-5">
             <div className="flex gap-2.5">
-              <TickSquare
+              <Icon
+                icon={TickSquare}
                 variant="Bold"
                 className="text-success-600 size-[1.875rem]"
               />
@@ -42,7 +44,10 @@ function StepperPage() {
             </div>
 
             <button className="cursor-pointer">
-              <Add className="text-secondary-300 size-[1.875rem] rotate-45" />
+              <Icon
+                icon={Add}
+                className="text-secondary-300 size-[1.875rem] rotate-45"
+              />
             </button>
           </div>
         </Snackbar>

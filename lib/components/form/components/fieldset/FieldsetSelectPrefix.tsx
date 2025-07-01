@@ -1,5 +1,6 @@
 import { ArrowDown2, SearchNormal1 } from "iconsax-react";
 import { useState, useCallback, useMemo } from "react";
+import Icon from "#/components/icon/Icon";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
@@ -82,7 +83,8 @@ export function FieldsetSelectPrefix({
         <span className="text-b3-400 text-secondary-800 min-w-[2rem]">
           {value}
         </span>
-        <ArrowDown2
+        <Icon
+          icon={ArrowDown2}
           className={cn(
             "text-secondary-500",
             {
@@ -115,7 +117,7 @@ export function FieldsetSelectPrefix({
           type="text"
         >
           <Fieldset.Icon>
-            <SearchNormal1 />
+            <Icon icon={SearchNormal1} />
           </Fieldset.Icon>
         </Fieldset.TextInput>
 

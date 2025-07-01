@@ -1,5 +1,6 @@
 import { Add } from "iconsax-react";
 import { ClearIndicatorProps } from "react-select";
+import Icon from "#/components/icon/Icon";
 
 import { cn } from "#/utils";
 
@@ -13,7 +14,10 @@ export function FieldsetSelectClearIndicator(
   const className = props.getClassNames("clearIndicator", props);
   return (
     <div ref={ref} {...restProps}>
-      <Add className={cn("text-secondary-500 rotate-45", className)} />
+      <Icon
+        icon={Add}
+        className={cn("text-secondary-500 rotate-45", className)}
+      />
     </div>
   );
 }
