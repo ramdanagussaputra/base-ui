@@ -5,6 +5,7 @@ import {
   MainLayout as Layout,
   Sidebar,
 } from "massive-base-ui";
+import Icon from "#/components/icon/Icon";
 
 function MainLayout() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function MainLayout() {
                         title: "Styleguide",
                         routerPathname: "sidebar-styleguide",
                         href: "/overview/styleguide",
-                        icon: <ColorSwatch />,
+                        icon: <Icon icon={ColorSwatch} />,
                       },
                     ],
                   },

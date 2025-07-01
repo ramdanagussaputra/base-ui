@@ -1,5 +1,6 @@
 import { Add } from "iconsax-react";
 import { Slot } from "@radix-ui/react-slot";
+import Icon from "#/components/icon/Icon";
 
 import { cn } from "#/utils";
 
@@ -54,16 +55,17 @@ export function MessageBox({
           {title}
         </h6>
 
-        <p className="text-b3-400 text-[var(--messagebox-description-color)]">
+        <div className="text-b3-400 text-[var(--messagebox-description-color)]">
           {children}
-        </p>
+        </div>
       </div>
 
       {action && <div className="self-center">{action}</div>}
 
       {onClose && !action && (
         <button onClick={onClose} className="cursor-pointer">
-          <Add
+          <Icon
+            icon={Add}
             className="size-8 rotate-45 text-[var(--color-secondary-300)]"
             size={20}
           />

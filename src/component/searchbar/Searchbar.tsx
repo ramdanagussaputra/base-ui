@@ -1,5 +1,6 @@
 import { SearchNormal1 } from "iconsax-react";
 import { Fieldset } from "massive-base-ui";
+import Icon from "#/components/icon/Icon";
 
 import useQueryParams from "#/hook/useQueryParams";
 
@@ -26,7 +27,7 @@ function Searchbar() {
         isReverseIcon
       >
         <Fieldset.Icon>
-          <SearchNormal1 />
+          <Icon icon={SearchNormal1} />
         </Fieldset.Icon>
       </Fieldset.TextInput>
     </Fieldset>

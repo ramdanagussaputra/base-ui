@@ -1,6 +1,7 @@
 import { Add, Minus } from "iconsax-react";
 import { useEffect, useState } from "react";
 import { cn } from "massive-base-ui";
+import Icon from "#/components/icon/Icon";
 
 import { SidebarBodySubMenus } from "#/components/sidebar/SidebarBodySubMenus";
 import type { SidebarBodySubMenu } from "#/components/sidebar/model";
@@ -83,11 +84,17 @@ export function SidebarBodySubMenu({
           </span>
 
           {hasSubItems && !isOpen && (
-            <Add className="size-[0.875rem] text-(--sidebar-icon-color)" />
+            <Icon
+              icon={Add}
+              className="size-[0.875rem] text-(--sidebar-icon-color)"
+            />
           )}
 
           {hasSubItems && isOpen && (
-            <Minus className="size-[0.875rem] text-(--sidebar-icon-color)" />
+            <Icon
+              icon={Minus}
+              className="size-[0.875rem] text-(--sidebar-icon-color)"
+            />
           )}
         </div>
       </button>

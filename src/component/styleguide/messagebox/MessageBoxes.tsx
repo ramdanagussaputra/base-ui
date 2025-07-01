@@ -1,5 +1,6 @@
 import { InfoCircle, TickCircle, Warning2 } from "iconsax-react";
 import { Button, MessageBox } from "massive-base-ui";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
@@ -12,16 +13,18 @@ function MessageBoxes() {
         <MessageBox
           variant="success"
           title="Success Message"
-          icon={<TickCircle variant="Bulk" />}
+          icon={<Icon icon={TickCircle} variant="Bulk" />}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
 
         <MessageBox
           variant="info"
           title="Info Message"
-          icon={<InfoCircle variant="Bulk" />}
+          icon={<Icon icon={InfoCircle} variant="Bulk" />}
           action={
             <Button
               variant="outline"
@@ -33,29 +36,35 @@ function MessageBoxes() {
             </Button>
           }
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
 
         <MessageBox
           variant="warning"
           title="Warning Message"
-          icon={<Warning2 variant="Bulk" />}
+          icon={<Icon icon={Warning2} variant="Bulk" />}
           onClose={() => {
             console.log("close");
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
 
         <MessageBox
           variant="error"
           title="Error Message"
-          icon={<Warning2 variant="Bulk" />}
+          icon={<Icon icon={Warning2} variant="Bulk" />}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </MessageBox>
       </div>
     </StyleguideGroup>

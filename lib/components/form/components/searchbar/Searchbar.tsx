@@ -1,5 +1,6 @@
 import { SearchNormal1 } from "iconsax-react";
 import { Fieldset } from "#/components";
+import Icon from "#/components/icon/Icon";
 
 import useQueryParams from "#/hook/useQueryParams";
 
@@ -34,7 +35,7 @@ export function Searchbar({
         isReverseIcon
       >
         <Fieldset.Icon>
-          <SearchNormal1 />
+          <Icon icon={SearchNormal1} />
         </Fieldset.Icon>
       </Fieldset.TextInput>
     </Fieldset>
