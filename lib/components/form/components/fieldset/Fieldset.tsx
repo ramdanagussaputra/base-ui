@@ -11,6 +11,7 @@ import { FieldsetRadioGroup } from "#/components/form/components/fieldset/Fields
 import { FieldsetTextArea } from "#/components/form/components/fieldset/FieldsetTextArea";
 import { FieldsetAsyncSelect } from "#/components/form/components/fieldset/FieldsetAsyncSelect";
 import { FieldsetSelectPrefix } from "#/components/form/components/fieldset/FieldsetSelectPrefix";
+import { FieldsetUploadPhoto } from "#/components/form/components/fieldset/FieldsetUploadPhoto";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -71,3 +72,4 @@ Fieldset.RadioGroup = FieldsetRadioGroup;
 Fieldset.Textarea = FieldsetTextArea;
 Fieldset.AsyncSelect = FieldsetAsyncSelect;
 Fieldset.SelectPrefix = FieldsetSelectPrefix;
+Fieldset.UploadPhoto = FieldsetUploadPhoto;
