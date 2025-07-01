@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { Camera, Edit2, User } from "iconsax-react";
 
+import Icon from "#/components/icon/Icon";
+
 interface FieldsetUploadPhotoProps {
   accept?: string;
   placeholderIcon?: React.ReactNode;
@@ -11,7 +13,7 @@ interface FieldsetUploadPhotoProps {
 
 export function FieldsetUploadPhoto({
   accept,
-  placeholderIcon = <User variant="Bold" />,
+  placeholderIcon = <Icon icon={User} variant="Bold" />,
   value,
   onChange,
 }: FieldsetUploadPhotoProps) {
@@ -64,7 +66,8 @@ export function FieldsetUploadPhoto({
           <div className="flex h-full w-full items-center justify-center gap-2">
             {!value ? (
               <>
-                <Camera
+                <Icon
+                  icon={Camera}
                   variant="Bold"
                   className="text-neutral-0 size-[1.5rem]"
                 />
@@ -72,7 +75,8 @@ export function FieldsetUploadPhoto({
               </>
             ) : (
               <>
-                <Edit2
+                <Icon
+                  icon={Edit2}
                   variant="Bold"
                   className="text-neutral-0 size-[1.5rem]"
                 />
