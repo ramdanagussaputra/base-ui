@@ -87,7 +87,7 @@ export function WebsiteFormField({
           <div className="flex items-center">
             <div
               className={cn(
-                "border-primary-600/20 bg-primary-50 flex items-center rounded-md rounded-e-none border border-e-0",
+                "border-primary-600/20 bg-primary-50 flex items-center rounded-md rounded-e-none border",
                 getHeightClass(size),
               )}
             >
@@ -105,7 +105,7 @@ export function WebsiteFormField({
               }
               onBlur={field.onBlur}
               lengthCap={maxLength}
-              className="border-s-primary-600/20 grow rounded-s-none"
+              className="grow rounded-s-none border-s-0"
             />
           </div>
 

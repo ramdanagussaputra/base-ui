@@ -5,6 +5,7 @@ import StyleguideTitle from "@/component/styleguide/StyleguideTitle";
 import InputFieldForm from "@/component/styleguide/forms/InputFieldForm";
 import SelectFieldForm from "@/component/styleguide/forms/SelectFieldForm";
 import ControlFieldForm from "@/component/styleguide/forms/ControlFieldForm";
+import UploadPhotoFieldForm from "@/component/styleguide/forms/UploadPhotoFieldForm";
 
 function Forms() {
   const formMethods = useForm({
@@ -36,6 +37,7 @@ function Forms() {
           <div className="grow space-y-5">
             <SelectFieldForm />
             <ControlFieldForm />
+            <UploadPhotoFieldForm />
           </div>
         </div>
       </FormProvider>

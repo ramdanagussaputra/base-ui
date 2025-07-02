@@ -57,13 +57,15 @@ export function FieldsetSelectPrefix({
     );
   }, [options, searchValue]);
 
+  const noData = filteredOptions?.length === 0;
+
   return (
     <div className="relative flex items-center" ref={ref}>
       <button
         type="button"
         onClick={handleToggle}
         className={cn(
-          "flex items-center gap-2 rounded-md rounded-e-none border px-[0.75em]",
+          "flex cursor-pointer items-center gap-2 rounded-md rounded-e-none border px-[0.75em]",
           {
             "h-(--fieldset-height-large) gap-(--fieldset-container-gap-large)":
               isLarge,
@@ -71,6 +73,7 @@ export function FieldsetSelectPrefix({
               isMedium,
             "h-(--fieldset-height-small) gap-(--fieldset-container-gap-small)":
               isSmall,
+            "cursor-default": isDisabled,
           },
           {
             "bg-secondary-50 border-secondary-200": !isOpen,
@@ -126,16 +129,37 @@ export function FieldsetSelectPrefix({
             <button
               key={index}
               onClick={() => handleOptionClick(option.value)}
-              className="hover:bg-secondary-50 flex h-9 w-full items-center justify-between rounded-md px-5"
+              className={cn(
+                "hover:bg-secondary-50 group flex h-9 w-full cursor-pointer items-center justify-between rounded-md px-5",
+                {
+                  "bg-secondary-50": value === option.value,
+                },
+              )}
             >
-              <span className="text-secondary-800 text-b3-500 truncate">
+              <span
+                className={cn(
+                  "text-secondary-800 text-b3-400 group-hover:text-b3-500 truncate",
+                  {
+                    "text-b3-500": value === option.value,
+                  },
+                )}
+              >
                 {option.label}
               </span>
-              <span className="text-secondary-800 text-b3-500">
+              <span
+                className={cn(
+                  "text-secondary-800 text-b3-400 group-hover:text-b3-500",
+                  {
+                    "text-b3-500": value === option.value,
+                  },
+                )}
+              >
                 {option.value}
               </span>
             </button>
           ))}
+
+          {noData && <p className="text-b3-400 py-2 text-center">No options</p>}
         </div>
       </div>
     </div>
