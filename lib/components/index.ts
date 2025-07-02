@@ -16,3 +16,4 @@ export * from "#/components/tooltip";
 export * from "#/components/spinner";
 export * from "#/components/chart";
 export * from "#/components/messagebox";
+export * from "#/components/icon";
