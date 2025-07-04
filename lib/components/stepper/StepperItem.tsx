@@ -29,7 +29,7 @@ export function StepperItem({ label, step }: StepperItemProps) {
     >
       <div
         className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-md bg-neutral-100",
+          "flex size-8 items-center justify-center rounded-md bg-neutral-100",
           {
             "bg-primary-600": isLessThanCurrent,
             "bg-secondary-950": isCurrentStep,
@@ -39,7 +39,7 @@ export function StepperItem({ label, step }: StepperItemProps) {
       >
         {!isLessThanCurrent && (
           <span
-            className={cn("text-b1 font-medium", {
+            className={cn("text-b4-500", {
               "text-neutral-0": isCurrentStep,
               "text-secondary-400": isMoreThanCurrent,
             })}
@@ -48,11 +48,13 @@ export function StepperItem({ label, step }: StepperItemProps) {
           </span>
         )}
 
-        {isLessThanCurrent && <img src={checklist} alt="checklist icon" />}
+        {isLessThanCurrent && (
+          <img className="w-3" src={checklist} alt="checklist icon" />
+        )}
       </div>
 
       <h6
-        className={cn({
+        className={cn("text-b4-500", {
           "text-neutral-950": isCurrentStep || isLessThanCurrent,
           "text-secondary-400": isMoreThanCurrent,
         })}
