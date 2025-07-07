@@ -1,13 +1,9 @@
-import React, { ComponentPropsWithoutRef, useCallback } from "react";
+import React, { useCallback } from "react";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn, extractNumbersFromString } from "#/utils";
 
-interface FieldsetInputProps
-  extends Omit<
-    ComponentPropsWithoutRef<"input">,
-    "onChange" | "value" | "onBlur"
-  > {
+interface FieldsetInputProps {
   placeholder: string;
   value: string | readonly string[] | undefined;
   lengthCap?: number;
@@ -20,6 +16,7 @@ interface FieldsetInputProps
   className?: string;
   name?: string;
   tabIndex?: number;
+  id?: string;
 }
 
 export function FieldsetInput({
@@ -35,7 +32,7 @@ export function FieldsetInput({
   className,
   name,
   tabIndex,
-  ...props
+  id,
 }: Readonly<FieldsetInputProps>) {
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
     useFieldsetContext();
@@ -74,6 +71,7 @@ export function FieldsetInput({
       )}
     >
       <input
+        id={id}
         name={name}
         tabIndex={tabIndex}
         placeholder={placeholder}
@@ -92,7 +90,6 @@ export function FieldsetInput({
             "text-b4-400 placeholder:text-b4-400": isSmall,
           },
         )}
-        {...props}
       />
 
       {/* Icon slot */}
