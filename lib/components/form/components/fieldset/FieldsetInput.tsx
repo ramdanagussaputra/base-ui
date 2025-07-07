@@ -1,9 +1,13 @@
-import { ComponentPropsWithoutRef, useCallback } from "react";
+import React, { ComponentPropsWithoutRef, useCallback } from "react";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn, extractNumbersFromString } from "#/utils";
 
-interface FieldsetInputProps {
+interface FieldsetInputProps
+  extends Omit<
+    ComponentPropsWithoutRef<"input">,
+    "onChange" | "value" | "onBlur"
+  > {
   placeholder: string;
   value: string | readonly string[] | undefined;
   lengthCap?: number;
@@ -16,7 +20,6 @@ interface FieldsetInputProps {
   className?: string;
   name?: string;
   tabIndex?: number;
-  props?: ComponentPropsWithoutRef<"input">;
 }
 
 export function FieldsetInput({
@@ -32,7 +35,7 @@ export function FieldsetInput({
   className,
   name,
   tabIndex,
-  props,
+  ...props
 }: Readonly<FieldsetInputProps>) {
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
     useFieldsetContext();
@@ -41,11 +44,8 @@ export function FieldsetInput({
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const number = extractNumbersFromString(event.target.value);
-
-      onChange(event.target.value);
-
       if (isNumber) {
+        const number = extractNumbersFromString(event.target.value);
         onChange(number);
       } else {
         onChange(event.target.value);
