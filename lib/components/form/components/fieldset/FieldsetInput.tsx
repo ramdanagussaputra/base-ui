@@ -17,6 +17,7 @@ interface FieldsetInputProps {
   name?: string;
   tabIndex?: number;
   id?: string;
+  defaultValue?: any;
 }
 
 export function FieldsetInput({
@@ -33,6 +34,7 @@ export function FieldsetInput({
   name,
   tabIndex,
   id,
+  defaultValue,
 }: Readonly<FieldsetInputProps>) {
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
     useFieldsetContext();
@@ -71,6 +73,7 @@ export function FieldsetInput({
       )}
     >
       <input
+        defaultValue={defaultValue}
         id={id}
         name={name}
         tabIndex={tabIndex}
