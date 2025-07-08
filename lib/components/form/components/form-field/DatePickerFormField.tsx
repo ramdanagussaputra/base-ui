@@ -18,6 +18,8 @@ type FormattedDatePickerFormField = Omit<
 > & {
   mode: "single" | "multiple" | "range";
   onChange?: ((value: Date | Date[]) => void) | ((range: DateRange) => void);
+  yearBefore?: number;
+  yearAfter?: number;
 };
 
 export function DatePickerFormField({
@@ -30,6 +32,8 @@ export function DatePickerFormField({
   rules,
   name,
   mode,
+  yearBefore,
+  yearAfter,
   onChange = () => {},
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
@@ -86,6 +90,8 @@ export function DatePickerFormField({
                     field.onChange(value);
                     onChange?.(value);
                   }}
+                  yearBefore={yearBefore}
+                  yearAfter={yearAfter}
                 />
               </div>
             )}
