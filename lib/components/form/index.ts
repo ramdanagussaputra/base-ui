@@ -11,5 +11,6 @@ export { PhoneNumberFormField } from "#/components/form/components/form-field/Ph
 export { WebsiteFormField } from "#/components/form/components/form-field/WebsiteFormField";
 export { UploadPhotoFormField } from "#/components/form/components/form-field/UploadPhotoFormField";
 export { DatePickerFormField } from "#/components/form/components/form-field/DatePickerFormField";
+export { PassportFormField } from "#/components/form/components/form-field/PassportFormField";
 
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";
