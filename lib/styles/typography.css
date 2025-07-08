@@ -1,4 +1,7 @@
 @theme {
+  --font-libre: "Libre Franklin", "sans-serif";
+  --font-roboto: "Roboto", "sans-serif";
+
   --text-big-text: 3.125rem;
   --text-big-text--line-height: 3.75rem;
   --text-big-text--font-weight: 700;
