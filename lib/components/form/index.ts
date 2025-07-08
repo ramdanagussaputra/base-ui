@@ -10,5 +10,6 @@ export { AsyncSelectFormField } from "#/components/form/components/form-field/As
 export { PhoneNumberFormField } from "#/components/form/components/form-field/PhoneNumberFormField";
 export { WebsiteFormField } from "#/components/form/components/form-field/WebsiteFormField";
 export { UploadPhotoFormField } from "#/components/form/components/form-field/UploadPhotoFormField";
+export { DatePickerFormField } from "#/components/form/components/form-field/DatePickerFormField";
 
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";
