@@ -1,4 +1,9 @@
-import { Button, PhoneNumberFormField, SelectFormField } from "massive-base-ui";
+import {
+  Button,
+  DatePickerFormField,
+  PhoneNumberFormField,
+  SelectFormField,
+} from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
 import { Add } from "iconsax-react";
@@ -13,6 +18,14 @@ function SelectFieldForm() {
       <StyleguideSubtitle>Select Input Field</StyleguideSubtitle>
 
       <div className="space-y-3">
+        <DatePickerFormField
+          mode="range"
+          control={formMethods.control}
+          label="Date Picker"
+          name="singleDate"
+          placeholder="DD/MM/YYYY"
+        />
+
         <SelectFormField
           name="select"
           control={formMethods.control}
