@@ -31,7 +31,7 @@ export function FieldsetCalendarYearsDropdown(props: DropdownProps) {
       </Button>
 
       <select
-        className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+        className="absolute inset-0 h-full w-full cursor-pointer text-base opacity-0"
         value={value}
         onChange={(e) => onChange?.(e)}
       >
