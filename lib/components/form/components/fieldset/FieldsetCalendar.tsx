@@ -1,5 +1,3 @@
-import { Button } from "#/components/button/Button";
-import { cn } from "#/utils";
 import {
   DateRange,
   DayPicker,
@@ -7,6 +5,9 @@ import {
   getDefaultClassNames,
 } from "react-day-picker";
 import "react-day-picker/style.css";
+
+import { Button } from "#/components/button/Button";
+import { cn } from "#/utils";
 
 type FieldsetDatePickerSingleProps = {
   mode: "single";
@@ -26,20 +27,29 @@ type FieldsetDatePickerRangeProps = {
   onChange?: (date: DateRange | undefined) => void;
 };
 
-type FieldsetCalendarProps =
+type FieldsetCalendarProps = (
   | FieldsetDatePickerSingleProps
   | FieldsetDatePickerMultipleProps
-  | FieldsetDatePickerRangeProps;
+  | FieldsetDatePickerRangeProps
+) & {
+  yearBefore?: number;
+  yearAfter?: number;
+};
 
 export function FieldsetCalendar(props: FieldsetCalendarProps) {
-  const { mode = "single", date, onChange } = props;
+  const {
+    mode = "single",
+    date,
+    onChange,
+    yearBefore = 20,
+    yearAfter = 20,
+  } = props;
 
   const defaultClassNames = getDefaultClassNames();
 
-  // Calculate year range (current year +/- 10 years)
   const currentYear = new Date().getFullYear();
-  const startYear = currentYear - 20;
-  const endYear = currentYear + 20;
+  const startYear = currentYear - yearBefore;
+  const endYear = currentYear + yearAfter;
 
   return (
     <>
