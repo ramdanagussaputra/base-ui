@@ -19,9 +19,25 @@ function SelectFieldForm() {
 
       <div className="space-y-3">
         <DatePickerFormField
+          mode="single"
+          control={formMethods.control}
+          label="Single Date Picker"
+          name="singleDate"
+          placeholder="DD/MM/YYYY"
+        />
+
+        <DatePickerFormField
+          mode="multiple"
+          control={formMethods.control}
+          label="Multiple Date Picker"
+          name="singleDate"
+          placeholder="DD/MM/YYYY"
+        />
+
+        <DatePickerFormField
           mode="range"
           control={formMethods.control}
-          label="Date Picker"
+          label="Range Date Picker"
           name="singleDate"
           placeholder="DD/MM/YYYY"
         />
