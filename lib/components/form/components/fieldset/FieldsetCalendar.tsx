@@ -77,7 +77,7 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
             defaultClassNames.caption_label,
             "text-b3-600 text-secondary-800",
           ),
-          day: "text-b3-400 text-secondary-800 hover:bg-primary-100 rounded-xl",
+          day: "text-b3-400 text-secondary-800 hover:bg-primary-50 rounded-xl",
           range_start: cn("bg-primary-600! text-neutral-0! rounded-xl", {
             "rounded-r-none":
               mode === "range" &&
