@@ -1,12 +1,14 @@
 import { DateRange } from "react-day-picker";
 import { Controller } from "react-hook-form";
+import { Calendar } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { formatCalendarDisplayValue } from "#/components/form/utils/formatCalendarDisplayValue";
+import Icon from "#/components/icon/Icon";
+import { useCalendarState } from "#/components/form/hook/useCalendarState";
 
 import { cn } from "#/utils";
-import { useCalendarState } from "#/components/form/hook/useCalendarState";
 
 // Constants
 const DEFAULT_PLACEHOLDER = "DD/MM/YYYY";
@@ -71,7 +73,11 @@ export function DatePickerFormField({
                 placeholder={placeholder}
                 value={displayValue}
                 type="text"
-              />
+              >
+                <Fieldset.Icon>
+                  <Icon icon={Calendar} />
+                </Fieldset.Icon>
+              </Fieldset.TextInput>
             </button>
 
             {fieldState.error?.message && (
