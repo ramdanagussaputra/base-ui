@@ -12,6 +12,7 @@ type UploadPhotoFormFieldProps = Omit<
   onChange?: (value: File | null) => void;
   accept?: string;
   placeholderIcon?: React.ReactNode;
+  footerElement?: React.ReactNode;
 };
 
 export function UploadPhotoFormField({
@@ -26,6 +27,7 @@ export function UploadPhotoFormField({
   withoutTagLabel = false,
   accept = "image/*",
   placeholderIcon,
+  footerElement: endElement,
 }: Readonly<UploadPhotoFormFieldProps>) {
   return (
     <Controller
@@ -50,15 +52,19 @@ export function UploadPhotoFormField({
             </Fieldset.Label>
           )}
 
-          <Fieldset.UploadPhoto
-            value={field.value}
-            accept={accept}
-            onChange={(file: File | null) => {
-              field.onChange(file);
-              onChange(file);
-            }}
-            placeholderIcon={placeholderIcon}
-          />
+          <div className="flex w-fit flex-col gap-2">
+            <Fieldset.UploadPhoto
+              value={field.value}
+              accept={accept}
+              onChange={(file: File | null) => {
+                field.onChange(file);
+                onChange(file);
+              }}
+              placeholderIcon={placeholderIcon}
+            />
+
+            {endElement}
+          </div>
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
