@@ -1,13 +1,9 @@
-import {
-  DateRange,
-  DayPicker,
-  DropdownProps,
-  getDefaultClassNames,
-} from "react-day-picker";
+import { DateRange, DayPicker, getDefaultClassNames } from "react-day-picker";
 import "react-day-picker/style.css";
 
-import { Button } from "#/components/button/Button";
 import { cn } from "#/utils";
+import { FieldsetCalendarMonthsDropdown } from "#/components/form/components/fieldset/FieldsetCalendarMonthsDropdown";
+import { FieldsetCalendarYearsDropdown } from "#/components/form/components/fieldset/FieldsetCalendarYearsDropdown";
 
 type FieldsetDatePickerSingleProps = {
   mode: "single";
@@ -103,105 +99,10 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
             "bg-neutral-0 border border-secondary-100 rounded-md px-3 py-1 text-b4-400 text-secondary-800 min-w-[70px] text-center relative pointer-events-none",
         }}
         components={{
-          MonthsDropdown,
-          YearsDropdown,
+          MonthsDropdown: FieldsetCalendarMonthsDropdown,
+          YearsDropdown: FieldsetCalendarYearsDropdown,
         }}
       />
     </>
-  );
-}
-
-export function MonthsDropdown(props: DropdownProps) {
-  const { options, value, onChange } = props;
-
-  const formatMonthName = (label: string | undefined) => {
-    if (!label) return "Month";
-    return label.slice(0, 3);
-  };
-
-  return (
-    <div className="relative">
-      <Button
-        variant="outline"
-        size="small"
-        color="secondary"
-        className="min-w-[70px] justify-between"
-      >
-        {value
-          ? formatMonthName(
-              options?.find((option) => option.value === value)?.label,
-            )
-          : "Month"}
-        <svg
-          className="ml-2 h-4 w-4 opacity-50"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </Button>
-
-      <select
-        className="absolute inset-0 h-full w-full cursor-pointer text-base opacity-0"
-        value={value}
-        onChange={(e) => onChange?.(e)}
-      >
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-export function YearsDropdown(props: DropdownProps) {
-  const { options, value, onChange } = props;
-
-  return (
-    <div className="relative">
-      <Button
-        variant="outline"
-        size="small"
-        color="secondary"
-        className="min-w-[70px] justify-between"
-      >
-        {value
-          ? options?.find((option) => option.value === value)?.label
-          : "Year"}
-        <svg
-          className="ml-2 h-4 w-4 opacity-50"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </Button>
-
-      <select
-        className="absolute inset-0 h-full w-full cursor-pointer text-base opacity-0"
-        value={value}
-        onChange={(e) => onChange?.(e)}
-      >
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
   );
 }
