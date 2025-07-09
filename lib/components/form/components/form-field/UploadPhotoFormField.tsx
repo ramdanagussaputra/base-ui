@@ -1,7 +1,7 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
-import { TickCircle } from "iconsax-react";
+import { Warning2 } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
@@ -83,7 +83,7 @@ export function UploadPhotoFormField({
           {fieldState.error?.message && (
             <SmallMessageBox
               variant="error"
-              icon={<Icon icon={TickCircle} variant="Bulk" />}
+              icon={<Icon icon={Warning2} variant="Bulk" />}
             >
               {fieldState.error.message}
             </SmallMessageBox>
