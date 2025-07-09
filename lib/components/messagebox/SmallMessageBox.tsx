@@ -5,15 +5,15 @@ import { cn } from "#/utils";
 interface MessageBoxProps {
   variant?: "success" | "error";
   children: React.ReactNode;
-  action?: React.ReactNode;
-  onClose?: () => void;
   icon?: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 export function SmallMessageBox({
   variant = "error",
   children,
   icon,
+  fullWidth = true,
 }: Readonly<MessageBoxProps>) {
   const isSuccess = variant === "success";
   const isError = variant === "error";
@@ -21,7 +21,11 @@ export function SmallMessageBox({
   return (
     <div
       className={cn(
-        "flex w-fit items-center gap-1.5 rounded-md border px-3 py-[0.78125rem]",
+        "flex items-center gap-1.5 rounded-md border px-3 py-[0.78125rem]",
+        {
+          "w-full": fullWidth,
+          "w-fit": !fullWidth,
+        },
         {
           "border-[var(--messagebox-success-border-color)] bg-[var(--messagebox-success-bg-color)]":
             isSuccess,
