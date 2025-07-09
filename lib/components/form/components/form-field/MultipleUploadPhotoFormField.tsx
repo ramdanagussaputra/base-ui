@@ -14,6 +14,7 @@ type MultipleUploadPhotoFormFieldProps = Omit<
   placeholderIcon?: React.ReactNode;
   footerElement?: React.ReactNode;
   maxFiles?: number;
+  maxSize?: number;
 };
 
 export function MultipleUploadPhotoFormField({
@@ -30,6 +31,7 @@ export function MultipleUploadPhotoFormField({
   placeholderIcon,
   footerElement: endElement,
   maxFiles = 3,
+  maxSize = 1 * 1024 * 1024,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
   return (
     <Controller
@@ -39,6 +41,17 @@ export function MultipleUploadPhotoFormField({
         required: {
           value: isRequired,
           message: `${fieldName || label} is required`,
+        },
+        validate: {
+          maxSize: (files: File[] | null) => {
+            if (!files || files.length === 0) return true;
+            for (const file of files) {
+              if (file.size > maxSize) {
+                return "One or more images are too large";
+              }
+            }
+            return true;
+          },
         },
         ...rules,
       }}

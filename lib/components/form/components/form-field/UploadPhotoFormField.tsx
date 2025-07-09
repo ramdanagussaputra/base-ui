@@ -13,6 +13,7 @@ type UploadPhotoFormFieldProps = Omit<
   accept?: string;
   placeholderIcon?: React.ReactNode;
   footerElement?: React.ReactNode;
+  maxSize?: number;
 };
 
 export function UploadPhotoFormField({
@@ -28,6 +29,7 @@ export function UploadPhotoFormField({
   accept = "image/*",
   placeholderIcon,
   footerElement: endElement,
+  maxSize = 1 * 1024 * 1024,
 }: Readonly<UploadPhotoFormFieldProps>) {
   return (
     <Controller
@@ -37,6 +39,15 @@ export function UploadPhotoFormField({
         required: {
           value: isRequired,
           message: `${fieldName || label} is required`,
+        },
+        validate: {
+          maxSize: (file: File | null) => {
+            if (!file) return true;
+            if (file.size > maxSize) {
+              return "Image is too large";
+            }
+            return true;
+          },
         },
         ...rules,
       }}
