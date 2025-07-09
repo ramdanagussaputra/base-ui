@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
-
 import {
   UploadPhotoFormField as UploadPhotoFieldFormComponent,
   MultipleUploadPhotoFormField,
 } from "massive-base-ui";
+
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
 function UploadPhotoFieldForm() {
@@ -37,9 +37,6 @@ function UploadPhotoFieldForm() {
               <span>*.JPG, .JPEG, or .PNG</span>
             </div>
           }
-          onChange={(files) => {
-            console.log("Selected files:", files);
-          }}
         />
       </div>
     </>
