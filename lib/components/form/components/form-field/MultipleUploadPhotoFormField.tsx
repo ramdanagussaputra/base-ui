@@ -1,9 +1,12 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
+import { TickCircle } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
+import { SmallMessageBox } from "#/components/messagebox";
+import Icon from "#/components/icon/Icon";
 
 type MultipleUploadPhotoFormFieldProps = Omit<
   FormFieldProps,
@@ -140,7 +143,12 @@ export function MultipleUploadPhotoFormField({
             </div>
 
             {fieldState.error?.message && (
-              <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
+              <SmallMessageBox
+                variant="error"
+                icon={<Icon icon={TickCircle} variant="Bulk" />}
+              >
+                {fieldState.error.message}
+              </SmallMessageBox>
             )}
           </Fieldset>
         );
