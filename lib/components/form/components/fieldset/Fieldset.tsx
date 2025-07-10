@@ -13,6 +13,7 @@ import { FieldsetAsyncSelect } from "#/components/form/components/fieldset/Field
 import { FieldsetSelectPrefix } from "#/components/form/components/fieldset/FieldsetSelectPrefix";
 import { FieldsetUploadPhoto } from "#/components/form/components/fieldset/FieldsetUploadPhoto";
 import { FieldsetCalendar } from "#/components/form/components/fieldset/FieldsetCalendar";
+import { FieldsetUploadPhotoAdditional } from "#/components/form/components/fieldset/FieldsetUploadPhotoAdditional";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -74,4 +75,5 @@ Fieldset.Textarea = FieldsetTextArea;
 Fieldset.AsyncSelect = FieldsetAsyncSelect;
 Fieldset.SelectPrefix = FieldsetSelectPrefix;
 Fieldset.UploadPhoto = FieldsetUploadPhoto;
+Fieldset.UploadPhotoAdditional = FieldsetUploadPhotoAdditional;
 Fieldset.Calendar = FieldsetCalendar;

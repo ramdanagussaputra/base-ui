@@ -3,6 +3,7 @@ import {
   DatePickerFormField,
   PhoneNumberFormField,
   SelectFormField,
+  PassportFormField,
 } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
@@ -10,7 +11,6 @@ import { Add } from "iconsax-react";
 import Icon from "#/components/icon/Icon";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
-
 function SelectFieldForm() {
   const formMethods = useFormContext();
   return (
@@ -30,7 +30,7 @@ function SelectFieldForm() {
           mode="multiple"
           control={formMethods.control}
           label="Multiple Date Picker"
-          name="singleDate"
+          name="multipleDate"
           placeholder="DD/MM/YYYY"
         />
 
@@ -38,7 +38,7 @@ function SelectFieldForm() {
           mode="range"
           control={formMethods.control}
           label="Range Date Picker"
-          name="singleDate"
+          name="rangeDate"
           placeholder="DD/MM/YYYY"
         />
 
@@ -170,6 +170,29 @@ function SelectFieldForm() {
               value: "+46",
             },
           ]}
+        />
+
+        <PassportFormField
+          control={formMethods.control}
+          name="passportNumber"
+          label="Passport Number"
+          placeholder="Enter passport number"
+          options={[
+            { label: "Indonesia", value: "ID" },
+            { label: "United States", value: "US" },
+            { label: "United Kingdom", value: "GB" },
+            { label: "Australia", value: "AU" },
+            { label: "Canada", value: "CA" },
+            { label: "Germany", value: "DE" },
+            { label: "France", value: "FR" },
+            { label: "Japan", value: "JP" },
+            { label: "South Korea", value: "KR" },
+            { label: "Singapore", value: "SG" },
+          ]}
+          prefixDefaultValue="ID"
+          onPrefixChange={(value) => {
+            formMethods.setValue("prefixPassport", value);
+          }}
         />
       </div>
     </>

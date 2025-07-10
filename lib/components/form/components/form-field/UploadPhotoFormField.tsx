@@ -1,9 +1,12 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
+import { Warning2 } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
+import { SmallMessageBox } from "#/components/messagebox";
+import Icon from "#/components/icon/Icon";
 
 type UploadPhotoFormFieldProps = Omit<
   FormFieldProps,
@@ -12,6 +15,8 @@ type UploadPhotoFormFieldProps = Omit<
   onChange?: (value: File | null) => void;
   accept?: string;
   placeholderIcon?: React.ReactNode;
+  footerElement?: React.ReactNode;
+  maxSize?: number;
 };
 
 export function UploadPhotoFormField({
@@ -26,6 +31,8 @@ export function UploadPhotoFormField({
   withoutTagLabel = false,
   accept = "image/*",
   placeholderIcon,
+  footerElement: endElement,
+  maxSize = 1 * 1024 * 1024,
 }: Readonly<UploadPhotoFormFieldProps>) {
   return (
     <Controller
@@ -35,6 +42,15 @@ export function UploadPhotoFormField({
         required: {
           value: isRequired,
           message: `${fieldName || label} is required`,
+        },
+        validate: {
+          maxSize: (file: File | null) => {
+            if (!file) return true;
+            if (file.size > maxSize) {
+              return "Image is too large";
+            }
+            return true;
+          },
         },
         ...rules,
       }}
@@ -50,18 +66,27 @@ export function UploadPhotoFormField({
             </Fieldset.Label>
           )}
 
-          <Fieldset.UploadPhoto
-            value={field.value}
-            accept={accept}
-            onChange={(file: File | null) => {
-              field.onChange(file);
-              onChange(file);
-            }}
-            placeholderIcon={placeholderIcon}
-          />
+          <div className="flex w-fit flex-col gap-2">
+            <Fieldset.UploadPhoto
+              value={field.value}
+              accept={accept}
+              onChange={(file: File | null) => {
+                field.onChange(file);
+                onChange(file);
+              }}
+              placeholderIcon={placeholderIcon}
+            />
+
+            {endElement}
+          </div>
 
           {fieldState.error?.message && (
-            <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
+            <SmallMessageBox
+              variant="error"
+              icon={<Icon icon={Warning2} variant="Bulk" />}
+            >
+              {fieldState.error.message}
+            </SmallMessageBox>
           )}
         </Fieldset>
       )}

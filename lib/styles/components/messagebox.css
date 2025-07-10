@@ -18,5 +18,8 @@
     --messagebox-error-bg-color: var(--color-error-0);
     --messagebox-error-border-color: var(--color-error-100);
     --messagebox-error-icon-color: var(--color-error-500);
+
+    --small-messagebox-error-color: var(--color-error-600);
+    --small-messagebox-success-color: var(--color-success-600);
   }
 }
