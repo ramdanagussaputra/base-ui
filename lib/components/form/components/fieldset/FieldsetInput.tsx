@@ -56,7 +56,7 @@ export function FieldsetInput({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-2 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-[0.8125rem] duration-100 focus-within:border-(--fieldset-border-color--focus)",
+        "border-(--fieldset-border-color) bg-(--fieldset-bg) focus-within:border-(--fieldset-border-color--focus) flex items-center justify-between gap-2 rounded-md border px-[0.8125rem] duration-100",
         {
           "h-(--fieldset-height-large) gap-(--fieldset-container-gap-large)":
             isLarge,
@@ -86,7 +86,7 @@ export function FieldsetInput({
         onChange={handleChange}
         onFocus={onFocus}
         className={cn(
-          "h-full w-full bg-transparent text-(--fieldset-text-color) outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
+          "text-(--fieldset-text-color) placeholder:text-(--fieldset-placeholder-color) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled) h-full w-full bg-transparent outline-none autofill:bg-transparent",
           {
             "text-b2-400 placeholder:text-b2-400": isLarge,
             "text-b3-400 placeholder:text-b3-400": isMedium,
