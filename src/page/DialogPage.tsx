@@ -1,6 +1,7 @@
 import { Warning2 } from "iconsax-react";
 import { Dialog, Button, useDialog, useModal } from "massive-base-ui";
 import { useState } from "react";
+import Icon from "#/components/icon/Icon";
 
 function DialogPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -69,7 +70,7 @@ function DialogPage() {
               cancelText: "Keep Editing",
               onConfirm: () => console.log("Cancel"),
               onCancel: () => console.log("Cancel"),
-              icon: <Warning2 className="h-auto w-[13.1875rem]" />,
+              icon: <Icon icon={Warning2} className="h-auto w-[13.1875rem]" />,
               isConfirmLoading: true,
               onClose: () => console.log("on Close"),
             })

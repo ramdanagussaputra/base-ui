@@ -1,4 +1,5 @@
 import { TickCircle } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 interface ProgressIndicatorProps {
   status: "completed" | "in-progress" | "pending";
@@ -13,7 +14,8 @@ export function ProgressIndicator({
     <div className="relative flex justify-center">
       <div className="border-secondary-200 z-10 flex size-[1.75rem] items-center justify-center rounded-full border bg-(--progress-tooltip-bg)">
         {status === "completed" && (
-          <TickCircle
+          <Icon
+            icon={TickCircle}
             variant="Bold"
             className="text-primary-600 size-[1.375rem]"
           />

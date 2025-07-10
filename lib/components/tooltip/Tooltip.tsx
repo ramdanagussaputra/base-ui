@@ -1,13 +1,20 @@
-import { cn } from "#/utils";
 import { ReactNode } from "react";
+
+import { cn } from "#/utils";
 
 interface TooltipProps {
   children: ReactNode;
   message: string;
   position?: "top" | "bottom" | "left" | "right";
+  variant?: "default" | "without-tail";
 }
 
-export function Tooltip({ children, message, position = "top" }: TooltipProps) {
+export function Tooltip({
+  children,
+  message,
+  position = "top",
+  variant = "default",
+}: TooltipProps) {
   const isTop = position === "top";
   const isBottom = position === "bottom";
   const isLeft = position === "left";
@@ -29,18 +36,20 @@ export function Tooltip({ children, message, position = "top" }: TooltipProps) {
       >
         {message}
 
-        <div
-          className={cn("absolute h-0 w-0", {
-            "border-b-secondary-900 bottom-full left-1/2 -translate-x-1/2 border-r-[3px] border-b-[6px] border-l-[3px] border-r-transparent border-l-transparent":
-              isBottom,
-            "border-t-secondary-900 top-full left-1/2 -translate-x-1/2 border-t-[6px] border-r-[3px] border-l-[3px] border-r-transparent border-l-transparent":
-              isTop,
-            "border-l-secondary-900 top-1/2 left-full -translate-y-1/2 border-t-[3px] border-b-[3px] border-l-[6px] border-t-transparent border-b-transparent":
-              isLeft,
-            "border-r-secondary-900 top-1/2 right-full -translate-y-1/2 border-t-[3px] border-r-[6px] border-b-[3px] border-t-transparent border-b-transparent":
-              isRight,
-          })}
-        />
+        {variant === "default" && (
+          <div
+            className={cn("absolute h-0 w-0", {
+              "border-b-secondary-900 bottom-full left-1/2 -translate-x-1/2 border-r-[3px] border-b-[6px] border-l-[3px] border-r-transparent border-l-transparent":
+                isBottom,
+              "border-t-secondary-900 top-full left-1/2 -translate-x-1/2 border-t-[6px] border-r-[3px] border-l-[3px] border-r-transparent border-l-transparent":
+                isTop,
+              "border-l-secondary-900 top-1/2 left-full -translate-y-1/2 border-t-[3px] border-b-[3px] border-l-[6px] border-t-transparent border-b-transparent":
+                isLeft,
+              "border-r-secondary-900 top-1/2 right-full -translate-y-1/2 border-t-[3px] border-r-[6px] border-b-[3px] border-t-transparent border-b-transparent":
+                isRight,
+            })}
+          />
+        )}
       </div>
     </div>
   );

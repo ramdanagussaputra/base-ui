@@ -9,7 +9,7 @@ export interface FormFieldProps
   label: string;
   name: string;
   placeholder: string;
-  control: Control<any>;
+  control: Control<any, any>;
   fieldName?: string;
   type?: "text" | "email" | "password" | "number";
   rules?: Omit<
