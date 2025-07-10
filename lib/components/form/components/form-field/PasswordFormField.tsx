@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeSlash } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
@@ -83,9 +84,9 @@ export function PasswordFormField({
               {endElement}
               <Fieldset.Icon className="cursor-pointer">
                 {isShow ? (
-                  <EyeSlash onClick={() => setIsShow(false)} />
+                  <Icon icon={EyeSlash} onClick={() => setIsShow(false)} />
                 ) : (
-                  <Eye onClick={() => setIsShow(true)} />
+                  <Icon icon={Eye} onClick={() => setIsShow(true)} />
                 )}
               </Fieldset.Icon>
             </div>

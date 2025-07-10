@@ -13,6 +13,7 @@ interface FieldsetInputProps {
   onChange?: (value: string) => void;
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 export function FieldsetInput({
@@ -25,6 +26,7 @@ export function FieldsetInput({
   onChange = () => {},
   onFocus = () => {},
   type = "text",
+  className,
 }: Readonly<FieldsetInputProps>) {
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
     useFieldsetContext();
@@ -62,6 +64,7 @@ export function FieldsetInput({
             isError,
           "flex-row-reverse": isReverseIcon,
         },
+        className,
       )}
     >
       <input

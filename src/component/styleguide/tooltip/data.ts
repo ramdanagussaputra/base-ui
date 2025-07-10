@@ -3,6 +3,7 @@ import { ProgressTooltipContent } from "#/components/tooltip/model";
 type TooltipConfig = {
   position: "top" | "bottom" | "left" | "right";
   message: string;
+  variant: "default" | "without-tail";
 };
 
 type ProgressTooltipConfig = {
@@ -14,18 +15,42 @@ export const tooltipConfigs: TooltipConfig[] = [
   {
     position: "top",
     message: "Tooltip message",
+    variant: "default",
   },
   {
     position: "bottom",
     message: "Tooltip message",
+    variant: "default",
   },
   {
     position: "left",
     message: "Tooltip message",
+    variant: "default",
   },
   {
     position: "right",
     message: "Tooltip message",
+    variant: "default",
+  },
+  {
+    position: "top",
+    message: "Tooltip message without tail",
+    variant: "without-tail",
+  },
+  {
+    position: "bottom",
+    message: "Tooltip message without tail",
+    variant: "without-tail",
+  },
+  {
+    position: "left",
+    message: "Tooltip message without tail",
+    variant: "without-tail",
+  },
+  {
+    position: "right",
+    message: "Tooltip message without tail",
+    variant: "without-tail",
   },
 ];
 

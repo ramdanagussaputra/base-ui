@@ -1,6 +1,7 @@
 import { AddSquare } from "iconsax-react";
 import { Button } from "massive-base-ui";
 import { useState, useRef } from "react";
+import Icon from "#/components/icon/Icon";
 
 function ButtonsPage() {
   const [files, setFiles] = useState<FileList | null>(null);
@@ -29,7 +30,7 @@ function ButtonsPage() {
             dragActiveText={
               <>
                 <Button.Icon>
-                  <AddSquare variant="Bold" />
+                  <Icon icon={AddSquare} variant="Bold" />
                 </Button.Icon>
                 <span className="text-primary-700 font-semibold">
                   Release to upload
@@ -48,7 +49,7 @@ function ButtonsPage() {
             >
               <div className="flex items-center gap-2">
                 <Button.Icon>
-                  <AddSquare variant="Outline" />
+                  <Icon icon={AddSquare} variant="Outline" />
                 </Button.Icon>
                 <span>Drag files here or</span>
                 <span className="ml-1 cursor-pointer underline">
@@ -80,21 +81,21 @@ function ButtonsPage() {
       <section className="grid grid-cols-[min-content_min-content_min-content_min-content] items-center gap-4 p-10">
         <Button color="primary" size="large" variant="solid" isLoading>
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
           Solid Primer
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
         </Button>
 
         <Button color="primary" size="medium" variant="solid" isLoading>
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
           Solid Primer
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
         </Button>
 
@@ -146,7 +147,7 @@ function ButtonsPage() {
 
         <Button color="primary" size="large" variant="light" isLoading>
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
           Light Primary
         </Button>

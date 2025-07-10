@@ -18,12 +18,13 @@ function Tooltips() {
     <StyleguideGroup>
       <StyleguideTitle>Tooltips</StyleguideTitle>
 
-      <div className="flex items-center gap-5">
+      <div className="grid w-fit grid-cols-4 gap-5">
         {tooltipConfigs.map((config, index) => (
           <Tooltip
             message={config.message}
             position={config.position}
             key={index}
+            variant={config.variant}
           >
             <Badge color="secondary">
               {capitalizeFirstWord(config.position)} Tooltip

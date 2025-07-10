@@ -7,6 +7,7 @@ import { SidebarBodySubMenus } from "#/components/sidebar/SidebarBodySubMenus";
 import type { SidebarBodyMenu as SidebarBodyMenuType } from "#/components/sidebar/model";
 import { cn } from "#/utils";
 import { useSidebarContext } from "#/components/sidebar/context/useSidebarContext";
+import Icon from "#/components/icon/Icon";
 
 export function SidebarBodyMenu({
   icon,
@@ -84,11 +85,17 @@ export function SidebarBodyMenu({
         </div>
 
         {hasSubMenus && !isOpen && (
-          <Add className="size-[0.875rem] text-(--sidebar-icon-color)" />
+          <Icon
+            icon={Add}
+            className="size-[0.875rem] text-(--sidebar-icon-color)"
+          />
         )}
 
         {hasSubMenus && isOpen && (
-          <Minus className="size-[0.875rem] text-(--sidebar-icon-color)" />
+          <Icon
+            icon={Minus}
+            className="size-[0.875rem] text-(--sidebar-icon-color)"
+          />
         )}
       </button>
 

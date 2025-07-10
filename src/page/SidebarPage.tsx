@@ -11,6 +11,7 @@ import {
 import { generateUniqueId } from "#/utils";
 import { Sidebar, MainLayout, Breadcrumb } from "massive-base-ui";
 import { useLocation, useNavigate } from "react-router";
+import Icon from "#/components/icon/Icon";
 
 const SidebarConfig = [
   {
@@ -19,7 +20,7 @@ const SidebarConfig = [
     menus: [
       {
         routerPathname: "sidebar",
-        icon: <Profile2User />,
+        icon: <Icon icon={Profile2User} />,
         title: "Membership",
         subMenus: [
           {
@@ -74,7 +75,7 @@ const SidebarConfig = [
     menus: [
       {
         routerPathname: "dashboard",
-        icon: <Category />,
+        icon: <Icon icon={Category} />,
         title: "Dashboard",
         href: "/",
       },
@@ -86,13 +87,13 @@ const SidebarConfig = [
     menus: [
       {
         routerPathname: "company",
-        icon: <Buildings2 />,
+        icon: <Icon icon={Buildings2} />,
         title: "Company",
         href: "/company",
       },
       {
         routerPathname: "member",
-        icon: <People />,
+        icon: <Icon icon={People} />,
         title: "Member",
         subMenus: [
           {
@@ -109,7 +110,7 @@ const SidebarConfig = [
       },
       {
         routerPathname: "catalogue",
-        icon: <Musicnote />,
+        icon: <Icon icon={Musicnote} />,
         title: "Catalogue",
         subMenus: [
           {
@@ -142,7 +143,7 @@ const SidebarConfig = [
     menus: [
       {
         routerPathname: "configuration",
-        icon: <Setting />,
+        icon: <Icon icon={Setting} />,
         title: "Configuration",
         subMenus: [
           {
@@ -171,7 +172,7 @@ function SidebarPage() {
         <header className="flex h-[80px] items-center px-5">
           <Breadcrumb
             urlPath={pathname}
-            breadcrumbSeparator={<ArrowRight2 />}
+            breadcrumbSeparator={<Icon icon={ArrowRight2} />}
             navigateFunction={navigate}
           />
         </header>
