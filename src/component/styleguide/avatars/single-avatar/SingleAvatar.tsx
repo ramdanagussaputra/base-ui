@@ -8,8 +8,8 @@ function SingleAvatarSection() {
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-5">
           <SingleAvatar size="small" src="https://i.pravatar.cc/300" />
-          <SingleAvatar size="medium" src="https://i.pravatar.cc/300" />
-          <SingleAvatar size="large" src="https://i.pravatar.cc/300" />
+          <SingleAvatar size="medium" src="https://i.pravatar.cc/301" />
+          <SingleAvatar size="large" src="https://i.pravatar.cc/302" />
         </div>
 
         <div className="flex items-center gap-5">
