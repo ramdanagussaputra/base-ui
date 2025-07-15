@@ -5,7 +5,7 @@ import Icon from "#/components/icon/Icon";
 
 interface SingleAvatarProps {
   size?: "small" | "medium" | "large";
-  src?: string;
+  source?: string;
   alt?: string;
   className?: string;
   displayNumber?: number;
@@ -15,15 +15,15 @@ interface SingleAvatarProps {
 
 export function SingleAvatar({
   size = "medium",
-  src,
+  source,
   alt = "Avatar",
   className = "",
   displayNumber,
   withoutPlusPrefix = false,
   style = {},
 }: SingleAvatarProps) {
-  const isShowImage = !!src && !displayNumber;
-  const isShowPlaceholder = !src && !displayNumber;
+  const isShowImage = !!source && !displayNumber;
+  const isShowPlaceholder = !source && !displayNumber;
   const isShowNumber = !!displayNumber;
 
   const getSanitizedDisplayNumber = (value: number) => {
@@ -64,7 +64,7 @@ export function SingleAvatar({
       )}
       style={style}
     >
-      {isShowImage && <img src={src} className="h-full w-full" alt={alt} />}
+      {isShowImage && <img src={source} className="h-full w-full" alt={alt} />}
       {isShowNumber && (
         <span
           className={cn(
