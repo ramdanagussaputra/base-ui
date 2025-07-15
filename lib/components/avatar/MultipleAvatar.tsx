@@ -14,69 +14,59 @@ const TRANSLATE_OFFSET_PERCENTAGE = 25;
 export function MultipleAvatar({
   size = "medium",
   srcs,
-  maxDisplayCount = 3,
+  maxDisplayCount = 4,
 }: MultipleAvatarProps) {
   const remainingCount = Math.max((srcs?.length || 0) - maxDisplayCount, 0);
+  const displayCount = (srcs?.length || 0) - remainingCount;
+
+  const avatarClass = {
+    large: "border-(length:--multiple-avatar-border-width-large)",
+    medium: "border-(length:--multiple-avatar-border-width-medium)",
+    small: "border-(length:--multiple-avatar-border-width-small)",
+  }[size];
 
   return (
-    <div className="flex flex-col">
-      <p>remaining count {remainingCount}</p>
-      <div
-        className="relative flex items-center border"
-        style={{
-          width: getContainerWidth(
-            size,
-            (srcs?.length || 0) - remainingCount,
-            TRANSLATE_OFFSET_PERCENTAGE,
-            remainingCount,
-          ),
-        }}
-      >
-        {srcs?.slice(0, maxDisplayCount).map((item, index) => {
-          return (
-            <SingleAvatar
-              key={index}
-              size={size}
-              src={item.src}
-              alt={item.alt}
-              className={cn(
-                {
-                  "border-(length:--multiple-avatar-border-width-large)":
-                    size === "large",
-                  "border-(length:--multiple-avatar-border-width-medium)":
-                    size === "medium",
-                  "border-(length:--multiple-avatar-border-width-small)":
-                    size === "small",
-                },
-                "box-border border border-[var(--multiple-avatar-border-color)]",
-              )}
-              style={{
-                transform: `translateX(-${TRANSLATE_OFFSET_PERCENTAGE * index}%)`,
-              }}
-            />
-          );
-        })}
-        {remainingCount > 0 && (
+    <div
+      className="relative flex items-center"
+      style={{
+        width: getContainerWidth(
+          size,
+          displayCount,
+          TRANSLATE_OFFSET_PERCENTAGE,
+          remainingCount,
+        ),
+      }}
+    >
+      {srcs?.slice(0, maxDisplayCount).map((item, index) => {
+        return (
           <SingleAvatar
-            displayNumber={remainingCount}
+            key={index}
             size={size}
+            src={item.src}
+            alt={item.alt}
             className={cn(
-              {
-                "border-(length:--multiple-avatar-border-width-large)":
-                  size === "large",
-                "border-(length:--multiple-avatar-border-width-medium)":
-                  size === "medium",
-                "border-(length:--multiple-avatar-border-width-small)":
-                  size === "small",
-              },
-              "border border-[var(--multiple-avatar-border-color)]",
+              avatarClass,
+              "box-border border border-[var(--multiple-avatar-border-color)]",
             )}
             style={{
-              transform: `translateX(-${TRANSLATE_OFFSET_PERCENTAGE * maxDisplayCount}%)`,
+              transform: `translateX(-${TRANSLATE_OFFSET_PERCENTAGE * index}%)`,
             }}
           />
-        )}
-      </div>
+        );
+      })}
+      {remainingCount > 0 && (
+        <SingleAvatar
+          displayNumber={remainingCount}
+          size={size}
+          className={cn(
+            avatarClass,
+            "border border-[var(--multiple-avatar-border-color)]",
+          )}
+          style={{
+            transform: `translateX(-${TRANSLATE_OFFSET_PERCENTAGE * maxDisplayCount}%)`,
+          }}
+        />
+      )}
     </div>
   );
 }
