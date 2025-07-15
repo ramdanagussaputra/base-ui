@@ -128,6 +128,7 @@ export function FieldsetSelectPrefix({
           {filteredOptions?.map((option, index) => (
             <button
               key={index}
+              type="button"
               onClick={() => handleOptionClick(option.value)}
               className={cn(
                 "hover:bg-secondary-50 group flex h-9 w-full cursor-pointer items-center justify-between rounded-md px-5",
