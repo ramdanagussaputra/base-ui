@@ -47,7 +47,7 @@ export function MultipleAvatar({
             alt={item.alt}
             className={cn(
               avatarClass,
-              "box-border border border-[var(--multiple-avatar-border-color)]",
+              "border border-[var(--multiple-avatar-border-color)]",
             )}
             style={{
               transform: `translateX(-${TRANSLATE_OFFSET_PERCENTAGE * index}%)`,
