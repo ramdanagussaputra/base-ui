@@ -6,6 +6,7 @@ import Forms from "@/component/styleguide/forms/Forms";
 import Navigation from "@/component/styleguide/navigations/Navigations";
 import Tooltips from "@/component/styleguide/tooltip/Tooltips";
 import MessageBoxes from "@/component/styleguide/messagebox/MessageBoxes";
+import Avatars from "@/component/styleguide/avatars/Avatars";
 
 function StyleguidePage() {
   return (
@@ -23,6 +24,7 @@ function StyleguidePage() {
         <Forms />
         <Navigation />
         <MessageBoxes />
+        <Avatars />
       </div>
     </section>
   );

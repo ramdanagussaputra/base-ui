@@ -20,6 +20,7 @@
 @import "./components/snackbar.css";
 @import "./components/progresstooltip.css";
 @import "./components/messagebox.css";
+@import "./components/avatar.css";
 
 @layer base {
   html {

@@ -35,7 +35,9 @@ export function PassportFormField({
   prefixDefaultValue = DEFAULT_PREFIX,
   onPrefixChange = () => {},
 }: Readonly<PassportFormFieldProps>) {
-  const [prefix, setPrefix] = useState<string>(prefixDefaultValue);
+  const [prefix, setPrefix] = useState<string>(
+    options?.[0]?.value?.toString() || prefixDefaultValue,
+  );
 
   const maxLength = rules?.maxLength
     ? extractMaxLengthValue(rules.maxLength)
