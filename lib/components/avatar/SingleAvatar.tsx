@@ -22,58 +22,67 @@ export function SingleAvatar({
   withoutPlusPrefix = false,
   style = {},
 }: SingleAvatarProps) {
-  const showImage = src && !displayNumber;
-  const showPlaceholder = !src && !displayNumber;
-  const showNumber = displayNumber !== undefined && displayNumber !== null;
+  const isShowImage = !!src && !displayNumber;
+  const isShowPlaceholder = !src && !displayNumber;
+  const isShowNumber = !!displayNumber;
 
-  const sanitizedDisplayNumber = (value: number) => {
+  const getSanitizedDisplayNumber = (value: number) => {
     if (value < 0) return 0;
     if (value > 99) return 99;
     return value;
   };
 
+  const avatarSizeClass = {
+    large: `size-[2.75rem]`,
+    medium: `size-[2.25rem]`,
+    small: `size-[1.5rem]`,
+  }[size];
+
+  const avatarBgClass = isShowNumber
+    ? "bg-[var(--avatar-bg-color-number)]"
+    : "bg-[var(--avatar-bg-color-placeholder)]";
+
+  const avatarTextClass = {
+    large: "text-b1-500",
+    medium: "text-b3-500",
+    small: "text-small-text-500",
+  }[size];
+
+  const iconSizeClass = {
+    large: "size-[2.444375rem]",
+    medium: "size-[2rem]",
+    small: "size-[1.333125rem]",
+  }[size];
+
   return (
     <div
       className={cn(
         "flex shrink-0 items-center justify-center overflow-hidden rounded-full",
-        {
-          "size-[2.75rem]": size === "large",
-          "size-[2.25rem]": size === "medium",
-          "size-[1.5rem]": size === "small",
-        },
-        {
-          "bg-[var(--avatar-bg-color-placeholder)]":
-            showImage || showPlaceholder,
-          "bg-[var(--avatar-bg-color-number)]": showNumber,
-        },
+        avatarSizeClass,
+        avatarBgClass,
         className,
       )}
       style={style}
     >
-      {showImage && <img src={src} className="h-full w-full" alt={alt} />}
-      {showNumber && (
+      {isShowImage && <img src={src} className="h-full w-full" alt={alt} />}
+      {isShowNumber && (
         <span
-          className={cn("font-medium text-[var(--avatar-text-color-number)]", {
-            "text-b1-500": size === "large",
-            "text-b3-500": size === "medium",
-            "text-small-text-500": size === "small",
-          })}
+          className={cn(
+            "font-medium text-[var(--avatar-text-color-number)]",
+            avatarTextClass,
+          )}
         >
           {!withoutPlusPrefix && "+"}
-          {sanitizedDisplayNumber(displayNumber)}
+          {getSanitizedDisplayNumber(displayNumber)}
         </span>
       )}
-      {showPlaceholder && (
+      {isShowPlaceholder && (
         <Icon
           icon={User}
           variant="Bold"
           className={cn(
             "mt-[25%] text-[var(--avatar-placeholder-icon-color)]",
-            {
-              "size-[2.444375rem]": size === "large",
-              "size-[2rem]": size === "medium",
-              "size-[1.333125rem]": size === "small",
-            },
+            iconSizeClass,
           )}
         />
       )}
