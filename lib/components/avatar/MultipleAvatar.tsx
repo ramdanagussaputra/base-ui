@@ -16,8 +16,9 @@ export function MultipleAvatar({
   srcs,
   maxDisplayCount = 4,
 }: MultipleAvatarProps) {
-  const remainingCount = Math.max((srcs?.length || 0) - maxDisplayCount, 0);
-  const displayCount = (srcs?.length || 0) - remainingCount;
+  const hiddenAvatarCount = Math.max((srcs?.length || 0) - maxDisplayCount, 0);
+  const showExtraAvatarNumber = hiddenAvatarCount > 0;
+  const renderedSrcs = srcs?.slice(0, maxDisplayCount) || [];
 
   const avatarClass = {
     large: "border-(length:--multiple-avatar-border-width-large)",
@@ -29,15 +30,15 @@ export function MultipleAvatar({
     <div
       className="relative flex items-center"
       style={{
-        width: getContainerWidth(
+        width: getContainerWidth({
           size,
-          displayCount,
-          TRANSLATE_OFFSET_PERCENTAGE,
-          remainingCount,
-        ),
+          totalData: srcs?.length || 0,
+          offsetPercentage: TRANSLATE_OFFSET_PERCENTAGE,
+          hiddenAvatarCount,
+        }),
       }}
     >
-      {srcs?.slice(0, maxDisplayCount).map((item, index) => {
+      {renderedSrcs.map((item, index) => {
         return (
           <SingleAvatar
             key={index}
@@ -54,9 +55,9 @@ export function MultipleAvatar({
           />
         );
       })}
-      {remainingCount > 0 && (
+      {showExtraAvatarNumber && (
         <SingleAvatar
-          displayNumber={remainingCount}
+          displayNumber={hiddenAvatarCount}
           size={size}
           className={cn(
             avatarClass,
