@@ -4,7 +4,7 @@ import { cn } from "#/utils";
 
 interface MultipleAvatarProps {
   size?: "small" | "medium" | "large";
-  srcs?: { src: string; alt?: string }[];
+  sources?: { src: string; alt?: string }[];
   className?: string;
   maxDisplayCount?: number;
 }
@@ -13,12 +13,15 @@ const TRANSLATE_OFFSET_PERCENTAGE = 25;
 
 export function MultipleAvatar({
   size = "medium",
-  srcs,
+  sources,
   maxDisplayCount = 4,
 }: MultipleAvatarProps) {
-  const hiddenAvatarCount = Math.max((srcs?.length || 0) - maxDisplayCount, 0);
+  const hiddenAvatarCount = Math.max(
+    (sources?.length || 0) - maxDisplayCount,
+    0,
+  );
   const showExtraAvatarNumber = hiddenAvatarCount > 0;
-  const renderedSrcs = srcs?.slice(0, maxDisplayCount) || [];
+  const renderedSources = sources?.slice(0, maxDisplayCount) || [];
 
   const avatarClass = {
     large: "border-(length:--multiple-avatar-border-width-large)",
@@ -32,18 +35,18 @@ export function MultipleAvatar({
       style={{
         width: getContainerWidth({
           size,
-          totalData: srcs?.length || 0,
+          totalData: sources?.length || 0,
           offsetPercentage: TRANSLATE_OFFSET_PERCENTAGE,
           hiddenAvatarCount,
         }),
       }}
     >
-      {renderedSrcs.map((item, index) => {
+      {renderedSources.map((item, index) => {
         return (
           <SingleAvatar
             key={index}
             size={size}
-            src={item.src}
+            source={item.src}
             alt={item.alt}
             className={cn(
               avatarClass,

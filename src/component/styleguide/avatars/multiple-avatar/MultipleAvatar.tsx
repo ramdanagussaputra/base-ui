@@ -9,9 +9,9 @@ function MultipleAvatarSection() {
       <StyleguideSubtitle>Multiple Avatars</StyleguideSubtitle>
 
       <div className="flex flex-col gap-5">
-        <MultipleAvatar srcs={exampleSrcs} size="small" />
-        <MultipleAvatar srcs={exampleSrcs} size="medium" />
-        <MultipleAvatar srcs={exampleSrcs} size="large" />
+        <MultipleAvatar sources={exampleSrcs} size="small" />
+        <MultipleAvatar sources={exampleSrcs} size="medium" />
+        <MultipleAvatar sources={exampleSrcs} size="large" />
       </div>
     </div>
   );
