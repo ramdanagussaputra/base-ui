@@ -32,9 +32,9 @@ function CopyClipboard({ value, iconClassName, onCopy }: CopyClipboardProps) {
       onCopy?.();
       
       // Hide tooltip after 1 second
-      setTimeout(() => {
-        setShowTooltip(false);
-      }, 1000);
+      // setTimeout(() => {
+      //   setShowTooltip(false);
+      // }, 1000);
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
     }
