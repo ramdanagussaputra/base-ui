@@ -1,1 +1,1 @@
- 
+export { default as CopyClipboard } from "./CopyClipboard";
