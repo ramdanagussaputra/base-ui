@@ -1,6 +1,6 @@
 {
   "name": "@massivemusicui/massive-base-ui",
-  "version": "0.0.1-alpha.129",
+  "version": "0.0.1-alpha.130",
   "type": "module",
   "files": [
     "dist"
