@@ -36,7 +36,7 @@ const colors = {
   default: string;
 };
 
-export function Spinner({ size = 32, color = "default" }: SpinnerProps) {
+export function Spinner({ size = 32, color = "default" }: Readonly<SpinnerProps>) {
   const spinnerColor = colors[color];
 
   const style = {
