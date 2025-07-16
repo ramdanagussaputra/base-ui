@@ -27,7 +27,7 @@ export const useSort = (options?: UseSortOptions): UseSortReturn => {
   }, [defaultSortBy, searchParams, setSearchParams]);
 
   const currentSortBy = useMemo(() => {
-    return searchParams.get("sort-by") || defaultSortBy;
+    return searchParams.get("sort-by") ?? defaultSortBy;
   }, [searchParams, defaultSortBy]);
 
   const currentOrderBy = useMemo(() => {

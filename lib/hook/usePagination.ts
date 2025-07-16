@@ -109,9 +109,10 @@ export function usePagination({
 
   // Initialize or validate page size parameter
   useEffect(() => {
-    if (!ALLOWED_PAGE_SIZES.includes(pageSizeFromUrl)) {
-      setParam(`${paramName}-size`, defaultPageSize.toString());
-    } else if (defaultPageSize === currentPageSize && !getParam(`${paramName}-size`)) {
+    if (
+      !ALLOWED_PAGE_SIZES.includes(pageSizeFromUrl) ||
+      (defaultPageSize === currentPageSize && !getParam(`${paramName}-size`))
+    ) {
       setParam(`${paramName}-size`, defaultPageSize.toString());
     }
   }, [pageSizeFromUrl, defaultPageSize, paramName, setParam, getParam, currentPageSize]);

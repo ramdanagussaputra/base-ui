@@ -12,7 +12,7 @@ export default function ProgressBar({
   className, 
   showPercentage = true,
   size = "md" 
-}: ProgressBarProps) {
+}: Readonly<ProgressBarProps>) {
   const sizeClasses = {
     sm: "h-1",
     md: "h-2", 

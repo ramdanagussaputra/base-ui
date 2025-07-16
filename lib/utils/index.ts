@@ -286,7 +286,7 @@ export function formatFileSize(bytes: number): string {
  */
 export function formatName(firstName?: string, lastName?: string): string {
   if (!firstName && !lastName) return "";
-  if (!firstName) return lastName || "";
+  if (!firstName) return lastName ?? "";
   if (!lastName) return firstName;
   return `${firstName} ${lastName}`;
 }
@@ -332,5 +332,6 @@ export function mapSelectOption<T>(data: T[], valueKey: keyof T, labelKey: keyof
  * Maps a boolean to a "Yes" or "No" string
  */
 export function mapYesNo(value: boolean): string {
-  return value ? "Yes" : "No";
+  const YES_NO_MAP = { true: "Yes", false: "No" };
+  return YES_NO_MAP[`${value}`];
 }
