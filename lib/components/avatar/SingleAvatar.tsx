@@ -21,7 +21,7 @@ export function SingleAvatar({
   displayNumber,
   withoutPlusPrefix = false,
   style = {},
-}: SingleAvatarProps) {
+}: Readonly<SingleAvatarProps>) {
   const isShowImage = !!source && !displayNumber;
   const isShowPlaceholder = !source && !displayNumber;
   const isShowNumber = !!displayNumber;

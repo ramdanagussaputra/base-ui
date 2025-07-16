@@ -15,9 +15,10 @@ export function MultipleAvatar({
   size = "medium",
   sources,
   maxDisplayCount = 4,
-}: MultipleAvatarProps) {
+  className = "",
+}: Readonly<MultipleAvatarProps>) {
   const hiddenAvatarCount = Math.max(
-    (sources?.length || 0) - maxDisplayCount,
+    (sources?.length ?? 0) - maxDisplayCount,
     0,
   );
   const showExtraAvatarNumber = hiddenAvatarCount > 0;
@@ -31,11 +32,11 @@ export function MultipleAvatar({
 
   return (
     <div
-      className="relative flex items-center"
+      className={cn("relative flex items-center", className)}
       style={{
         width: getContainerWidth({
           size,
-          totalData: sources?.length || 0,
+          totalData: sources?.length ?? 0,
           offsetPercentage: TRANSLATE_OFFSET_PERCENTAGE,
           hiddenAvatarCount,
         }),
@@ -44,7 +45,7 @@ export function MultipleAvatar({
       {renderedSources.map((item, index) => {
         return (
           <SingleAvatar
-            key={index}
+            key={JSON.stringify(item)}
             size={size}
             source={item.src}
             alt={item.alt}
