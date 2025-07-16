@@ -1,6 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Copy } from "iconsax-react";
 import { cn } from "#/utils";
+import Icon from "../icon/Icon";
 
 interface CopyClipboardProps {
   readonly value: string;
@@ -19,7 +20,16 @@ function CopyClipboard({ value, iconClassName, onCopy }: CopyClipboardProps) {
       <MenuButton className="outline-hidden">
         <Copy
           onClick={copyClipboard}
-          className={cn("text-secondary-300 size-4 cursor-pointer", iconClassName)}
+          className={cn(
+            "text-secondary-300 size-4 cursor-pointer",
+            iconClassName,
+          )}
+        />
+
+        <Icon
+          icon={Copy}
+          onClick={copyClipboard}
+          className="text-secondary-300 size-4 cursor-pointer"
         />
       </MenuButton>
 
@@ -40,4 +50,4 @@ function CopyClipboard({ value, iconClassName, onCopy }: CopyClipboardProps) {
   );
 }
 
-export default CopyClipboard; 
+export default CopyClipboard;
