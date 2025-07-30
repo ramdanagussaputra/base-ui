@@ -2,21 +2,19 @@ import React, { useRef, useEffect } from "react";
 import { buttonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
 
-interface ButtonDropZoneProps {
-  children: React.ReactNode | ((isDragging: boolean) => React.ReactNode);
-  onDrop?: (files: FileList) => void;
-  className?: string;
-  dragActiveText?: React.ReactNode;
-  dragActiveClassName?: string;
-}
-
 export function ButtonDropZone({
   children,
   onDrop,
   className,
   dragActiveText,
   dragActiveClassName,
-}: ButtonDropZoneProps) {
+}: Readonly<{
+  children: React.ReactNode | ((isDragging: boolean) => React.ReactNode);
+  onDrop?: (files: FileList) => void;
+  className?: string;
+  dragActiveText?: React.ReactNode;
+  dragActiveClassName?: string;
+}>) {
   const context = React.useContext(buttonContext);
   if (!context) {
     throw new Error("ButtonDropZone must be used within a Button");

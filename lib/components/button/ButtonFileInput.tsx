@@ -6,15 +6,6 @@ import React, {
   forwardRef,
 } from "react";
 
-export interface ButtonFileInputProps {
-  onChange?: (files: FileList | null) => void;
-  accept?: string;
-  multiple?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-  onInvalidFile?: (files: FileList, accept: string) => void;
-}
-
 // Context for registering the file input trigger
 interface ButtonFileInputContextType {
   registerTrigger: (trigger: () => void) => void;
@@ -48,7 +39,14 @@ function doesFileMatchAccept(file: File, acceptString: string): boolean {
 
 export const ButtonFileInput = forwardRef<
   HTMLInputElement,
-  ButtonFileInputProps
+  {
+    onChange?: (files: FileList | null) => void;
+    accept?: string;
+    multiple?: boolean;
+    className?: string;
+    children?: React.ReactNode;
+    onInvalidFile?: (files: FileList, accept: string) => void;
+  }
 >(function ButtonFileInput(
   { onChange, accept, multiple, className, children, onInvalidFile },
   ref,
