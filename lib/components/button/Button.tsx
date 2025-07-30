@@ -10,6 +10,7 @@ import {
   ButtonFileInput,
   ButtonFileInputContext,
 } from "#/components/button/ButtonFileInput";
+import { ButtonDropdown, ButtonDropdownItem } from "#/components/button/ButtonDropdown";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -23,7 +24,15 @@ interface ButtonProps {
   isLoading?: boolean;
 }
 
-export function Button({
+interface ButtonComponent {
+  (props: Readonly<ButtonProps>): React.JSX.Element;
+  Icon: typeof ButtonIcon;
+  DropZone: typeof ButtonDropZone;
+  FileInput: typeof ButtonFileInput;
+  Dropdown: typeof ButtonDropdown & { Item: typeof ButtonDropdownItem };
+}
+
+export const Button: ButtonComponent = function Button({
   children,
   onClick,
   className,
@@ -179,8 +188,10 @@ export function Button({
       </ButtonFileInputContext.Provider>
     </buttonContext.Provider>
   );
-}
+} as ButtonComponent;
 
 Button.Icon = ButtonIcon;
 Button.DropZone = ButtonDropZone;
 Button.FileInput = ButtonFileInput;
+Button.Dropdown = ButtonDropdown;
+Button.Dropdown.Item = ButtonDropdown.Item;

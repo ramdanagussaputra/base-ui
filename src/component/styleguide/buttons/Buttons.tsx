@@ -1,6 +1,7 @@
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideTitle from "@/component/styleguide/StyleguideTitle";
 import ButtonTypes from "@/component/styleguide/buttons/ButtonTypes";
+import DropdownButtons from "@/component/styleguide/buttons/DropdownButtons";
 
 import {
   solidButtonConfigs,
@@ -24,6 +25,10 @@ function Buttons() {
         />
         <ButtonTypes buttonConfigs={outlineButtonConfigs} subtitle="Outline" />
         <ButtonTypes buttonConfigs={linkButtonConfigs} subtitle="Link" />
+      </div>
+      
+      <div className="mt-10">
+        <DropdownButtons />
       </div>
     </StyleguideGroup>
   );
