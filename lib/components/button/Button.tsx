@@ -63,9 +63,9 @@ export function Button({
     (() => void) | null
   >(null);
 
-  const registerTrigger = (trigger: () => void) =>
-    setFileInputTrigger(() => trigger);
-  const unregisterTrigger = () => setFileInputTrigger(null);
+  const registerTrigger = React.useCallback((trigger: () => void) =>
+    setFileInputTrigger(() => trigger), []);
+  const unregisterTrigger = React.useCallback(() => setFileInputTrigger(null), []);
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (fileInputTrigger) {
@@ -74,6 +74,11 @@ export function Button({
       onClick(event);
     }
   };
+
+  const fileInputContextValue = useMemo(
+    () => ({ registerTrigger, unregisterTrigger }),
+    [registerTrigger, unregisterTrigger],
+  );
 
   const value = useMemo(
     () => ({
@@ -115,7 +120,7 @@ export function Button({
   return (
     <buttonContext.Provider value={value}>
       <ButtonFileInputContext.Provider
-        value={{ registerTrigger, unregisterTrigger }}
+        value={fileInputContextValue}
       >
         <button
           type={type}
