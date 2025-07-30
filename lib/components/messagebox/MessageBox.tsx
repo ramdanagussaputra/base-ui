@@ -4,15 +4,6 @@ import Icon from "#/components/icon/Icon";
 
 import { cn } from "#/utils";
 
-interface MessageBoxProps {
-  variant?: "success" | "info" | "warning" | "error";
-  title: string;
-  children: React.ReactNode;
-  action?: React.ReactNode;
-  onClose?: () => void;
-  icon?: React.ReactNode;
-}
-
 export function MessageBox({
   variant = "info",
   title,
@@ -20,7 +11,14 @@ export function MessageBox({
   action,
   onClose,
   icon,
-}: Readonly<MessageBoxProps>) {
+}: Readonly<{
+  variant?: "success" | "info" | "warning" | "error";
+  title: string;
+  children: React.ReactNode;
+  action?: React.ReactNode;
+  onClose?: () => void;
+  icon?: React.ReactNode;
+}>) {
   const isSuccess = variant === "success";
   const isInfo = variant === "info";
   const isWarning = variant === "warning";
