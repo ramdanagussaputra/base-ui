@@ -2,19 +2,17 @@ import { Slot } from "@radix-ui/react-slot";
 
 import { cn } from "#/utils";
 
-interface SmallMessageBoxProps {
-  variant?: "success" | "error";
-  children: React.ReactNode;
-  icon?: React.ReactNode;
-  fullWidth?: boolean;
-}
-
 export function SmallMessageBox({
   variant = "error",
   children,
   icon,
   fullWidth = true,
-}: Readonly<SmallMessageBoxProps>) {
+}: Readonly<{
+  variant?: "success" | "error";
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  fullWidth?: boolean;
+}>) {
   const isSuccess = variant === "success";
   const isError = variant === "error";
 
