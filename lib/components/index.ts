@@ -22,3 +22,4 @@ export * from "#/components/copy-clipboard";
 export * from "#/components/container";
 export * from "#/components/progress-bar";
 export * from "#/components/spinner-overlay";
+export * from "#/components/accordion";
