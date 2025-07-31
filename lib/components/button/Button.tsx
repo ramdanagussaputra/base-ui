@@ -194,4 +194,3 @@ Button.Icon = ButtonIcon;
 Button.DropZone = ButtonDropZone;
 Button.FileInput = ButtonFileInput;
 Button.Dropdown = ButtonDropdown;
-Button.Dropdown.Item = ButtonDropdown.Item;
