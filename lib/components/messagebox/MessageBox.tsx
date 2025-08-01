@@ -12,7 +12,7 @@ export function MessageBox({
   onClose,
   icon,
 }: Readonly<{
-  variant?: "success" | "info" | "warning" | "error";
+  variant?: "success" | "info" | "warning" | "error" | 'secondary';
   title: string;
   children: React.ReactNode;
   action?: React.ReactNode;
@@ -23,6 +23,7 @@ export function MessageBox({
   const isInfo = variant === "info";
   const isWarning = variant === "warning";
   const isError = variant === "error";
+  const isSecondary = variant === "secondary";
 
   return (
     <div
@@ -35,6 +36,8 @@ export function MessageBox({
           isWarning,
         "border-[var(--messagebox-error-border-color)] bg-[var(--messagebox-error-bg-color)]":
           isError,
+        "border-[var(--messagebox-secondary-border-color)] bg-[var(--messagebox-secondary-bg-color)]":
+          isSecondary,
       })}
     >
       <Slot
@@ -43,17 +46,24 @@ export function MessageBox({
           "text-[var(--messagebox-info-icon-color)]": isInfo,
           "text-[var(--messagebox-warning-icon-color)]": isWarning,
           "text-[var(--messagebox-error-icon-color)]": isError,
+          "text-[var(--messagebox-secondary-icon-color)]": isSecondary,
         })}
       >
         {icon}
       </Slot>
 
       <div className="flex flex-1 flex-col gap-1">
-        <h6 className="text-b2-600 text-[var(--messagebox-title-color)]">
+        <h6 className={cn("text-b2-600", {
+          "text-[var(--messagebox-title-color)]": !isSecondary,
+          "text-[var(--messagebox-secondary-title-color)]": isSecondary,
+        })}>
           {title}
         </h6>
 
-        <div className="text-b3-400 text-[var(--messagebox-description-color)]">
+        <div className={cn("text-b3-400", {
+          "text-[var(--messagebox-description-color)]": !isSecondary,
+          "text-[var(--messagebox-secondary-description-color)]": isSecondary,
+        })}>
           {children}
         </div>
       </div>
