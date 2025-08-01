@@ -53,17 +53,11 @@ export function MessageBox({
       </Slot>
 
       <div className="flex flex-1 flex-col gap-1">
-        <h6 className={cn("text-b2-600", {
-          "text-[var(--messagebox-title-color)]": !isSecondary,
-          "text-[var(--messagebox-secondary-title-color)]": isSecondary,
-        })}>
+        <h6 className={cn("text-b2-600 text-[var(--messagebox-title-color)]")}>
           {title}
         </h6>
 
-        <div className={cn("text-b3-400", {
-          "text-[var(--messagebox-description-color)]": !isSecondary,
-          "text-[var(--messagebox-secondary-description-color)]": isSecondary,
-        })}>
+        <div className={cn("text-b3-400 text-[var(--messagebox-description-color)]")}>
           {children}
         </div>
       </div>
