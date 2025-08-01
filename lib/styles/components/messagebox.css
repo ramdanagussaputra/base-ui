@@ -7,6 +7,10 @@
     --messagebox-success-border-color: var(--color-success-100);
     --messagebox-success-icon-color: var(--color-success-500);
 
+    --messagebox-secondary-bg-color: var(--color-secondary-0);
+    --messagebox-secondary-border-color: var(--color-secondary-100);
+    --messagebox-secondary-icon-color: var(--color-secondary-500);
+
     --messagebox-info-bg-color: var(--color-info1-0);
     --messagebox-info-border-color: var(--color-info1-100);
     --messagebox-info-icon-color: var(--color-info1-500);
