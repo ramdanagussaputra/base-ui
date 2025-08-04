@@ -1,4 +1,4 @@
-import { ArrowUp2 } from "iconsax-react";
+import { ArrowDown2, ArrowUp2 } from "iconsax-react";
 
 import { Accordion as AccordionComponent, cn } from "massive-base-ui";
 
@@ -10,6 +10,7 @@ function Accordion() {
   return (
     <StyleguideGroup>
       <StyleguideTitle>Accordion</StyleguideTitle>
+
       <div className="flex flex-col gap-8">
         <AccordionComponent>
           {(open) => (
@@ -43,6 +44,29 @@ function Accordion() {
                   Commodi, culpa.
                 </p>
               </AccordionComponent.Content>
+            </>
+          )}
+        </AccordionComponent>
+
+        <AccordionComponent>
+          {(isOpen) => (
+            <>
+              <AccordionComponent.Trigger>
+                <div className="flex items-center gap-2.5">
+                  <p className="text-b3-400 text-secondary-700 whitespace-nowrap">
+                    5 files in queue waiting for import...
+                  </p>
+                  <div className="bg-secondary-100 h-[1px] w-full" />
+                  <div className="border-secondary-300 flex size-7 shrink-0 items-center justify-center rounded-md border">
+                    <Icon
+                      icon={isOpen ? ArrowDown2 : ArrowUp2}
+                      className="size-3"
+                    />
+                  </div>
+                </div>
+              </AccordionComponent.Trigger>
+
+              <AccordionComponent.Content>content</AccordionComponent.Content>
             </>
           )}
         </AccordionComponent>
