@@ -1,17 +1,17 @@
-import { Slot } from "@radix-ui/react-slot";
-
 import { useAccordionContext } from "#/components/accordion/context/useAccordionContext";
 
 interface AccordionTriggerProps {
-  readonly children?: React.ReactNode;
+  children?: React.ReactNode;
+  asChild?: boolean;
 }
 
-export function AccordionTrigger({ children }: AccordionTriggerProps) {
-  const { isOpen, toggle } = useAccordionContext();
+export function AccordionTrigger({
+  children,
+  asChild,
+}: Readonly<AccordionTriggerProps>) {
+  const { toggle } = useAccordionContext();
 
-  return (
-    <Slot onClick={toggle} aria-expanded={isOpen}>
-      {children}
-    </Slot>
-  );
+  const Component = asChild ? "div" : "button";
+
+  return <Component onClick={toggle}>{children}</Component>;
 }
