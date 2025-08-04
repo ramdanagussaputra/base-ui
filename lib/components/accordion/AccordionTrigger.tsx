@@ -1,4 +1,5 @@
 import { useAccordionContext } from "#/components/accordion/context/useAccordionContext";
+import { cn } from "#/utils";
 
 interface AccordionTriggerProps {
   children?: React.ReactNode;
@@ -9,9 +10,17 @@ export function AccordionTrigger({
   children,
   asChild,
 }: Readonly<AccordionTriggerProps>) {
-  const { toggle } = useAccordionContext();
+  const { toggle, disabled } = useAccordionContext();
 
   const Component = asChild ? "div" : "button";
 
-  return <Component onClick={toggle}>{children}</Component>;
+  return (
+    <Component
+      onClick={toggle}
+      disabled={disabled}
+      className={cn(disabled && "pointer-events-none")}
+    >
+      {children}
+    </Component>
+  );
 }

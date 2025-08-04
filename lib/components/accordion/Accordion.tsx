@@ -10,12 +10,14 @@ interface AccordionProps {
   children: React.ReactNode | ((open: boolean) => React.ReactNode);
   defaultOpen?: boolean;
   className?: string;
+  disabled?: boolean;
 }
 
 export function Accordion({
   children,
   className,
   defaultOpen,
+  disabled = false,
 }: Readonly<AccordionProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen || false);
 
@@ -23,7 +25,10 @@ export function Accordion({
     setIsOpen((prev) => !prev);
   };
 
-  const value = useMemo(() => ({ isOpen, toggle }), [isOpen]);
+  const value = useMemo(
+    () => ({ isOpen, toggle, disabled }),
+    [isOpen, disabled],
+  );
 
   return (
     <accordionContext.Provider value={value}>
