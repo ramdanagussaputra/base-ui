@@ -1,33 +1,49 @@
 import { useDialogContext } from "#/components/dialog/context/useDialogContext";
+import type {
+  DialogConfig,
+  DialogCallbacks,
+} from "#/components/dialog/context/types";
 
-interface ShowDialogProps {
-  title?: string;
-  description?: string;
-  confirmText?: string;
-  cancelText?: string;
-  icon?: React.ReactNode;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-  onClose?: () => void;
+interface ShowDialogProps extends DialogConfig, DialogCallbacks {
   isConfirmLoading?: boolean;
+  // Legacy property names for backward compatibility
   dialogContent?: React.ReactNode;
+  dialogType?: "regular" | "small";
 }
 
+/**
+ * Modern dialog hook that provides a clean, declarative API for showing dialogs.
+ * This hook follows clean code principles and the Law of Demeter.
+ *
+ * @example
+ * ```typescript
+ * const { showDialog, closeDialog } = useDialog();
+ *
+ * // Modern API (recommended)
+ * showDialog({
+ *   title: "Confirm Action",
+ *   description: "Are you sure you want to continue?",
+ *   confirmText: "Yes",
+ *   cancelText: "No",
+ *   content: <div>Custom content</div>,
+ *   type: "small",
+ *   onConfirm: () => console.log("Confirmed!"),
+ *   onCancel: () => console.log("Cancelled!")
+ * });
+ *
+ * // Legacy API (still supported)
+ * showDialog({
+ *   title: "Confirm Action",
+ *   dialogContent: <div>Custom content</div>, // Legacy property name
+ *   dialogType: "small", // Legacy property name
+ * });
+ * ```
+ *
+ * @note Property priority: `type` > `dialogType` > default "regular"
+ * @note Property priority: `content` > `dialogContent` > null
+ */
 export function useDialog() {
-  const {
-    closeDialog,
-    showDialog: showDialogInternal,
-    setCancelText,
-    setConfirmText,
-    setDescription,
-    setIcon,
-    setOnCancel,
-    setOnConfirm,
-    setTitle,
-    setIsConfirmLoading,
-    setOnClose,
-    setDialogContent,
-  } = useDialogContext();
+  const { show, close, setCallbacks, setLoading } = useDialogContext();
 
   function showDialog({
     title,
@@ -35,52 +51,64 @@ export function useDialog() {
     confirmText,
     cancelText,
     icon,
+    content,
+    type,
     onConfirm,
     onCancel,
     onClose,
     isConfirmLoading = false,
+    // Legacy properties for backward compatibility
     dialogContent,
+    dialogType,
   }: Readonly<ShowDialogProps>) {
-    closeDialog?.();
+    // Close any existing dialog first
+    close();
 
-    setCancelText?.(cancelText || "");
-    setConfirmText?.(confirmText || "");
-    setDescription?.(description || "");
-    setIcon?.(icon || null);
-
-    setOnCancel?.(() =>
-      onCancel
-        ? () => {
-            onCancel();
-            setIsConfirmLoading?.(false);
-          }
-        : () => {},
-    );
-
-    setOnConfirm?.(() =>
-      onConfirm
-        ? () => {
-            onConfirm();
-
-            if (isConfirmLoading) {
-              setIsConfirmLoading?.(true);
+    // Set up callbacks if provided
+    if (onConfirm || onCancel || onClose) {
+      setCallbacks({
+        onConfirm: onConfirm
+          ? () => {
+              onConfirm();
+              if (isConfirmLoading) {
+                setLoading(true);
+              }
             }
-          }
-        : () => {},
-    );
+          : undefined,
+        onCancel: onCancel
+          ? () => {
+              onCancel();
+              setLoading(false);
+            }
+          : undefined,
+        onClose,
+      });
+    }
 
-    setTitle?.(title || "");
-    setOnClose?.(() => (onClose ? onClose : () => {}));
-    setDialogContent?.(dialogContent || null);
+    // Show dialog with configuration
+    // Support both new and legacy property names
+    // Priority: explicit type > explicit dialogType > default "regular"
+    const dialogTypeToUse = type ?? dialogType ?? "regular";
 
-    showDialogInternal?.();
+    show({
+      title: title || "",
+      description: description || "",
+      confirmText: confirmText || "",
+      cancelText: cancelText || "",
+      icon: icon || null,
+      content: content || dialogContent || null, // Support both content and dialogContent
+      type: dialogTypeToUse,
+      isConfirmLoading,
+    });
+  }
+
+  function closeDialog() {
+    setLoading(false);
+    close();
   }
 
   return {
-    closeDialog: () => {
-      closeDialog?.();
-      setIsConfirmLoading?.(false);
-    },
     showDialog,
+    closeDialog,
   };
 }
