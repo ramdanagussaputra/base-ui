@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 type AccordionContext = {
   isOpen: boolean;
   toggle: () => void;
+  disabled?: boolean;
 };
 
 export const accordionContext = createContext<AccordionContext | undefined>(
