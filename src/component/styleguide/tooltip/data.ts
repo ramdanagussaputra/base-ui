@@ -14,7 +14,8 @@ type ProgressTooltipConfig = {
 export const tooltipConfigs: TooltipConfig[] = [
   {
     position: "top",
-    message: "Tooltip message",
+    message:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     variant: "default",
   },
   {

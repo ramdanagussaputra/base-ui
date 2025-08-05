@@ -27,7 +27,7 @@ function Tooltips() {
             variant={config.variant}
           >
             <Badge color="secondary">
-              {capitalizeFirstWord(config.position)} Tooltip
+              {capitalizeFirstWord(config.position)}
             </Badge>
           </Tooltip>
         ))}

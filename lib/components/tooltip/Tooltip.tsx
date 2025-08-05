@@ -14,7 +14,7 @@ export function Tooltip({
   message,
   position = "top",
   variant = "default",
-}: TooltipProps) {
+}: Readonly<TooltipProps>) {
   const isTop = position === "top";
   const isBottom = position === "bottom";
   const isLeft = position === "left";
@@ -25,10 +25,10 @@ export function Tooltip({
       {children}
       <div
         className={cn(
-          "bg-secondary-900 text-b4-400 text-secondary-0 absolute z-[9999] hidden w-max rounded-sm px-1.5 py-1 opacity-0 group-hover/tooltip:block group-hover/tooltip:opacity-100",
+          "bg-secondary-900 text-b4-400 text-secondary-0 absolute z-[9999] hidden w-max max-w-[9.0625rem] rounded-sm px-1.5 py-1 opacity-0 group-hover/tooltip:block group-hover/tooltip:opacity-100",
           {
-            "-bottom-full left-1/2 -translate-x-1/2": isBottom,
-            "-top-full left-1/2 -translate-x-1/2": isTop,
+            "top-full left-1/2 mt-2 -translate-x-1/2": isBottom,
+            "bottom-full left-1/2 mb-2 -translate-x-1/2": isTop,
             "top-1/2 right-full mr-2 -translate-y-1/2": isLeft,
             "top-1/2 left-full ml-2 -translate-y-1/2": isRight,
           },
