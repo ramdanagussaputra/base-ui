@@ -22,7 +22,7 @@ function DialogPage() {
   }
 
   // Modern API examples from examples.tsx
-  const { show, close, setCallbacks } = useDialog();
+  const { show, close, setCallbacks } = useDialogHook();
   const { showConfirmDialog } = useConfirmDialog();
   const { showModal, closeModal } = useModal();
 
@@ -66,10 +66,10 @@ function DialogPage() {
   };
 
   // Original showDialog from hook version
-  const { showDialog } = useDialogHook();
+  const { showDialog } = useDialog();
 
   // Legacy API example using context methods
-  const dialog = useDialog();
+  const dialog = useDialogHook();
   const handleShowLegacyDialog = () => {
     // Using the legacy API from context
     dialog.setTitle("Legacy Dialog");
@@ -136,7 +136,7 @@ function DialogPage() {
             showDialog({
               title: "Are you sure want to discard changes?",
               description: "All the changes will be lost.",
-              dialogContent: (
+              content: (
                 <div className="bg-error-300 max-w-[400px]">test lagi</div>
               ),
               confirmText: "Discard",
@@ -160,7 +160,7 @@ function DialogPage() {
               title: "Title",
               description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-              dialogContent: (
+              content: (
                 <div className="bg-error-300 max-w-[400px]">test lagi</div>
               ),
               confirmText: "Discard",
