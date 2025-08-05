@@ -1,26 +1,26 @@
 import { useDialogContext } from "#/components/dialog/context/useDialogContext";
 import React from "react";
 
-type DialogType = "regular" | "small";
+type Type = "regular" | "small";
 
-interface DialogConfig {
+interface DConfig {
   title?: string;
   description?: string;
   confirmText?: string;
   cancelText?: string;
   icon?: React.ReactNode;
   content?: React.ReactNode;
-  type?: DialogType;
+  type?: Type;
   isConfirmLoading?: boolean;
 }
 
-interface DialogCallbacks {
+interface DCallbacks {
   onConfirm?: () => void;
   onCancel?: () => void;
   onClose?: () => void;
 }
 
-interface ShowDialogProps extends DialogConfig, DialogCallbacks {
+interface ShowDialogProps extends DConfig, DCallbacks {
   isConfirmLoading?: boolean;
   // Legacy property names for backward compatibility
   dialogContent?: React.ReactNode;
