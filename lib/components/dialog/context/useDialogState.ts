@@ -1,5 +1,27 @@
-import { useState, useCallback } from "react";
-import { DialogState, DialogConfig, DialogCallbacks } from "./types";
+import React, { useState, useCallback } from "react";
+
+type DialogType = "regular" | "small";
+
+interface DialogConfig {
+  title?: string;
+  description?: string;
+  confirmText?: string;
+  cancelText?: string;
+  icon?: React.ReactNode;
+  content?: React.ReactNode;
+  type?: DialogType;
+  isConfirmLoading?: boolean;
+}
+
+interface DialogCallbacks {
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  onClose?: () => void;
+}
+
+interface DialogState extends DialogConfig, DialogCallbacks {
+  isOpen: boolean;
+}
 
 const initialState: DialogState = {
   isOpen: false,
