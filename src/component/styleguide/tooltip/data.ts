@@ -20,17 +20,20 @@ export const tooltipConfigs: TooltipConfig[] = [
   },
   {
     position: "bottom",
-    message: "Tooltip message",
+    message:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     variant: "default",
   },
   {
     position: "left",
-    message: "Tooltip message",
+    message:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     variant: "default",
   },
   {
     position: "right",
-    message: "Tooltip message",
+    message:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     variant: "default",
   },
   {
