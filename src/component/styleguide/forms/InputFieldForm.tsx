@@ -63,6 +63,17 @@ function InputFieldForm() {
 
         <TextAreaFormField
           control={control}
+          label="Auto Resizable Text Area"
+          name="resizableTextArea"
+          placeholder="Enter text"
+          fieldSizeFollowContent
+          maxHeight={270}
+          minHeight={90}
+          height={90}
+        />
+
+        <TextAreaFormField
+          control={control}
           label="Text Area"
           name="textArea"
           placeholder="Enter text"
