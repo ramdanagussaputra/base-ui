@@ -3,6 +3,7 @@ import "react-day-picker/style.css";
 
 import { cn } from "#/utils";
 import { FieldsetCalendarDropdown } from "#/components/form/components/fieldset/FieldsetCalendarDropdown";
+import { Button } from "#/components/button/Button";
 
 type FieldsetDatePickerSingleProps = {
   mode: "single";
@@ -29,6 +30,7 @@ type FieldsetCalendarProps = (
 ) & {
   yearBefore?: number;
   yearAfter?: number;
+  handleClose?: () => void;
 };
 
 export function FieldsetCalendar(props: FieldsetCalendarProps) {
@@ -38,6 +40,7 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
     onChange,
     yearBefore = 20,
     yearAfter = 20,
+    handleClose = () => {},
   } = props;
 
   const defaultClassNames = getDefaultClassNames();
@@ -63,13 +66,25 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
       selected={date as any}
       onSelect={onChange as any}
       captionLayout="dropdown"
+      footer={
+        mode !== "single" && (
+          <Button
+            size="extra-small"
+            className="ms-auto mt-1"
+            onClick={handleClose}
+            type="button"
+          >
+            Apply
+          </Button>
+        )
+      }
       startMonth={new Date(startYear, 0)}
       endMonth={new Date(endYear, 11)}
       classNames={{
         ...defaultClassNames,
         root: cn(
           defaultClassNames.root,
-          "bg-neutral-0 border p-3 rounded-md border-secondary-100 shadow-(--shadow-select-panel)",
+          "bg-neutral-0 border rounded-xl p-3 border-secondary-100 shadow-(--shadow-select-panel)",
         ),
         chevron: cn(
           defaultClassNames.chevron,

@@ -56,6 +56,12 @@ export function DatePickerFormField({
       render={({ field, fieldState }) => {
         const displayValue = formatCalendarDisplayValue(mode, field.value);
 
+        const handleClose = () => {
+          if (mode === "single") {
+            setOpen(false);
+          }
+        };
+
         return (
           <Fieldset
             className="relative"
@@ -92,16 +98,20 @@ export function DatePickerFormField({
                 </Fieldset.TextInput>
               </button>
               {open && (
-                <div className="absolute top-full z-50 mt-2 bg-white">
+                <div className="absolute top-full z-50 mt-2">
                   <Fieldset.Calendar
                     mode={mode}
                     date={field.value}
                     onChange={(value: any) => {
                       field.onChange(value);
                       onChange?.(value);
+                      handleClose();
                     }}
                     yearBefore={yearBefore}
                     yearAfter={yearAfter}
+                    handleClose={() => {
+                      setOpen(false);
+                    }}
                   />
                 </div>
               )}
