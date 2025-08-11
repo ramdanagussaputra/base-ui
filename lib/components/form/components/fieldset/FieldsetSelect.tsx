@@ -90,6 +90,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       }}
       classNames={{
         container: () => cn("cursor-pointer"),
+        menuPortal: () => cn("z-[1000]!"),
         control: (state) =>
           cn(
             "ring-0! rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem]",
@@ -139,7 +140,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
               isSmall,
             "text-(--fieldset-text-color--disabled)": isDisabled,
           }),
-        menu: () => cn("p-[0.625rem] rounded-lg! shadow-secondary-100 z-[50]!"),
+        menu: () => cn("p-[0.625rem] rounded-lg! shadow-secondary-100"),
         option: (state) =>
           cn(
             "text-(--fieldset-select-option-color)! text-(length:--fieldset-select-option-font-size)! leading-(--fieldset-select-option-line-height)! font-(--fieldset-select-option-font-weight)! hover:bg-(--fieldset-select-option-bg--hover) rounded-md cursor-pointer! font-normal! duration-150!",
