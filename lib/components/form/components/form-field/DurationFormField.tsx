@@ -31,10 +31,30 @@ export function DurationFormField({
   const [seconds, setSeconds] = React.useState("");
 
   // Sync local state with form value
-  // Helper to pad numbers with leading zeros
-  const padMinutes = (val: string) => (val === "" ? "" : val.padStart(3, "0"));
-  const padSeconds = (val: string) => (val === "" ? "" : val.padStart(2, "0"));
 
+  // Utility: pad numbers with leading zeros
+  function padMinutes(val: string) {
+    return val === "" ? "" : val.padStart(3, "0");
+  }
+  function padSeconds(val: string) {
+    return val === "" ? "" : val.padStart(2, "0");
+  }
+
+  // Utility: convert seconds >= 60 to minutes/seconds
+  function normalizeDuration(min: string, sec: string) {
+    let minNum = parseInt(min || "0", 10);
+    let secNum = parseInt(sec || "0", 10);
+    if (!isNaN(secNum) && secNum >= 60) {
+      minNum += Math.floor(secNum / 60);
+      secNum = secNum % 60;
+    }
+    return {
+      minutes: padMinutes(minNum.toString()),
+      seconds: padSeconds(secNum.toString()),
+    };
+  }
+
+  // Sync local state with form value
   React.useEffect(() => {
     if (typeof formValue === "string" && formValue.includes(":")) {
       const [min, sec] = formValue.split(":");
@@ -50,6 +70,7 @@ export function DurationFormField({
     }
   }, [formValue]);
 
+  // Handlers
   const handleMinutesChange = (min: string) => {
     const rawMin = min.replace(/\D/g, "");
     setMinutes(rawMin);
@@ -57,10 +78,32 @@ export function DurationFormField({
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
+
   const handleSecondsChange = (sec: string) => {
     const rawSec = sec.replace(/\D/g, "");
     setSeconds(rawSec);
     const consolidated = `${minutes}:${rawSec}`;
+    setValue(name, consolidated);
+    onChange?.(consolidated);
+  };
+
+  // Pad and normalize on blur
+  const handleMinutesBlur = () => {
+    const padded = padMinutes(minutes);
+    setMinutes(padded);
+    const consolidated = `${padded}:${seconds}`;
+    setValue(name, consolidated);
+    onChange?.(consolidated);
+  };
+
+  const handleSecondsBlur = () => {
+    const { minutes: normMin, seconds: normSec } = normalizeDuration(
+      minutes,
+      seconds,
+    );
+    setMinutes(normMin);
+    setSeconds(normSec);
+    const consolidated = `${normMin}:${normSec}`;
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
@@ -76,13 +119,7 @@ export function DurationFormField({
           placeholder="mmm"
           value={minutes}
           onChange={handleMinutesChange}
-          onBlur={() => {
-            const padded = padMinutes(minutes);
-            setMinutes(padded);
-            const consolidated = `${padded}:${seconds}`;
-            setValue(name, consolidated);
-            onChange?.(consolidated);
-          }}
+          onBlur={handleMinutesBlur}
           lengthCap={3}
         >
           <div className="flex items-center gap-1">{endElement}</div>
@@ -93,30 +130,7 @@ export function DurationFormField({
           placeholder="ss"
           value={seconds}
           onChange={handleSecondsChange}
-          onBlur={() => {
-            let secNum = parseInt(seconds.replace(/\D/g, ""), 10);
-            let minNum = parseInt(minutes || "0", 10);
-            if (seconds === "" || isNaN(secNum)) {
-              setSeconds("");
-              const consolidated = `${padMinutes(minNum.toString())}:`;
-              setValue(name, consolidated);
-              onChange?.(consolidated);
-              return;
-            }
-            if (secNum >= 60) {
-              const extraMin = Math.floor(secNum / 60);
-              const remainingSec = secNum % 60;
-              minNum += extraMin;
-              secNum = remainingSec;
-            }
-            const paddedMin = padMinutes(minNum.toString());
-            const paddedSec = padSeconds(secNum.toString());
-            setMinutes(paddedMin);
-            setSeconds(paddedSec);
-            const consolidated = `${paddedMin}:${paddedSec}`;
-            setValue(name, consolidated);
-            onChange?.(consolidated);
-          }}
+          onBlur={handleSecondsBlur}
           lengthCap={2}
         >
           <div className="flex items-center gap-1">{endElement}</div>
