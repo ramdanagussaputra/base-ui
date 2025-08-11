@@ -1,16 +1,15 @@
 import { useQueryParamsContext } from "#/context/useQueryParamsContext";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 function useQueryParams(): [URLSearchParams, () => void] {
   const { queryParams, setQueryParams } = useQueryParamsContext();
 
-  const setSearchParams = () => {
+  const setSearchParams = useCallback(() => {
     const newSearchParams = new URLSearchParams(queryParams);
-
     const newSearch = newSearchParams.toString();
     window.history.replaceState({}, "", "?" + newSearch); // Update the URL without reloading
     setQueryParams(newSearchParams);
-  };
+  }, [queryParams, setQueryParams]);
 
   useEffect(() => {
     const handlePopState = () => {
