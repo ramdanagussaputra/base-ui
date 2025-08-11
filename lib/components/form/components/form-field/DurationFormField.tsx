@@ -1,15 +1,19 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import * as React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import type { ReactNode } from "react";
+import { Controller } from "react-hook-form";
+import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 
 type DurationFormFieldProp = Omit<FormFieldProps, "type" | "onChange"> & {
   onChange?: (value: string) => void;
-  endElement?: React.ReactNode;
+  endElement?: ReactNode;
   name: string;
+  setValue: UseFormSetValue<any>;
+  watch: UseFormWatch<any>;
 };
 
 export function DurationFormField({
@@ -24,8 +28,9 @@ export function DurationFormField({
   size = "medium",
   withoutTagLabel = false,
   endElement,
+  setValue,
+  watch,
 }: Readonly<DurationFormFieldProp>) {
-  const { setValue, watch } = useFormContext();
   const formValue = watch(name) || "";
   const [minutes, setMinutes] = React.useState("");
   const [seconds, setSeconds] = React.useState("");
