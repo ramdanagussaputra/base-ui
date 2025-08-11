@@ -1,4 +1,5 @@
 import {
+  DurationFormField,
   PasswordFormField,
   TextAreaFormField,
   TextFormField,
@@ -9,7 +10,9 @@ import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 import { useFormContext } from "react-hook-form";
 
 function InputFieldForm() {
-  const { control } = useFormContext();
+  const { control, watch, setValue } = useFormContext();
+  const duration = watch("duration") || "";
+  console.log(duration, "duration");
 
   return (
     <>
@@ -77,6 +80,15 @@ function InputFieldForm() {
           label="Text Area"
           name="textArea"
           placeholder="Enter text"
+        />
+
+        <DurationFormField
+          control={control}
+          label="Duration input"
+          name="duration"
+          placeholder="Enter duration"
+          setValue={setValue}
+          watch={watch}
         />
       </div>
     </>

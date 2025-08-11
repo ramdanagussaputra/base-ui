@@ -13,5 +13,5 @@ export { UploadPhotoFormField } from "#/components/form/components/form-field/Up
 export { MultipleUploadPhotoFormField } from "#/components/form/components/form-field/MultipleUploadPhotoFormField";
 export { DatePickerFormField } from "#/components/form/components/form-field/DatePickerFormField";
 export { PassportFormField } from "#/components/form/components/form-field/PassportFormField";
-
+export { DurationFormField } from "#/components/form/components/form-field/DurationFormField";
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";
