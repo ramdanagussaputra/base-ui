@@ -38,6 +38,7 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   selectComponentOptions?: Partial<
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
+  menuPortalTarget?: HTMLElement | null;
 }
 
 export function FieldsetSelect<MultiSelect extends boolean = false>({
@@ -52,6 +53,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   value = null,
   selectComponentOptions,
   children,
+  menuPortalTarget,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -71,6 +73,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement="auto"
+      menuPortalTarget={menuPortalTarget}
       menuPosition="fixed"
       isDisabled={isDisabled}
       isSearchable={isSearchable}
