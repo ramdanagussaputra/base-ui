@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { StepperProvider } from "#/components/stepper/context/useStepperContext";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideTitle from "@/component/styleguide/StyleguideTitle";
@@ -15,32 +14,25 @@ function Navigation() {
     <StyleguideGroup>
       <StyleguideTitle>Navigations</StyleguideTitle>
 
-      <StepperProvider
-        currentStep={currentStep}
-        setStep={setStep}
-        nextStep={() => setStep(currentStep + 1)}
-        prevStep={() => setStep(currentStep - 1)}
-      >
-        <Stepper labels={labels} />
-        <div className="mt-4 flex gap-2">
-          <button
-            type="button"
-            className="rounded bg-neutral-200 px-4 py-2"
-            onClick={() => setStep(currentStep - 1)}
-            disabled={currentStep <= 1}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            className="rounded bg-neutral-950 px-4 py-2 text-white"
-            onClick={() => setStep(currentStep + 1)}
-            disabled={currentStep >= labels.length}
-          >
-            Next
-          </button>
-        </div>
-      </StepperProvider>
+      <Stepper labels={labels} />
+      <div className="mt-4 flex gap-2">
+        <button
+          type="button"
+          className="rounded bg-neutral-200 px-4 py-2"
+          onClick={() => setStep(currentStep - 1)}
+          disabled={currentStep <= 1}
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          className="rounded bg-neutral-950 px-4 py-2 text-white"
+          onClick={() => setStep(currentStep + 1)}
+          disabled={currentStep >= labels.length}
+        >
+          Next
+        </button>
+      </div>
 
       <div className="grid grid-cols-2 gap-10">
         <Tabs />
