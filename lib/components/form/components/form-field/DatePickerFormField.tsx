@@ -1,12 +1,14 @@
 import { DateRange } from "react-day-picker";
 import { Controller } from "react-hook-form";
 import { Calendar } from "iconsax-react";
+import { useRef } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { formatCalendarDisplayValue } from "#/components/form/utils/formatCalendarDisplayValue";
 import Icon from "#/components/icon/Icon";
 import { useCalendarState } from "#/components/form/hook/useCalendarState";
+import { useCalendarPosition } from "#/components/form/hook/useCalendarPosition";
 
 import { cn } from "#/utils";
 
@@ -41,6 +43,12 @@ export function DatePickerFormField({
   size = "medium",
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const { openUpward, position } = useCalendarPosition({
+    isOpen: open,
+    triggerRef,
+    calendarHeight: 320,
+  });
 
   return (
     <Controller
@@ -55,6 +63,12 @@ export function DatePickerFormField({
       }}
       render={({ field, fieldState }) => {
         const displayValue = formatCalendarDisplayValue(mode, field.value);
+
+        const handleClose = () => {
+          if (mode === "single") {
+            setOpen(false);
+          }
+        };
 
         return (
           <Fieldset
@@ -72,6 +86,7 @@ export function DatePickerFormField({
 
             <div ref={calendarRef}>
               <button
+                ref={triggerRef}
                 type="button"
                 className={cn("w-full cursor-pointer", {
                   "pointer-events-none": isDisabled,
@@ -92,16 +107,26 @@ export function DatePickerFormField({
                 </Fieldset.TextInput>
               </button>
               {open && (
-                <div className="absolute top-full z-50 mt-2 bg-white">
+                <div
+                  className={cn("absolute z-50", {
+                    "mt-2": !openUpward,
+                    "mb-2": openUpward,
+                  })}
+                  style={position}
+                >
                   <Fieldset.Calendar
                     mode={mode}
                     date={field.value}
                     onChange={(value: any) => {
                       field.onChange(value);
                       onChange?.(value);
+                      handleClose();
                     }}
                     yearBefore={yearBefore}
                     yearAfter={yearAfter}
+                    handleClose={() => {
+                      setOpen(false);
+                    }}
                   />
                 </div>
               )}

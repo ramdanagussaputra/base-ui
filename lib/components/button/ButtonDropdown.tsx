@@ -59,6 +59,7 @@ interface ButtonDropdownProps {
   variant?: "solid" | "light" | "no-background" | "outline" | "link";
   isDisabled?: boolean;
   className?: string;
+  panelClassName?: string;
   isLoading?: boolean;
   anchor?:
     | "top"
@@ -92,7 +93,7 @@ export function ButtonDropdownItem({
     <MenuItem disabled={isDisabled}>
       <button
         className={cn(
-          "group flex w-full items-center px-5 py-2 text-b3-500 text-secondary-800 rounded-md text-left hover:bg-secondary-50 focus:bg-secondary-50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer",
+          "group text-b3-500 text-secondary-800 hover:bg-secondary-50 focus:bg-secondary-50 flex w-full cursor-pointer items-center rounded-md px-5 py-2 text-left focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent",
           className,
         )}
         onClick={onClick}
@@ -114,6 +115,7 @@ export function ButtonDropdown({
   isDisabled = false,
   isLoading = false,
   anchor = "bottom start",
+  panelClassName,
 }: Readonly<ButtonDropdownProps>) {
   const isExtraSmall = size === "extra-small";
   const isSmall = size === "small";
@@ -215,8 +217,9 @@ export function ButtonDropdown({
             <MenuItems
               anchor={anchor}
               className={cn(
-                "bg-[rgba(253,253,253)] border-secondary-100 z-10 w-56 rounded-lg border p-3 shadow-lg focus:outline-none",
+                "border-secondary-100 z-10 w-56 rounded-lg border bg-[rgba(253,253,253)] p-3 shadow-lg focus:outline-none",
                 anchor.includes("top") ? "-mt-2" : "mt-2",
+                panelClassName,
               )}
             >
               {children}
