@@ -1,14 +1,18 @@
 import {
+  DurationFormField,
   PasswordFormField,
   TextAreaFormField,
   TextFormField,
+  WebsiteFormField,
 } from "massive-base-ui";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 import { useFormContext } from "react-hook-form";
 
 function InputFieldForm() {
-  const { control } = useFormContext();
+  const { control, watch, setValue } = useFormContext();
+  const duration = watch("duration") || "";
+  console.log(duration, "duration");
 
   return (
     <>
@@ -53,11 +57,38 @@ function InputFieldForm() {
           placeholder="Enter text"
         />
 
+        <WebsiteFormField
+          control={control}
+          label="Website input"
+          name="website"
+          placeholder="Enter website URL"
+        />
+
+        <TextAreaFormField
+          control={control}
+          label="Auto Resizable Text Area"
+          name="resizableTextArea"
+          placeholder="Enter text"
+          fieldSizeFollowContent
+          maxHeight={270}
+          minHeight={90}
+          height={90}
+        />
+
         <TextAreaFormField
           control={control}
           label="Text Area"
           name="textArea"
           placeholder="Enter text"
+        />
+
+        <DurationFormField
+          control={control}
+          label="Duration input"
+          name="duration"
+          placeholder="Enter duration"
+          setValue={setValue}
+          watch={watch}
         />
       </div>
     </>

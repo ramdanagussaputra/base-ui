@@ -1,11 +1,19 @@
 import { AddSquare } from "iconsax-react";
 import { Button } from "massive-base-ui";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Icon from "#/components/icon/Icon";
 
 function ButtonsPage() {
   const [files, setFiles] = useState<FileList | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFiles = (fileList: FileList | null) => {
     setFiles(fileList);
+  };
+  const clearFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+      setFiles(null);
+    }
   };
 
   return (
@@ -22,7 +30,7 @@ function ButtonsPage() {
             dragActiveText={
               <>
                 <Button.Icon>
-                  <AddSquare variant="Bold" />
+                  <Icon icon={AddSquare} variant="Bold" />
                 </Button.Icon>
                 <span className="text-primary-700 font-semibold">
                   Release to upload
@@ -31,17 +39,33 @@ function ButtonsPage() {
             }
             dragActiveClassName="bg-primary-50"
           >
-            <Button.Icon>
-              <AddSquare variant="Outline" />
-            </Button.Icon>
-            <span>Drag files here or</span>
-            <Button.FileInput onChange={handleFiles} accept="image/*">
-              <span className="ml-1 cursor-pointer underline">
-                click to upload
-              </span>
+            <Button.FileInput
+              ref={fileInputRef}
+              onChange={handleFiles}
+              accept=".csv"
+              onInvalidFile={() => {
+                console.log("invalid file");
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <Button.Icon>
+                  <Icon icon={AddSquare} variant="Outline" />
+                </Button.Icon>
+                <span>Drag files here or</span>
+                <span className="ml-1 cursor-pointer underline">
+                  click to upload
+                </span>
+              </div>
             </Button.FileInput>
           </Button.DropZone>
         </Button>
+        <button
+          type="button"
+          className="mt-2 rounded bg-neutral-200 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-300"
+          onClick={clearFileInput}
+        >
+          Clear File Input
+        </button>
         {files && (
           <div className="mt-2 text-sm text-neutral-700">
             <strong>Selected files:</strong>
@@ -57,21 +81,21 @@ function ButtonsPage() {
       <section className="grid grid-cols-[min-content_min-content_min-content_min-content] items-center gap-4 p-10">
         <Button color="primary" size="large" variant="solid" isLoading>
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
           Solid Primer
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
         </Button>
 
         <Button color="primary" size="medium" variant="solid" isLoading>
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
           Solid Primer
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
         </Button>
 
@@ -123,7 +147,7 @@ function ButtonsPage() {
 
         <Button color="primary" size="large" variant="light" isLoading>
           <Button.Icon>
-            <AddSquare variant="Outline" />
+            <Icon icon={AddSquare} variant="Outline" />
           </Button.Icon>
           Light Primary
         </Button>

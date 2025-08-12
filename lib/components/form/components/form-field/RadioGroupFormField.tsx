@@ -15,6 +15,7 @@ interface RadioGroupFormFieldProps {
   isDisabled?: boolean;
   label?: string;
   containerClassName?: string;
+  fieldName?: string;
 }
 
 export function RadioGroupFormField({
@@ -26,13 +27,21 @@ export function RadioGroupFormField({
   isRequired = false,
   isDisabled = false,
   containerClassName,
+  fieldName,
 }: Readonly<RadioGroupFormFieldProps>) {
   return (
     <Controller
       control={control}
       name={name}
+      rules={{
+        required: {
+          value: isRequired,
+          message: `${fieldName || label} is required`,
+        },
+      }}
       render={({ field, fieldState }) => (
         <Fieldset
+          isError={!!fieldState.error}
           isRequired={isRequired}
           isDisabled={isDisabled}
           className={cn("gap-3", containerClassName)}

@@ -36,7 +36,7 @@ const colors = {
   default: string;
 };
 
-export function Spinner({ size = 32, color = "default" }: SpinnerProps) {
+export function Spinner({ size = 32, color = "default" }: Readonly<SpinnerProps>) {
   const spinnerColor = colors[color];
 
   const style = {
@@ -50,7 +50,7 @@ export function Spinner({ size = 32, color = "default" }: SpinnerProps) {
   };
 
   return (
-    <div className="relative flex w-fit items-center justify-center rounded-xl">
+    <div className="relative flex items-center justify-center rounded-xl" style={{ width: size, height: size }}>
       <div
         className={cn(
           "absolute rounded-full border-[3px] opacity-20",

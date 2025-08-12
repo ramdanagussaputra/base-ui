@@ -1,6 +1,7 @@
+import { useCallback, useEffect, useRef } from "react";
+
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
-import { useCallback } from "react";
 
 interface FieldsetTextAreaProps {
   placeholder: string;
@@ -13,6 +14,7 @@ interface FieldsetTextAreaProps {
   minHeight?: number;
   maxHeight?: number;
   isResizable?: boolean;
+  fieldSizeFollowContent?: boolean;
 }
 
 export function FieldsetTextArea({
@@ -26,18 +28,51 @@ export function FieldsetTextArea({
   minHeight,
   maxHeight,
   isResizable = true,
+  fieldSizeFollowContent = false,
 }: Readonly<FieldsetTextAreaProps>) {
   const { isDisabled, isError } = useFieldsetContext();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const autoResize = useCallback(() => {
+    if (!fieldSizeFollowContent || !textareaRef.current) return;
+
+    const textarea = textareaRef.current;
+    const minHeightValue = minHeight || 200;
+    const maxHeightValue = maxHeight || 600;
+
+    // Reset height to auto to get the actual scrollHeight
+    textarea.style.height = "auto";
+
+    // Calculate the new height based on content
+    const newHeight = Math.min(
+      Math.max(textarea.scrollHeight, minHeightValue),
+      maxHeightValue,
+    );
+
+    // Set the new height
+    textarea.style.height = `${newHeight}px`;
+  }, [fieldSizeFollowContent, minHeight, maxHeight]);
+
+  useEffect(() => {
+    if (fieldSizeFollowContent) {
+      autoResize();
+    }
+  }, [value, autoResize, fieldSizeFollowContent]);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange(event.target.value);
+      if (fieldSizeFollowContent) {
+        // Delay auto-resize to next tick to ensure DOM is updated
+        setTimeout(autoResize, 0);
+      }
     },
-    [onChange],
+    [onChange, fieldSizeFollowContent, autoResize],
   );
 
   return (
     <textarea
+      ref={textareaRef}
       placeholder={placeholder}
       maxLength={lengthCap}
       disabled={isDisabled}
@@ -48,15 +83,15 @@ export function FieldsetTextArea({
       className={cn(
         "text-b3-500 placeholder:text-b3-500 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-3 py-2.5 text-(--fieldset-text-color) duration-100 outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent focus:border-(--fieldset-border-color--focus) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
         {
-          "resize-y": isResizable,
-          "resize-none": !isResizable,
+          "resize-y": isResizable && !fieldSizeFollowContent,
+          "resize-none": !isResizable || fieldSizeFollowContent,
           "bg-(--fieldset-bg--disabled)": isDisabled,
           "border-(--fieldset-border-color--error) bg-(--fieldset-bg--error)":
             isError,
         },
       )}
       style={{
-        height: `${height}px`,
+        height: fieldSizeFollowContent ? "auto" : `${height}px`,
         minHeight: minHeight ? `${minHeight}px` : undefined,
         maxHeight: maxHeight ? `${maxHeight}px` : undefined,
       }}

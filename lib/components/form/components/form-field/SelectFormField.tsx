@@ -30,6 +30,7 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   selectComponentOptions?: Partial<
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
+  menuPortalTarget?: HTMLElement | null;
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -50,7 +51,8 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   withoutTagLabel = false,
   children,
   selectComponentOptions,
-}: SelectFormFieldProps<MultiSelect>) {
+  menuPortalTarget,
+}: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
       name={name}
@@ -88,6 +90,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             value={field.value}
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
+            menuPortalTarget={menuPortalTarget}
           >
             {children}
           </Fieldset.Select>

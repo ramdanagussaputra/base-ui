@@ -5,6 +5,7 @@ import { Add } from "iconsax-react";
 import { Snackbar } from "#/components/snackbar/Snackbar";
 import tickSquareIcon from "#/components/snackbar/asset/tick-square.svg";
 import { useSnackbar } from "./hook/useSnackbar";
+import Icon from "#/components/icon/Icon";
 
 interface SnackbarSuccessProps extends CustomContentProps {
   description?: string;
@@ -43,7 +44,10 @@ export const SnackbarContentSuccess = forwardRef<
             className="cursor-pointer"
             onClick={() => removeSnackbar(snackbarId)}
           >
-            <Add className="text-secondary-300 size-[1.875rem] rotate-45" />
+            <Icon
+              icon={Add}
+              className="text-secondary-300 size-[1.875rem] rotate-45"
+            />
           </button>
         </div>
       </Snackbar>

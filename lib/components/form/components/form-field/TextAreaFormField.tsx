@@ -8,6 +8,7 @@ interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
   minHeight?: number;
   maxHeight?: number;
   isResizable?: boolean;
+  fieldSizeFollowContent?: boolean;
 }
 
 export function TextAreaFormField({
@@ -25,6 +26,7 @@ export function TextAreaFormField({
   onChange = () => {},
   withoutTagLabel = false,
   isResizable = true,
+  fieldSizeFollowContent = false,
 }: Readonly<TextAreaFormFieldProps>) {
   let maxLength: number;
 
@@ -68,6 +70,7 @@ export function TextAreaFormField({
             maxHeight={maxHeight || 600}
             minHeight={minHeight || 200}
             isResizable={isResizable}
+            fieldSizeFollowContent={fieldSizeFollowContent}
           />
 
           {!!fieldState.error?.message && (

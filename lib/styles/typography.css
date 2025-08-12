@@ -1,4 +1,7 @@
 @theme {
+  --font-libre: "Libre Franklin", "sans-serif";
+  --font-roboto: "Roboto", "sans-serif";
+
   --text-big-text: 3.125rem;
   --text-big-text--line-height: 3.75rem;
   --text-big-text--font-weight: 700;
@@ -89,73 +92,73 @@
 
   --text-b1-600: var(--text-b1);
   --text-b1-600--line-height: var(--text-b1--line-height);
-  --text-b1-600--font-weight: 500;
+  --text-b1-600--font-weight: 600;
 
   --text-b1-500: var(--text-b1);
   --text-b1-500--line-height: var(--text-b1--line-height);
-  --text-b1-500--font-weight: 400;
+  --text-b1-500--font-weight: 500;
 
   --text-b1-400: var(--text-b1);
   --text-b1-400--line-height: var(--text-b1--line-height);
-  --text-b1-400--font-weight: 300;
+  --text-b1-400--font-weight: 400;
 
   --text-b2: 1rem;
   --text-b2--line-height: 1.4rem;
 
   --text-b2-600: var(--text-b2);
   --text-b2-600--line-height: var(--text-b2--line-height);
-  --text-b2-600--font-weight: 500;
+  --text-b2-600--font-weight: 600;
 
   --text-b2-500: var(--text-b2);
   --text-b2-500--line-height: var(--text-b2--line-height);
-  --text-b2-500--font-weight: 400;
+  --text-b2-500--font-weight: 500;
 
   --text-b2-400: var(--text-b2);
   --text-b2-400--line-height: var(--text-b2--line-height);
-  --text-b2-400--font-weight: 300;
+  --text-b2-400--font-weight: 400;
 
   --text-b3: 0.875rem;
   --text-b3--line-height: 1.225rem;
 
   --text-b3-600: var(--text-b3);
   --text-b3-600--line-height: var(--text-b3--line-height);
-  --text-b3-600--font-weight: 500;
+  --text-b3-600--font-weight: 600;
 
   --text-b3-500: var(--text-b3);
   --text-b3-500--line-height: var(--text-b3--line-height);
-  --text-b3-500--font-weight: 400;
+  --text-b3-500--font-weight: 500;
 
   --text-b3-400: var(--text-b3);
   --text-b3-400--line-height: var(--text-b3--line-height);
-  --text-b3-400--font-weight: 300;
+  --text-b3-400--font-weight: 400;
 
   --text-b4: 0.75rem;
   --text-b4--line-height: 1.05rem;
 
   --text-b4-600: var(--text-b4);
   --text-b4-600--line-height: var(--text-b4--line-height);
-  --text-b4-600--font-weight: 500;
+  --text-b4-600--font-weight: 600;
 
   --text-b4-500: var(--text-b4);
   --text-b4-500--line-height: var(--text-b4--line-height);
-  --text-b4-500--font-weight: 400;
+  --text-b4-500--font-weight: 500;
 
   --text-b4-400: var(--text-b4);
   --text-b4-400--line-height: var(--text-b4--line-height);
-  --text-b4-400--font-weight: 300;
+  --text-b4-400--font-weight: 400;
 
   --text-small-text: 0.625rem;
   --text-small-text--line-height: 0.875rem;
 
   --text-small-text-600: var(--text-small-text);
   --text-small-text-600--line-height: var(--text-small-text--line-height);
-  --text-small-text-600--font-weight: 500;
+  --text-small-text-600--font-weight: 600;
 
   --text-small-text-500: var(--text-small-text);
   --text-small-text-500--line-height: var(--text-small-text--line-height);
-  --text-small-text-500--font-weight: 400;
+  --text-small-text-500--font-weight: 500;
 
   --text-small-text-400: var(--text-small-text);
   --text-small-text-400--line-height: var(--text-small-text--line-height);
-  --text-small-text-400--font-weight: 300;
+  --text-small-text-400--font-weight: 400;
 }

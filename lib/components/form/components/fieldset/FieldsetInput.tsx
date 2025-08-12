@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn, extractNumbersFromString } from "#/utils";
@@ -13,6 +13,11 @@ interface FieldsetInputProps {
   onChange?: (value: string) => void;
   onBlur?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  className?: string;
+  name?: string;
+  tabIndex?: number;
+  id?: string;
+  defaultValue?: any;
 }
 
 export function FieldsetInput({
@@ -25,6 +30,11 @@ export function FieldsetInput({
   onChange = () => {},
   onFocus = () => {},
   type = "text",
+  className,
+  name,
+  tabIndex,
+  id,
+  defaultValue,
 }: Readonly<FieldsetInputProps>) {
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
     useFieldsetContext();
@@ -33,11 +43,8 @@ export function FieldsetInput({
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const number = extractNumbersFromString(event.target.value);
-
-      onChange(event.target.value);
-
       if (isNumber) {
+        const number = extractNumbersFromString(event.target.value);
         onChange(number);
       } else {
         onChange(event.target.value);
@@ -49,7 +56,7 @@ export function FieldsetInput({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-2 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-[0.8125rem] duration-100 focus-within:border-(--fieldset-border-color--focus)",
+        "border-(--fieldset-border-color) bg-(--fieldset-bg) focus-within:border-(--fieldset-border-color--focus) flex items-center justify-between gap-2 rounded-md border px-[0.8125rem] duration-100",
         {
           "h-(--fieldset-height-large) gap-(--fieldset-container-gap-large)":
             isLarge,
@@ -62,9 +69,14 @@ export function FieldsetInput({
             isError,
           "flex-row-reverse": isReverseIcon,
         },
+        className,
       )}
     >
       <input
+        defaultValue={defaultValue}
+        id={id}
+        name={name}
+        tabIndex={tabIndex}
         placeholder={placeholder}
         maxLength={lengthCap}
         disabled={isDisabled}
@@ -74,11 +86,11 @@ export function FieldsetInput({
         onChange={handleChange}
         onFocus={onFocus}
         className={cn(
-          "h-full w-full bg-transparent text-(--fieldset-text-color) outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
+          "text-(--fieldset-text-color) placeholder:text-(--fieldset-placeholder-color) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled) h-full w-full bg-transparent outline-none autofill:bg-transparent",
           {
-            "text-b2-500 placeholder:text-b2-500": isLarge,
-            "text-b3-500 placeholder:text-b3-500": isMedium,
-            "text-b4-500 placeholder:text-b4-500": isSmall,
+            "text-b2-400 placeholder:text-b2-400": isLarge,
+            "text-b3-400 placeholder:text-b3-400": isMedium,
+            "text-b4-400 placeholder:text-b4-400": isSmall,
           },
         )}
       />

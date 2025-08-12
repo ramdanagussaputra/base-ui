@@ -1,0 +1,13 @@
+@layer components {
+  :root {
+    --avatar-bg-color-number: var(--color-primary-600);
+    --avatar-bg-color-placeholder: var(--color-secondary-200);
+    --avatar-text-color-number: rgba(255, 255, 255, 1);
+    --avatar-placeholder-icon-color: rgba(251, 251, 251, 1);
+
+    --multiple-avatar-border-color: var(--color-neutral-0);
+    --multiple-avatar-border-width-large: 0.07625rem;
+    --multiple-avatar-border-width-medium: 0.0625rem;
+    --multiple-avatar-border-width-small: 0.03125rem;
+  }
+}

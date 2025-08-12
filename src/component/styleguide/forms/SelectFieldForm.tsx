@@ -1,10 +1,16 @@
-import { Button, SelectFormField } from "massive-base-ui";
+import {
+  Button,
+  DatePickerFormField,
+  PhoneNumberFormField,
+  SelectFormField,
+  PassportFormField,
+} from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
 import { Add } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
-
 function SelectFieldForm() {
   const formMethods = useFormContext();
   return (
@@ -12,6 +18,30 @@ function SelectFieldForm() {
       <StyleguideSubtitle>Select Input Field</StyleguideSubtitle>
 
       <div className="space-y-3">
+        <DatePickerFormField
+          mode="single"
+          control={formMethods.control}
+          label="Single Date Picker"
+          name="singleDate"
+          placeholder="DD/MM/YYYY"
+        />
+
+        <DatePickerFormField
+          mode="multiple"
+          control={formMethods.control}
+          label="Multiple Date Picker"
+          name="multipleDate"
+          placeholder="DD/MM/YYYY"
+        />
+
+        <DatePickerFormField
+          mode="range"
+          control={formMethods.control}
+          label="Range Date Picker"
+          name="rangeDate"
+          placeholder="DD/MM/YYYY"
+        />
+
         <SelectFormField
           name="select"
           control={formMethods.control}
@@ -56,12 +86,112 @@ function SelectFieldForm() {
 
                 <Button variant="light" className="w-full">
                   <Button.Icon>
-                    <Add />
+                    <Icon icon={Add} />
                   </Button.Icon>
                   Add Something
                 </Button>
               </>
             ),
+          }}
+        />
+
+        <PhoneNumberFormField
+          control={formMethods.control}
+          label="Phone number input"
+          name="phoneNumber"
+          placeholder="Enter phone number"
+          options={[
+            {
+              label: "Indonesia",
+              value: "+62",
+            },
+            {
+              label: "United States",
+              value: "+1",
+            },
+            {
+              label: "United Kingdom",
+              value: "+44",
+            },
+            {
+              label: "Australia",
+              value: "+61",
+            },
+            {
+              label: "Canada",
+              value: "+1",
+            },
+            {
+              label: "Germany",
+              value: "+49",
+            },
+            {
+              label: "France",
+              value: "+33",
+            },
+            {
+              label: "Japan",
+              value: "+81",
+            },
+            {
+              label: "South Korea",
+              value: "+82",
+            },
+            {
+              label: "India",
+              value: "+91",
+            },
+            {
+              label: "Brazil",
+              value: "+55",
+            },
+            {
+              label: "Mexico",
+              value: "+52",
+            },
+            {
+              label: "Russia",
+              value: "+7",
+            },
+            {
+              label: "Italy",
+              value: "+39",
+            },
+            {
+              label: "Spain",
+              value: "+34",
+            },
+            {
+              label: "Netherlands",
+              value: "+31",
+            },
+            {
+              label: "Sweden",
+              value: "+46",
+            },
+          ]}
+        />
+
+        <PassportFormField
+          control={formMethods.control}
+          name="passportNumber"
+          label="Passport Number"
+          placeholder="Enter passport number"
+          options={[
+            { label: "Indonesia", value: "ID" },
+            { label: "United States", value: "US" },
+            { label: "United Kingdom", value: "GB" },
+            { label: "Australia", value: "AU" },
+            { label: "Canada", value: "CA" },
+            { label: "Germany", value: "DE" },
+            { label: "France", value: "FR" },
+            { label: "Japan", value: "JP" },
+            { label: "South Korea", value: "KR" },
+            { label: "Singapore", value: "SG" },
+          ]}
+          prefixDefaultValue="ID"
+          onPrefixChange={(value) => {
+            formMethods.setValue("prefixPassport", value);
           }}
         />
       </div>

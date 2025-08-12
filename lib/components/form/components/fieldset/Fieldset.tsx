@@ -10,6 +10,10 @@ import { FieldsetRadio } from "#/components/form/components/fieldset/FieldsetRad
 import { FieldsetRadioGroup } from "#/components/form/components/fieldset/FieldsetRadioGroup";
 import { FieldsetTextArea } from "#/components/form/components/fieldset/FieldsetTextArea";
 import { FieldsetAsyncSelect } from "#/components/form/components/fieldset/FieldsetAsyncSelect";
+import { FieldsetSelectPrefix } from "#/components/form/components/fieldset/FieldsetSelectPrefix";
+import { FieldsetUploadPhoto } from "#/components/form/components/fieldset/FieldsetUploadPhoto";
+import { FieldsetCalendar } from "#/components/form/components/fieldset/FieldsetCalendar";
+import { FieldsetUploadPhotoAdditional } from "#/components/form/components/fieldset/FieldsetUploadPhotoAdditional";
 import { FieldsetToggle } from "#/components/form/components/fieldset/FieldsetToggle";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
@@ -82,3 +86,7 @@ Fieldset.RadioGroup = FieldsetRadioGroup;
 Fieldset.Textarea = FieldsetTextArea;
 Fieldset.AsyncSelect = FieldsetAsyncSelect;
 Fieldset.Toggle = FieldsetToggle;
+Fieldset.SelectPrefix = FieldsetSelectPrefix;
+Fieldset.UploadPhoto = FieldsetUploadPhoto;
+Fieldset.UploadPhotoAdditional = FieldsetUploadPhotoAdditional;
+Fieldset.Calendar = FieldsetCalendar;

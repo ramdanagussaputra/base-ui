@@ -3,12 +3,13 @@ import { Slot } from "@radix-ui/react-slot";
 import { useButtonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
 
-interface ButtonIconProps {
+export function ButtonIcon({ 
+  children, 
+  className 
+}: {
   readonly children: React.ReactNode;
   readonly className?: string;
-}
-
-export function ButtonIcon({ children, className }: ButtonIconProps) {
+}) {
   const { isExtraSmall, isSmall, isMedium, isLarge, isLoading } =
     useButtonContext();
 

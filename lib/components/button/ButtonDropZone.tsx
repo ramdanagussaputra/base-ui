@@ -2,33 +2,32 @@ import React, { useRef, useEffect } from "react";
 import { buttonContext } from "#/components/button/context/useButtonContext";
 import { cn } from "#/utils";
 
-interface ButtonDropZoneProps {
-  children: React.ReactNode | ((isDragging: boolean) => React.ReactNode);
-  onDrop?: (files: FileList) => void;
-  className?: string;
-  dragActiveText?: React.ReactNode;
-  dragActiveClassName?: string;
-}
-
 export function ButtonDropZone({
   children,
   onDrop,
   className,
   dragActiveText,
   dragActiveClassName,
-}: ButtonDropZoneProps) {
+}: Readonly<{
+  children: React.ReactNode | ((isDragging: boolean) => React.ReactNode);
+  onDrop?: (files: FileList) => void;
+  className?: string;
+  dragActiveText?: React.ReactNode;
+  dragActiveClassName?: string;
+}>) {
   const context = React.useContext(buttonContext);
   if (!context) {
     throw new Error("ButtonDropZone must be used within a Button");
   }
   const { isDragging, setIsDragging } = context;
-  const dragCounter = useRef(0);
+  const dragEventCounter = useRef(0);
 
-  // Optional: Reset drag state if drag leaves the window
+  // Reset drag state if drag leaves the window (browser edge case)
   useEffect(() => {
-    const handleWindowDragLeave = (e: DragEvent) => {
-      if (!e.relatedTarget && !(e as any).toElement) {
-        dragCounter.current = 0;
+    const handleWindowDragLeave = (event: DragEvent) => {
+      // Only reset if leaving the window (relatedTarget is null)
+      if (!event.relatedTarget && !(event as any).toElement) {
+        dragEventCounter.current = 0;
         setIsDragging(false);
       }
     };
@@ -41,44 +40,51 @@ export function ButtonDropZone({
   // Failsafe: Reset drag state if stuck for more than 2 seconds
   useEffect(() => {
     if (!isDragging) return;
-    const failsafe = setTimeout(() => {
-      dragCounter.current = 0;
+    const failsafeTimeout = setTimeout(() => {
+      dragEventCounter.current = 0;
       setIsDragging(false);
     }, 2000); // 2 seconds
-    return () => clearTimeout(failsafe);
+    return () => clearTimeout(failsafeTimeout);
   }, [isDragging, setIsDragging]);
 
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    dragCounter.current += 1;
-    if (e.dataTransfer.types.includes("Files")) {
+  // Handle drag enter: increment counter and set dragging state if files are present
+  const handleDropZoneDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    dragEventCounter.current += 1;
+    if (event.dataTransfer.types.includes("Files")) {
       setIsDragging(true);
     }
   };
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    dragCounter.current -= 1;
-    if (dragCounter.current < 0) dragCounter.current = 0;
-    if (dragCounter.current === 0) {
+
+  // Handle drag leave: decrement counter and reset dragging state if counter is zero
+  const handleDropZoneDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    dragEventCounter.current -= 1;
+    if (dragEventCounter.current < 0) dragEventCounter.current = 0;
+    if (dragEventCounter.current === 0) {
       setIsDragging(false);
     }
   };
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
+
+  // Prevent default to allow drop
+  const handleDropZoneDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
   };
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    dragCounter.current = 0;
+
+  // Handle file drop: reset counter and dragging state, and call onDrop
+  const handleDropZoneDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    dragEventCounter.current = 0;
     setIsDragging(false);
-    if (onDrop) onDrop(e.dataTransfer.files);
+    if (onDrop) onDrop(event.dataTransfer.files);
   };
 
   return (
     <div
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
+      onDragEnter={handleDropZoneDragEnter}
+      onDragLeave={handleDropZoneDragLeave}
+      onDragOver={handleDropZoneDragOver}
+      onDrop={handleDropZoneDrop}
       className={cn(className, {
         "ring-primary-500 ring-2": isDragging,
         [`${dragActiveClassName}`]: isDragging,

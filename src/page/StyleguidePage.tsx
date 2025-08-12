@@ -5,6 +5,9 @@ import Fonts from "@/component/styleguide/fonts/Fonts";
 import Forms from "@/component/styleguide/forms/Forms";
 import Navigation from "@/component/styleguide/navigations/Navigations";
 import Tooltips from "@/component/styleguide/tooltip/Tooltips";
+import MessageBoxes from "@/component/styleguide/messagebox/MessageBoxes";
+import Avatars from "@/component/styleguide/avatars/Avatars";
+import Accordion from "@/component/styleguide/accordion/Accordion";
 
 function StyleguidePage() {
   return (
@@ -21,6 +24,9 @@ function StyleguidePage() {
         <Tooltips />
         <Forms />
         <Navigation />
+        <MessageBoxes />
+        <Avatars />
+        <Accordion />
       </div>
     </section>
   );

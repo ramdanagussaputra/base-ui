@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeSlash } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
@@ -11,6 +12,7 @@ interface PasswordFormFieldProps
   extends Omit<FormFieldProps, "type" | "isError"> {
   isConfirmPassword?: boolean;
   passwordName?: string;
+  endElement?: React.ReactNode;
 }
 
 export function PasswordFormField({
@@ -27,6 +29,7 @@ export function PasswordFormField({
   isConfirmPassword = false,
   passwordName,
   withoutTagLabel = false,
+  endElement,
 }: Readonly<PasswordFormFieldProps>) {
   const [isShow, setIsShow] = useState(false);
 
@@ -77,13 +80,16 @@ export function PasswordFormField({
             }}
             onBlur={field.onBlur}
           >
-            <Fieldset.Icon className="cursor-pointer">
-              {isShow ? (
-                <EyeSlash onClick={() => setIsShow(false)} />
-              ) : (
-                <Eye onClick={() => setIsShow(true)} />
-              )}
-            </Fieldset.Icon>
+            <div className="flex items-center gap-1">
+              {endElement}
+              <Fieldset.Icon className="cursor-pointer">
+                {isShow ? (
+                  <Icon icon={EyeSlash} onClick={() => setIsShow(false)} />
+                ) : (
+                  <Icon icon={Eye} onClick={() => setIsShow(true)} />
+                )}
+              </Fieldset.Icon>
+            </div>
           </Fieldset.TextInput>
 
           {fieldState.error?.message && (

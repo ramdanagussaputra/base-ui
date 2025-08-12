@@ -1,5 +1,6 @@
 import { Badge, Tag } from "massive-base-ui";
 import { Add } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
@@ -36,14 +37,14 @@ function BadgesTags() {
             <Tag onRemove={() => {}}>
               Tag Badge
               <Tag.RemoveButton>
-                <Add className="rotate-45" />
+                <Icon icon={Add} className="rotate-45" />
               </Tag.RemoveButton>
             </Tag>
 
             <Tag onRemove={() => {}} isRounded>
               Rounded Tag Badge
               <Tag.RemoveButton>
-                <Add className="rotate-45" />
+                <Icon icon={Add} className="rotate-45" />
               </Tag.RemoveButton>
             </Tag>
           </div>

@@ -1,6 +1,14 @@
 import { Warning2 } from "iconsax-react";
-import { Dialog, Button, useDialog, useModal } from "massive-base-ui";
+import {
+  Dialog,
+  Button,
+  useDialog,
+  useDialogHook,
+  useModal,
+  useConfirmDialog,
+} from "massive-base-ui";
 import { useState } from "react";
+import Icon from "#/components/icon/Icon";
 
 function DialogPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -13,8 +21,70 @@ function DialogPage() {
     setIsDialogOpen(false);
   }
 
+  // Modern API examples from examples.tsx
+  const { show, close, setCallbacks } = useDialogHook();
+  const { showConfirmDialog } = useConfirmDialog();
+  const { showModal, closeModal } = useModal();
+
+  // Example functions from examples.tsx
+  const handleShowSimpleDialog = () => {
+    // Using the modern fluent API
+    show({
+      title: "Confirmation",
+      description: "Are you sure you want to continue?",
+      confirmText: "Yes",
+      cancelText: "No",
+      type: "small",
+    });
+
+    setCallbacks({
+      onConfirm: () => {
+        console.log("Confirmed!");
+        close();
+      },
+      onCancel: () => {
+        console.log("Cancelled!");
+      },
+    });
+  };
+
+  const handleShowConfirmDialog = () => {
+    // Using the convenience hook
+    showConfirmDialog({
+      title: "Delete Item",
+      description: "This action cannot be undone.",
+      confirmText: "Delete",
+      cancelText: "Cancel",
+      type: "regular",
+      onConfirm: () => {
+        console.log("Item deleted!");
+      },
+      onCancel: () => {
+        console.log("Delete cancelled!");
+      },
+    });
+  };
+
+  // Original showDialog from hook version
   const { showDialog } = useDialog();
-  const { showModal } = useModal();
+
+  // Legacy API example using context methods
+  const dialog = useDialogHook();
+  const handleShowLegacyDialog = () => {
+    // Using the legacy API from context
+    dialog.setTitle("Legacy Dialog");
+    dialog.setDescription("This uses the old API");
+    dialog.setConfirmText("OK");
+    dialog.setCancelText("Cancel");
+    dialog.setDialogType("small");
+
+    dialog.setOnConfirm(() => {
+      console.log("Legacy confirmed!");
+      dialog.closeDialog();
+    });
+
+    dialog.showDialog();
+  };
 
   return (
     <div className="p-10">
@@ -30,7 +100,11 @@ function DialogPage() {
         </Dialog.Trigger>
 
         <Dialog.Panel className="flex items-center justify-center">
-          <img src="/dialog-warning.svg" className="h-auto w-[13.1875rem]" />
+          <img
+            src="/dialog-warning.svg"
+            className="h-auto w-[13.1875rem]"
+            alt="Warning icon"
+          />
 
           <div className="flex flex-col items-center justify-center gap-5">
             <Dialog.Panel.Title>
@@ -62,11 +136,14 @@ function DialogPage() {
             showDialog({
               title: "Are you sure want to discard changes?",
               description: "All the changes will be lost.",
+              content: (
+                <div className="bg-error-300 max-w-[400px]">test lagi</div>
+              ),
               confirmText: "Discard",
               cancelText: "Keep Editing",
               onConfirm: () => console.log("Cancel"),
               onCancel: () => console.log("Cancel"),
-              icon: <Warning2 className="h-auto w-[13.1875rem]" />,
+              icon: <Icon icon={Warning2} className="h-auto w-[13.1875rem]" />,
               isConfirmLoading: true,
               onClose: () => console.log("on Close"),
             })
@@ -79,13 +156,64 @@ function DialogPage() {
       <div className="mt-10">
         <Button
           onClick={() =>
+            showDialog({
+              title: "Title",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              content: (
+                <div className="bg-error-300 max-w-[400px]">test lagi</div>
+              ),
+              confirmText: "Discard",
+              cancelText: "Keep Editing",
+              onConfirm: () => console.log("Cancel"),
+              onCancel: () => console.log("Cancel"),
+              icon: <Icon icon={Warning2} className="h-auto w-[13.1875rem]" />,
+              // isConfirmLoading: true,
+              onClose: () => console.log("on Close"),
+              dialogType: "small",
+            })
+          }
+        >
+          Dialog Small Type Programmatically
+        </Button>
+      </div>
+
+      <div className="mt-10">
+        <Button
+          onClick={() =>
             showModal({
-              component: <p>test</p>,
+              component: (
+                <div>
+                  <p>test</p>
+                  <button onClick={closeModal}>close</button>
+                </div>
+              ),
+              panelClassname: "bg-primary-100 w-[200px]",
+              // isClickOutsideClose: false,
             })
           }
         >
           Modal Programmatically
         </Button>
+      </div>
+
+      {/* New Examples from examples.tsx */}
+      <div className="mt-10">
+        <h2 className="mb-4 text-xl font-bold">Modern API Examples</h2>
+
+        <div className="flex flex-wrap gap-4">
+          <Button onClick={handleShowSimpleDialog}>
+            Show Simple Dialog (Modern API)
+          </Button>
+
+          <Button onClick={handleShowConfirmDialog}>
+            Show Confirm Dialog (Convenience Hook)
+          </Button>
+
+          <Button onClick={handleShowLegacyDialog}>
+            Show Legacy Dialog (Context API)
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { cn } from "#/utils";
-import { ReactNode } from "react";
+import { ReactNode, JSX } from "react";
 
 interface BodyProps {
   readonly as: JSX.ElementType;

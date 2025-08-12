@@ -1,5 +1,6 @@
 import { cn } from "#/utils";
 import { ArrowDown, ArrowUp } from "iconsax-react";
+import Icon from "#/components/icon/Icon";
 
 interface TableContentHeadSortIconProps {
   isCurrentSortBy: boolean;
@@ -25,7 +26,7 @@ export function TableContentHeadSortIcon({
       >
         {/* <img src={arrowUp} alt="Arrow Icon" className="size-3" /> */}
 
-        <ArrowUp className="size-(--table-head-sort-icon-size)" />
+        <Icon icon={ArrowUp} className="size-(--table-head-sort-icon-size)" />
       </div>
 
       <div
@@ -34,7 +35,7 @@ export function TableContentHeadSortIcon({
         })}
       >
         {/* <img src={arrowUp} alt="Arrow Icon" className="size-3 rotate-180" /> */}
-        <ArrowDown className="size-(--table-head-sort-icon-size)" />
+        <Icon icon={ArrowDown} className="size-(--table-head-sort-icon-size)" />
       </div>
     </button>
   );
