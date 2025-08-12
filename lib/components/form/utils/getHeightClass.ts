@@ -1,4 +1,6 @@
-export const getHeightClass = (size: "small" | "medium" | "large") => {
+export const getHeightClass = (
+  size: "small" | "medium" | "large" | "extra-small",
+) => {
   switch (size) {
     case "small":
       return "h-(--fieldset-height-small)";

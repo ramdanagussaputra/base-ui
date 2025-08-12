@@ -14,13 +14,14 @@ import { FieldsetSelectPrefix } from "#/components/form/components/fieldset/Fiel
 import { FieldsetUploadPhoto } from "#/components/form/components/fieldset/FieldsetUploadPhoto";
 import { FieldsetCalendar } from "#/components/form/components/fieldset/FieldsetCalendar";
 import { FieldsetUploadPhotoAdditional } from "#/components/form/components/fieldset/FieldsetUploadPhotoAdditional";
+import { FieldsetToggle } from "#/components/form/components/fieldset/FieldsetToggle";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
 
 export interface FieldsetProps {
   children: React.ReactNode;
-  size?: "small" | "medium" | "large";
+  size?: "extra-small" | "small" | "medium" | "large";
   isRequired?: boolean;
   isDisabled?: boolean;
   isError?: boolean;
@@ -37,12 +38,14 @@ export function Fieldset({
   isError = false,
   isSuccess = false,
 }: Readonly<FieldsetProps>) {
+  const isExtraSmall = size === "extra-small";
   const isSmall = size === "small";
   const isMedium = size === "medium";
   const isLarge = size === "large";
 
   const contextValue = useMemo(
     () => ({
+      isExtraSmall,
       isSmall,
       isMedium,
       isLarge,
@@ -51,7 +54,16 @@ export function Fieldset({
       isDisabled,
       isError,
     }),
-    [isSmall, isMedium, isLarge, isRequired, isDisabled, isError, isSuccess],
+    [
+      isExtraSmall,
+      isSmall,
+      isMedium,
+      isLarge,
+      isRequired,
+      isDisabled,
+      isError,
+      isSuccess,
+    ],
   );
 
   return (
@@ -73,6 +85,7 @@ Fieldset.Radio = FieldsetRadio;
 Fieldset.RadioGroup = FieldsetRadioGroup;
 Fieldset.Textarea = FieldsetTextArea;
 Fieldset.AsyncSelect = FieldsetAsyncSelect;
+Fieldset.Toggle = FieldsetToggle;
 Fieldset.SelectPrefix = FieldsetSelectPrefix;
 Fieldset.UploadPhoto = FieldsetUploadPhoto;
 Fieldset.UploadPhotoAdditional = FieldsetUploadPhotoAdditional;

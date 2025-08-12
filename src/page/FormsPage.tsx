@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import {
+  Button,
   CheckboxFormField,
   PasswordFormField,
   SelectFormField,
@@ -23,6 +24,10 @@ function FormsPage() {
     },
     mode: "all",
   });
+
+  const triggerForm = () => {
+    formMethods.trigger();
+  };
 
   return (
     <section className="flex flex-col gap-4 p-10">
@@ -110,6 +115,7 @@ function FormsPage() {
             label="Radio Group"
             control={formMethods.control}
             name="radio"
+            isRequired
             isVertical
             fields={[
               { label: "Radio 1", value: "radio1" },
@@ -142,6 +148,10 @@ function FormsPage() {
             isRequired
           />
         </div>
+
+        <Button type="button" onClick={triggerForm}>
+          Trigger
+        </Button>
       </FormProvider>
     </section>
   );
