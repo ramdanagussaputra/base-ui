@@ -130,7 +130,8 @@ export function FieldsetInput({
               "text-b2-400 placeholder:text-b2-400": isLarge,
               "text-b3-400 placeholder:text-b3-400": isMedium,
               "text-b4-400 placeholder:text-b4-400": isSmall,
-              "px-[0.8125rem]": !!suffix || !!prefix,
+              "pr-[0.8125rem]": !!suffix,
+              "pl-[0.8125rem]": !!prefix,
             },
           )}
         />

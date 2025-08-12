@@ -34,6 +34,14 @@ function InputFieldForm() {
           placeholder="Enter text"
           isRequired
           prefix="Prefix"
+        />
+
+        <TextFormField
+          control={control}
+          label="Suffix text input"
+          name="requiredText"
+          placeholder="Enter text"
+          isRequired
           suffix="Suffix"
         />
 
