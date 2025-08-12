@@ -29,6 +29,16 @@ function InputFieldForm() {
 
         <TextFormField
           control={control}
+          label="Prefix text input"
+          name="requiredText"
+          placeholder="Enter text"
+          isRequired
+          prefix="Prefix"
+          suffix="Suffix"
+        />
+
+        <TextFormField
+          control={control}
           label="Optional text input"
           name="optionalText"
           placeholder="Enter text"

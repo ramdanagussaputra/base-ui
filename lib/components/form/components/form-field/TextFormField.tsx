@@ -10,6 +10,8 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
   endElement?: React.ReactNode;
+  suffix?: string;
+  prefix?: string;
 };
 
 export function TextFormField({
@@ -26,6 +28,8 @@ export function TextFormField({
   size = "medium",
   withoutTagLabel = false,
   endElement,
+  suffix,
+  prefix,
 }: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
@@ -78,6 +82,8 @@ export function TextFormField({
             }}
             onBlur={field.onBlur}
             lengthCap={maxLength}
+            prefix={prefix}
+            suffix={suffix}
           >
             <div className="flex items-center gap-1">{endElement}</div>
           </Fieldset.TextInput>

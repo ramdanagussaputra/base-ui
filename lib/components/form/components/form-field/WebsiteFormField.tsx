@@ -5,13 +5,13 @@ import { useCallback } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
-import { getHeightClass } from "#/components/form/utils/getHeightClass";
+
 import {
   getDisplayValue,
   getFullValue,
 } from "#/components/form/utils/inputWithPrefix";
 
-import { cn, extractMaxLengthValue } from "#/utils";
+import { extractMaxLengthValue } from "#/utils";
 
 type FormatedWebsiteFormFieldProps = Omit<
   FormFieldProps,
@@ -84,30 +84,17 @@ export function WebsiteFormField({
             </Fieldset.Label>
           )}
 
-          <div className="flex items-center">
-            <div
-              className={cn(
-                "border-primary-600/20 bg-primary-50 flex items-center rounded-md rounded-e-none border",
-                getHeightClass(size),
-              )}
-            >
-              <span className="text-b3-400 text-primary-600 px-[0.8125em]">
-                https://
-              </span>
-            </div>
-
-            <Fieldset.TextInput
-              type={type}
-              placeholder={placeholder}
-              value={getInputDisplayValue(field.value)}
-              onChange={(inputValue) =>
-                handleInputChange(inputValue, field.onChange)
-              }
-              onBlur={field.onBlur}
-              lengthCap={maxLength}
-              className="grow rounded-s-none border-s-0"
-            />
-          </div>
+          <Fieldset.TextInput
+            type={type}
+            placeholder={placeholder}
+            value={getInputDisplayValue(field.value)}
+            onChange={(inputValue) =>
+              handleInputChange(inputValue, field.onChange)
+            }
+            onBlur={field.onBlur}
+            lengthCap={maxLength}
+            prefix="https://"
+          />
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
