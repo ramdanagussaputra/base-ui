@@ -16,7 +16,7 @@ export function FieldsetUploadPhoto({
   placeholderIcon = <Icon icon={User} variant="Bold" />,
   value,
   onChange,
-}: FieldsetUploadPhotoProps) {
+}: Readonly<FieldsetUploadPhotoProps>) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const handleOpenFile = () => {
@@ -32,6 +32,27 @@ export function FieldsetUploadPhoto({
     }
   };
 
+  const renderImage = () => {
+    if (!value) {
+      return (
+        <Slot className="text-secondary-0 size-[10.25rem]">
+          {placeholderIcon}
+        </Slot>
+      );
+    }
+
+    return (
+      <img
+        src={typeof value === "string" ? value : URL.createObjectURL(value)}
+        alt="Preview"
+        className="h-full w-full rounded-xl object-cover"
+        onLoad={(e) => {
+          URL.revokeObjectURL((e.target as HTMLImageElement).src);
+        }}
+      />
+    );
+  };
+
   return (
     <div className="group w-fit">
       <input
@@ -41,27 +62,12 @@ export function FieldsetUploadPhoto({
         onChange={handleFileChange}
         className="hidden"
       />
-      <div
+      <button
+        type="button"
         className="bg-secondary-100 relative flex size-[12.75rem] cursor-pointer items-center justify-center rounded-xl"
         onClick={handleOpenFile}
       >
-        {!value && (
-          <Slot className="text-secondary-0 size-[10.25rem]">
-            {placeholderIcon}
-          </Slot>
-        )}
-
-        {value && (
-          <img
-            src={value ? URL.createObjectURL(value) : undefined}
-            alt="Uploaded Photo"
-            className="h-full w-full rounded-xl object-cover"
-            onLoad={(e) => {
-              URL.revokeObjectURL((e.target as HTMLImageElement).src);
-            }}
-          />
-        )}
-
+        {renderImage()}
         <div className="bg-secondary-950/40 absolute inset-0 z-10 hidden rounded-xl group-hover:block">
           <div className="flex h-full w-full items-center justify-center gap-2">
             {!value ? (
@@ -85,7 +91,7 @@ export function FieldsetUploadPhoto({
             )}
           </div>
         </div>
-      </div>
+      </button>
     </div>
   );
 }
