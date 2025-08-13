@@ -4,6 +4,7 @@ import {
   PhoneNumberFormField,
   SelectFormField,
   PassportFormField,
+  SelectSongFormField,
 } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
@@ -52,6 +53,33 @@ function SelectFieldForm() {
             { label: "Option 3", value: "option-3" },
           ]}
           placeholder="Placeholder"
+        />
+
+        <SelectSongFormField
+          name="select-song"
+          control={formMethods.control}
+          onChange={(value) => {
+            console.log(value);
+          }}
+          onInputChange={(value) => {
+            console.log(value);
+          }}
+          options={[
+            {
+              label: "Kawin Lari",
+              secondLabel: "ST12",
+              imageUrl: "https://i.pravatar.cc/300",
+              value: "option-1",
+            },
+            {
+              label: "Cinta Luar Biasa",
+              secondLabel: "ST12",
+              imageUrl: "https://i.pravatar.cc/301",
+              value: "option-2",
+            },
+          ]}
+          placeholder="Placeholder"
+          label="Select Song"
         />
 
         <SelectFormField

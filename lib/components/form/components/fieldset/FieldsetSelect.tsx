@@ -39,6 +39,7 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   menuPortalTarget?: HTMLElement | null;
+  onInputChange?: (inputValue: string) => void;
 }
 
 export function FieldsetSelect<MultiSelect extends boolean = false>({
@@ -54,6 +55,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   selectComponentOptions,
   children,
   menuPortalTarget,
+  onInputChange,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -77,6 +79,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       menuPosition="fixed"
       isDisabled={isDisabled}
       isSearchable={isSearchable}
+      onInputChange={onInputChange}
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
       value={value}
