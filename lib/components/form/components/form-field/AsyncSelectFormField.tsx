@@ -25,6 +25,7 @@ interface AsyncSelectFormFieldProps
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
+  menuPortalTarget?: HTMLElement | null;
 }
 
 export function AsyncSelectFormField({
@@ -46,7 +47,8 @@ export function AsyncSelectFormField({
   children,
   selectComponentOptions,
   loadOptions,
-}: AsyncSelectFormFieldProps) {
+  menuPortalTarget,
+}: Readonly<AsyncSelectFormFieldProps>) {
   return (
     <Controller
       name={name}
@@ -85,6 +87,7 @@ export function AsyncSelectFormField({
             value={field.value}
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
+            menuPortalTarget={menuPortalTarget}
           >
             {children}
           </Fieldset.AsyncSelect>

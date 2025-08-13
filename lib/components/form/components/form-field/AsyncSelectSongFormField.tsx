@@ -23,6 +23,7 @@ interface AsyncSelectSongFormFieldProps
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   loadOptions?: (inputValue: string) => Promise<SelectSongOptions[]>;
+  menuPortalTarget?: HTMLElement | null;
 }
 
 export function AsyncSelectSongFormField({
@@ -43,6 +44,7 @@ export function AsyncSelectSongFormField({
   withoutTagLabel = false,
   selectComponentOptions,
   loadOptions,
+  menuPortalTarget,
 }: Readonly<AsyncSelectSongFormFieldProps>) {
   return (
     <Controller
@@ -82,6 +84,7 @@ export function AsyncSelectSongFormField({
             value={field.value}
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
+            menuPortalTarget={menuPortalTarget}
           >
             {(props) => <FieldsetSelectSongOptionComponent {...props} />}
           </Fieldset.AsyncSelect>
