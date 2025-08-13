@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { accordionContext } from "#/components/accordion/context/useAccordionContext";
 import { AccordionTrigger } from "#/components/accordion/AccordionTrigger";
@@ -25,17 +25,9 @@ export function Accordion({
     setIsOpen((prev) => !prev);
   };
 
-  const openAll = useCallback(() => {
-    setIsOpen(true);
-  }, []);
-
-  const closeAll = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
   const value = useMemo(
-    () => ({ isOpen, toggle, disabled, openAll, closeAll }),
-    [isOpen, disabled, openAll, closeAll],
+    () => ({ isOpen, toggle, disabled }),
+    [isOpen, disabled],
   );
 
   return (
