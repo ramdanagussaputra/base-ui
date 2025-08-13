@@ -4,7 +4,7 @@ import {
   PhoneNumberFormField,
   SelectFormField,
   PassportFormField,
-  SelectSongFormField,
+  AsyncSelectSongFormField,
 } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
@@ -55,16 +55,13 @@ function SelectFieldForm() {
           placeholder="Placeholder"
         />
 
-        <SelectSongFormField
+        <AsyncSelectSongFormField
           name="select-song"
           control={formMethods.control}
           onChange={(value) => {
             console.log(value);
           }}
-          onInputChange={(value) => {
-            console.log(value);
-          }}
-          options={[
+          defaultOptions={[
             {
               label: "Kawin Lari",
               secondLabel: "ST12",
