@@ -1,34 +1,32 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
-import {
-  GroupBase,
-  OptionProps,
-  SelectComponentsConfig,
-  SingleValue,
-} from "react-select";
+import { GroupBase, SelectComponentsConfig, SingleValue } from "react-select";
 
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
+import { FieldsetSelectSongOptionComponent } from "#/components/form/components/fieldset/FIeldsetSelectSongOptionComponent";
 
-interface AsyncSelectFormFieldProps
+type SelectSongOptions = FieldsetSelectOption & {
+  secondLabel: string;
+  imageUrl: string;
+};
+
+interface AsyncSelectSongFormFieldProps
   extends Omit<FormFieldProps, "type" | "onChange"> {
-  defaultOptions: FieldsetSelectOption[];
-  onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
+  defaultOptions: SelectSongOptions[];
+  onChange?: (value: SingleValue<SelectSongOptions>) => void;
   isSearchable?: boolean;
   isMultiSelect?: boolean;
-  defaultValue?: SingleValue<FieldsetSelectOption> | null;
-  children?: React.ComponentType<
-    OptionProps<unknown, boolean, GroupBase<unknown>>
-  >; // for option component
+  defaultValue?: SingleValue<SelectSongOptions> | null;
   selectComponentOptions?: Partial<
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
-  loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
+  loadOptions?: (inputValue: string) => Promise<SelectSongOptions[]>;
   menuPortalTarget?: HTMLElement | null;
 }
 
-export function AsyncSelectFormField({
+export function AsyncSelectSongFormField({
   control,
   name,
   label,
@@ -44,11 +42,10 @@ export function AsyncSelectFormField({
   rules,
   size = "medium",
   withoutTagLabel = false,
-  children,
   selectComponentOptions,
   loadOptions,
   menuPortalTarget,
-}: Readonly<AsyncSelectFormFieldProps>) {
+}: Readonly<AsyncSelectSongFormFieldProps>) {
   return (
     <Controller
       name={name}
@@ -81,7 +78,7 @@ export function AsyncSelectFormField({
             defaultOptions={defaultOptions}
             onChange={(value) => {
               field.onChange(value);
-              onChange?.(value);
+              onChange?.(value as SingleValue<SelectSongOptions>);
             }}
             defaultValue={defaultValue}
             value={field.value}
@@ -89,7 +86,7 @@ export function AsyncSelectFormField({
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
           >
-            {children}
+            {(props) => <FieldsetSelectSongOptionComponent {...props} />}
           </Fieldset.AsyncSelect>
 
           {fieldState.error?.message && (

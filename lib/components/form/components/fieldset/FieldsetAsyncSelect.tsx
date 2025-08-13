@@ -32,6 +32,7 @@ interface FieldsetAsyncSelectProps {
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
+  menuPortalTarget?: HTMLElement | null;
 }
 
 export function FieldsetAsyncSelect({
@@ -47,6 +48,7 @@ export function FieldsetAsyncSelect({
   selectComponentOptions,
   children,
   loadOptions,
+  menuPortalTarget,
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -69,6 +71,7 @@ export function FieldsetAsyncSelect({
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
       value={value}
+      menuPortalTarget={menuPortalTarget}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
@@ -79,6 +82,7 @@ export function FieldsetAsyncSelect({
       }}
       classNames={{
         container: () => cn("cursor-pointer"),
+        menuPortal: () => cn("z-[1000]!"),
         control: (state) =>
           cn(
             "ring-0! rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem]",

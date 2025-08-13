@@ -15,6 +15,7 @@ import { FieldsetUploadPhoto } from "#/components/form/components/fieldset/Field
 import { FieldsetCalendar } from "#/components/form/components/fieldset/FieldsetCalendar";
 import { FieldsetUploadPhotoAdditional } from "#/components/form/components/fieldset/FieldsetUploadPhotoAdditional";
 import { FieldsetToggle } from "#/components/form/components/fieldset/FieldsetToggle";
+import { FieldsetSelectCreatable } from "#/components/form/components/fieldset/FieldsetSelectCreatable";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -90,3 +91,4 @@ Fieldset.SelectPrefix = FieldsetSelectPrefix;
 Fieldset.UploadPhoto = FieldsetUploadPhoto;
 Fieldset.UploadPhotoAdditional = FieldsetUploadPhotoAdditional;
 Fieldset.Calendar = FieldsetCalendar;
+Fieldset.SelectCreatable = FieldsetSelectCreatable;

@@ -15,5 +15,7 @@ export { DatePickerFormField } from "#/components/form/components/form-field/Dat
 export { PassportFormField } from "#/components/form/components/form-field/PassportFormField";
 export { DurationFormField } from "#/components/form/components/form-field/DurationFormField";
 export { ToggleFormField } from "#/components/form/components/form-field/ToggleFormField";
+export { AsyncSelectSongFormField } from "#/components/form/components/form-field/AsyncSelectSongFormField";
+export { SelectCreatableFormField } from "#/components/form/components/form-field/SelectCreatableFormField";
 
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";

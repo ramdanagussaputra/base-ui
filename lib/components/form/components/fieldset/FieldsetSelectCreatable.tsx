@@ -1,9 +1,11 @@
-import Select, {
+import {
   GroupBase,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
 } from "react-select";
+
+import CreatableSelect from "react-select/creatable";
 
 import { FieldsetSelectOption } from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
@@ -14,7 +16,7 @@ import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fie
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
 
-interface FieldsetSelectProps<MultiSelect extends boolean = false> {
+interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   placeholder: string;
   options: FieldsetSelectOption[];
   onChange: (
@@ -40,9 +42,10 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   >;
   menuPortalTarget?: HTMLElement | null;
   onInputChange?: (inputValue: string) => void;
+  fieldName?: string;
 }
 
-export function FieldsetSelect<MultiSelect extends boolean = false>({
+export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
   onBlur,
   onChange,
   onFocus,
@@ -55,13 +58,14 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   selectComponentOptions,
   children,
   menuPortalTarget,
+  fieldName,
   onInputChange,
-}: Readonly<FieldsetSelectProps<MultiSelect>>) {
+}: Readonly<FieldsetSelectCreatableProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
   return (
-    <Select
+    <CreatableSelect
       options={options}
       placeholder={placeholder}
       onChange={(value) => {
@@ -83,6 +87,9 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
       value={value}
+      formatCreateLabel={(inputValue) =>
+        `Add new ${fieldName ? `${fieldName} "` : '"'}${inputValue}"`
+      }
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,

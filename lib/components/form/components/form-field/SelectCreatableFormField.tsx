@@ -11,28 +11,33 @@ import {
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface AsyncSelectFormFieldProps
+interface SelectCreatableFormFieldProps<MultiSelect extends boolean = false>
   extends Omit<FormFieldProps, "type" | "onChange"> {
-  defaultOptions: FieldsetSelectOption[];
-  onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
+  options: FieldsetSelectOption[];
+  onChange?: (
+    value: MultiSelect extends true
+      ? FieldsetSelectOption[]
+      : SingleValue<FieldsetSelectOption>,
+  ) => void;
   isSearchable?: boolean;
   isMultiSelect?: boolean;
-  defaultValue?: SingleValue<FieldsetSelectOption> | null;
+  defaultValue?: MultiSelect extends true
+    ? FieldsetSelectOption[]
+    : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
   selectComponentOptions?: Partial<
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
-  loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
   menuPortalTarget?: HTMLElement | null;
 }
 
-export function AsyncSelectFormField({
+export function SelectCreatableFormField<MultiSelect extends boolean = false>({
   control,
   name,
   label,
-  defaultOptions,
+  options,
   onChange,
   isSearchable = true,
   isMultiSelect = false,
@@ -46,9 +51,8 @@ export function AsyncSelectFormField({
   withoutTagLabel = false,
   children,
   selectComponentOptions,
-  loadOptions,
   menuPortalTarget,
-}: Readonly<AsyncSelectFormFieldProps>) {
+}: Readonly<SelectCreatableFormFieldProps<MultiSelect>>) {
   return (
     <Controller
       name={name}
@@ -73,12 +77,11 @@ export function AsyncSelectFormField({
             </Fieldset.Label>
           )}
 
-          <Fieldset.AsyncSelect
-            loadOptions={loadOptions}
+          <Fieldset.SelectCreatable
             isMultiSelect={isMultiSelect}
             isSearchable={isSearchable}
             placeholder={placeholder}
-            defaultOptions={defaultOptions}
+            options={options}
             onChange={(value) => {
               field.onChange(value);
               onChange?.(value);
@@ -88,9 +91,10 @@ export function AsyncSelectFormField({
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
+            fieldName={fieldName || label}
           >
             {children}
-          </Fieldset.AsyncSelect>
+          </Fieldset.SelectCreatable>
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>

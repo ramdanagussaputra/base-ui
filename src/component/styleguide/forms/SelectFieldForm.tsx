@@ -4,13 +4,15 @@ import {
   PhoneNumberFormField,
   SelectFormField,
   PassportFormField,
+  AsyncSelectSongFormField,
+  SelectCreatableFormField,
 } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
 import { MenuListProps, components } from "react-select";
 import { Add } from "iconsax-react";
 import Icon from "#/components/icon/Icon";
-
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
+
 function SelectFieldForm() {
   const formMethods = useFormContext();
   return (
@@ -52,6 +54,55 @@ function SelectFieldForm() {
             { label: "Option 3", value: "option-3" },
           ]}
           placeholder="Placeholder"
+        />
+
+        <AsyncSelectSongFormField
+          name="select-song"
+          control={formMethods.control}
+          onChange={(value) => {
+            console.log(value);
+          }}
+          defaultOptions={[
+            {
+              label: "Kawin Lari",
+              secondLabel: "ST12",
+              imageUrl: "https://i.pravatar.cc/300",
+              value: "option-1",
+            },
+            {
+              label: "Cinta Luar Biasa",
+              secondLabel: "ST12",
+              imageUrl: "https://i.pravatar.cc/301",
+              value: "option-2",
+            },
+          ]}
+          placeholder="Placeholder"
+          label="Select Song"
+        />
+
+        <SelectCreatableFormField
+          label="Creatable Select"
+          control={formMethods.control}
+          name="creatable-select"
+          options={[
+            {
+              label: "Option 1",
+              value: "option-1",
+            },
+            {
+              label: "Option 2",
+              value: "option-2",
+            },
+            {
+              label: "Option 3",
+              value: "option-3",
+            },
+          ]}
+          onChange={(e) => {
+            console.log(e, "change");
+          }}
+          placeholder="Creatable Select"
+          isMultiSelect={true}
         />
 
         <SelectFormField
