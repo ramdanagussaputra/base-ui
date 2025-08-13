@@ -4,6 +4,8 @@ type AccordionContext = {
   isOpen: boolean;
   toggle: () => void;
   disabled?: boolean;
+  openAll: () => void;
+  closeAll: () => void;
 };
 
 export const accordionContext = createContext<AccordionContext | undefined>(
