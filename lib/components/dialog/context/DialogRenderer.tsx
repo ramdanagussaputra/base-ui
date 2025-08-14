@@ -131,7 +131,12 @@ function DialogActions({
     <div className={containerClass}>
       {cancelText && (
         <Dialog.Panel.SlotButtonCancel>
-          <Button variant="outline" color="secondary" className={buttonClass}>
+          <Button
+            variant="outline"
+            color="secondary"
+            className={buttonClass}
+            type="button"
+          >
             {cancelText}
           </Button>
         </Dialog.Panel.SlotButtonCancel>
@@ -139,7 +144,11 @@ function DialogActions({
 
       {confirmText && (
         <Dialog.Panel.SlotButtonConfirm>
-          <Button className={buttonClass} isLoading={isConfirmLoading}>
+          <Button
+            className={buttonClass}
+            isLoading={isConfirmLoading}
+            type="button"
+          >
             {confirmText}
           </Button>
         </Dialog.Panel.SlotButtonConfirm>
