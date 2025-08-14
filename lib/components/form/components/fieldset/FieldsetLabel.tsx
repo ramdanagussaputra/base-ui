@@ -13,7 +13,7 @@ export function FieldsetLabel({
   id,
   className,
   withoutTag = false,
-}: FieldsetProps) {
+}: Readonly<FieldsetProps>) {
   const { isLarge, isMedium, isSmall, isRequired } = useFieldsetContext();
 
   return (

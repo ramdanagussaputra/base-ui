@@ -63,7 +63,7 @@ export function RadioGroupFormField({
                 <Fieldset.Label
                   withoutTag
                   className={cn({
-                    "text-secondary-500 font-normal": isDisabled,
+                    "text-secondary-800 text-b3-400": isDisabled,
                   })}
                 >
                   {item.label}
