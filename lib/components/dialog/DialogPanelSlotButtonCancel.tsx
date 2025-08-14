@@ -10,5 +10,14 @@ export function DialogPanelSlotButtonCancel({
 }: Readonly<DialogPanelSlotButtonCancelProps>) {
   const { onCancel } = useDialogContextInternal();
 
-  return <Slot onClick={() => onCancel()}>{children}</Slot>;
+  return (
+    <Slot
+      onClick={(e) => {
+        e?.stopPropagation();
+        onCancel();
+      }}
+    >
+      {children}
+    </Slot>
+  );
 }
