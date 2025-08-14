@@ -62,8 +62,8 @@ export function RadioGroupFormField({
                 <Fieldset.Radio value={item.value} />
                 <Fieldset.Label
                   withoutTag
-                  className={cn({
-                    "text-secondary-800 text-b3-400": isDisabled,
+                  className={cn("text-secondary-900 text-b3-400", {
+                    "text-secondary-500 font-normal": isDisabled,
                   })}
                 >
                   {item.label}
