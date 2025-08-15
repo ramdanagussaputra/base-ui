@@ -54,6 +54,7 @@ function SelectFieldForm() {
             { label: "Option 3", value: "option-3" },
           ]}
           placeholder="Placeholder"
+          size="small"
         />
 
         <AsyncSelectSongFormField

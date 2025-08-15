@@ -139,7 +139,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
               isLarge,
             "text-(length:--fieldset-font-size-medium)! leading-(--fieldset-line-height-medium)! font-(--fieldset-font-weight-medium)!":
               isMedium,
-            "text-(length:--filedset-font-size-small)! leading-(--fieldset-line-height-small)! font-(--fieldset-font-weight-small)!":
+            "text-(length:--fieldset-font-size-small)! leading-(--fieldset-line-height-small)! font-(--fieldset-font-weight-small)!":
               isSmall,
             "text-(--fieldset-text-color--disabled)": isDisabled,
           }),
