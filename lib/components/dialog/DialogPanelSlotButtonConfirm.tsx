@@ -10,5 +10,14 @@ export function DialogPanelSlotButtonConfirm({
 }: Readonly<DialogPanelSlotButtonConfirmProps>) {
   const { onConfirm } = useDialogContextInternal();
 
-  return <Slot onClick={() => onConfirm()}>{children}</Slot>;
+  return (
+    <Slot
+      onClick={(e) => {
+        e?.stopPropagation();
+        onConfirm();
+      }}
+    >
+      {children}
+    </Slot>
+  );
 }
