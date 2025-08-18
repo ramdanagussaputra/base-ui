@@ -8,6 +8,7 @@ export function Tabs({
   contentContainerClassName,
   onTabClick,
   tabsContainerClassName,
+  tabsWrapperClassName,
   ...props
 }: Readonly<TabsProps>) {
   return (
@@ -21,7 +22,7 @@ export function Tabs({
       {...props}
     >
       <TabList className="sticky top-0 flex w-full items-end justify-between outline-hidden">
-        <div className="w-full">
+        <div className={cn("w-full", tabsWrapperClassName)}>
           {tabs.map((tab) => (
             <Tab
               className={cn(
