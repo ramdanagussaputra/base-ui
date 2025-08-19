@@ -1,8 +1,31 @@
-# DurationFormField Usage Examples
+# DurationFormField Component Guide
 
-The `DurationFormField` component now supports flexible field combinations through the `showHours`, `showMinutes`, and `showSeconds` props.
+A flexible, clean, and performant duration input component that supports hours, minutes, and seconds with configurable field visibility.
 
-## Examples
+## Overview
+
+The `DurationFormField` component provides a user-friendly interface for entering time durations with:
+- **Flexible Field Configuration**: Show/hide hours, minutes, seconds independently
+- **Automatic Overflow Handling**: Minutes ≥ 60 convert to hours, seconds ≥ 60 convert to minutes
+- **Clean Code Architecture**: External utility functions for optimal performance
+- **Dynamic Layout**: CSS Grid automatically adjusts based on visible fields
+- **Form Integration**: Full react-hook-form compatibility
+
+## Basic Usage
+
+```tsx
+import { DurationFormField } from "./path/to/DurationFormField";
+
+<DurationFormField
+  name="duration"
+  setValue={setValue}
+  watch={watch}
+  control={control}
+  label="Duration"
+/>
+```
+
+## Configuration Examples
 
 ### 1. All Fields (Default)
 ```tsx
@@ -11,11 +34,12 @@ The `DurationFormField` component now supports flexible field combinations throu
   setValue={setValue}
   watch={watch}
   control={control}
-  // showHours={true}    // default
-  // showMinutes={true}  // default  
-  // showSeconds={true}  // default
+  // All fields shown by default
+  // showHours={true}    
+  // showMinutes={true}  
+  // showSeconds={true}  
 />
-// Format: hhh:mm:ss
+// Output Format: "000:00:00" (hhh:mm:ss)
 ```
 
 ### 2. Hours and Minutes Only
@@ -30,7 +54,7 @@ The `DurationFormField` component now supports flexible field combinations throu
   showSeconds={false}
   label="Duration (Hours:Minutes)"
 />
-// Format: hhh:mm
+// Output Format: "000:00" (hhh:mm)
 ```
 
 ### 3. Minutes and Seconds Only
@@ -45,10 +69,12 @@ The `DurationFormField` component now supports flexible field combinations throu
   showSeconds={true}
   label="Duration (Minutes:Seconds)"
 />
-// Format: mm:ss
+// Output Format: "00:00" (mm:ss)
 ```
 
-### 4. Hours Only
+### 4. Single Field Examples
+
+#### Hours Only
 ```tsx
 <DurationFormField
   name="hoursOnly"
@@ -60,10 +86,10 @@ The `DurationFormField` component now supports flexible field combinations throu
   showSeconds={false}
   label="Duration (Hours)"
 />
-// Format: hhh
+// Output Format: "000" (hhh)
 ```
 
-### 5. Minutes Only
+#### Minutes Only
 ```tsx
 <DurationFormField
   name="minutesOnly"
@@ -75,10 +101,10 @@ The `DurationFormField` component now supports flexible field combinations throu
   showSeconds={false}
   label="Duration (Minutes)"
 />
-// Format: mm
+// Output Format: "00" (mm)
 ```
 
-### 6. Seconds Only
+#### Seconds Only
 ```tsx
 <DurationFormField
   name="secondsOnly"
@@ -90,7 +116,7 @@ The `DurationFormField` component now supports flexible field combinations throu
   showSeconds={true}
   label="Duration (Seconds)"
 />
-// Format: ss
+// Output Format: "00" (ss)
 ```
 
 ## Features

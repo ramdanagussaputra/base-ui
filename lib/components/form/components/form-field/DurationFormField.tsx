@@ -8,6 +8,122 @@ import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 
+const HOURS_MAX_LENGTH = 3;
+const MINUTES_MAX_LENGTH = 2;
+const SECONDS_MAX_LENGTH = 2;
+const FIELD_SEPARATOR = ":";
+const MINUTES_PER_HOUR = 60;
+const SECONDS_PER_MINUTE = 60;
+
+// Pad numbers with leading zeros
+const padHours = (value: string): string => {
+  return value === "" ? "" : value.padStart(HOURS_MAX_LENGTH, "0");
+};
+
+const padMinutes = (value: string): string => {
+  return value === "" ? "" : value.padStart(MINUTES_MAX_LENGTH, "0");
+};
+
+const padSeconds = (value: string): string => {
+  return value === "" ? "" : value.padStart(SECONDS_MAX_LENGTH, "0");
+};
+
+// Convert overflow values (minutes >= 60 to hours, seconds >= 60 to minutes)
+const normalizeDuration = (hours: string, minutes: string, seconds: string) => {
+  let hoursNumber = parseInt(hours || "0", 10);
+  let minutesNumber = parseInt(minutes || "0", 10);
+  let secondsNumber = parseInt(seconds || "0", 10);
+
+  // Convert seconds >= 60 to minutes
+  if (!isNaN(secondsNumber) && secondsNumber >= SECONDS_PER_MINUTE) {
+    minutesNumber += Math.floor(secondsNumber / SECONDS_PER_MINUTE);
+    secondsNumber = secondsNumber % SECONDS_PER_MINUTE;
+  }
+
+  // Convert minutes >= 60 to hours
+  if (!isNaN(minutesNumber) && minutesNumber >= MINUTES_PER_HOUR) {
+    hoursNumber += Math.floor(minutesNumber / MINUTES_PER_HOUR);
+    minutesNumber = minutesNumber % MINUTES_PER_HOUR;
+  }
+
+  return {
+    hours: padHours(hoursNumber.toString()),
+    minutes: padMinutes(minutesNumber.toString()),
+    seconds: padSeconds(secondsNumber.toString()),
+  };
+};
+
+// Build format string based on visible fields
+const buildFormatString = (
+  hours: string,
+  minutes: string,
+  seconds: string,
+  showHours: boolean,
+  showMinutes: boolean,
+  showSeconds: boolean,
+): string => {
+  const parts = [];
+  if (showHours) parts.push(hours);
+  if (showMinutes) parts.push(minutes);
+  if (showSeconds) parts.push(seconds);
+  return parts.join(FIELD_SEPARATOR);
+};
+
+// Parse format string based on visible fields
+const parseFormatString = (
+  value: string,
+  showHours: boolean,
+  showMinutes: boolean,
+  showSeconds: boolean,
+) => {
+  if (!value.includes(FIELD_SEPARATOR)) {
+    // Single value - assign to the first visible field
+    if (showHours) return { hours: value, minutes: "", seconds: "" };
+    if (showMinutes) return { hours: "", minutes: value, seconds: "" };
+    if (showSeconds) return { hours: "", minutes: "", seconds: value };
+    return { hours: "", minutes: "", seconds: "" };
+  }
+
+  const parts = value.split(FIELD_SEPARATOR);
+  let hours = "";
+  let minutes = "";
+  let seconds = "";
+  let partIndex = 0;
+
+  if (showHours && partIndex < parts.length) {
+    hours = parts[partIndex] || "";
+    partIndex++;
+  }
+  if (showMinutes && partIndex < parts.length) {
+    minutes = parts[partIndex] || "";
+    partIndex++;
+  }
+  if (showSeconds && partIndex < parts.length) {
+    seconds = parts[partIndex] || "";
+    partIndex++;
+  }
+
+  return { hours, minutes, seconds };
+};
+
+// Calculate dynamic grid layout based on visible fields
+const generateGridColumns = (
+  showHours: boolean,
+  showMinutes: boolean,
+  showSeconds: boolean,
+): string => {
+  const visibleFieldsCount = [showHours, showMinutes, showSeconds].filter(
+    Boolean,
+  ).length;
+  const totalColumns = visibleFieldsCount * 2 - 1; // fields + separators
+  return Array(totalColumns)
+    .fill(0)
+    .map((_, index) => (index % 2 === 0 ? "1fr" : "max-content"))
+    .join("_");
+};
+
+// ========== TYPES ==========
+
 type DurationFormFieldProp = Omit<FormFieldProps, "type" | "onChange"> & {
   onChange?: (value: string) => void;
   endElement?: ReactNode;
@@ -42,7 +158,9 @@ export function DurationFormField({
 }: Readonly<DurationFormFieldProp>) {
   // Ensure at least one field is enabled
   if (!showHours && !showMinutes && !showSeconds) {
-    console.warn("DurationFormField: At least one field (hours, minutes, or seconds) must be enabled");
+    console.warn(
+      "DurationFormField: At least one field (hours, minutes, or seconds) must be enabled",
+    );
   }
 
   const formValue = watch(name) || "";
@@ -50,171 +168,144 @@ export function DurationFormField({
   const [minutes, setMinutes] = React.useState("");
   const [seconds, setSeconds] = React.useState("");
 
-  // Helper function to build format string based on visible fields
-  const buildFormatString = (hr: string, min: string, sec: string) => {
-    const parts = [];
-    if (showHours) parts.push(hr);
-    if (showMinutes) parts.push(min);
-    if (showSeconds) parts.push(sec);
-    return parts.join(":");
-  };
-
-  // Helper function to parse format string based on visible fields
-  const parseFormatString = React.useCallback((value: string) => {
-    if (!value.includes(":")) {
-      // Single value - assign to the first visible field
-      if (showHours) return { hours: value, minutes: "", seconds: "" };
-      if (showMinutes) return { hours: "", minutes: value, seconds: "" };
-      if (showSeconds) return { hours: "", minutes: "", seconds: value };
-      return { hours: "", minutes: "", seconds: "" };
-    }
-
-    const parts = value.split(":");
-    let hr = "", min = "", sec = "";
-    let partIndex = 0;
-
-    if (showHours && partIndex < parts.length) {
-      hr = parts[partIndex] || "";
-      partIndex++;
-    }
-    if (showMinutes && partIndex < parts.length) {
-      min = parts[partIndex] || "";
-      partIndex++;
-    }
-    if (showSeconds && partIndex < parts.length) {
-      sec = parts[partIndex] || "";
-      partIndex++;
-    }
-
-    return { hours: hr, minutes: min, seconds: sec };
-  }, [showHours, showMinutes, showSeconds]);
-
-  // Sync local state with form value
-
-  // Utility: pad numbers with leading zeros
-  function padHours(val: string) {
-    return val === "" ? "" : val.padStart(3, "0");
-  }
-  function padMinutes(val: string) {
-    return val === "" ? "" : val.padStart(2, "0");
-  }
-  function padSeconds(val: string) {
-    return val === "" ? "" : val.padStart(2, "0");
-  }
-
-  // Utility: convert minutes >= 60 to hours/minutes and seconds >= 60 to minutes/seconds
-  function normalizeDuration(hr: string, min: string, sec: string) {
-    let hrNum = parseInt(hr || "0", 10);
-    let minNum = parseInt(min || "0", 10);
-    let secNum = parseInt(sec || "0", 10);
-
-    // Convert seconds >= 60 to minutes
-    if (!isNaN(secNum) && secNum >= 60) {
-      minNum += Math.floor(secNum / 60);
-      secNum = secNum % 60;
-    }
-
-    // Convert minutes >= 60 to hours
-    if (!isNaN(minNum) && minNum >= 60) {
-      hrNum += Math.floor(minNum / 60);
-      minNum = minNum % 60;
-    }
-
-    return {
-      hours: padHours(hrNum.toString()),
-      minutes: padMinutes(minNum.toString()),
-      seconds: padSeconds(secNum.toString()),
-    };
-  }
-
   // Sync local state with form value
   React.useEffect(() => {
     if (formValue) {
-      const { hours: hr, minutes: min, seconds: sec } = parseFormatString(formValue);
-      setHours(hr);
-      setMinutes(min);
-      setSeconds(sec);
+      const {
+        hours: hoursFromForm,
+        minutes: minutesFromForm,
+        seconds: secondsFromForm,
+      } = parseFormatString(formValue, showHours, showMinutes, showSeconds);
+      setHours(hoursFromForm);
+      setMinutes(minutesFromForm);
+      setSeconds(secondsFromForm);
     } else {
       setHours("");
       setMinutes("");
       setSeconds("");
     }
-  }, [formValue, parseFormatString]);
+  }, [formValue, showHours, showMinutes, showSeconds]);
 
-  // Handlers
-  const handleHoursChange = (hr: string) => {
-    const rawHr = hr.replace(/\D/g, "");
-    setHours(rawHr);
-    const consolidated = buildFormatString(rawHr, minutes, seconds);
+  // Input change handlers
+  const handleHoursChange = (hoursInput: string) => {
+    const rawHours = hoursInput.replace(/\D/g, "");
+    setHours(rawHours);
+    const consolidated = buildFormatString(
+      rawHours,
+      minutes,
+      seconds,
+      showHours,
+      showMinutes,
+      showSeconds,
+    );
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
 
-  const handleMinutesChange = (min: string) => {
-    const rawMin = min.replace(/\D/g, "");
-    setMinutes(rawMin);
-    const consolidated = buildFormatString(hours, rawMin, seconds);
+  const handleMinutesChange = (minutesInput: string) => {
+    const rawMinutes = minutesInput.replace(/\D/g, "");
+    setMinutes(rawMinutes);
+    const consolidated = buildFormatString(
+      hours,
+      rawMinutes,
+      seconds,
+      showHours,
+      showMinutes,
+      showSeconds,
+    );
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
 
-  const handleSecondsChange = (sec: string) => {
-    const rawSec = sec.replace(/\D/g, "");
-    setSeconds(rawSec);
-    const consolidated = buildFormatString(hours, minutes, rawSec);
+  const handleSecondsChange = (secondsInput: string) => {
+    const rawSeconds = secondsInput.replace(/\D/g, "");
+    setSeconds(rawSeconds);
+    const consolidated = buildFormatString(
+      hours,
+      minutes,
+      rawSeconds,
+      showHours,
+      showMinutes,
+      showSeconds,
+    );
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
 
-  // Pad and normalize on blur
+  // Blur handlers - pad and normalize values
+
+  // Blur handlers - pad and normalize values
   const handleHoursBlur = () => {
-    const padded = padHours(hours);
-    setHours(padded);
-    const consolidated = buildFormatString(padded, minutes, seconds);
+    const paddedHours = padHours(hours);
+    setHours(paddedHours);
+    const consolidated = buildFormatString(
+      paddedHours,
+      minutes,
+      seconds,
+      showHours,
+      showMinutes,
+      showSeconds,
+    );
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
 
   const handleMinutesBlur = () => {
     const {
-      hours: normHr,
-      minutes: normMin,
-      seconds: normSec,
+      hours: normalizedHours,
+      minutes: normalizedMinutes,
+      seconds: normalizedSeconds,
     } = normalizeDuration(hours, minutes, seconds);
-    setHours(normHr);
-    setMinutes(normMin);
-    setSeconds(normSec);
-    const consolidated = buildFormatString(normHr, normMin, normSec);
+    setHours(normalizedHours);
+    setMinutes(normalizedMinutes);
+    setSeconds(normalizedSeconds);
+    const consolidated = buildFormatString(
+      normalizedHours,
+      normalizedMinutes,
+      normalizedSeconds,
+      showHours,
+      showMinutes,
+      showSeconds,
+    );
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
 
   const handleSecondsBlur = () => {
     const {
-      hours: normHr,
-      minutes: normMin,
-      seconds: normSec,
+      hours: normalizedHours,
+      minutes: normalizedMinutes,
+      seconds: normalizedSeconds,
     } = normalizeDuration(hours, minutes, seconds);
-    setHours(normHr);
-    setMinutes(normMin);
-    setSeconds(normSec);
-    const consolidated = buildFormatString(normHr, normMin, normSec);
+    setHours(normalizedHours);
+    setMinutes(normalizedMinutes);
+    setSeconds(normalizedSeconds);
+    const consolidated = buildFormatString(
+      normalizedHours,
+      normalizedMinutes,
+      normalizedSeconds,
+      showHours,
+      showMinutes,
+      showSeconds,
+    );
     setValue(name, consolidated);
     onChange?.(consolidated);
   };
 
   // Calculate dynamic grid layout based on visible fields
-  const visibleFieldsCount = [showHours, showMinutes, showSeconds].filter(Boolean).length;
-  const gridCols = Array(visibleFieldsCount * 2 - 1).fill(0).map((_, i) => 
-    i % 2 === 0 ? "1fr" : "max-content"
-  ).join("_");
+  const gridColumns = generateGridColumns(showHours, showMinutes, showSeconds);
 
   return (
     <Fieldset isRequired={isRequired} isDisabled={isDisabled} size={size}>
       {label && (
         <Fieldset.Label withoutTag={withoutTagLabel}>{label}</Fieldset.Label>
       )}
-      <div className={`grid grid-cols-[${gridCols}] items-center gap-2`}>
+      <div
+        className="grid items-center gap-2"
+        style={{
+          gridTemplateColumns: gridColumns.replace(/_/g, " "),
+        }}
+      >
         {showHours && (
           <>
             <Fieldset.TextInput
@@ -223,12 +314,14 @@ export function DurationFormField({
               value={hours}
               onChange={handleHoursChange}
               onBlur={handleHoursBlur}
-              lengthCap={3}
+              lengthCap={HOURS_MAX_LENGTH}
             >
               <div className="flex items-center gap-1">{endElement}</div>
             </Fieldset.TextInput>
             {(showMinutes || showSeconds) && (
-              <p className="text-secondary-900 text-[0.8125rem]">:</p>
+              <p className="text-secondary-900 text-[0.8125rem]">
+                {FIELD_SEPARATOR}
+              </p>
             )}
           </>
         )}
@@ -240,12 +333,14 @@ export function DurationFormField({
               value={minutes}
               onChange={handleMinutesChange}
               onBlur={handleMinutesBlur}
-              lengthCap={2}
+              lengthCap={MINUTES_MAX_LENGTH}
             >
               <div className="flex items-center gap-1">{endElement}</div>
             </Fieldset.TextInput>
             {showSeconds && (
-              <p className="text-secondary-900 text-[0.8125rem]">:</p>
+              <p className="text-secondary-900 text-[0.8125rem]">
+                {FIELD_SEPARATOR}
+              </p>
             )}
           </>
         )}
@@ -256,7 +351,7 @@ export function DurationFormField({
             value={seconds}
             onChange={handleSecondsChange}
             onBlur={handleSecondsBlur}
-            lengthCap={2}
+            lengthCap={SECONDS_MAX_LENGTH}
           >
             <div className="flex items-center gap-1">{endElement}</div>
           </Fieldset.TextInput>
