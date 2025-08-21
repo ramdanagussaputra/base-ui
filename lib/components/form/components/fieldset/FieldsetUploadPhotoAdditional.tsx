@@ -19,7 +19,7 @@ export function FieldsetUploadPhotoAdditional({
   value,
   onChange,
   className,
-}: FieldsetUploadPhotoAdditionalProps) {
+}: Readonly<FieldsetUploadPhotoAdditionalProps>) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const handleOpenFile = () => {
@@ -44,7 +44,7 @@ export function FieldsetUploadPhotoAdditional({
         onChange={handleFileChange}
         className="hidden"
       />
-      <div
+      <button
         className={cn(
           "bg-secondary-0 border-secondary-200 hover:bg-secondary-50 relative flex size-[6rem] cursor-pointer items-center justify-center rounded-xl border border-dashed",
           className,
@@ -59,15 +59,15 @@ export function FieldsetUploadPhotoAdditional({
 
         {value && (
           <img
-            src={value ? URL.createObjectURL(value) : undefined}
-            alt="Uploaded Photo"
+            src={typeof value === "string" ? value : URL.createObjectURL(value)}
+            alt="file additional"
             className="h-full w-full rounded-xl object-cover"
             onLoad={(e) => {
               URL.revokeObjectURL((e.target as HTMLImageElement).src);
             }}
           />
         )}
-      </div>
+      </button>
     </div>
   );
 }
