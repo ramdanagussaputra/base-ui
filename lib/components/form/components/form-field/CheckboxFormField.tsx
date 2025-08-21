@@ -7,7 +7,7 @@ interface CheckboxFormFieldProps {
   name: string;
   label: string;
   control: Control<any>;
-  onChange: () => void;
+  onChange?: () => void;
 }
 
 export function CheckboxFormField({
