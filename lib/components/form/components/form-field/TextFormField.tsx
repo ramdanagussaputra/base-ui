@@ -9,6 +9,7 @@ import { extractMaxLengthValue } from "#/utils";
 type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
+  onBlur?: () => void;
   endElement?: React.ReactNode;
   suffix?: string;
   prefix?: string;
@@ -24,6 +25,7 @@ export function TextFormField({
   isRequired = false,
   isDisabled = false,
   onChange = () => {},
+  onBlur = () => {},
   type = "text",
   size = "medium",
   withoutTagLabel = false,
@@ -80,7 +82,10 @@ export function TextFormField({
               field.onChange(value);
               onChange?.(value);
             }}
-            onBlur={field.onBlur}
+            onBlur={() => {
+              field.onBlur();
+              onBlur?.();
+            }}
             lengthCap={maxLength}
             prefix={prefix}
             suffix={suffix}

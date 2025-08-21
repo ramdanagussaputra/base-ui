@@ -15,6 +15,7 @@ interface AsyncSelectFormFieldProps
   extends Omit<FormFieldProps, "type" | "onChange"> {
   defaultOptions: FieldsetSelectOption[];
   onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
+  onBlur?: () => void;
   isSearchable?: boolean;
   isMultiSelect?: boolean;
   defaultValue?: SingleValue<FieldsetSelectOption> | null;
@@ -34,6 +35,7 @@ export function AsyncSelectFormField({
   label,
   defaultOptions,
   onChange,
+  onBlur = () => {},
   isSearchable = true,
   isMultiSelect = false,
   defaultValue,
@@ -85,7 +87,10 @@ export function AsyncSelectFormField({
             }}
             defaultValue={defaultValue}
             value={field.value}
-            onBlur={field.onBlur}
+            onBlur={() => {
+              field.onBlur();
+              onBlur?.();
+            }}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
           >

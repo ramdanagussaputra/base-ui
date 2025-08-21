@@ -16,6 +16,7 @@ interface AsyncSelectSongFormFieldProps
   extends Omit<FormFieldProps, "type" | "onChange"> {
   defaultOptions: SelectSongOptions[];
   onChange?: (value: SingleValue<SelectSongOptions>) => void;
+  onBlur?: () => void;
   isSearchable?: boolean;
   isMultiSelect?: boolean;
   defaultValue?: SingleValue<SelectSongOptions> | null;
@@ -32,6 +33,7 @@ export function AsyncSelectSongFormField({
   label,
   defaultOptions,
   onChange,
+  onBlur = () => {},
   isSearchable = true,
   isMultiSelect = false,
   defaultValue,
@@ -82,7 +84,10 @@ export function AsyncSelectSongFormField({
             }}
             defaultValue={defaultValue}
             value={field.value}
-            onBlur={field.onBlur}
+            onBlur={() => {
+              field.onBlur();
+              onBlur?.();
+            }}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
           >

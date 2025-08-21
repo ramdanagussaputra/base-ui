@@ -7,12 +7,14 @@ interface CheckboxFormFieldProps {
   name: string;
   label: string;
   control: Control<any>;
+  onChange: () => void;
 }
 
 export function CheckboxFormField({
   label,
   name,
   control,
+  onChange = () => {},
 }: Readonly<CheckboxFormFieldProps>) {
   const [checked, setChecked] = useState(false);
 
@@ -20,15 +22,16 @@ export function CheckboxFormField({
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value } }) => (
+      render={({ field }) => (
         <Fieldset>
           <div className="flex items-center gap-2">
             <Fieldset.Checkbox
               checked={checked}
-              value={value}
+              value={field.value}
               onChange={(event) => {
-                onChange(event);
+                field.onChange(event);
                 setChecked((checked) => !checked);
+                onChange?.();
               }}
             />
             <Fieldset.Label

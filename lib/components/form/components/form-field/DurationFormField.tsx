@@ -126,6 +126,7 @@ const generateGridColumns = (
 
 type DurationFormFieldProp = Omit<FormFieldProps, "type" | "onChange"> & {
   onChange?: (value: string) => void;
+  onBlur?: () => void;
   endElement?: ReactNode;
   name: string;
   setValue: UseFormSetValue<any>;
@@ -147,6 +148,7 @@ export function DurationFormField({
   isRequired = false,
   isDisabled = false,
   onChange = () => {},
+  onBlur = () => {},
   size = "medium",
   withoutTagLabel = false,
   endElement,
@@ -248,6 +250,7 @@ export function DurationFormField({
     );
     setValue(name, consolidated);
     onChange?.(consolidated);
+    onBlur?.();
   };
 
   const handleMinutesBlur = () => {
@@ -269,6 +272,7 @@ export function DurationFormField({
     );
     setValue(name, consolidated);
     onChange?.(consolidated);
+    onBlur?.();
   };
 
   const handleSecondsBlur = () => {
@@ -290,6 +294,7 @@ export function DurationFormField({
     );
     setValue(name, consolidated);
     onChange?.(consolidated);
+    onBlur?.();
   };
 
   // Calculate dynamic grid layout based on visible fields
