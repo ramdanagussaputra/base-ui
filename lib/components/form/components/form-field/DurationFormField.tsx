@@ -63,8 +63,8 @@ const normalizeDuration = (
   };
 };
 
-// Build format string based on visible fields
-const buildFormatString = (
+// Convert UI format (hhh:mm:ss) to form value format (mmm:ss)
+const convertUIToFormValue = (
   hours: string,
   minutes: string,
   seconds: string,
@@ -72,11 +72,48 @@ const buildFormatString = (
   showMinutes: boolean,
   showSeconds: boolean,
 ): string => {
+  if (!showHours) {
+    // When hours are not shown, use mmm:ss format directly
+    const parts = [];
+    if (showMinutes) parts.push(padMinutes(minutes, false));
+    if (showSeconds) parts.push(padSeconds(seconds));
+    return parts.join(FIELD_SEPARATOR);
+  }
+
+  // When hours are shown, convert hhh:mm:ss to mmm:ss
+  const hoursNumber = parseInt(hours || "0", 10);
+  const minutesNumber = parseInt(minutes || "0", 10);
+  const totalMinutes = hoursNumber * MINUTES_PER_HOUR + minutesNumber;
+
   const parts = [];
-  if (showHours) parts.push(hours);
-  if (showMinutes) parts.push(minutes);
-  if (showSeconds) parts.push(seconds);
+  if (showMinutes) parts.push(padMinutes(totalMinutes.toString(), false)); // Always use 3-digit format for form value
+  if (showSeconds) parts.push(padSeconds(seconds));
   return parts.join(FIELD_SEPARATOR);
+};
+
+// Convert form value format (mmm:ss) to UI format (hhh:mm:ss)
+const convertFormValueToUI = (
+  value: string,
+  showHours: boolean,
+  showMinutes: boolean,
+  showSeconds: boolean,
+) => {
+  if (!showHours) {
+    // When hours are not shown, parse as mmm:ss directly
+    return parseFormatString(value, false, showMinutes, showSeconds);
+  }
+
+  // When hours are shown, convert mmm:ss to hhh:mm:ss
+  const parsed = parseFormatString(value, false, showMinutes, showSeconds);
+  const totalMinutes = parseInt(parsed.minutes || "0", 10);
+  const hours = Math.floor(totalMinutes / MINUTES_PER_HOUR);
+  const minutes = totalMinutes % MINUTES_PER_HOUR;
+
+  return {
+    hours: hours.toString(),
+    minutes: minutes.toString(),
+    seconds: parsed.seconds,
+  };
 };
 
 // Parse format string based on visible fields
@@ -179,19 +216,21 @@ export function DurationFormField({
   const [hours, setHours] = React.useState("");
   const [minutes, setMinutes] = React.useState("");
   const [seconds, setSeconds] = React.useState("");
+  const isUpdatingFromForm = React.useRef(false);
 
   // Sync local state with form value
   React.useEffect(() => {
-    if (formValue) {
+    if (formValue && !isUpdatingFromForm.current) {
       const {
         hours: hoursFromForm,
         minutes: minutesFromForm,
         seconds: secondsFromForm,
-      } = parseFormatString(formValue, showHours, showMinutes, showSeconds);
+      } = convertFormValueToUI(formValue, showHours, showMinutes, showSeconds);
+
       setHours(hoursFromForm);
       setMinutes(minutesFromForm);
       setSeconds(secondsFromForm);
-    } else {
+    } else if (!formValue && !isUpdatingFromForm.current) {
       setHours("");
       setMinutes("");
       setSeconds("");
@@ -202,7 +241,9 @@ export function DurationFormField({
   const handleHoursChange = (hoursInput: string) => {
     const rawHours = hoursInput.replace(/\D/g, "");
     setHours(rawHours);
-    const consolidated = buildFormatString(
+
+    isUpdatingFromForm.current = true;
+    const consolidated = convertUIToFormValue(
       rawHours,
       minutes,
       seconds,
@@ -212,12 +253,18 @@ export function DurationFormField({
     );
     setValue(name, consolidated);
     onChange?.(consolidated);
+
+    setTimeout(() => {
+      isUpdatingFromForm.current = false;
+    }, 0);
   };
 
   const handleMinutesChange = (minutesInput: string) => {
     const rawMinutes = minutesInput.replace(/\D/g, "");
     setMinutes(rawMinutes);
-    const consolidated = buildFormatString(
+
+    isUpdatingFromForm.current = true;
+    const consolidated = convertUIToFormValue(
       hours,
       rawMinutes,
       seconds,
@@ -227,12 +274,20 @@ export function DurationFormField({
     );
     setValue(name, consolidated);
     onChange?.(consolidated);
+
+    setTimeout(() => {
+      isUpdatingFromForm.current = false;
+    }, 0);
   };
 
   const handleSecondsChange = (secondsInput: string) => {
+    console.log("handleSecondsChange - input:", secondsInput);
     const rawSeconds = secondsInput.replace(/\D/g, "");
+    console.log("handleSecondsChange - filtered:", rawSeconds);
     setSeconds(rawSeconds);
-    const consolidated = buildFormatString(
+
+    isUpdatingFromForm.current = true;
+    const consolidated = convertUIToFormValue(
       hours,
       minutes,
       rawSeconds,
@@ -240,8 +295,14 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
+    console.log("handleSecondsChange - consolidated:", consolidated);
     setValue(name, consolidated);
     onChange?.(consolidated);
+
+    // Reset flag after a short delay to allow form update to complete
+    setTimeout(() => {
+      isUpdatingFromForm.current = false;
+    }, 0);
   };
 
   // Blur handlers - pad and normalize values
@@ -250,7 +311,9 @@ export function DurationFormField({
   const handleHoursBlur = () => {
     const paddedHours = padHours(hours);
     setHours(paddedHours);
-    const consolidated = buildFormatString(
+
+    isUpdatingFromForm.current = true;
+    const consolidated = convertUIToFormValue(
       paddedHours,
       minutes,
       seconds,
@@ -261,6 +324,10 @@ export function DurationFormField({
     setValue(name, consolidated);
     onChange?.(consolidated);
     onBlur?.();
+
+    setTimeout(() => {
+      isUpdatingFromForm.current = false;
+    }, 0);
   };
 
   const handleMinutesBlur = () => {
@@ -272,7 +339,9 @@ export function DurationFormField({
     setHours(normalizedHours);
     setMinutes(normalizedMinutes);
     setSeconds(normalizedSeconds);
-    const consolidated = buildFormatString(
+
+    isUpdatingFromForm.current = true;
+    const consolidated = convertUIToFormValue(
       normalizedHours,
       normalizedMinutes,
       normalizedSeconds,
@@ -283,6 +352,10 @@ export function DurationFormField({
     setValue(name, consolidated);
     onChange?.(consolidated);
     onBlur?.();
+
+    setTimeout(() => {
+      isUpdatingFromForm.current = false;
+    }, 0);
   };
 
   const handleSecondsBlur = () => {
@@ -294,7 +367,9 @@ export function DurationFormField({
     setHours(normalizedHours);
     setMinutes(normalizedMinutes);
     setSeconds(normalizedSeconds);
-    const consolidated = buildFormatString(
+
+    isUpdatingFromForm.current = true;
+    const consolidated = convertUIToFormValue(
       normalizedHours,
       normalizedMinutes,
       normalizedSeconds,
@@ -305,6 +380,10 @@ export function DurationFormField({
     setValue(name, consolidated);
     onChange?.(consolidated);
     onBlur?.();
+
+    setTimeout(() => {
+      isUpdatingFromForm.current = false;
+    }, 0);
   };
 
   // Calculate dynamic grid layout based on visible fields
