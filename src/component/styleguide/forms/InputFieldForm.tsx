@@ -107,6 +107,7 @@ function InputFieldForm() {
           placeholder="Enter duration"
           setValue={setValue}
           watch={watch}
+          showHours={false}
         />
       </div>
     </>

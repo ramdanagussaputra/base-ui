@@ -10,6 +10,7 @@ import { FormFieldProps } from "#/components/form/model";
 
 const HOURS_MAX_LENGTH = 3;
 const MINUTES_MAX_LENGTH = 2;
+const MINUTES_MAX_LENGTH_NO_HOURS = 3;
 const SECONDS_MAX_LENGTH = 2;
 const FIELD_SEPARATOR = ":";
 const MINUTES_PER_HOUR = 60;
@@ -20,8 +21,12 @@ const padHours = (value: string): string => {
   return value === "" ? "" : value.padStart(HOURS_MAX_LENGTH, "0");
 };
 
-const padMinutes = (value: string): string => {
-  return value === "" ? "" : value.padStart(MINUTES_MAX_LENGTH, "0");
+const padMinutes = (value: string, showHours: boolean): string => {
+  if (value === "") return "";
+  const maxLength = showHours
+    ? MINUTES_MAX_LENGTH
+    : MINUTES_MAX_LENGTH_NO_HOURS;
+  return value.padStart(maxLength, "0");
 };
 
 const padSeconds = (value: string): string => {
@@ -29,7 +34,12 @@ const padSeconds = (value: string): string => {
 };
 
 // Convert overflow values (minutes >= 60 to hours, seconds >= 60 to minutes)
-const normalizeDuration = (hours: string, minutes: string, seconds: string) => {
+const normalizeDuration = (
+  hours: string,
+  minutes: string,
+  seconds: string,
+  showHours: boolean,
+) => {
   let hoursNumber = parseInt(hours || "0", 10);
   let minutesNumber = parseInt(minutes || "0", 10);
   let secondsNumber = parseInt(seconds || "0", 10);
@@ -40,15 +50,15 @@ const normalizeDuration = (hours: string, minutes: string, seconds: string) => {
     secondsNumber = secondsNumber % SECONDS_PER_MINUTE;
   }
 
-  // Convert minutes >= 60 to hours
-  if (!isNaN(minutesNumber) && minutesNumber >= MINUTES_PER_HOUR) {
+  // Convert minutes >= 60 to hours only if hours are shown
+  if (showHours && !isNaN(minutesNumber) && minutesNumber >= MINUTES_PER_HOUR) {
     hoursNumber += Math.floor(minutesNumber / MINUTES_PER_HOUR);
     minutesNumber = minutesNumber % MINUTES_PER_HOUR;
   }
 
   return {
     hours: padHours(hoursNumber.toString()),
-    minutes: padMinutes(minutesNumber.toString()),
+    minutes: padMinutes(minutesNumber.toString(), showHours),
     seconds: padSeconds(secondsNumber.toString()),
   };
 };
@@ -258,7 +268,7 @@ export function DurationFormField({
       hours: normalizedHours,
       minutes: normalizedMinutes,
       seconds: normalizedSeconds,
-    } = normalizeDuration(hours, minutes, seconds);
+    } = normalizeDuration(hours, minutes, seconds, showHours);
     setHours(normalizedHours);
     setMinutes(normalizedMinutes);
     setSeconds(normalizedSeconds);
@@ -280,7 +290,7 @@ export function DurationFormField({
       hours: normalizedHours,
       minutes: normalizedMinutes,
       seconds: normalizedSeconds,
-    } = normalizeDuration(hours, minutes, seconds);
+    } = normalizeDuration(hours, minutes, seconds, showHours);
     setHours(normalizedHours);
     setMinutes(normalizedMinutes);
     setSeconds(normalizedSeconds);
@@ -334,11 +344,13 @@ export function DurationFormField({
           <>
             <Fieldset.TextInput
               type="text"
-              placeholder="mm"
+              placeholder={showHours ? "mm" : "mmm"}
               value={minutes}
               onChange={handleMinutesChange}
               onBlur={handleMinutesBlur}
-              lengthCap={MINUTES_MAX_LENGTH}
+              lengthCap={
+                showHours ? MINUTES_MAX_LENGTH : MINUTES_MAX_LENGTH_NO_HOURS
+              }
             >
               <div className="flex items-center gap-1">{endElement}</div>
             </Fieldset.TextInput>
