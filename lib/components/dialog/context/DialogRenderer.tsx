@@ -4,6 +4,16 @@ import React from "react";
 
 type DialogType = "regular" | "small";
 
+interface DialogButtonConfig {
+  text?: string;
+  size?: "extra-small" | "small" | "medium" | "large";
+  color?: "primary" | "secondary" | "error";
+  variant?: "solid" | "light" | "no-background" | "outline" | "link";
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  className?: string;
+}
+
 interface DialogConfig {
   title?: string;
   description?: string;
@@ -13,6 +23,8 @@ interface DialogConfig {
   content?: React.ReactNode;
   type?: DialogType;
   isConfirmLoading?: boolean;
+  confirmButton?: DialogButtonConfig;
+  cancelButton?: DialogButtonConfig;
 }
 
 interface DialogCallbacks {
@@ -80,6 +92,8 @@ function SmallDialogContent({ state }: Readonly<{ state: DialogState }>) {
           cancelText={state.cancelText}
           confirmText={state.confirmText}
           isConfirmLoading={state.isConfirmLoading}
+          confirmButton={state.confirmButton}
+          cancelButton={state.cancelButton}
           variant="small"
         />
       </div>
@@ -102,6 +116,8 @@ function RegularDialogContent({ state }: Readonly<{ state: DialogState }>) {
         cancelText={state.cancelText}
         confirmText={state.confirmText}
         isConfirmLoading={state.isConfirmLoading}
+        confirmButton={state.confirmButton}
+        cancelButton={state.cancelButton}
         variant="regular"
       />
     </Dialog.Panel>
@@ -113,6 +129,8 @@ interface DialogActionsProps {
   readonly confirmText?: string;
   readonly isConfirmLoading?: boolean;
   readonly variant: "small" | "regular";
+  readonly confirmButton?: DialogButtonConfig;
+  readonly cancelButton?: DialogButtonConfig;
 }
 
 function DialogActions({
@@ -120,6 +138,8 @@ function DialogActions({
   confirmText,
   isConfirmLoading,
   variant,
+  confirmButton,
+  cancelButton,
 }: Readonly<DialogActionsProps>) {
   const isSmall = variant === "small";
   const containerClass = isSmall
@@ -127,29 +147,47 @@ function DialogActions({
     : "flex w-full gap-2.5";
   const buttonClass = isSmall ? "" : "w-full";
 
+  // Determine if we should show cancel button
+  const showCancelButton = cancelText || cancelButton;
+  // Determine if we should show confirm button
+  const showConfirmButton = confirmText || confirmButton;
+
+  // Get button configurations with fallbacks
+  const cancelButtonConfig = cancelButton || {};
+  const confirmButtonConfig = confirmButton || {};
+
   return (
     <div className={containerClass}>
-      {cancelText && (
+      {showCancelButton && (
         <Dialog.Panel.SlotButtonCancel>
           <Button
-            variant="outline"
-            color="secondary"
-            className={buttonClass}
+            variant={cancelButtonConfig.variant || "outline"}
+            color={cancelButtonConfig.color || "secondary"}
+            size={cancelButtonConfig.size || "medium"}
+            isDisabled={cancelButtonConfig.isDisabled || false}
+            isLoading={cancelButtonConfig.isLoading || false}
+            className={`${buttonClass} ${cancelButtonConfig.className || ""}`}
             type="button"
           >
-            {cancelText}
+            {cancelButtonConfig.text || cancelText || "Cancel"}
           </Button>
         </Dialog.Panel.SlotButtonCancel>
       )}
 
-      {confirmText && (
+      {showConfirmButton && (
         <Dialog.Panel.SlotButtonConfirm>
           <Button
-            className={buttonClass}
-            isLoading={isConfirmLoading}
+            variant={confirmButtonConfig.variant || "solid"}
+            color={confirmButtonConfig.color || "primary"}
+            size={confirmButtonConfig.size || "medium"}
+            isDisabled={confirmButtonConfig.isDisabled || false}
+            isLoading={
+              confirmButtonConfig.isLoading || isConfirmLoading || false
+            }
+            className={`${buttonClass} ${confirmButtonConfig.className || ""}`}
             type="button"
           >
-            {confirmText}
+            {confirmButtonConfig.text || confirmText || "Confirm"}
           </Button>
         </Dialog.Panel.SlotButtonConfirm>
       )}

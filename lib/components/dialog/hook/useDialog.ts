@@ -3,6 +3,16 @@ import React from "react";
 
 type Type = "regular" | "small";
 
+interface DialogButtonConfig {
+  text?: string;
+  size?: "extra-small" | "small" | "medium" | "large";
+  color?: "primary" | "secondary" | "error";
+  variant?: "solid" | "light" | "no-background" | "outline" | "link";
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  className?: string;
+}
+
 interface DConfig {
   title?: string;
   description?: string;
@@ -12,6 +22,8 @@ interface DConfig {
   content?: React.ReactNode;
   type?: Type;
   isConfirmLoading?: boolean;
+  confirmButton?: DialogButtonConfig;
+  cancelButton?: DialogButtonConfig;
 }
 
 interface DCallbacks {
@@ -27,13 +39,20 @@ interface ShowDialogProps extends DConfig, DCallbacks {
   dialogType?: "regular" | "small";
 }
 
+// Export types for external use
+export type {
+  DialogButtonConfig,
+  DConfig as DialogConfig,
+  DCallbacks as DialogCallbacks,
+};
+
 /**
  * Modern dialog hook that provides a clean, declarative API for showing dialogs.
  * This hook follows clean code principles and the Law of Demeter.
  *
  * @example
  * ```typescript
- * const { showDialog, closeDialog } = useDialog();
+ * const { showDialog, closeDialog, confirm } = useDialog();
  *
  * // Modern API (recommended)
  * showDialog({
@@ -43,8 +62,29 @@ interface ShowDialogProps extends DConfig, DCallbacks {
  *   cancelText: "No",
  *   content: <div>Custom content</div>,
  *   type: "small",
+ *   confirmButton: {
+ *     text: "Confirm",
+ *     color: "primary",
+ *     variant: "solid",
+ *     size: "medium"
+ *   },
+ *   cancelButton: {
+ *     text: "Cancel",
+ *     color: "secondary",
+ *     variant: "outline",
+ *     size: "medium"
+ *   },
  *   onConfirm: () => console.log("Confirmed!"),
  *   onCancel: () => console.log("Cancelled!")
+ * });
+ *
+ * // Convenient confirm method
+ * confirm({
+ *   title: "Delete Item",
+ *   description: "This action cannot be undone.",
+ *   confirmButton: { text: "Delete", color: "error" },
+ *   cancelButton: { text: "Keep", variant: "outline" },
+ *   onConfirm: () => deleteItem(),
  * });
  *
  * // Legacy API (still supported)
@@ -73,6 +113,8 @@ export function useDialog() {
     onCancel,
     onClose,
     isConfirmLoading = false,
+    confirmButton,
+    cancelButton,
     // Legacy properties for backward compatibility
     dialogContent,
     dialogType,
@@ -115,6 +157,8 @@ export function useDialog() {
       content: content || dialogContent || null, // Support both content and dialogContent
       type: dialogTypeToUse,
       isConfirmLoading,
+      confirmButton,
+      cancelButton,
     });
   }
 
@@ -123,8 +167,33 @@ export function useDialog() {
     close();
   }
 
+  function confirm(options: {
+    title: string;
+    description?: string;
+    confirmText?: string;
+    cancelText?: string;
+    confirmButton?: DialogButtonConfig;
+    cancelButton?: DialogButtonConfig;
+    onConfirm?: () => void;
+    onCancel?: () => void;
+    type?: Type;
+  }) {
+    showDialog({
+      title: options.title,
+      description: options.description,
+      confirmText: options.confirmText,
+      cancelText: options.cancelText,
+      confirmButton: options.confirmButton,
+      cancelButton: options.cancelButton,
+      type: options.type || "regular",
+      onConfirm: options.onConfirm,
+      onCancel: options.onCancel,
+    });
+  }
+
   return {
     showDialog,
     closeDialog,
+    confirm,
   };
 }

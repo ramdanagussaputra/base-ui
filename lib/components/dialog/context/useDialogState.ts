@@ -2,6 +2,16 @@ import React, { useState, useCallback } from "react";
 
 type DialogType = "regular" | "small";
 
+interface DialogButtonConfig {
+  text?: string;
+  size?: "extra-small" | "small" | "medium" | "large";
+  color?: "primary" | "secondary" | "error";
+  variant?: "solid" | "light" | "no-background" | "outline" | "link";
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  className?: string;
+}
+
 interface DialogConfig {
   title?: string;
   description?: string;
@@ -11,6 +21,8 @@ interface DialogConfig {
   content?: React.ReactNode;
   type?: DialogType;
   isConfirmLoading?: boolean;
+  confirmButton?: DialogButtonConfig;
+  cancelButton?: DialogButtonConfig;
 }
 
 interface DialogCallbacks {
@@ -33,6 +45,8 @@ const initialState: DialogState = {
   icon: null,
   content: null,
   isConfirmLoading: false,
+  confirmButton: undefined,
+  cancelButton: undefined,
   onConfirm: undefined,
   onCancel: undefined,
   onClose: undefined,
