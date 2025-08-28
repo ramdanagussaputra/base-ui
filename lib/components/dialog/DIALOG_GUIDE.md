@@ -69,6 +69,164 @@ const { showDialog, closeDialog, confirm } = useDialog();
 const { showConfirmDialog } = useConfirmDialog();
 ```
 
+## Why Use `confirm()` vs `showDialog()`?
+
+### `confirm()` - Specialized Confirmation API
+- **Purpose**: Optimized for confirmation dialogs (80% of use cases)
+- **Benefits**: Smart defaults, consistent UX, minimal code, **auto-close**
+- **Best for**: Delete actions, sign out, destructive operations
+- **Auto-close**: Dialog automatically closes after confirm/cancel actions
+
+```typescript
+// ✅ Concise and consistent - auto-closes after action
+confirm({
+  title: "Delete Account",
+  description: "This action cannot be undone.",
+  onConfirm: () => deleteAccount()
+  // Dialog automatically closes after onConfirm executes
+});
+});
+```
+
+### `showDialog()` - General Purpose API  
+- **Purpose**: Maximum flexibility for any dialog type
+- **Benefits**: Full control, custom layouts, complex interactions
+- **Best for**: Forms, information display, custom workflows
+
+```typescript
+// ✅ Full control and customization
+showDialog({
+  title: "Edit Profile",
+  type: "small",
+  content: <ProfileForm />,
+  confirmButton: { text: "Save Changes", color: "primary" },
+  cancelButton: { text: "Discard", color: "secondary" },
+  onConfirm: () => saveProfile(),
+  onCancel: () => discardChanges()
+});
+```
+
+### Decision Matrix
+
+| Use Case | Recommended API | Why |
+|----------|----------------|-----|
+| Delete confirmation | `confirm()` | Smart defaults, consistent UX |
+| Sign out prompt | `confirm()` | Standard pattern, minimal code |
+| Form submission | `showDialog()` | Custom buttons, complex layout |
+| Information display | `showDialog()` | Single button, custom content |
+| Bulk operations | `confirm()` | Destructive action pattern |
+| Multi-step wizard | `showDialog()` | Custom button text, complex flow |
+
+### Key Differences Explained
+
+#### 1. Developer Experience & Auto-Close
+```typescript
+// 🚀 CONFIRM: Fast to write, auto-closes
+confirm({
+  title: "Delete 5 items?",
+  onConfirm: () => bulkDelete()
+  // Auto-closes after onConfirm executes - no manual closeDialog() needed
+});
+
+// 😴 SHOW_DIALOG: Verbose, manual close control
+showDialog({
+  title: "Delete 5 items?",
+  confirmText: "Delete",
+  cancelText: "Cancel",
+  confirmButton: { color: "error" },
+  onConfirm: () => {
+    bulkDelete();
+    closeDialog(); // Must manually close if needed
+  },
+  onCancel: () => console.log("Cancelled") // Required even if just logging
+});
+```
+
+#### 2. Consistency Across App
+```typescript
+// ✅ All confirmations look the same automatically
+confirm({ title: "Delete user?", onConfirm: deleteUser });
+confirm({ title: "Reset settings?", onConfirm: resetSettings });
+confirm({ title: "Sign out?", onConfirm: signOut });
+
+// ❌ Easy to create inconsistent UX with showDialog
+showDialog({ title: "Delete user?", confirmText: "Remove" }); // Different text
+showDialog({ title: "Reset settings?", confirmText: "Reset" }); // Different text  
+showDialog({ title: "Sign out?", confirmText: "Yes" }); // Different text
+```
+
+#### 3. Smart Defaults vs Explicit Control
+```typescript
+// 🧠 CONFIRM: Smart about destructive actions
+confirm({
+  title: "Delete Account", 
+  onConfirm: deleteAccount
+  // Automatically: red "Delete" button, "Cancel" button, proper styling
+});
+
+// 🎛️ SHOW_DIALOG: Full control, explicit configuration
+showDialog({
+  title: "Edit Profile",
+  type: "small",
+  content: <ProfileForm />,
+  confirmButton: { 
+    text: "Save Changes", 
+    color: "primary",
+    size: "medium"
+  },
+  cancelButton: { 
+    text: "Discard", 
+    color: "secondary",
+    variant: "outline"
+  }
+});
+```
+
+});
+```
+
+### When to Use Which?
+
+#### Use `confirm()` for:
+- ✅ Delete confirmations
+- ✅ Sign out prompts  
+- ✅ Form abandonment warnings
+- ✅ Destructive actions
+- ✅ Simple yes/no decisions
+- ✅ 80% of your dialog needs
+
+```typescript
+// Perfect for confirm()
+confirm({ title: "Delete post?", onConfirm: () => deletePost(id) });
+confirm({ title: "Sign out?", onConfirm: signOut });
+confirm({ title: "Discard changes?", onConfirm: discardChanges });
+```
+
+#### Use `showDialog()` for:
+- ✅ Forms and inputs
+- ✅ Information display
+- ✅ Custom button text/styling
+- ✅ Single-button dialogs  
+- ✅ Complex layouts
+- ✅ Non-confirmation workflows
+
+```typescript
+// Perfect for showDialog()
+showDialog({
+  title: "Settings",
+  type: "small",
+  content: <SettingsForm />,
+  confirmButton: { text: "Save Settings" }
+});
+
+showDialog({
+  title: "Welcome!",
+  content: <OnboardingContent />,
+  confirmText: "Get Started"
+  // No cancel button for onboarding
+});
+```
+
 ### Basic Usage
 
 #### Simple Confirmation

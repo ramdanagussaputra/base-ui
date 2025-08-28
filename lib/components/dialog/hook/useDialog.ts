@@ -186,8 +186,20 @@ export function useDialog() {
       confirmButton: options.confirmButton,
       cancelButton: options.cancelButton,
       type: options.type || "regular",
-      onConfirm: options.onConfirm,
-      onCancel: options.onCancel,
+      onConfirm: options.onConfirm
+        ? () => {
+            options.onConfirm?.();
+            closeDialog(); // Auto-close after confirm
+          }
+        : undefined,
+      onCancel: options.onCancel
+        ? () => {
+            options.onCancel?.();
+            closeDialog(); // Auto-close after cancel
+          }
+        : () => {
+            closeDialog(); // Auto-close if no custom cancel handler
+          },
     });
   }
 
