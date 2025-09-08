@@ -8,11 +8,11 @@ interface FormData {
   // Test 1: Basic functionality
   primaryTerritory: FieldsetSelectOption | null;
   secondaryTerritory: FieldsetSelectOption | null;
-  
+
   // Test 2: Built-in props vs manual component
   builtInPropsSelect: FieldsetSelectOption | null;
   manualComponentSelect: FieldsetSelectOption | null;
-  
+
   // Test 3: Async selects
   asyncTerritory: FieldsetSelectOption | null;
   asyncTerritoryManual: FieldsetSelectOption | null;
@@ -51,7 +51,7 @@ function FormSelects() {
   });
 
   const { control, watch } = methods;
-  
+
   // Watch all form values
   const formValues = watch();
   const {
@@ -64,18 +64,36 @@ function FormSelects() {
   } = formValues;
 
   // Create dynamic arrays of already selected values for cross-field prevention
-  const selectedForPrimary = [secondaryTerritory, builtInPropsSelect, asyncTerritory].filter(Boolean) as FieldsetSelectOption[];
-  const selectedForSecondary = [primaryTerritory, manualComponentSelect, asyncTerritoryManual].filter(Boolean) as FieldsetSelectOption[];
-  const selectedForBuiltIn = [primaryTerritory, secondaryTerritory, asyncTerritory].filter(Boolean) as FieldsetSelectOption[];
-  const selectedForManual = [primaryTerritory, secondaryTerritory, builtInPropsSelect].filter(Boolean) as FieldsetSelectOption[];
+  const selectedForPrimary = [
+    secondaryTerritory,
+    builtInPropsSelect,
+    asyncTerritory,
+  ].filter(Boolean) as FieldsetSelectOption[];
+  const selectedForSecondary = [
+    primaryTerritory,
+    manualComponentSelect,
+    asyncTerritoryManual,
+  ].filter(Boolean) as FieldsetSelectOption[];
+  const selectedForBuiltIn = [
+    primaryTerritory,
+    secondaryTerritory,
+    asyncTerritory,
+  ].filter(Boolean) as FieldsetSelectOption[];
+  const selectedForManual = [
+    primaryTerritory,
+    secondaryTerritory,
+    builtInPropsSelect,
+  ].filter(Boolean) as FieldsetSelectOption[];
 
   // Async load function for demonstration
-  const loadTerritoryOptions = async (inputValue: string): Promise<FieldsetSelectOption[]> => {
+  const loadTerritoryOptions = async (
+    inputValue: string,
+  ): Promise<FieldsetSelectOption[]> => {
     // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    return territoryOptions.filter(option =>
-      option.label.toLowerCase().includes(inputValue.toLowerCase())
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    return territoryOptions.filter((option) =>
+      option.label.toLowerCase().includes(inputValue.toLowerCase()),
     );
   };
 
@@ -86,8 +104,9 @@ function FormSelects() {
           "Already Selected" Feature - Comprehensive Test
         </h2>
         <p className="text-b2-400 mb-6 text-neutral-700">
-          Comprehensive testing of the "already selected" functionality across different component types.
-          This demonstrates real-time prevention of duplicate selections with various implementation methods.
+          Comprehensive testing of the "already selected" functionality across
+          different component types. This demonstrates real-time prevention of
+          duplicate selections with various implementation methods.
         </p>
       </div>
 
@@ -96,14 +115,15 @@ function FormSelects() {
           {/* Test 1: Cross-Field Prevention with Form Fields */}
           <section className="space-y-6">
             <div>
-              <h3 className="text-h3-600 text-neutral-900 mb-2">
+              <h3 className="text-h3-600 mb-2 text-neutral-900">
                 Test 1: Real-time Cross-Field Prevention
               </h3>
               <p className="text-b3-400 text-neutral-600">
-                Select in one field to see options disabled in others. These fields prevent each other's selections.
+                Select in one field to see options disabled in others. These
+                fields prevent each other's selections.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <SelectFormField
                 control={control}
@@ -136,18 +156,21 @@ function FormSelects() {
           {/* Test 2: Built-in Props vs Manual Component */}
           <section className="space-y-6">
             <div>
-              <h3 className="text-h3-600 text-neutral-900 mb-2">
+              <h3 className="text-h3-600 mb-2 text-neutral-900">
                 Test 2: Implementation Methods Comparison
               </h3>
               <p className="text-b3-400 text-neutral-600">
-                Comparing built-in props (left) vs manual option component (right). Both prevent each other's selections.
+                Comparing built-in props (left) vs manual option component
+                (right). Both prevent each other's selections.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Built-in Props Method */}
               <div className="space-y-4">
-                <h4 className="text-b1-600 text-neutral-800">Method 1: Built-in Props</h4>
+                <h4 className="text-b1-600 text-neutral-800">
+                  Method 1: Built-in Props
+                </h4>
                 <SelectFormField
                   control={control}
                   name="builtInPropsSelect"
@@ -158,14 +181,16 @@ function FormSelects() {
                   showAlreadySelectedText={true}
                   alreadySelectedText="(Built-in detection)"
                 />
-                <div className="text-xs text-green-600 bg-green-50 p-2 rounded">
+                <div className="rounded bg-green-50 p-2 text-xs text-green-600">
                   ✅ Uses new <code>alreadySelectedValues</code> prop
                 </div>
               </div>
 
               {/* Manual Option Component Method */}
               <div className="space-y-4">
-                <h4 className="text-b1-600 text-neutral-800">Method 2: Manual Component</h4>
+                <h4 className="text-b1-600 text-neutral-800">
+                  Method 2: Manual Component
+                </h4>
                 <SelectFormField
                   control={control}
                   name="manualComponentSelect"
@@ -178,11 +203,12 @@ function FormSelects() {
                       currentValue: manualComponentSelect,
                       showAlreadySelectedText: true,
                       alreadySelectedText: "⚠️ Manual detection",
-                    })
+                    }),
                   }}
                 />
-                <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded">
-                  🔧 Uses manual <code>createFieldsetSelectOptionWithSelectedState</code>
+                <div className="rounded bg-blue-50 p-2 text-xs text-blue-600">
+                  🔧 Uses manual{" "}
+                  <code>createFieldsetSelectOptionWithSelectedState</code>
                 </div>
               </div>
             </div>
@@ -191,14 +217,15 @@ function FormSelects() {
           {/* Test 3: Async Select Components */}
           <section className="space-y-6">
             <div>
-              <h3 className="text-h3-600 text-neutral-900 mb-2">
+              <h3 className="text-h3-600 mb-2 text-neutral-900">
                 Test 3: Async Select Components
               </h3>
               <p className="text-b3-400 text-neutral-600">
-                Testing the feature with searchable async select components. Type to search territories.
+                Testing the feature with searchable async select components.
+                Type to search territories.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <AsyncSelectFormField
                 control={control}
@@ -207,7 +234,11 @@ function FormSelects() {
                 placeholder="Search territories..."
                 defaultOptions={territoryOptions}
                 loadOptions={loadTerritoryOptions}
-                alreadySelectedValues={[builtInPropsSelect, manualComponentSelect].filter(Boolean) as FieldsetSelectOption[]}
+                alreadySelectedValues={
+                  [builtInPropsSelect, manualComponentSelect].filter(
+                    Boolean,
+                  ) as FieldsetSelectOption[]
+                }
                 showAlreadySelectedText={true}
                 alreadySelectedText="(Selected above)"
               />
@@ -221,11 +252,14 @@ function FormSelects() {
                 loadOptions={loadTerritoryOptions}
                 selectComponentOptions={{
                   Option: createFieldsetSelectOptionWithSelectedState({
-                    alreadySelectedValues: [primaryTerritory, secondaryTerritory].filter(Boolean) as FieldsetSelectOption[],
+                    alreadySelectedValues: [
+                      primaryTerritory,
+                      secondaryTerritory,
+                    ].filter(Boolean) as FieldsetSelectOption[],
                     currentValue: asyncTerritoryManual,
                     showAlreadySelectedText: true,
                     alreadySelectedText: "🔍 Found above",
-                  })
+                  }),
                 }}
               />
             </div>
@@ -234,14 +268,15 @@ function FormSelects() {
           {/* Test 4: Static Pre-selected Options Demo */}
           <section className="space-y-6">
             <div>
-              <h3 className="text-h3-600 text-neutral-900 mb-2">
+              <h3 className="text-h3-600 mb-2 text-neutral-900">
                 Test 4: Static Pre-selected Options
               </h3>
               <p className="text-b3-400 text-neutral-600">
-                Demonstration with pre-selected territories (US, UK, Germany) that are always disabled.
+                Demonstration with pre-selected territories (US, UK, Germany)
+                that are always disabled.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <SelectFormField
                 control={control}
@@ -256,9 +291,11 @@ function FormSelects() {
 
               <div className="space-y-4">
                 <div className="text-b1-600 text-neutral-900">Demo Note</div>
-                <div className="text-b3-400 text-neutral-600 bg-yellow-50 p-3 rounded border border-yellow-200">
-                  This section would normally include raw Fieldset components, but they need to be imported differently 
-                  or accessed through the library exports. The form field versions above demonstrate the same functionality.
+                <div className="text-b3-400 rounded border border-yellow-200 bg-yellow-50 p-3 text-neutral-600">
+                  This section would normally include raw Fieldset components,
+                  but they need to be imported differently or accessed through
+                  the library exports. The form field versions above demonstrate
+                  the same functionality.
                 </div>
               </div>
             </div>
@@ -274,33 +311,49 @@ function FormSelects() {
             <h4 className="text-h4-600 mb-3 text-blue-900">Selected Values</h4>
             <pre className="overflow-x-auto text-sm text-blue-800">
               {JSON.stringify(
-                Object.entries(formValues).reduce((acc, [key, value]) => {
-                  acc[key] = value?.label || null;
-                  return acc;
-                }, {} as Record<string, string | null>),
+                Object.entries(formValues).reduce(
+                  (acc, [key, value]) => {
+                    acc[key] = value?.label || null;
+                    return acc;
+                  },
+                  {} as Record<string, string | null>,
+                ),
                 null,
                 2,
               )}
             </pre>
           </div>
-          
+
           <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
             <h4 className="text-h4-600 mb-3 text-purple-900">Test Results</h4>
             <div className="space-y-2 text-sm text-purple-800">
               <div className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${selectedForPrimary.length > 0 ? 'bg-green-500' : 'bg-gray-300'}`}></span>
-                Cross-field prevention: {selectedForPrimary.length > 0 ? 'Active' : 'Inactive'}
+                <span
+                  className={`h-3 w-3 rounded-full ${selectedForPrimary.length > 0 ? "bg-green-500" : "bg-gray-300"}`}
+                ></span>
+                Cross-field prevention:{" "}
+                {selectedForPrimary.length > 0 ? "Active" : "Inactive"}
               </div>
               <div className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${builtInPropsSelect || manualComponentSelect ? 'bg-green-500' : 'bg-gray-300'}`}></span>
-                Implementation methods: {builtInPropsSelect || manualComponentSelect ? 'Working' : 'Not tested'}
+                <span
+                  className={`h-3 w-3 rounded-full ${builtInPropsSelect || manualComponentSelect ? "bg-green-500" : "bg-gray-300"}`}
+                ></span>
+                Implementation methods:{" "}
+                {builtInPropsSelect || manualComponentSelect
+                  ? "Working"
+                  : "Not tested"}
               </div>
               <div className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${asyncTerritory || asyncTerritoryManual ? 'bg-green-500' : 'bg-gray-300'}`}></span>
-                Async selects: {asyncTerritory || asyncTerritoryManual ? 'Working' : 'Not tested'}
+                <span
+                  className={`h-3 w-3 rounded-full ${asyncTerritory || asyncTerritoryManual ? "bg-green-500" : "bg-gray-300"}`}
+                ></span>
+                Async selects:{" "}
+                {asyncTerritory || asyncTerritoryManual
+                  ? "Working"
+                  : "Not tested"}
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-green-500"></span>
+                <span className="h-3 w-3 rounded-full bg-green-500"></span>
                 Static disabled options: Always active (US, UK, Germany)
               </div>
             </div>
@@ -309,15 +362,17 @@ function FormSelects() {
       </section>
 
       {/* Feature Documentation */}
-      <section className="rounded-lg border border-secondary-200 bg-secondary-50 p-6">
+      <section className="border-secondary-200 bg-secondary-50 rounded-lg border p-6">
         <h4 className="text-h4-600 mb-4 text-neutral-900">
           Feature Implementation Summary
         </h4>
-        
+
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div>
-            <h5 className="text-b1-600 mb-2 text-neutral-800">✅ What's Working:</h5>
-            <ul className="space-y-1 text-b3-400 text-neutral-700">
+            <h5 className="text-b1-600 mb-2 text-neutral-800">
+              ✅ What's Working:
+            </h5>
+            <ul className="text-b3-400 space-y-1 text-neutral-700">
               <li>• Real-time cross-field prevention</li>
               <li>• Built-in props implementation</li>
               <li>• Manual option component method</li>
@@ -327,10 +382,12 @@ function FormSelects() {
               <li>• TypeScript support</li>
             </ul>
           </div>
-          
+
           <div>
-            <h5 className="text-b1-600 mb-2 text-neutral-800">🎯 Test Instructions:</h5>
-            <ol className="space-y-1 text-b3-400 text-neutral-700">
+            <h5 className="text-b1-600 mb-2 text-neutral-800">
+              🎯 Test Instructions:
+            </h5>
+            <ol className="text-b3-400 space-y-1 text-neutral-700">
               <li>1. Select a territory in "Primary Territory"</li>
               <li>2. Notice it becomes disabled in "Secondary Territory"</li>
               <li>3. Try selecting US, UK, or Germany (always disabled)</li>
