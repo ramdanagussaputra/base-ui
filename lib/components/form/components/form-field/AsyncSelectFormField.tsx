@@ -27,6 +27,10 @@ interface AsyncSelectFormFieldProps
   >;
   loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
   menuPortalTarget?: HTMLElement | null;
+  // New props for already selected functionality
+  alreadySelectedValues?: FieldsetSelectOption[];
+  showAlreadySelectedText?: boolean;
+  alreadySelectedText?: string;
 }
 
 export function AsyncSelectFormField({
@@ -50,6 +54,9 @@ export function AsyncSelectFormField({
   selectComponentOptions,
   loadOptions,
   menuPortalTarget,
+  alreadySelectedValues,
+  showAlreadySelectedText,
+  alreadySelectedText,
 }: Readonly<AsyncSelectFormFieldProps>) {
   return (
     <Controller
@@ -93,6 +100,9 @@ export function AsyncSelectFormField({
             }}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
+            alreadySelectedValues={alreadySelectedValues}
+            showAlreadySelectedText={showAlreadySelectedText}
+            alreadySelectedText={alreadySelectedText}
           >
             {children}
           </Fieldset.AsyncSelect>

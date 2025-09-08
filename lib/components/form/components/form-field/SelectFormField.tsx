@@ -31,6 +31,10 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   menuPortalTarget?: HTMLElement | null;
+  // New props for already selected functionality
+  alreadySelectedValues?: FieldsetSelectOption[];
+  showAlreadySelectedText?: boolean;
+  alreadySelectedText?: string;
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -52,6 +56,9 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   children,
   selectComponentOptions,
   menuPortalTarget,
+  alreadySelectedValues,
+  showAlreadySelectedText,
+  alreadySelectedText,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -91,6 +98,9 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
+            alreadySelectedValues={alreadySelectedValues}
+            showAlreadySelectedText={showAlreadySelectedText}
+            alreadySelectedText={alreadySelectedText}
           >
             {children}
           </Fieldset.Select>

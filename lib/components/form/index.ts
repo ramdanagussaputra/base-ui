@@ -1,4 +1,5 @@
 export { Fieldset } from "#/components/form/components/fieldset/Fieldset";
+export { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
 
 export { TextFormField } from "#/components/form/components/form-field/TextFormField";
 export { PasswordFormField } from "#/components/form/components/form-field/PasswordFormField";

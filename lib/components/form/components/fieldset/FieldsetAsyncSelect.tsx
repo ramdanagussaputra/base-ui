@@ -11,6 +11,7 @@ import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fi
 import { FieldsetSelectDefaultOptionComponent } from "#/components/form/components/fieldset/FieldsetSelectDefaultOptionComponent";
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
 import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
+import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -33,6 +34,10 @@ interface FieldsetAsyncSelectProps {
   >;
   loadOptions?: (inputValue: string) => Promise<FieldsetSelectOption[]>;
   menuPortalTarget?: HTMLElement | null;
+  // New props for already selected functionality
+  alreadySelectedValues?: FieldsetSelectOption[];
+  showAlreadySelectedText?: boolean;
+  alreadySelectedText?: string;
 }
 
 export function FieldsetAsyncSelect({
@@ -49,9 +54,24 @@ export function FieldsetAsyncSelect({
   children,
   loadOptions,
   menuPortalTarget,
+  alreadySelectedValues = [],
+  showAlreadySelectedText = true,
+  alreadySelectedText = "(Already selected)",
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
+
+  // Create the custom option component with already selected state if needed
+  const OptionComponent =
+    children ??
+    (alreadySelectedValues.length > 0
+      ? createFieldsetSelectOptionWithSelectedState({
+          alreadySelectedValues,
+          currentValue: value,
+          showAlreadySelectedText,
+          alreadySelectedText,
+        })
+      : FieldsetSelectDefaultOptionComponent);
 
   return (
     <AsyncSelect
@@ -76,7 +96,7 @@ export function FieldsetAsyncSelect({
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
         ClearIndicator: FieldsetSelectClearIndicator,
-        Option: children ?? FieldsetSelectDefaultOptionComponent,
+        Option: OptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
         ...selectComponentOptions,
       }}

@@ -10,6 +10,7 @@ import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fi
 import { FieldsetSelectDefaultOptionComponent } from "#/components/form/components/fieldset/FieldsetSelectDefaultOptionComponent";
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
 import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
+import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -40,6 +41,10 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   >;
   menuPortalTarget?: HTMLElement | null;
   onInputChange?: (inputValue: string) => void;
+  // New props for already selected functionality
+  alreadySelectedValues?: FieldsetSelectOption[];
+  showAlreadySelectedText?: boolean;
+  alreadySelectedText?: string;
 }
 
 export function FieldsetSelect<MultiSelect extends boolean = false>({
@@ -56,9 +61,24 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   children,
   menuPortalTarget,
   onInputChange,
+  alreadySelectedValues = [],
+  showAlreadySelectedText = true,
+  alreadySelectedText = "(Already selected)",
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
+
+  // Create the custom option component with already selected state if needed
+  const OptionComponent =
+    children ??
+    (alreadySelectedValues.length > 0
+      ? createFieldsetSelectOptionWithSelectedState({
+          alreadySelectedValues,
+          currentValue: Array.isArray(value) ? null : value,
+          showAlreadySelectedText,
+          alreadySelectedText,
+        })
+      : FieldsetSelectDefaultOptionComponent);
 
   return (
     <Select
@@ -87,7 +107,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
         ClearIndicator: FieldsetSelectClearIndicator,
-        Option: children ?? FieldsetSelectDefaultOptionComponent,
+        Option: OptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
         ...selectComponentOptions,
       }}
