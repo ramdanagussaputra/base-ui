@@ -61,6 +61,7 @@ interface ButtonDropdownProps {
   className?: string;
   panelClassName?: string;
   isLoading?: boolean;
+  leftIcon?: React.ReactNode;
   anchor?:
     | "top"
     | "top start"
@@ -114,6 +115,7 @@ export function ButtonDropdown({
   variant = "solid",
   isDisabled = false,
   isLoading = false,
+  leftIcon,
   anchor = "bottom start",
   panelClassName,
 }: Readonly<ButtonDropdownProps>) {
@@ -206,6 +208,7 @@ export function ButtonDropdown({
                 <span>Please wait...</span>
               ) : (
                 <>
+                  {leftIcon && <ButtonIcon>{leftIcon}</ButtonIcon>}
                   <span>{buttonText}</span>
                   <ButtonIcon>
                     <Icon icon={open ? ArrowUp2 : ArrowDown2} />
