@@ -220,7 +220,7 @@ export function ButtonDropdown({
             <MenuItems
               anchor={anchor}
               className={cn(
-                "border-secondary-100 z-10 w-56 rounded-lg border bg-[rgba(253,253,253)] p-3 shadow-lg focus:outline-none",
+                "border-secondary-100 z-[999] w-56 rounded-lg border bg-[rgba(253,253,253)] p-3 shadow-lg focus:outline-none",
                 anchor.includes("top") ? "-mt-2" : "mt-2",
                 panelClassName,
               )}
