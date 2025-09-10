@@ -105,8 +105,8 @@ export function FieldsetInput({
             "border-(--fieldset-border-color--error) bg-(--fieldset-bg--error)":
               isError,
             "flex-row-reverse": isReverseIcon,
-            "rounded-l-none border-l-0 pl-0": !!prefix,
-            "rounded-r-none border-r-0 pr-0": !!suffix,
+            "rounded-l-none! border-l-0 pl-0": !!prefix,
+            "rounded-r-none! border-r-0 pr-0": !!suffix,
           },
           className,
         )}
