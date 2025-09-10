@@ -1,3 +1,4 @@
+export * from "./fileValidation";
 import clsx, { ClassValue } from "clsx";
 import { ValidationRule } from "react-hook-form";
 import { extendTailwindMerge } from "tailwind-merge";
@@ -115,14 +116,16 @@ export function formatToShortScale(value: number): string {
  * @param params - The parameters for building the URL search parameters
  * @returns URLSearchParams object with the appropriate parameters
  */
-export function buildUrlParams(params: {
-  size?: number;
-  page?: number;
-  searchQuery?: string;
-  orderBy?: string;
-  sortBy?: string;
-  [key: string]: any;
-} = {}): URLSearchParams {
+export function buildUrlParams(
+  params: {
+    size?: number;
+    page?: number;
+    searchQuery?: string;
+    orderBy?: string;
+    sortBy?: string;
+    [key: string]: any;
+  } = {},
+): URLSearchParams {
   const {
     size = 10,
     page = 1,
@@ -155,7 +158,8 @@ export function buildUrlParams(params: {
   Object.entries(extraParams).forEach(([key, value]) => {
     if (value !== null && value !== undefined && value !== "") {
       // Convert arrays and objects to JSON strings
-      const paramValue = typeof value === "object" ? JSON.stringify(value) : value.toString();
+      const paramValue =
+        typeof value === "object" ? JSON.stringify(value) : value.toString();
 
       searchParams.append(key, paramValue);
     }
@@ -182,14 +186,21 @@ export function createEmptyListResponse<T>(): { data: T[] } {
 /**
  * Generates a query key for list data
  */
-export function createListQueryKey(baseKey: string, params: Record<string, any> = []): string[] {
+export function createListQueryKey(
+  baseKey: string,
+  params: Record<string, any> = [],
+): string[] {
   return [baseKey, ...Object.entries(params).flat()];
 }
 
 /**
  * Creates a pagination object
  */
-export function createPagination(currentPage: number, totalPages: number, siblingCount: number = 1) {
+export function createPagination(
+  currentPage: number,
+  totalPages: number,
+  siblingCount: number = 1,
+) {
   const range = (start: number, end: number) => {
     const length = end - start + 1;
     return Array.from({ length }, (_, idx) => idx + start);
@@ -236,7 +247,10 @@ export function createPagination(currentPage: number, totalPages: number, siblin
 /**
  * Finds a dropdown option by its value
  */
-export function findSelectOptionByValue<T>(options: Array<{ value: T; label: string }>, value: T) {
+export function findSelectOptionByValue<T>(
+  options: Array<{ value: T; label: string }>,
+  value: T,
+) {
   return options.find((option) => option.value === value) || null;
 }
 
@@ -246,7 +260,7 @@ export function findSelectOptionByValue<T>(options: Array<{ value: T; label: str
 export function formatCurrency(
   amount: number,
   currency: string = "USD",
-  locale: string = "en-US"
+  locale: string = "en-US",
 ): string {
   return new Intl.NumberFormat(locale, {
     style: "currency",
@@ -259,15 +273,30 @@ export function formatCurrency(
 /**
  * Formats a date string
  */
-export function formatDate(date: string | Date, format: string = "MMM dd, yyyy"): string {
+export function formatDate(
+  date: string | Date,
+  format: string = "MMM dd, yyyy",
+): string {
   const dateObj = typeof date === "string" ? new Date(date) : date;
-  
+
   if (format === "MMM dd, yyyy") {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return `${months[dateObj.getMonth()]} ${dateObj.getDate().toString().padStart(2, '0')}, ${dateObj.getFullYear()}`;
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return `${months[dateObj.getMonth()]} ${dateObj.getDate().toString().padStart(2, "0")}, ${dateObj.getFullYear()}`;
   }
-  
+
   return dateObj.toLocaleDateString();
 }
 
@@ -301,7 +330,9 @@ export function getColumnWidthClass(width: number): string {
 /**
  * Calculates the total height of a list of elements
  */
-export function getElementsTotalHeight(elements: React.RefObject<HTMLElement | null>[]): number {
+export function getElementsTotalHeight(
+  elements: React.RefObject<HTMLElement | null>[],
+): number {
   return elements.reduce((total, elementRef) => {
     if (elementRef.current) {
       const rect = elementRef.current.getBoundingClientRect();
@@ -321,7 +352,11 @@ export function isObjectEmpty(obj: Record<string, any>): boolean {
 /**
  * Maps data to options for a dropdown
  */
-export function mapSelectOption<T>(data: T[], valueKey: keyof T, labelKey: keyof T) {
+export function mapSelectOption<T>(
+  data: T[],
+  valueKey: keyof T,
+  labelKey: keyof T,
+) {
   return data.map((item) => ({
     value: item[valueKey],
     label: String(item[labelKey]),

@@ -1,6 +1,7 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
+import { validateFileExtension } from "#/utils";
 import { Warning2 } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -36,36 +37,6 @@ export function MultipleUploadPhotoFormField({
   maxFiles = 3,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
-  // Helper function to validate file extension against accept prop
-  const validateFileExtension = (file: File): boolean => {
-    if (!accept || accept === "*/*") return true;
-
-    const fileName = file.name.toLowerCase();
-    const fileExtension = fileName.substring(fileName.lastIndexOf("."));
-
-    // Handle MIME types like "image/*"
-    if (accept.includes("/*")) {
-      const mimeType = accept.split("/")[0];
-      return file.type.startsWith(mimeType);
-    }
-
-    // Handle specific MIME types like "image/jpeg,image/png"
-    if (accept.includes("/")) {
-      const acceptedTypes = accept.split(",").map((type) => type.trim());
-      return acceptedTypes.includes(file.type);
-    }
-
-    // Handle file extensions like ".jpg,.png,.gif"
-    const acceptedExtensions = accept
-      .split(",")
-      .map((ext) => ext.trim().toLowerCase());
-    return acceptedExtensions.some((ext) => {
-      // Remove leading dot if present and add it for comparison
-      const normalizedExt = ext.startsWith(".") ? ext : `.${ext}`;
-      return fileExtension === normalizedExt;
-    });
-  };
-
   return (
     <Controller
       name={name}
@@ -88,7 +59,7 @@ export function MultipleUploadPhotoFormField({
           fileExtension: (files: File[] | null) => {
             if (!files || files.length === 0) return true;
             for (const file of files) {
-              if (!validateFileExtension(file)) {
+              if (!validateFileExtension(file, accept)) {
                 return "One or more images have invalid file";
               }
             }
