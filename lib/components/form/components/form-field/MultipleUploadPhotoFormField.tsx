@@ -89,7 +89,7 @@ export function MultipleUploadPhotoFormField({
             if (!files || files.length === 0) return true;
             for (const file of files) {
               if (!validateFileExtension(file)) {
-                return `Only ${accept} files are allowed`;
+                return "One or more images have invalid file";
               }
             }
             return true;
