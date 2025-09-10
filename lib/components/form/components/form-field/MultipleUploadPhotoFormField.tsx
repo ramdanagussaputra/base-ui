@@ -36,6 +36,36 @@ export function MultipleUploadPhotoFormField({
   maxFiles = 3,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
+  // Helper function to validate file extension against accept prop
+  const validateFileExtension = (file: File): boolean => {
+    if (!accept || accept === "*/*") return true;
+
+    const fileName = file.name.toLowerCase();
+    const fileExtension = fileName.substring(fileName.lastIndexOf("."));
+
+    // Handle MIME types like "image/*"
+    if (accept.includes("/*")) {
+      const mimeType = accept.split("/")[0];
+      return file.type.startsWith(mimeType);
+    }
+
+    // Handle specific MIME types like "image/jpeg,image/png"
+    if (accept.includes("/")) {
+      const acceptedTypes = accept.split(",").map((type) => type.trim());
+      return acceptedTypes.includes(file.type);
+    }
+
+    // Handle file extensions like ".jpg,.png,.gif"
+    const acceptedExtensions = accept
+      .split(",")
+      .map((ext) => ext.trim().toLowerCase());
+    return acceptedExtensions.some((ext) => {
+      // Remove leading dot if present and add it for comparison
+      const normalizedExt = ext.startsWith(".") ? ext : `.${ext}`;
+      return fileExtension === normalizedExt;
+    });
+  };
+
   return (
     <Controller
       name={name}
@@ -51,6 +81,15 @@ export function MultipleUploadPhotoFormField({
             for (const file of files) {
               if (file.size > maxSize) {
                 return "One or more images are too large";
+              }
+            }
+            return true;
+          },
+          fileExtension: (files: File[] | null) => {
+            if (!files || files.length === 0) return true;
+            for (const file of files) {
+              if (!validateFileExtension(file)) {
+                return `Only ${accept} files are allowed`;
               }
             }
             return true;
