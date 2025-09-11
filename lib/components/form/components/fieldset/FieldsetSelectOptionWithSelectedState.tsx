@@ -51,7 +51,7 @@ export const createFieldsetSelectOptionWithSelectedState =
             // Available options styling
             "transition-colors duration-150": !isAlreadySelected,
             // Only selected state gets special background styling
-            "!bg-(--fieldset-select-option-bg--selected) !font-(--fieldset-select-option-font-weight--selected) !text-(--fieldset-select-option-color--selected) hover:!bg-(--fieldset-select-option-bg--selected)":
+            "bg-(--fieldset-select-option-bg--hover)! font-(--fieldset-select-option-font-weight--selected)! text-(--fieldset-select-option-color)!":
               props.isSelected && !isAlreadySelected,
           },
         )}
