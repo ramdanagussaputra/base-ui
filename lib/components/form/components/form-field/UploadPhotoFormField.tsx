@@ -52,8 +52,10 @@ export function UploadPhotoFormField({
             }
             return true;
           },
-          fileExtension: (file: File | null) => {
+          fileExtension: (file: File | string | null) => {
             if (!file) return true;
+            // Skip validation if value is a URL string (pre-uploaded image)
+            if (typeof file === "string") return true;
             if (!validateFileExtension(file, accept)) {
               return "Invalid file";
             }

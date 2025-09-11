@@ -56,9 +56,11 @@ export function MultipleUploadPhotoFormField({
             }
             return true;
           },
-          fileExtension: (files: File[] | null) => {
+          fileExtension: (files: (File | string)[] | null) => {
             if (!files || files.length === 0) return true;
             for (const file of files) {
+              // Skip validation if value is a URL string (pre-uploaded image)
+              if (typeof file === "string") continue;
               if (!validateFileExtension(file, accept)) {
                 return "One or more images have invalid file";
               }
