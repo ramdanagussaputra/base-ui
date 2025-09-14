@@ -66,7 +66,7 @@ function MyForm() {
 
 ### Page-based Pagination
 
-```tsx
+````tsx
 // Example loadOptions function for page-based pagination
 ### Real API Example - DummyJSON Products
 
@@ -81,21 +81,21 @@ const loadProductOptions = async (
   try {
     const pageSize = 10;
     const skip = loadedOptions.length;
-    
+
     // Build API URL with search and pagination
     const baseUrl = 'https://dummyjson.com/products';
-    const searchUrl = inputValue 
+    const searchUrl = inputValue
       ? `${baseUrl}/search?q=${encodeURIComponent(inputValue)}&limit=${pageSize}&skip=${skip}&select=id,title,price,category,brand`
       : `${baseUrl}?limit=${pageSize}&skip=${skip}&select=id,title,price,category,brand`;
 
     const response = await fetch(searchUrl);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    
+
     // Transform products into select options
     const options = data.products.map((product: any) => ({
       value: product.id,
@@ -133,19 +133,20 @@ const loadProductOptions = async (
   debounceTimeout={500}
   isRequired
 />
-```
+````
 
 // Usage
 <AsyncPaginateFormField
-  control={form.control}
-  name="selectedOption"
-  label="Select Option"
-  placeholder="Search for options..."
-  loadOptions={loadOptionsWithPages}
-  additional={{ page: 1 }}
-  defaultAdditional={{ page: 1 }}
+control={form.control}
+name="selectedOption"
+label="Select Option"
+placeholder="Search for options..."
+loadOptions={loadOptionsWithPages}
+additional={{ page: 1 }}
+defaultAdditional={{ page: 1 }}
 />;
-```
+
+````
 
 ### AsyncPaginateCreatableFormField
 
@@ -183,7 +184,7 @@ function CreatableForm() {
     />
   );
 }
-```
+````
 
 ## Advanced Props
 
