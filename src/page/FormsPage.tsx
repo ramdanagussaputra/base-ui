@@ -6,6 +6,8 @@ import {
   SelectFormField,
   TextAreaFormField,
   TextFormField,
+  AsyncPaginateFormField,
+  AsyncPaginateCreatableFormField,
 } from "massive-base-ui";
 
 import { RadioGroupFormField } from "#/components/form/components/form-field/RadioGroupFormField";
@@ -21,12 +23,82 @@ function FormsPage() {
       text: null,
       number: null,
       textarea: null,
+      async_paginate: null as {
+        value: string | number | boolean;
+        label: string;
+      } | null,
+      async_paginate_creatable: null as {
+        value: string | number | boolean;
+        label: string;
+      } | null,
     },
     mode: "all",
   });
 
   const triggerForm = () => {
     formMethods.trigger();
+  };
+
+  // DummyJSON Products API integration for async select options
+  const loadOptions = async (
+    inputValue: string,
+    loadedOptions: readonly {
+      value: string | number | boolean;
+      label: string;
+    }[],
+    additional?: { page: number },
+  ) => {
+    try {
+      const pageSize = 10;
+      const skip = loadedOptions.length;
+
+      // Build API URL with search and pagination
+      const baseUrl = "https://dummyjson.com/products";
+      const searchUrl = inputValue
+        ? `${baseUrl}/search?q=${encodeURIComponent(inputValue)}&limit=${pageSize}&skip=${skip}&select=id,title,price,category,brand`
+        : `${baseUrl}?limit=${pageSize}&skip=${skip}&select=id,title,price,category,brand`;
+
+      const response = await fetch(searchUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Transform products into select options
+      const options = data.products.map((product: any) => ({
+        value: product.id,
+        label: `${product.title} - $${product.price} (${product.category})${product.brand ? ` - ${product.brand}` : ""}`,
+      }));
+
+      return {
+        options,
+        hasMore: skip + pageSize < data.total,
+        additional: {
+          page: (additional?.page || 1) + 1,
+        },
+      };
+    } catch (error) {
+      console.error("Error loading products:", error);
+      return {
+        options: [],
+        hasMore: false,
+        additional: {
+          page: (additional?.page || 1) + 1,
+        },
+      };
+    }
+  };
+
+  const handleCreateOption = (inputValue: string) => {
+    // In a real app, you might want to POST this new product to the API
+    // For now, we'll just create a local option with a negative ID to distinguish it
+    const newOption = {
+      value: `new-${Date.now()}`,
+      label: `New Product: ${inputValue}`,
+    };
+    formMethods.setValue("async_paginate_creatable", newOption);
   };
 
   return (
@@ -145,6 +217,38 @@ function FormsPage() {
               { label: "Option 3", value: "option-3" },
             ]}
             placeholder="Placeholder"
+            isRequired
+          />
+        </div>
+
+        <div className="w-1/3">
+          <AsyncPaginateFormField
+            control={formMethods.control}
+            name="async_paginate"
+            label="Product Search (DummyJSON API)"
+            placeholder="Search for products..."
+            loadOptions={loadOptions}
+            additional={{ page: 1 }}
+            defaultAdditional={{ page: 1 }}
+            debounceTimeout={500}
+            isRequired
+            isMultiSelect
+          />
+        </div>
+
+        <div className="w-1/3">
+          <AsyncPaginateCreatableFormField
+            control={formMethods.control}
+            name="async_paginate_creatable"
+            label="Product Search + Create (DummyJSON API)"
+            placeholder="Search products or create new..."
+            loadOptions={loadOptions}
+            additional={{ page: 1 }}
+            defaultAdditional={{ page: 1 }}
+            onCreateOption={handleCreateOption}
+            formatCreateLabel={(inputValue) =>
+              `Create new product: "${inputValue}"`
+            }
             isRequired
           />
         </div>

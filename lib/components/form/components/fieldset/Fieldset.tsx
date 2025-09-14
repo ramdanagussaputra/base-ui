@@ -16,6 +16,8 @@ import { FieldsetCalendar } from "#/components/form/components/fieldset/Fieldset
 import { FieldsetUploadPhotoAdditional } from "#/components/form/components/fieldset/FieldsetUploadPhotoAdditional";
 import { FieldsetToggle } from "#/components/form/components/fieldset/FieldsetToggle";
 import { FieldsetSelectCreatable } from "#/components/form/components/fieldset/FieldsetSelectCreatable";
+import { FieldsetAsyncPaginate } from "#/components/form/components/fieldset/FieldsetAsyncPaginate";
+import { FieldsetAsyncPaginateCreatable } from "#/components/form/components/fieldset/FieldsetAsyncPaginateCreatable";
 
 import { fieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -86,6 +88,8 @@ Fieldset.Radio = FieldsetRadio;
 Fieldset.RadioGroup = FieldsetRadioGroup;
 Fieldset.Textarea = FieldsetTextArea;
 Fieldset.AsyncSelect = FieldsetAsyncSelect;
+Fieldset.AsyncPaginate = FieldsetAsyncPaginate;
+Fieldset.AsyncPaginateCreatable = FieldsetAsyncPaginateCreatable;
 Fieldset.Toggle = FieldsetToggle;
 Fieldset.SelectPrefix = FieldsetSelectPrefix;
 Fieldset.UploadPhoto = FieldsetUploadPhoto;

@@ -8,6 +8,8 @@ export { SelectFormField } from "#/components/form/components/form-field/SelectF
 export { RadioGroupFormField } from "#/components/form/components/form-field/RadioGroupFormField";
 export { TextAreaFormField } from "#/components/form/components/form-field/TextAreaFormField";
 export { AsyncSelectFormField } from "#/components/form/components/form-field/AsyncSelectFormField";
+export { AsyncPaginateFormField } from "#/components/form/components/form-field/AsyncPaginateFormField";
+export { AsyncPaginateCreatableFormField } from "#/components/form/components/form-field/AsyncPaginateCreatableFormField";
 export { PhoneNumberFormField } from "#/components/form/components/form-field/PhoneNumberFormField";
 export { WebsiteFormField } from "#/components/form/components/form-field/WebsiteFormField";
 export { UploadPhotoFormField } from "#/components/form/components/form-field/UploadPhotoFormField";
