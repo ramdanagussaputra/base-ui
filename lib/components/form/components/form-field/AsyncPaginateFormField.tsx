@@ -61,6 +61,7 @@ interface AsyncPaginateFormFieldProps
   clearCacheOnMenuClose?: boolean;
   reloadOnErrorTimeout?: number;
   size?: "extra-small" | "small" | "medium" | "large";
+  fieldName?: string;
 }
 
 export function AsyncPaginateFormField({
@@ -95,13 +96,17 @@ export function AsyncPaginateFormField({
   clearCacheOnMenuClose = false,
   reloadOnErrorTimeout,
   size = "medium",
+  fieldName,
 }: Readonly<AsyncPaginateFormFieldProps>) {
   return (
     <Controller
       control={control}
       name={name}
       rules={{
-        required: isRequired,
+        required: {
+          value: isRequired,
+          message: `${fieldName || label} is required`,
+        },
         ...rules,
       }}
       render={({ field, fieldState }) => (

@@ -74,6 +74,7 @@ interface AsyncPaginateCreatableFormFieldProps
     inputValue: string,
     optionLabel: React.ReactNode,
   ) => FieldsetSelectOption;
+  fieldName?: string;
 }
 
 export function AsyncPaginateCreatableFormField({
@@ -113,13 +114,17 @@ export function AsyncPaginateCreatableFormField({
   formatCreateLabel,
   isValidNewOption,
   getNewOptionData,
+  fieldName,
 }: Readonly<AsyncPaginateCreatableFormFieldProps>) {
   return (
     <Controller
       control={control}
       name={name}
       rules={{
-        required: isRequired,
+        required: {
+          value: isRequired,
+          message: `${fieldName || label} is required`,
+        },
         ...rules,
       }}
       render={({ field, fieldState }) => (
