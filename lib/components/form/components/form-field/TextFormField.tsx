@@ -13,6 +13,7 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   endElement?: React.ReactNode;
   suffix?: string;
   prefix?: string;
+  noWhitespace?: boolean;
 };
 
 export function TextFormField({
@@ -32,6 +33,7 @@ export function TextFormField({
   endElement,
   suffix,
   prefix,
+  noWhitespace = false,
 }: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
@@ -79,8 +81,12 @@ export function TextFormField({
             placeholder={placeholder}
             value={field.value || ""}
             onChange={(value) => {
-              field.onChange(value);
-              onChange?.(value);
+              let tempValue = value;
+              if (noWhitespace) {
+                tempValue = value.replace(/\s/g, "");
+              }
+              field.onChange(tempValue);
+              onChange?.(tempValue);
             }}
             onBlur={() => {
               field.onBlur();
