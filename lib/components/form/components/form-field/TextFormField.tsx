@@ -129,6 +129,52 @@ export function TextFormField({
     );
   }
 
+  // Merge validate functions properly
+  const mergedValidateFunction = (value: string, formValues: any) => {
+    // First run the props-based validations
+    if (additionalValidations.validate) {
+      const propsValidationResult = additionalValidations.validate(
+        value,
+        formValues,
+      );
+      if (
+        propsValidationResult !== true &&
+        propsValidationResult !== undefined
+      ) {
+        return propsValidationResult;
+      }
+    }
+
+    // Then run custom validation if provided
+    if (rules?.validate) {
+      // Handle both single function and object with multiple validators
+      if (typeof rules.validate === "function") {
+        const customValidationResult = rules.validate(value, formValues);
+        if (
+          customValidationResult !== true &&
+          customValidationResult !== undefined
+        ) {
+          return customValidationResult;
+        }
+      } else if (typeof rules.validate === "object") {
+        // Handle multiple validators
+        for (const [, validator] of Object.entries(rules.validate)) {
+          const result = validator(value, formValues);
+          if (result !== true && result !== undefined) {
+            return result;
+          }
+        }
+      }
+    }
+
+    return true;
+  };
+
+  // Prepare final rules without conflicting validate functions
+  const { validate: customValidate, ...restRules } = rules || {};
+  const { validate: propsValidate, ...restAdditionalValidations } =
+    additionalValidations;
+
   let maxLength: number;
 
   if (rules?.maxLength) {
@@ -145,8 +191,12 @@ export function TextFormField({
           message: `${fieldName || label} is required`,
         },
         ...emailValidation,
-        ...additionalValidations,
-        ...rules,
+        ...restAdditionalValidations,
+        ...restRules,
+        // Add the merged validate function only if there are validations to run
+        ...(propsValidate || customValidate
+          ? { validate: mergedValidateFunction }
+          : {}),
       }}
       render={({ field, fieldState }) => (
         <Fieldset
