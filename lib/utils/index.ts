@@ -98,6 +98,101 @@ export function extractMaxLengthValue(value: number | ValidationRule<number>) {
   }
 }
 
+// Validation utilities for forms
+export const formValidations = {
+  /**
+   * Creates a validation rule to block certain values
+   */
+  blockedValues: (blockedValues: string[], message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      const normalizedValue = value.toLowerCase().trim();
+      const isBlocked = blockedValues.some(
+        (blocked) => blocked.toLowerCase().trim() === normalizedValue,
+      );
+      return !isBlocked || message || `This value is not allowed`;
+    },
+  }),
+
+  /**
+   * Creates a validation rule to ensure no spaces are allowed
+   */
+  noSpaces: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      return !/\s/.test(value) || message || "Spaces are not allowed";
+    },
+  }),
+
+  /**
+   * Creates a validation rule to ensure only letters are used (no special characters or numbers only)
+   */
+  lettersOnly: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      // Must contain at least one letter and only letters (no numbers only, no special chars)
+      const hasLetters = /[a-zA-Z]/.test(value);
+      const onlyLettersAndSpaces = /^[a-zA-Z\s]+$/.test(value);
+
+      if (!hasLetters) {
+        return message || "Must contain at least one letter";
+      }
+      if (!onlyLettersAndSpaces) {
+        return message || "Only letters are allowed";
+      }
+      return true;
+    },
+  }),
+
+  /**
+   * Creates a validation rule for letters only without spaces
+   */
+  lettersOnlyNoSpaces: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      // Must contain only letters, no spaces, no numbers, no special characters
+      const onlyLetters = /^[a-zA-Z]+$/.test(value);
+      return (
+        onlyLetters ||
+        message ||
+        "Only letters are allowed (no spaces or numbers)"
+      );
+    },
+  }),
+
+  /**
+   * Creates a validation rule for letters and numbers only (alphanumeric)
+   */
+  lettersAndNumbers: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      // Must contain only letters and numbers, no spaces, no special characters
+      const alphanumeric = /^[a-zA-Z0-9]+$/.test(value);
+      return (
+        alphanumeric ||
+        message ||
+        "Only letters and numbers are allowed (no spaces or special characters)"
+      );
+    },
+  }),
+
+  /**
+   * Creates a validation rule for letters and numbers with spaces allowed
+   */
+  lettersAndNumbersWithSpaces: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      // Must contain only letters, numbers, and spaces - no special characters
+      const alphanumericWithSpaces = /^[a-zA-Z0-9\s]+$/.test(value);
+      return (
+        alphanumericWithSpaces ||
+        message ||
+        "Only letters, numbers, and spaces are allowed"
+      );
+    },
+  }),
+};
+
 export function formatToShortScale(value: number): string {
   if (value >= 1e9) {
     return `${(value / 1e9).toFixed(1)}B`;

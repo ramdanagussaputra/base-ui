@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
-import { extractMaxLengthValue } from "#/utils";
+import { extractMaxLengthValue, formValidations } from "#/utils";
 
 type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
@@ -14,6 +14,18 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   suffix?: string;
   prefix?: string;
   noWhitespace?: boolean;
+  // New validation props
+  blockedValues?: string[];
+  blockedValuesMessage?: string;
+  lettersOnly?: boolean;
+  lettersOnlyMessage?: string;
+  noSpacesValidation?: boolean;
+  noSpacesMessage?: string;
+  // Letters and numbers validation
+  lettersAndNumbers?: boolean;
+  lettersAndNumbersMessage?: string;
+  lettersAndNumbersWithSpaces?: boolean;
+  lettersAndNumbersWithSpacesMessage?: string;
 };
 
 export function TextFormField({
@@ -34,6 +46,18 @@ export function TextFormField({
   suffix,
   prefix,
   noWhitespace = false,
+  // New validation props
+  blockedValues,
+  blockedValuesMessage,
+  lettersOnly = false,
+  lettersOnlyMessage,
+  noSpacesValidation = false,
+  noSpacesMessage,
+  // Letters and numbers validation
+  lettersAndNumbers = false,
+  lettersAndNumbersMessage,
+  lettersAndNumbersWithSpaces = false,
+  lettersAndNumbersWithSpacesMessage,
 }: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
@@ -44,6 +68,66 @@ export function TextFormField({
           },
         }
       : {};
+
+  // Build additional validation rules based on props
+  const additionalValidations: Record<string, any> = {};
+
+  // Add blocked values validation
+  if (blockedValues && blockedValues.length > 0) {
+    Object.assign(
+      additionalValidations,
+      formValidations.blockedValues(blockedValues, blockedValuesMessage),
+    );
+  }
+
+  // Add letters only validation
+  if (lettersOnly) {
+    // If noSpacesValidation is also true, use lettersOnlyNoSpaces
+    if (noSpacesValidation) {
+      Object.assign(
+        additionalValidations,
+        formValidations.lettersOnlyNoSpaces(lettersOnlyMessage),
+      );
+    } else {
+      Object.assign(
+        additionalValidations,
+        formValidations.lettersOnly(lettersOnlyMessage),
+      );
+    }
+  }
+  // Add letters and numbers validation
+  else if (lettersAndNumbers) {
+    Object.assign(
+      additionalValidations,
+      formValidations.lettersAndNumbers(lettersAndNumbersMessage),
+    );
+  }
+  // Add letters and numbers with spaces validation
+  else if (lettersAndNumbersWithSpaces) {
+    // If noSpacesValidation is also true, use lettersAndNumbers instead (no spaces)
+    if (noSpacesValidation) {
+      Object.assign(
+        additionalValidations,
+        formValidations.lettersAndNumbers(
+          lettersAndNumbersMessage || noSpacesMessage,
+        ),
+      );
+    } else {
+      Object.assign(
+        additionalValidations,
+        formValidations.lettersAndNumbersWithSpaces(
+          lettersAndNumbersWithSpacesMessage,
+        ),
+      );
+    }
+  }
+  // If only noSpacesValidation is true (without other character restrictions)
+  else if (noSpacesValidation) {
+    Object.assign(
+      additionalValidations,
+      formValidations.noSpaces(noSpacesMessage),
+    );
+  }
 
   let maxLength: number;
 
@@ -61,6 +145,7 @@ export function TextFormField({
           message: `${fieldName || label} is required`,
         },
         ...emailValidation,
+        ...additionalValidations,
         ...rules,
       }}
       render={({ field, fieldState }) => (
