@@ -1,4 +1,4 @@
-import { DateRange } from "react-day-picker";
+import { DateRange, Matcher } from "react-day-picker";
 import { Controller } from "react-hook-form";
 import { Calendar } from "iconsax-react";
 import { useRef } from "react";
@@ -25,6 +25,8 @@ type FormattedDatePickerFormField = Omit<
   onCalendarClose?: () => void;
   yearBefore?: number;
   yearAfter?: number;
+  disabledDate?: Matcher | Matcher[];
+  jumpToSelectedDate?: boolean;
 };
 
 export function DatePickerFormField({
@@ -43,6 +45,8 @@ export function DatePickerFormField({
   onCalendarClose = () => {},
   isDisabled,
   size = "medium",
+  disabledDate,
+  jumpToSelectedDate,
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -118,6 +122,7 @@ export function DatePickerFormField({
                 >
                   <Fieldset.Calendar
                     mode={mode}
+                    disabledDate={disabledDate}
                     date={field.value}
                     onChange={(value: any) => {
                       field.onChange(value);
@@ -126,6 +131,7 @@ export function DatePickerFormField({
                     }}
                     yearBefore={yearBefore}
                     yearAfter={yearAfter}
+                    jumpToSelectedDate={jumpToSelectedDate}
                     handleClose={() => {
                       onCalendarClose?.();
                       setOpen(false);

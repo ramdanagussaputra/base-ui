@@ -1,4 +1,9 @@
-import { DateRange, DayPicker, getDefaultClassNames } from "react-day-picker";
+import {
+  DateRange,
+  DayPicker,
+  getDefaultClassNames,
+  Matcher,
+} from "react-day-picker";
 import "react-day-picker/style.css";
 
 import { cn } from "#/utils";
@@ -31,6 +36,8 @@ type FieldsetCalendarProps = (
   yearBefore?: number;
   yearAfter?: number;
   handleClose?: () => void;
+  disabledDate?: Matcher | Matcher[];
+  jumpToSelectedDate?: boolean;
 };
 
 export function FieldsetCalendar(props: FieldsetCalendarProps) {
@@ -41,6 +48,8 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
     yearBefore = 20,
     yearAfter = 20,
     handleClose = () => {},
+    disabledDate,
+    jumpToSelectedDate = true,
   } = props;
 
   const defaultClassNames = getDefaultClassNames();
@@ -66,6 +75,8 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
       selected={date as any}
       onSelect={onChange as any}
       captionLayout="dropdown"
+      disabled={disabledDate}
+      defaultMonth={jumpToSelectedDate ? (date as Date) : undefined}
       footer={
         mode !== "single" && (
           <Button
