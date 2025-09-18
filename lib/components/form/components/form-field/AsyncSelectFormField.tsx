@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -31,6 +32,7 @@ interface AsyncSelectFormFieldProps
   alreadySelectedValues?: FieldsetSelectOption[];
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
+  menuPlacement?: MenuPlacement;
 }
 
 export function AsyncSelectFormField({
@@ -57,6 +59,7 @@ export function AsyncSelectFormField({
   alreadySelectedValues,
   showAlreadySelectedText,
   alreadySelectedText,
+  menuPlacement,
 }: Readonly<AsyncSelectFormFieldProps>) {
   return (
     <Controller
@@ -88,6 +91,7 @@ export function AsyncSelectFormField({
             isSearchable={isSearchable}
             placeholder={placeholder}
             defaultOptions={defaultOptions}
+            menuPlacement={menuPlacement}
             onChange={(value) => {
               field.onChange(value);
               onChange?.(value);

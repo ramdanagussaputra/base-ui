@@ -1,5 +1,6 @@
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -38,6 +39,7 @@ interface FieldsetAsyncSelectProps {
   alreadySelectedValues?: FieldsetSelectOption[];
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
+  menuPlacement?: MenuPlacement;
 }
 
 export function FieldsetAsyncSelect({
@@ -57,6 +59,7 @@ export function FieldsetAsyncSelect({
   alreadySelectedValues = [],
   showAlreadySelectedText = true,
   alreadySelectedText = "(Already selected)",
+  menuPlacement = "auto",
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -84,7 +87,7 @@ export function FieldsetAsyncSelect({
       onBlur={onBlur}
       isMulti={isMultiSelect}
       onFocus={onFocus}
-      menuPlacement="auto"
+      menuPlacement={menuPlacement}
       menuPosition="fixed"
       isDisabled={isDisabled}
       isSearchable={isSearchable}
