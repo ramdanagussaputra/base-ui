@@ -62,6 +62,9 @@ interface AsyncPaginateFormFieldProps
   reloadOnErrorTimeout?: number;
   size?: "extra-small" | "small" | "medium" | "large";
   fieldName?: string;
+  // Multi-select checkbox configuration
+  enableCheckboxes?: boolean;
+  checkboxPosition?: "left" | "right";
 }
 
 export function AsyncPaginateFormField({
@@ -97,6 +100,8 @@ export function AsyncPaginateFormField({
   reloadOnErrorTimeout,
   size = "medium",
   fieldName,
+  enableCheckboxes = false,
+  checkboxPosition = "left",
 }: Readonly<AsyncPaginateFormFieldProps>) {
   return (
     <Controller
@@ -153,6 +158,8 @@ export function AsyncPaginateFormField({
             clearCacheOnSearchChange={clearCacheOnSearchChange}
             clearCacheOnMenuClose={clearCacheOnMenuClose}
             reloadOnErrorTimeout={reloadOnErrorTimeout}
+            enableCheckboxes={enableCheckboxes}
+            checkboxPosition={checkboxPosition}
           />
 
           {fieldState.error?.message && (

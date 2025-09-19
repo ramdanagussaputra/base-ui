@@ -12,6 +12,7 @@ import { FieldsetSelectDefaultOptionComponent } from "#/components/form/componen
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
 import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
 import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
+import { createFieldsetSelectCheckboxOption } from "#/components/form/components/fieldset/FieldsetSelectCheckboxOption";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -67,6 +68,9 @@ interface FieldsetAsyncPaginateProps {
   clearCacheOnSearchChange?: boolean;
   clearCacheOnMenuClose?: boolean;
   reloadOnErrorTimeout?: number;
+  // Multi-select checkbox configuration
+  enableCheckboxes?: boolean;
+  checkboxPosition?: "left" | "right";
 }
 
 export function FieldsetAsyncPaginate({
@@ -96,6 +100,8 @@ export function FieldsetAsyncPaginate({
   clearCacheOnSearchChange = false,
   clearCacheOnMenuClose = false,
   reloadOnErrorTimeout,
+  enableCheckboxes = false,
+  checkboxPosition = "left",
 }: Readonly<FieldsetAsyncPaginateProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -103,14 +109,16 @@ export function FieldsetAsyncPaginate({
   // Create the custom option component with already selected state if needed
   const OptionComponent =
     children ??
-    (alreadySelectedValues.length > 0
-      ? createFieldsetSelectOptionWithSelectedState({
-          alreadySelectedValues,
-          currentValue: value,
-          showAlreadySelectedText,
-          alreadySelectedText,
-        })
-      : FieldsetSelectDefaultOptionComponent);
+    (enableCheckboxes && isMultiSelect
+      ? createFieldsetSelectCheckboxOption(checkboxPosition)
+      : alreadySelectedValues.length > 0
+        ? createFieldsetSelectOptionWithSelectedState({
+            alreadySelectedValues,
+            currentValue: value,
+            showAlreadySelectedText,
+            alreadySelectedText,
+          })
+        : FieldsetSelectDefaultOptionComponent);
 
   return (
     <AsyncPaginate
@@ -128,7 +136,8 @@ export function FieldsetAsyncPaginate({
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       defaultValue={defaultValue}
-      closeMenuOnSelect={!isMultiSelect}
+      closeMenuOnSelect={enableCheckboxes ? false : !isMultiSelect}
+      hideSelectedOptions={enableCheckboxes ? false : undefined}
       value={value}
       menuPortalTarget={menuPortalTarget}
       additional={additional}

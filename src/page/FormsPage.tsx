@@ -255,6 +255,23 @@ function FormsPage() {
           />
         </div>
 
+        <div className="w-1/3">
+          <AsyncPaginateFormField
+            control={formMethods.control}
+            name="async_paginate_multi_checkbox"
+            label="Multi-Select with Checkboxes"
+            placeholder="Select multiple products..."
+            loadOptions={loadOptions}
+            additional={{ page: 1 }}
+            defaultAdditional={{ page: 1 }}
+            debounceTimeout={500}
+            isMultiSelect={true}
+            enableCheckboxes={true}
+            checkboxPosition="left"
+            isRequired
+          />
+        </div>
+
         <Button type="button" onClick={triggerForm}>
           Trigger
         </Button>

@@ -75,6 +75,9 @@ interface AsyncPaginateCreatableFormFieldProps
     optionLabel: React.ReactNode,
   ) => FieldsetSelectOption;
   fieldName?: string;
+  // Multi-select checkbox configuration
+  enableCheckboxes?: boolean;
+  checkboxPosition?: "left" | "right";
 }
 
 export function AsyncPaginateCreatableFormField({
@@ -115,6 +118,8 @@ export function AsyncPaginateCreatableFormField({
   isValidNewOption,
   getNewOptionData,
   fieldName,
+  enableCheckboxes = false,
+  checkboxPosition = "left",
 }: Readonly<AsyncPaginateCreatableFormFieldProps>) {
   return (
     <Controller
@@ -176,6 +181,8 @@ export function AsyncPaginateCreatableFormField({
             formatCreateLabel={formatCreateLabel}
             isValidNewOption={isValidNewOption}
             getNewOptionData={getNewOptionData}
+            enableCheckboxes={enableCheckboxes}
+            checkboxPosition={checkboxPosition}
           />
 
           {fieldState.error?.message && (

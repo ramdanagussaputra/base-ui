@@ -188,6 +188,40 @@ function CreatableForm() {
 
 ## Advanced Props
 
+### Multi-Select with Checkboxes
+
+For better UX in multi-select scenarios, you can enable checkboxes that allow users to select/deselect options without closing the menu:
+
+```tsx
+<AsyncPaginateFormField
+  control={control}
+  name="products"
+  label="Select Products"
+  placeholder="Search products..."
+  loadOptions={loadOptions}
+  isMultiSelect={true}
+  enableCheckboxes={true}
+  checkboxPosition="left" // or "right"
+  additional={{ page: 1 }}
+  defaultAdditional={{ page: 1 }}
+/>
+```
+
+#### Checkbox Features:
+
+- **No menu close**: Clicking checkboxes doesn't close the dropdown menu
+- **Visual feedback**: Clear indication of selected/unselected state
+- **Position control**: Choose `left` or `right` checkbox placement
+- **Click handling**: Checkbox clicks are separate from option clicks
+- **Accessibility**: Proper focus and keyboard navigation support
+
+#### When to use checkboxes:
+
+- Multi-select with many options
+- Users need to see their selections while browsing
+- Better UX for complex selection scenarios
+- When menu should stay open during selection
+
 ### Cache Control
 
 ```tsx
