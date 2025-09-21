@@ -49,6 +49,7 @@ export function FieldsetUploadPhotoAdditional({
           "bg-secondary-0 border-secondary-200 hover:bg-secondary-50 relative flex size-[6rem] cursor-pointer items-center justify-center rounded-xl border border-dashed",
           className,
         )}
+        type="button"
         onClick={handleOpenFile}
       >
         {!value && (
