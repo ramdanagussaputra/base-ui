@@ -112,6 +112,7 @@ export function DatePickerFormField({
                   </Fieldset.Icon>
                 </Fieldset.TextInput>
               </button>
+
               {open && (
                 <div
                   className={cn("absolute z-50", {
@@ -125,6 +126,7 @@ export function DatePickerFormField({
                     disabledDate={disabledDate}
                     date={field.value}
                     onChange={(value: any) => {
+                      console.log(value);
                       field.onChange(value);
                       onChange?.(value);
                       handleClose();

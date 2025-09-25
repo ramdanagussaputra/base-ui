@@ -6,8 +6,10 @@ import {
   PassportFormField,
   AsyncSelectSongFormField,
   SelectCreatableFormField,
+  Fieldset,
 } from "massive-base-ui";
 import { useFormContext } from "react-hook-form";
+import { useState } from "react";
 import { MenuListProps, components } from "react-select";
 import { Add } from "iconsax-react";
 import Icon from "#/components/icon/Icon";
@@ -15,6 +17,10 @@ import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
 function SelectFieldForm() {
   const formMethods = useFormContext();
+  const [open, setOpen] = useState(false);
+  const [calendarDate, setCalendarDate] = useState<any>(null);
+
+  console.log(formMethods.watch("rangeDate"));
   return (
     <>
       <StyleguideSubtitle>Select Input Field</StyleguideSubtitle>
@@ -56,6 +62,32 @@ function SelectFieldForm() {
           placeholder="Placeholder"
           size="small"
         />
+
+        {/* Local calendar demo (self-contained) */}
+        <Fieldset>
+          <div className="mb-2 flex items-center space-x-2">
+            <Button onClick={() => setOpen(true)}>Open Calendar</Button>
+            <div className="text-sm text-slate-600">
+              {calendarDate ? JSON.stringify(calendarDate) : "No date selected"}
+            </div>
+          </div>
+
+          {open && (
+            <Fieldset.Calendar
+              mode={"range"}
+              // disabledDate can be passed here if needed
+              date={calendarDate}
+              onChange={(value: any) => {
+                console.log("Calendar onChange:", value);
+                setCalendarDate(value);
+                // close the calendar after selection
+                // setOpen(false);
+              }}
+              jumpToSelectedDate={true}
+              handleClose={() => setOpen(false)}
+            />
+          )}
+        </Fieldset>
 
         <AsyncSelectSongFormField
           name="select-song"

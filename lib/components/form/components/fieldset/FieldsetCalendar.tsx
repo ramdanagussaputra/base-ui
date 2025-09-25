@@ -10,6 +10,30 @@ import { cn } from "#/utils";
 import { FieldsetCalendarDropdown } from "#/components/form/components/fieldset/FieldsetCalendarDropdown";
 import { Button } from "#/components/button/Button";
 
+// Helper: Compute a safe default month Date for react-day-picker, simplified and type-safe
+function computeDefaultMonthValue(
+  mode: "single" | "multiple" | "range",
+  value: Date | Date[] | DateRange | undefined,
+  shouldJumpToSelectedDate: boolean = true,
+): Date | undefined {
+  if (!shouldJumpToSelectedDate || !value) return undefined;
+
+  if (mode === "single" && value instanceof Date) {
+    return value;
+  }
+
+  if (mode === "multiple" && Array.isArray(value) && value.length > 0) {
+    return value[0];
+  }
+
+  if (mode === "range" && typeof value === "object" && value !== null) {
+    const range = value as DateRange;
+    return range.from ?? range.to;
+  }
+
+  return undefined;
+}
+
 type FieldsetDatePickerSingleProps = {
   mode: "single";
   date?: Date;
@@ -68,6 +92,28 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
     return label.slice(0, 3);
   };
 
+  // Call helper with properly-typed date value according to mode
+  let defaultMonthValue: Date | undefined;
+  if (mode === "single") {
+    defaultMonthValue = computeDefaultMonthValue(
+      "single",
+      date as Date | undefined,
+      jumpToSelectedDate,
+    );
+  } else if (mode === "multiple") {
+    defaultMonthValue = computeDefaultMonthValue(
+      "multiple",
+      date as Date[] | undefined,
+      jumpToSelectedDate,
+    );
+  } else {
+    defaultMonthValue = computeDefaultMonthValue(
+      "range",
+      date as DateRange | undefined,
+      jumpToSelectedDate,
+    );
+  }
+
   return (
     <DayPicker
       animate
@@ -76,7 +122,7 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
       onSelect={onChange as any}
       captionLayout="dropdown"
       disabled={disabledDate}
-      defaultMonth={jumpToSelectedDate ? (date as Date) : undefined}
+      defaultMonth={defaultMonthValue}
       footer={
         mode !== "single" && (
           <Button
