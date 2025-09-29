@@ -1,6 +1,6 @@
 import { DateRange, Matcher } from "react-day-picker";
 import { Controller } from "react-hook-form";
-import { Calendar } from "iconsax-react";
+import { Add, Calendar } from "iconsax-react";
 import { useRef } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -90,28 +90,47 @@ export function DatePickerFormField({
               </Fieldset.Label>
             )}
 
-            <div ref={calendarRef}>
+            <div ref={calendarRef} className="relative">
               <button
                 ref={triggerRef}
                 type="button"
                 className={cn("w-full cursor-pointer", {
                   "pointer-events-none": isDisabled,
                 })}
-                onClick={() => setOpen((prev) => !prev)}
+                onClick={() => {
+                  setOpen((prev) => !prev);
+                }}
               >
                 <Fieldset.TextInput
-                  className={cn("pointer-events-none", {
+                  className={cn("pointer-events-none relative", {
                     "border border-(--fieldset-border-color--focus)": open,
                   })}
                   placeholder={placeholder}
                   value={displayValue}
                   type="text"
                 >
-                  <Fieldset.Icon>
-                    <Icon icon={Calendar} />
-                  </Fieldset.Icon>
+                  {!open && (
+                    <Fieldset.Icon>
+                      <Icon icon={Calendar} />
+                    </Fieldset.Icon>
+                  )}
                 </Fieldset.TextInput>
               </button>
+              {open && (
+                <Fieldset.Icon className="absolute top-2 right-2.5 z-10 cursor-pointer">
+                  <Icon
+                    id="calendar-clear"
+                    icon={Add}
+                    className="size-6 rotate-45"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      setOpen(false);
+                      field.onChange(undefined);
+                    }}
+                  />
+                </Fieldset.Icon>
+              )}
 
               {open && (
                 <div
