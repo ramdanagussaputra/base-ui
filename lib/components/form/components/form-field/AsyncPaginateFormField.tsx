@@ -65,6 +65,8 @@ interface AsyncPaginateFormFieldProps
   // Multi-select checkbox configuration
   enableCheckboxes?: boolean;
   checkboxPosition?: "left" | "right";
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function AsyncPaginateFormField({
@@ -102,6 +104,7 @@ export function AsyncPaginateFormField({
   fieldName,
   enableCheckboxes = false,
   checkboxPosition = "left",
+  maxHeight,
 }: Readonly<AsyncPaginateFormFieldProps>) {
   return (
     <Controller
@@ -160,6 +163,7 @@ export function AsyncPaginateFormField({
             reloadOnErrorTimeout={reloadOnErrorTimeout}
             enableCheckboxes={enableCheckboxes}
             checkboxPosition={checkboxPosition}
+            maxHeight={maxHeight}
           />
 
           {fieldState.error?.message && (

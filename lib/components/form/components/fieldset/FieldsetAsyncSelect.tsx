@@ -13,6 +13,10 @@ import { FieldsetSelectDefaultOptionComponent } from "#/components/form/componen
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
 import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
 import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
+import {
+  calculateMaxHeight,
+  createValueContainerStyle,
+} from "#/components/form/components/fieldset/utils";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -40,6 +44,8 @@ interface FieldsetAsyncSelectProps {
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
   menuPlacement?: MenuPlacement;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function FieldsetAsyncSelect({
@@ -60,9 +66,18 @@ export function FieldsetAsyncSelect({
   showAlreadySelectedText = true,
   alreadySelectedText = "(Already selected)",
   menuPlacement = "auto",
+  maxHeight,
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
+
+  // Calculate maxHeight for multiselect when specified
+  const calculatedMaxHeight = calculateMaxHeight(
+    maxHeight,
+    isLarge,
+    isMedium,
+    isSmall,
+  );
 
   // Create the custom option component with already selected state if needed
   const OptionComponent =
@@ -95,6 +110,10 @@ export function FieldsetAsyncSelect({
       closeMenuOnSelect={!isMultiSelect}
       value={value}
       menuPortalTarget={menuPortalTarget}
+      styles={{
+        valueContainer: (provided) =>
+          createValueContainerStyle(provided, calculatedMaxHeight),
+      }}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,

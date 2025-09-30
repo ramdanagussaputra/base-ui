@@ -25,6 +25,8 @@ interface AsyncSelectSongFormFieldProps
   >;
   loadOptions?: (inputValue: string) => Promise<SelectSongOptions[]>;
   menuPortalTarget?: HTMLElement | null;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function AsyncSelectSongFormField({
@@ -47,6 +49,7 @@ export function AsyncSelectSongFormField({
   selectComponentOptions,
   loadOptions,
   menuPortalTarget,
+  maxHeight,
 }: Readonly<AsyncSelectSongFormFieldProps>) {
   return (
     <Controller
@@ -90,6 +93,7 @@ export function AsyncSelectSongFormField({
             }}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
+            maxHeight={maxHeight}
           >
             {(props) => <FieldsetSelectSongOptionComponent {...props} />}
           </Fieldset.AsyncSelect>

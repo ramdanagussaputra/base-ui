@@ -31,6 +31,8 @@ interface SelectCreatableFormFieldProps<MultiSelect extends boolean = false>
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   menuPortalTarget?: HTMLElement | null;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function SelectCreatableFormField<MultiSelect extends boolean = false>({
@@ -52,6 +54,7 @@ export function SelectCreatableFormField<MultiSelect extends boolean = false>({
   children,
   selectComponentOptions,
   menuPortalTarget,
+  maxHeight,
 }: Readonly<SelectCreatableFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -92,6 +95,7 @@ export function SelectCreatableFormField<MultiSelect extends boolean = false>({
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
             fieldName={fieldName || label}
+            maxHeight={maxHeight}
           >
             {children}
           </Fieldset.SelectCreatable>

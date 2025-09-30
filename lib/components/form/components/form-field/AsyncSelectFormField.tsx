@@ -33,6 +33,8 @@ interface AsyncSelectFormFieldProps
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
   menuPlacement?: MenuPlacement;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function AsyncSelectFormField({
@@ -60,6 +62,7 @@ export function AsyncSelectFormField({
   showAlreadySelectedText,
   alreadySelectedText,
   menuPlacement,
+  maxHeight,
 }: Readonly<AsyncSelectFormFieldProps>) {
   return (
     <Controller
@@ -107,6 +110,7 @@ export function AsyncSelectFormField({
             alreadySelectedValues={alreadySelectedValues}
             showAlreadySelectedText={showAlreadySelectedText}
             alreadySelectedText={alreadySelectedText}
+            maxHeight={maxHeight}
           >
             {children}
           </Fieldset.AsyncSelect>
