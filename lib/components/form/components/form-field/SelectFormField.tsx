@@ -35,6 +35,8 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   alreadySelectedValues?: FieldsetSelectOption[];
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -59,6 +61,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   alreadySelectedValues,
   showAlreadySelectedText,
   alreadySelectedText,
+  maxHeight,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -101,6 +104,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             alreadySelectedValues={alreadySelectedValues}
             showAlreadySelectedText={showAlreadySelectedText}
             alreadySelectedText={alreadySelectedText}
+            maxHeight={maxHeight}
           >
             {children}
           </Fieldset.Select>

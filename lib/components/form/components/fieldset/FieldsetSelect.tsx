@@ -7,13 +7,16 @@ import Select, {
 
 import { FieldsetSelectOption } from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
-import { FieldsetSelectDefaultOptionComponent } from "#/components/form/components/fieldset/FieldsetSelectDefaultOptionComponent";
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
 import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
-import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
+import {
+  calculateMaxHeight,
+  createOptionComponent,
+  createValueContainerStyle,
+} from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   placeholder: string;
@@ -45,8 +48,17 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   alreadySelectedValues?: FieldsetSelectOption[];
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
+/**
+ * FieldsetSelect - A customizable select component with multiselect support and height constraints
+ *
+ * @template MultiSelect - Boolean type indicating if multiselect is enabled
+ * @param props - Component props including select options, styling, and behavior configuration
+ * @returns JSX.Element - Rendered select component
+ */
 export function FieldsetSelect<MultiSelect extends boolean = false>({
   onBlur,
   onChange,
@@ -64,21 +76,24 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   alreadySelectedValues = [],
   showAlreadySelectedText = true,
   alreadySelectedText = "(Already selected)",
+  maxHeight,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
 
-  // Create the custom option component with already selected state if needed
-  const OptionComponent =
-    children ??
-    (alreadySelectedValues.length > 0
-      ? createFieldsetSelectOptionWithSelectedState({
-          alreadySelectedValues,
-          currentValue: Array.isArray(value) ? null : value,
-          showAlreadySelectedText,
-          alreadySelectedText,
-        })
-      : FieldsetSelectDefaultOptionComponent);
+  // Create the option component with proper configuration
+  const OptionComponent = createOptionComponent(
+    children,
+    alreadySelectedValues,
+    value,
+    showAlreadySelectedText,
+    alreadySelectedText,
+  );
+
+  // Calculate max height for multiselect
+  const calculatedMaxHeight = isMultiSelect
+    ? calculateMaxHeight(maxHeight, isLarge, isMedium, isSmall)
+    : undefined;
 
   return (
     <Select
@@ -110,6 +125,10 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
         Option: OptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
         ...selectComponentOptions,
+      }}
+      styles={{
+        valueContainer: (provided) =>
+          createValueContainerStyle(provided, calculatedMaxHeight),
       }}
       classNames={{
         container: () => cn("cursor-pointer"),
@@ -143,7 +162,14 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
             "size-[0.875rem]": isSmall,
           });
         },
-        valueContainer: () => cn("p-0!"),
+        valueContainer: () =>
+          cn("p-0!", {
+            // Enable scrolling for multiselect with height constraints
+            "overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400":
+              isMultiSelect,
+            // Ensure proper flex behavior for multiselect
+            "flex-wrap": isMultiSelect,
+          }),
         placeholder: () =>
           cn("m-0! text-(--fieldset-placeholder-color)!", {
             "text-(length:--fieldset-font-size-large)! leading-(--fieldset-line-height-large)! font-(--fieldset-font-weight-large)!":

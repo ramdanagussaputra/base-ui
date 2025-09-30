@@ -15,6 +15,11 @@ import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fie
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
+import {
+  calculateMaxHeight,
+  createValueContainerStyle,
+  generateCreateLabel,
+} from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   placeholder: string;
@@ -43,6 +48,8 @@ interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   menuPortalTarget?: HTMLElement | null;
   onInputChange?: (inputValue: string) => void;
   fieldName?: string;
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
@@ -60,9 +67,15 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
   menuPortalTarget,
   fieldName,
   onInputChange,
+  maxHeight,
 }: Readonly<FieldsetSelectCreatableProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
+
+  // Calculate max height for multiselect using shared utility
+  const calculatedMaxHeight = isMultiSelect
+    ? calculateMaxHeight(maxHeight, isLarge, isMedium, isSmall)
+    : undefined;
 
   return (
     <CreatableSelect
@@ -88,7 +101,7 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
       closeMenuOnSelect={!isMultiSelect}
       value={value}
       formatCreateLabel={(inputValue) =>
-        `Add new ${fieldName ? `${fieldName} "` : '"'}${inputValue}"`
+        generateCreateLabel(inputValue, fieldName)
       }
       components={{
         IndicatorSeparator: () => null,
@@ -97,6 +110,10 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
         Option: children ?? FieldsetSelectDefaultOptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
         ...selectComponentOptions,
+      }}
+      styles={{
+        valueContainer: (provided) =>
+          createValueContainerStyle(provided, calculatedMaxHeight),
       }}
       classNames={{
         container: () => cn("cursor-pointer"),
@@ -130,7 +147,14 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
             "size-[0.875rem]": isSmall,
           });
         },
-        valueContainer: () => cn("p-0!"),
+        valueContainer: () =>
+          cn("p-0!", {
+            // Enable scrolling for multiselect with height constraints
+            "overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400":
+              isMultiSelect,
+            // Ensure proper flex behavior for multiselect
+            "flex-wrap": isMultiSelect,
+          }),
         placeholder: () =>
           cn("m-0! text-(--fieldset-placeholder-color)!", {
             "text-(length:--fieldset-font-size-large)! leading-(--fieldset-line-height-large)! font-(--fieldset-font-weight-large)!":

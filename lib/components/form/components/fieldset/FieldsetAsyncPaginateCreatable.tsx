@@ -17,6 +17,10 @@ import { createFieldsetSelectCheckboxOption } from "#/components/form/components
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
+import {
+  calculateMaxHeight,
+  createValueContainerStyle,
+} from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 const AsyncPaginateCreatable = withAsyncPaginate(CreatableSelect);
 
@@ -87,6 +91,8 @@ interface FieldsetAsyncPaginateCreatableProps {
   // Multi-select checkbox configuration
   enableCheckboxes?: boolean;
   checkboxPosition?: "left" | "right";
+  // Multiselect height constraints
+  maxHeight?: number | string;
 }
 
 export function FieldsetAsyncPaginateCreatable({
@@ -123,9 +129,15 @@ export function FieldsetAsyncPaginateCreatable({
   getNewOptionData,
   enableCheckboxes = false,
   checkboxPosition = "left",
+  maxHeight,
 }: Readonly<FieldsetAsyncPaginateCreatableProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
+
+  // Calculate max height for multiselect using shared utility
+  const calculatedMaxHeight = isMultiSelect
+    ? calculateMaxHeight(maxHeight, isLarge, isMedium, isSmall)
+    : undefined;
 
   // Create the custom option component with already selected state if needed
   const OptionComponent =
@@ -189,6 +201,10 @@ export function FieldsetAsyncPaginateCreatable({
         MultiValueRemove: FieldsetSelectMultiValueRemove,
         ...selectComponentOptions,
       }}
+      styles={{
+        valueContainer: (provided) =>
+          createValueContainerStyle(provided, calculatedMaxHeight),
+      }}
       classNames={{
         container: () => cn("cursor-pointer"),
         menuPortal: () => cn("z-[1000]!"),
@@ -221,7 +237,14 @@ export function FieldsetAsyncPaginateCreatable({
             "size-[0.875rem]": isSmall,
           });
         },
-        valueContainer: () => cn("p-0!"),
+        valueContainer: () =>
+          cn("p-0!", {
+            // Enable scrolling for multiselect with height constraints
+            "overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400":
+              isMultiSelect,
+            // Ensure proper flex behavior for multiselect
+            "flex-wrap": isMultiSelect,
+          }),
         placeholder: () =>
           cn("m-0! text-(--fieldset-placeholder-color)!", {
             "text-(length:--fieldset-font-size-large)! leading-(--fieldset-line-height-large)! font-(--fieldset-font-weight-large)!":
