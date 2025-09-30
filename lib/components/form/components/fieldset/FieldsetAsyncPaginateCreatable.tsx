@@ -1,5 +1,6 @@
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -91,6 +92,7 @@ interface FieldsetAsyncPaginateCreatableProps {
   // Multi-select checkbox configuration
   enableCheckboxes?: boolean;
   checkboxPosition?: "left" | "right";
+  menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
 }
@@ -129,6 +131,7 @@ export function FieldsetAsyncPaginateCreatable({
   getNewOptionData,
   enableCheckboxes = false,
   checkboxPosition = "left",
+  menuPlacement = "auto",
   maxHeight,
 }: Readonly<FieldsetAsyncPaginateCreatableProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
@@ -172,7 +175,7 @@ export function FieldsetAsyncPaginateCreatable({
       onBlur={onBlur}
       isMulti={isMultiSelect}
       onFocus={onFocus}
-      menuPlacement="auto"
+      menuPlacement={menuPlacement}
       menuPosition="fixed"
       isDisabled={isDisabled}
       isSearchable={isSearchable}

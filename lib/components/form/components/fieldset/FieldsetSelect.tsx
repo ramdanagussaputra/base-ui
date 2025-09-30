@@ -1,5 +1,6 @@
 import Select, {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -48,6 +49,7 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   alreadySelectedValues?: FieldsetSelectOption[];
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
+  menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
 }
@@ -76,6 +78,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   alreadySelectedValues = [],
   showAlreadySelectedText = true,
   alreadySelectedText = "(Already selected)",
+  menuPlacement = "auto",
   maxHeight,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
@@ -109,7 +112,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       onBlur={onBlur}
       isMulti={isMultiSelect}
       onFocus={onFocus}
-      menuPlacement="auto"
+      menuPlacement={menuPlacement}
       menuPortalTarget={menuPortalTarget}
       menuPosition="fixed"
       isDisabled={isDisabled}

@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -31,6 +32,7 @@ interface SelectCreatableFormFieldProps<MultiSelect extends boolean = false>
     SelectComponentsConfig<unknown, boolean, GroupBase<unknown>>
   >;
   menuPortalTarget?: HTMLElement | null;
+  menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
 }
@@ -54,6 +56,7 @@ export function SelectCreatableFormField<MultiSelect extends boolean = false>({
   children,
   selectComponentOptions,
   menuPortalTarget,
+  menuPlacement,
   maxHeight,
 }: Readonly<SelectCreatableFormFieldProps<MultiSelect>>) {
   return (
@@ -94,6 +97,7 @@ export function SelectCreatableFormField<MultiSelect extends boolean = false>({
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
+            menuPlacement={menuPlacement}
             fieldName={fieldName || label}
             maxHeight={maxHeight}
           >

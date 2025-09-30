@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -65,6 +66,7 @@ interface AsyncPaginateFormFieldProps
   // Multi-select checkbox configuration
   enableCheckboxes?: boolean;
   checkboxPosition?: "left" | "right";
+  menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
 }
@@ -104,6 +106,7 @@ export function AsyncPaginateFormField({
   fieldName,
   enableCheckboxes = false,
   checkboxPosition = "left",
+  menuPlacement,
   maxHeight,
 }: Readonly<AsyncPaginateFormFieldProps>) {
   return (
@@ -148,6 +151,7 @@ export function AsyncPaginateFormField({
             selectComponentOptions={selectComponentOptions}
             loadOptions={loadOptions}
             menuPortalTarget={menuPortalTarget}
+            menuPlacement={menuPlacement}
             alreadySelectedValues={alreadySelectedValues}
             showAlreadySelectedText={showAlreadySelectedText}
             alreadySelectedText={alreadySelectedText}

@@ -1,5 +1,6 @@
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -48,6 +49,7 @@ interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   menuPortalTarget?: HTMLElement | null;
   onInputChange?: (inputValue: string) => void;
   fieldName?: string;
+  menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
 }
@@ -67,6 +69,7 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
   menuPortalTarget,
   fieldName,
   onInputChange,
+  menuPlacement = "auto",
   maxHeight,
 }: Readonly<FieldsetSelectCreatableProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
@@ -91,7 +94,7 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
       onBlur={onBlur}
       isMulti={isMultiSelect}
       onFocus={onFocus}
-      menuPlacement="auto"
+      menuPlacement={menuPlacement}
       menuPortalTarget={menuPortalTarget}
       menuPosition="fixed"
       isDisabled={isDisabled}

@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import {
   GroupBase,
+  MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
@@ -35,6 +36,7 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   alreadySelectedValues?: FieldsetSelectOption[];
   showAlreadySelectedText?: boolean;
   alreadySelectedText?: string;
+  menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
 }
@@ -61,6 +63,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   alreadySelectedValues,
   showAlreadySelectedText,
   alreadySelectedText,
+  menuPlacement,
   maxHeight,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
@@ -101,6 +104,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             onBlur={field.onBlur}
             selectComponentOptions={selectComponentOptions}
             menuPortalTarget={menuPortalTarget}
+            menuPlacement={menuPlacement}
             alreadySelectedValues={alreadySelectedValues}
             showAlreadySelectedText={showAlreadySelectedText}
             alreadySelectedText={alreadySelectedText}
