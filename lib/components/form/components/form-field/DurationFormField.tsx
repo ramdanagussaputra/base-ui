@@ -110,9 +110,9 @@ const convertFormValueToUI = (
   const minutes = totalMinutes % MINUTES_PER_HOUR;
 
   return {
-    hours: hours.toString(),
-    minutes: minutes.toString(),
-    seconds: parsed.seconds,
+    hours: padHours(hours.toString()),
+    minutes: padMinutes(minutes.toString(), showHours),
+    seconds: padSeconds(parsed.seconds || ""),
   };
 };
 
@@ -125,9 +125,11 @@ const parseFormatString = (
 ) => {
   if (!value.includes(FIELD_SEPARATOR)) {
     // Single value - assign to the first visible field
-    if (showHours) return { hours: value, minutes: "", seconds: "" };
-    if (showMinutes) return { hours: "", minutes: value, seconds: "" };
-    if (showSeconds) return { hours: "", minutes: "", seconds: value };
+    if (showHours) return { hours: padHours(value), minutes: "", seconds: "" };
+    if (showMinutes)
+      return { hours: "", minutes: padMinutes(value, showHours), seconds: "" };
+    if (showSeconds)
+      return { hours: "", minutes: "", seconds: padSeconds(value) };
     return { hours: "", minutes: "", seconds: "" };
   }
 
@@ -138,15 +140,15 @@ const parseFormatString = (
   let partIndex = 0;
 
   if (showHours && partIndex < parts.length) {
-    hours = parts[partIndex] || "";
+    hours = padHours(parts[partIndex] || "");
     partIndex++;
   }
   if (showMinutes && partIndex < parts.length) {
-    minutes = parts[partIndex] || "";
+    minutes = padMinutes(parts[partIndex] || "", showHours);
     partIndex++;
   }
   if (showSeconds && partIndex < parts.length) {
-    seconds = parts[partIndex] || "";
+    seconds = padSeconds(parts[partIndex] || "");
     partIndex++;
   }
 
@@ -178,7 +180,7 @@ type DurationFormFieldProp = Omit<FormFieldProps, "type" | "onChange"> & {
   name: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
-  /** Whether to show the hours field (3 digits max). Default: true */
+  /** Whether to show the hours field (2 digits max). Default: true */
   showHours?: boolean;
   /** Whether to show the minutes field (2 digits max). Default: true */
   showMinutes?: boolean;
