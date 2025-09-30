@@ -8,7 +8,7 @@ import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 
-const HOURS_MAX_LENGTH = 3;
+const HOURS_MAX_LENGTH = 2;
 const MINUTES_MAX_LENGTH = 2;
 const MINUTES_MAX_LENGTH_NO_HOURS = 3;
 const SECONDS_MAX_LENGTH = 2;
@@ -404,7 +404,7 @@ export function DurationFormField({
           <>
             <Fieldset.TextInput
               type="text"
-              placeholder="hhh"
+              placeholder="hh"
               value={hours}
               onChange={handleHoursChange}
               onBlur={handleHoursBlur}

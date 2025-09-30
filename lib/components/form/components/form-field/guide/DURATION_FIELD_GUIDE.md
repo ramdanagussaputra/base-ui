@@ -41,7 +41,12 @@ import { DurationFormField } from "./path/to/DurationFormField";
   // showMinutes={true}
   // showSeconds={true}
 />
-// Output Format: "000:00:00" (hhh:mm:ss)
+```
+
+// Output Format: "00:00:00" (hh:mm:ss)
+
+```
+
 ```
 
 ### 2. Hours and Minutes Only
@@ -57,7 +62,12 @@ import { DurationFormField } from "./path/to/DurationFormField";
   showSeconds={false}
   label="Duration (Hours:Minutes)"
 />
-// Output Format: "000:00" (hhh:mm)
+```
+
+// Output Format: "00:00" (hh:mm)
+
+```
+
 ```
 
 ### 3. Minutes and Seconds Only
@@ -91,7 +101,12 @@ import { DurationFormField } from "./path/to/DurationFormField";
   showSeconds={false}
   label="Duration (Hours)"
 />
-// Output Format: "000" (hhh)
+```
+
+// Output Format: "00" (hh)
+
+```
+
 ```
 
 #### Minutes Only
@@ -134,7 +149,7 @@ import { DurationFormField } from "./path/to/DurationFormField";
 | `setValue`        | `UseFormSetValue<any>`    | -            | **Required**. react-hook-form setValue function   |
 | `watch`           | `UseFormWatch<any>`       | -            | **Required**. react-hook-form watch function      |
 | `control`         | `Control`                 | -            | **Required**. react-hook-form control object      |
-| `showHours`       | `boolean`                 | `true`       | Whether to show the hours field (3 digits max)    |
+| `showHours`       | `boolean`                 | `true`       | Whether to show the hours field (2 digits max)    |
 | `showMinutes`     | `boolean`                 | `true`       | Whether to show the minutes field (2 digits max)  |
 | `showSeconds`     | `boolean`                 | `true`       | Whether to show the seconds field (2 digits max)  |
 | `label`           | `string`                  | `"Duration"` | Field label text                                  |
@@ -192,7 +207,7 @@ generateGridColumns(showHours, showMinutes, showSeconds): string
 ### Input Validation
 
 - **Numeric Only**: Automatically filters non-numeric characters
-- **Length Limits**: Hours (3 digits), Minutes/Seconds (2 digits each)
+- **Length Limits**: Hours (2 digits), Minutes/Seconds (2 digits each)
 - **Zero Padding**: Adds leading zeros on blur for consistent formatting
 
 ### Form Integration
@@ -247,14 +262,14 @@ import { useForm } from "react-hook-form";
 function MyForm() {
   const { control, setValue, watch, handleSubmit } = useForm({
     defaultValues: {
-      totalTime: "001:30:00",
+      totalTime: "01:30:00",
       breakTime: "00:15",
     },
   });
 
   const onSubmit = (data) => {
     console.log("Form data:", data);
-    // data.totalTime = "001:30:00"
+    // data.totalTime = "01:30:00"
     // data.breakTime = "00:15"
   };
 
@@ -319,7 +334,7 @@ Dynamic Tailwind classes like `grid-cols-[${gridColumns}]` don't work because:
 
 | Field       | Max Length | Placeholder | Zero-Padded | Overflow Behavior         |
 | ----------- | ---------- | ----------- | ----------- | ------------------------- |
-| **Hours**   | 3 digits   | `"hhh"`     | `"000"`     | No overflow (max 999)     |
+| **Hours**   | 2 digits   | `"hh"`      | `"00"`      | No overflow (max 99)      |
 | **Minutes** | 2 digits   | `"mm"`      | `"00"`      | ≥60 → converts to hours   |
 | **Seconds** | 2 digits   | `"ss"`      | `"00"`      | ≥60 → converts to minutes |
 
