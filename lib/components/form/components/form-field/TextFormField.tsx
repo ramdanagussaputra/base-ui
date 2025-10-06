@@ -14,6 +14,7 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   suffix?: string;
   prefix?: string;
   noWhitespace?: boolean;
+  autoUppercase?: boolean;
   // New validation props
   blockedValues?: string[];
   blockedValuesMessage?: string;
@@ -46,6 +47,7 @@ export function TextFormField({
   suffix,
   prefix,
   noWhitespace = false,
+  autoUppercase = false,
   // New validation props
   blockedValues,
   blockedValuesMessage,
@@ -220,6 +222,9 @@ export function TextFormField({
               if (noWhitespace) {
                 tempValue = value.replace(/\s/g, "");
               }
+              if (autoUppercase) {
+                tempValue = tempValue.toUpperCase();
+              }
               field.onChange(tempValue);
               onChange?.(tempValue);
             }}
@@ -230,6 +235,7 @@ export function TextFormField({
             lengthCap={maxLength}
             prefix={prefix}
             suffix={suffix}
+            autoUppercase={autoUppercase}
           >
             <div className="flex items-center gap-1">{endElement}</div>
           </Fieldset.TextInput>

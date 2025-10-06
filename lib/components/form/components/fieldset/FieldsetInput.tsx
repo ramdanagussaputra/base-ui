@@ -20,6 +20,7 @@ interface FieldsetInputProps {
   defaultValue?: any;
   suffix?: string;
   prefix?: string;
+  autoUppercase?: boolean;
 }
 
 export function FieldsetInput({
@@ -39,6 +40,7 @@ export function FieldsetInput({
   defaultValue,
   suffix,
   prefix,
+  autoUppercase = false,
 }: Readonly<FieldsetInputProps>) {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const { isLarge, isMedium, isSmall, isDisabled, isError } =
@@ -48,14 +50,19 @@ export function FieldsetInput({
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
+      let inputValue = event.target.value;
+
       if (isNumber) {
-        const number = extractNumbersFromString(event.target.value);
-        onChange(number);
-      } else {
-        onChange(event.target.value);
+        inputValue = extractNumbersFromString(inputValue);
       }
+
+      if (autoUppercase && !isNumber) {
+        inputValue = inputValue.toUpperCase();
+      }
+
+      onChange(inputValue);
     },
-    [isNumber, onChange],
+    [isNumber, autoUppercase, onChange],
   );
 
   const handleFocus = useCallback(

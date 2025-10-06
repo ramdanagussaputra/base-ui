@@ -111,8 +111,10 @@ function FormsPage() {
             placeholder="Enter text"
             control={formMethods.control}
             isRequired
-            lettersAndNumbersWithSpaces
+            // lettersAndNumbersWithSpaces
             noSpacesValidation
+            autoUppercase
+            type="number"
           />
         </div>
 
