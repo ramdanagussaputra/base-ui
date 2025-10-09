@@ -10,7 +10,10 @@ import {
   ButtonFileInput,
   ButtonFileInputContext,
 } from "#/components/button/ButtonFileInput";
-import { ButtonDropdown, ButtonDropdownItem } from "#/components/button/ButtonDropdown";
+import {
+  ButtonDropdown,
+  ButtonDropdownItem,
+} from "#/components/button/ButtonDropdown";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -72,9 +75,14 @@ export const Button: ButtonComponent = function Button({
     (() => void) | null
   >(null);
 
-  const registerTrigger = React.useCallback((trigger: () => void) =>
-    setFileInputTrigger(() => trigger), []);
-  const unregisterTrigger = React.useCallback(() => setFileInputTrigger(null), []);
+  const registerTrigger = React.useCallback(
+    (trigger: () => void) => setFileInputTrigger(() => trigger),
+    [],
+  );
+  const unregisterTrigger = React.useCallback(
+    () => setFileInputTrigger(null),
+    [],
+  );
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (fileInputTrigger) {
@@ -128,9 +136,7 @@ export const Button: ButtonComponent = function Button({
 
   return (
     <buttonContext.Provider value={value}>
-      <ButtonFileInputContext.Provider
-        value={fileInputContextValue}
-      >
+      <ButtonFileInputContext.Provider value={fileInputContextValue}>
         <button
           type={type}
           disabled={isDisabled || isLoading}
@@ -162,7 +168,7 @@ export const Button: ButtonComponent = function Button({
                 isNoBackground && isError,
               "border-primary-300 hover:shadow-button-primary-outline hover:border-primary-400 hover:disabled:text-primary-600 text-primary-600 hover:text-primary-700 disabled:hover:border-primary-300 border bg-transparent":
                 isOutline && isPrimary,
-              "border-secondary-300 hover:shadow-button-secondary-outline hover:border-secondary-400 hover:disabled:text-secondary-700 text-secondary-700 hover:text-secondary-800 disabled:hover:border-secondary-300 border bg-transparent":
+              "border-secondary-500 hover:shadow-button-secondary-outline hover:border-secondary-600 hover:disabled:text-secondary-700 text-secondary-700 hover:text-secondary-800 disabled:hover:border-secondary-500 border bg-transparent":
                 isOutline && isSecondary,
               "border-error-300 hover:shadow-button-error-outline hover:border-error-400 hover:disabled:text-error-700 text-error-600 hover:text-error-700 disabled:hover:border-error-300 border bg-transparent":
                 isOutline && isError,
