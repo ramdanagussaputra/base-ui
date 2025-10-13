@@ -274,6 +274,21 @@ function FormsPage() {
           />
         </div>
 
+        <div className="w-1/3">
+          <AsyncPaginateFormField
+            control={formMethods.control}
+            name="async_paginate_with_clear_indicator"
+            label="Single Select with Clear Indicator"
+            placeholder="Select product..."
+            loadOptions={loadOptions}
+            additional={{ page: 1 }}
+            defaultAdditional={{ page: 1 }}
+            debounceTimeout={500}
+            enableCheckboxes={true}
+            checkboxPosition="left"
+          />
+        </div>
+
         <Button type="button" onClick={triggerForm}>
           Trigger
         </Button>
