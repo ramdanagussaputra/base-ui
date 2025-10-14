@@ -101,6 +101,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   return (
     <Select
       options={options}
+      isClearable={true}
       placeholder={placeholder}
       onChange={(value) => {
         onChange?.(
