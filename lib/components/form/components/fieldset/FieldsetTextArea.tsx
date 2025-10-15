@@ -15,6 +15,7 @@ interface FieldsetTextAreaProps {
   maxHeight?: number;
   isResizable?: boolean;
   fieldSizeFollowContent?: boolean;
+  autoUppercase?: boolean;
 }
 
 export function FieldsetTextArea({
@@ -29,6 +30,7 @@ export function FieldsetTextArea({
   maxHeight,
   isResizable = true,
   fieldSizeFollowContent = false,
+  autoUppercase = false,
 }: Readonly<FieldsetTextAreaProps>) {
   const { isDisabled, isError } = useFieldsetContext();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -61,13 +63,19 @@ export function FieldsetTextArea({
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      onChange(event.target.value);
+      let inputValue = event.target.value;
+
+      if (autoUppercase) {
+        inputValue = inputValue.toUpperCase();
+      }
+
+      onChange(inputValue);
       if (fieldSizeFollowContent) {
         // Delay auto-resize to next tick to ensure DOM is updated
         setTimeout(autoResize, 0);
       }
     },
-    [onChange, fieldSizeFollowContent, autoResize],
+    [autoUppercase, onChange, fieldSizeFollowContent, autoResize],
   );
 
   return (

@@ -207,6 +207,7 @@ function FormsPage() {
             name="textarea"
             label="Textarea"
             placeholder="Placeholder"
+            autoUppercase
           />
         </div>
 

@@ -9,6 +9,7 @@ interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
   maxHeight?: number;
   isResizable?: boolean;
   fieldSizeFollowContent?: boolean;
+  autoUppercase?: boolean;
 }
 
 export function TextAreaFormField({
@@ -27,6 +28,7 @@ export function TextAreaFormField({
   withoutTagLabel = false,
   isResizable = true,
   fieldSizeFollowContent = false,
+  autoUppercase = false,
 }: Readonly<TextAreaFormFieldProps>) {
   let maxLength: number;
 
@@ -60,8 +62,12 @@ export function TextAreaFormField({
           <Fieldset.Textarea
             onBlur={field.onBlur}
             onChange={(value) => {
-              field.onChange(value);
-              onChange(value);
+              let tempValue = value;
+              if (autoUppercase) {
+                tempValue = tempValue.toUpperCase();
+              }
+              field.onChange(tempValue);
+              onChange(tempValue);
             }}
             value={field.value || ""}
             placeholder={placeholder}
@@ -71,6 +77,7 @@ export function TextAreaFormField({
             minHeight={minHeight || 200}
             isResizable={isResizable}
             fieldSizeFollowContent={fieldSizeFollowContent}
+            autoUppercase={autoUppercase}
           />
 
           {!!fieldState.error?.message && (
