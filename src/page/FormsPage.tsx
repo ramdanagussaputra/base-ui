@@ -255,6 +255,7 @@ function FormsPage() {
               `Create new product: "${inputValue}"`
             }
             isRequired
+            // autoUppercase
           />
         </div>
 

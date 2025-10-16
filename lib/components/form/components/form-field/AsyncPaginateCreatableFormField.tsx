@@ -82,6 +82,7 @@ interface AsyncPaginateCreatableFormFieldProps
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  autoUppercase?: boolean;
 }
 
 export function AsyncPaginateCreatableFormField({
@@ -126,6 +127,7 @@ export function AsyncPaginateCreatableFormField({
   checkboxPosition = "left",
   menuPlacement,
   maxHeight,
+  autoUppercase = false,
 }: Readonly<AsyncPaginateCreatableFormFieldProps>) {
   return (
     <Controller
@@ -155,8 +157,15 @@ export function AsyncPaginateCreatableFormField({
             placeholder={placeholder}
             defaultOptions={defaultOptions}
             onChange={(value: SingleValue<FieldsetSelectOption>) => {
-              field.onChange(value);
-              onChange?.(value);
+              const formatedValue = autoUppercase
+                ? {
+                    label: value?.label.toUpperCase() || "",
+                    value: String(value?.value).toUpperCase() || "",
+                  }
+                : value;
+
+              field.onChange(formatedValue);
+              onChange?.(formatedValue);
             }}
             onBlur={() => {
               field.onBlur();
@@ -191,6 +200,7 @@ export function AsyncPaginateCreatableFormField({
             enableCheckboxes={enableCheckboxes}
             checkboxPosition={checkboxPosition}
             maxHeight={maxHeight}
+            autoUppercase={autoUppercase}
           />
 
           {fieldState.error?.message && (

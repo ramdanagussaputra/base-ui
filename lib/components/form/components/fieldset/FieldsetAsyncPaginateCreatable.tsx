@@ -5,6 +5,7 @@ import {
   SelectComponentsConfig,
   SingleValue,
 } from "react-select";
+import { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import { withAsyncPaginate } from "react-select-async-paginate";
 
@@ -95,6 +96,7 @@ interface FieldsetAsyncPaginateCreatableProps {
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  autoUppercase?: boolean;
 }
 
 export function FieldsetAsyncPaginateCreatable({
@@ -133,9 +135,13 @@ export function FieldsetAsyncPaginateCreatable({
   checkboxPosition = "left",
   menuPlacement = "auto",
   maxHeight,
+  autoUppercase = false,
 }: Readonly<FieldsetAsyncPaginateCreatableProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
+
+  // State to control the input value for uppercase transformation
+  const [inputValue, setInputValue] = useState<string>("");
 
   // Calculate max height for multiselect using shared utility
   const calculatedMaxHeight = isMultiSelect
@@ -156,10 +162,22 @@ export function FieldsetAsyncPaginateCreatable({
           })
         : FieldsetSelectDefaultOptionComponent);
 
+  // Wrap formatCreateLabel to apply uppercase transformation if autoUppercase is enabled
+  const wrappedFormatCreateLabel = autoUppercase
+    ? (inputValue: string) => {
+        const upperValue = inputValue.toUpperCase();
+        return formatCreateLabel
+          ? formatCreateLabel(upperValue)
+          : `Create "${upperValue}"`;
+      }
+    : formatCreateLabel;
+
   const creatableProps = {
     ...(onCreateOption && { onCreateOption }),
     ...(createOptionPosition && { createOptionPosition }),
-    ...(formatCreateLabel && { formatCreateLabel }),
+    ...(wrappedFormatCreateLabel && {
+      formatCreateLabel: wrappedFormatCreateLabel,
+    }),
     ...(isValidNewOption && { isValidNewOption }),
     ...(getNewOptionData && { getNewOptionData }),
   };
@@ -170,11 +188,26 @@ export function FieldsetAsyncPaginateCreatable({
       loadOptions={loadOptions as any}
       placeholder={placeholder}
       onChange={(value) => {
+        // Clear input value when option is selected
+        if (autoUppercase) {
+          setInputValue("");
+        }
         onChange?.(value as SingleValue<FieldsetSelectOption>);
       }}
       onBlur={onBlur}
       isMulti={isMultiSelect}
       onFocus={onFocus}
+      inputValue={autoUppercase ? inputValue : undefined}
+      onInputChange={
+        autoUppercase
+          ? (newValue) => {
+              // Update state with uppercase value
+              const upperValue = newValue.toUpperCase();
+              setInputValue(upperValue);
+              return upperValue;
+            }
+          : undefined
+      }
       menuPlacement={menuPlacement}
       menuPosition="fixed"
       isDisabled={isDisabled}
