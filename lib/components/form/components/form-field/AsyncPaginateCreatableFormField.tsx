@@ -157,12 +157,24 @@ export function AsyncPaginateCreatableFormField({
             placeholder={placeholder}
             defaultOptions={defaultOptions}
             onChange={(value: SingleValue<FieldsetSelectOption>) => {
-              const formatedValue = autoUppercase
-                ? {
-                    label: value?.label.toUpperCase() || "",
-                    value: String(value?.value).toUpperCase() || "",
-                  }
-                : value;
+              let formatedValue: any;
+
+              if (autoUppercase && value) {
+                // Handle both single value and array of values (multi-select)
+                if (Array.isArray(value)) {
+                  formatedValue = value.map((item) => ({
+                    label: item?.label?.toUpperCase?.() || "",
+                    value: String(item?.value)?.toUpperCase?.() || "",
+                  }));
+                } else {
+                  formatedValue = {
+                    label: value?.label?.toUpperCase?.() || "",
+                    value: String(value?.value)?.toUpperCase?.() || "",
+                  };
+                }
+              } else {
+                formatedValue = value;
+              }
 
               field.onChange(formatedValue);
               onChange?.(formatedValue);
