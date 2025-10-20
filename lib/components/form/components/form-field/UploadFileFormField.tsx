@@ -43,12 +43,14 @@ export function UploadFileFormField({
   maxSize = 1 * 1024 * 1024,
   isDisabled = false,
   buttonText = "Browse File",
+  control,
 }: Readonly<UploadFileFormFieldProps>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <Controller
       name={name}
+      control={control}
       rules={{
         required: {
           value: isRequired,
