@@ -6,6 +6,7 @@ import InputFieldForm from "@/component/styleguide/forms/InputFieldForm";
 import SelectFieldForm from "@/component/styleguide/forms/SelectFieldForm";
 import ControlFieldForm from "@/component/styleguide/forms/ControlFieldForm";
 import UploadPhotoFieldForm from "@/component/styleguide/forms/UploadPhotoFieldForm";
+import UploadFileFieldForm from "./UploadFileFieldForm";
 
 function Forms() {
   const formMethods = useForm({
@@ -42,6 +43,7 @@ function Forms() {
             <SelectFieldForm />
             <ControlFieldForm />
             <UploadPhotoFieldForm />
+            <UploadFileFieldForm />
           </div>
         </div>
       </FormProvider>

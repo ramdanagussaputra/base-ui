@@ -20,5 +20,6 @@ export { DurationFormField } from "#/components/form/components/form-field/Durat
 export { ToggleFormField } from "#/components/form/components/form-field/ToggleFormField";
 export { AsyncSelectSongFormField } from "#/components/form/components/form-field/AsyncSelectSongFormField";
 export { SelectCreatableFormField } from "#/components/form/components/form-field/SelectCreatableFormField";
+export { UploadFileFormField } from "#/components/form/components/form-field/UploadFileFormField";
 
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";
