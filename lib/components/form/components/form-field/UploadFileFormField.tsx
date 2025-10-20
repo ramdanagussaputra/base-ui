@@ -29,6 +29,7 @@ interface UploadFileFormFieldProps {
   isDisabled?: boolean;
   buttonText?: string;
   control: Control<any, any>;
+  footerElement?: React.ReactNode;
 }
 
 export function UploadFileFormField({
@@ -44,6 +45,7 @@ export function UploadFileFormField({
   isDisabled = false,
   buttonText = "Browse File",
   control,
+  footerElement,
 }: Readonly<UploadFileFormFieldProps>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -89,53 +91,58 @@ export function UploadFileFormField({
             }}
             ref={inputRef}
           />
-          <div className="flex w-full items-center gap-3">
-            <button
-              className={cn("w-full cursor-pointer", {
-                "pointer-events-none": isDisabled,
-              })}
-              type="button"
-              onClick={() => {
-                inputRef?.current?.click();
-              }}
-            >
-              <div className="relative">
-                <Fieldset.TextInput
-                  type="text"
-                  placeholder={placeholder}
-                  className="pointer-events-none relative"
-                  value={
-                    field.value instanceof File ? field.value.name : field.value
-                  }
-                />
-                {field.value instanceof File ? (
-                  <button
-                    type="button"
-                    className="absolute top-0 right-0 z-50 me-2 h-full cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      field.onChange(null);
-                    }}
-                  >
-                    <Fieldset.Icon>
-                      <Icon icon={Add} className="rotate-45" />
-                    </Fieldset.Icon>
-                  </button>
-                ) : null}
-              </div>
-            </button>
+          <div className="flex flex-col gap-2">
+            <div className="flex w-full items-center gap-3">
+              <button
+                className={cn("w-full cursor-pointer", {
+                  "pointer-events-none": isDisabled,
+                })}
+                type="button"
+                onClick={() => {
+                  inputRef?.current?.click();
+                }}
+              >
+                <div className="relative">
+                  <Fieldset.TextInput
+                    type="text"
+                    placeholder={placeholder}
+                    className="pointer-events-none relative"
+                    value={
+                      field.value instanceof File
+                        ? field.value.name
+                        : field.value
+                    }
+                  />
+                  {field.value instanceof File ? (
+                    <button
+                      type="button"
+                      className="absolute top-0 right-0 z-50 me-2 h-full cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        field.onChange(null);
+                      }}
+                    >
+                      <Fieldset.Icon>
+                        <Icon icon={Add} className="rotate-45" />
+                      </Fieldset.Icon>
+                    </button>
+                  ) : null}
+                </div>
+              </button>
 
-            <Button
-              type="button"
-              variant="light"
-              color="primary"
-              isDisabled={isDisabled}
-              onClick={() => {
-                inputRef?.current?.click();
-              }}
-            >
-              {buttonText}
-            </Button>
+              <Button
+                type="button"
+                variant="light"
+                color="primary"
+                isDisabled={isDisabled}
+                onClick={() => {
+                  inputRef?.current?.click();
+                }}
+              >
+                {buttonText}
+              </Button>
+            </div>
+            {footerElement}
           </div>
 
           {fieldState.error?.message && (
