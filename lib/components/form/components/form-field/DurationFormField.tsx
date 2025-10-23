@@ -392,88 +392,93 @@ export function DurationFormField({
   const gridColumns = generateGridColumns(showHours, showMinutes, showSeconds);
 
   return (
-    <Fieldset isRequired={isRequired} isDisabled={isDisabled} size={size}>
-      {label && (
-        <Fieldset.Label withoutTag={withoutTagLabel}>{label}</Fieldset.Label>
-      )}
-      <div
-        className="grid items-center gap-2"
-        style={{
-          gridTemplateColumns: gridColumns.replace(/_/g, " "),
-        }}
-      >
-        {showHours && (
-          <>
-            <Fieldset.TextInput
-              type="text"
-              placeholder="hh"
-              value={hours}
-              onChange={handleHoursChange}
-              onBlur={handleHoursBlur}
-              lengthCap={HOURS_MAX_LENGTH}
-            >
-              <div className="flex items-center gap-1">{endElement}</div>
-            </Fieldset.TextInput>
-            {(showMinutes || showSeconds) && (
-              <p className="text-secondary-900 text-[0.8125rem]">
-                {FIELD_SEPARATOR}
-              </p>
-            )}
-          </>
-        )}
-        {showMinutes && (
-          <>
-            <Fieldset.TextInput
-              type="text"
-              placeholder={showHours ? "mm" : "mmm"}
-              value={minutes}
-              onChange={handleMinutesChange}
-              onBlur={handleMinutesBlur}
-              lengthCap={
-                showHours ? MINUTES_MAX_LENGTH : MINUTES_MAX_LENGTH_NO_HOURS
-              }
-            >
-              <div className="flex items-center gap-1">{endElement}</div>
-            </Fieldset.TextInput>
-            {showSeconds && (
-              <p className="text-secondary-900 text-[0.8125rem]">
-                {FIELD_SEPARATOR}
-              </p>
-            )}
-          </>
-        )}
-        {showSeconds && (
-          <Fieldset.TextInput
-            type="text"
-            placeholder="ss"
-            value={seconds}
-            onChange={handleSecondsChange}
-            onBlur={handleSecondsBlur}
-            lengthCap={SECONDS_MAX_LENGTH}
+    <Controller
+      name={name}
+      control={control}
+      rules={{
+        required: {
+          value: isRequired,
+          message: `${fieldName || label} is required`,
+        },
+        ...rules,
+      }}
+      render={({ fieldState }) => (
+        <Fieldset
+          isRequired={isRequired}
+          isDisabled={isDisabled}
+          size={size}
+          isError={!!fieldState.error?.message}
+        >
+          {label && (
+            <Fieldset.Label withoutTag={withoutTagLabel}>
+              {label}
+            </Fieldset.Label>
+          )}
+          <div
+            className="grid items-center gap-2"
+            style={{
+              gridTemplateColumns: gridColumns.replace(/_/g, " "),
+            }}
           >
-            <div className="flex items-center gap-1">{endElement}</div>
-          </Fieldset.TextInput>
-        )}
-      </div>
-      {/* Error message for consolidated field */}
-      <Controller
-        name={name}
-        control={control}
-        rules={{
-          required: {
-            value: isRequired,
-            message: `${fieldName || label} is required`,
-          },
-          ...rules,
-        }}
-        render={({ fieldState }) =>
-          fieldState.error?.message ? (
+            {showHours && (
+              <>
+                <Fieldset.TextInput
+                  type="text"
+                  placeholder="hh"
+                  value={hours}
+                  onChange={handleHoursChange}
+                  onBlur={handleHoursBlur}
+                  lengthCap={HOURS_MAX_LENGTH}
+                >
+                  <div className="flex items-center gap-1">{endElement}</div>
+                </Fieldset.TextInput>
+                {(showMinutes || showSeconds) && (
+                  <p className="text-secondary-900 text-[0.8125rem]">
+                    {FIELD_SEPARATOR}
+                  </p>
+                )}
+              </>
+            )}
+            {showMinutes && (
+              <>
+                <Fieldset.TextInput
+                  type="text"
+                  placeholder={showHours ? "mm" : "mmm"}
+                  value={minutes}
+                  onChange={handleMinutesChange}
+                  onBlur={handleMinutesBlur}
+                  lengthCap={
+                    showHours ? MINUTES_MAX_LENGTH : MINUTES_MAX_LENGTH_NO_HOURS
+                  }
+                >
+                  <div className="flex items-center gap-1">{endElement}</div>
+                </Fieldset.TextInput>
+                {showSeconds && (
+                  <p className="text-secondary-900 text-[0.8125rem]">
+                    {FIELD_SEPARATOR}
+                  </p>
+                )}
+              </>
+            )}
+            {showSeconds && (
+              <Fieldset.TextInput
+                type="text"
+                placeholder="ss"
+                value={seconds}
+                onChange={handleSecondsChange}
+                onBlur={handleSecondsBlur}
+                lengthCap={SECONDS_MAX_LENGTH}
+              >
+                <div className="flex items-center gap-1">{endElement}</div>
+              </Fieldset.TextInput>
+            )}
+          </div>
+          {/* Error message for consolidated field */}
+          {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
-          ) : (
-            <></>
-          )
-        }
-      />
-    </Fieldset>
+          )}
+        </Fieldset>
+      )}
+    />
   );
 }
