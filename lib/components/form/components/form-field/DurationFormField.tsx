@@ -283,9 +283,8 @@ export function DurationFormField({
   };
 
   const handleSecondsChange = (secondsInput: string) => {
-    console.log("handleSecondsChange - input:", secondsInput);
     const rawSeconds = secondsInput.replace(/\D/g, "");
-    console.log("handleSecondsChange - filtered:", rawSeconds);
+
     setSeconds(rawSeconds);
 
     isUpdatingFromForm.current = true;
@@ -297,7 +296,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    console.log("handleSecondsChange - consolidated:", consolidated);
+
     setValue(name, consolidated);
     onChange?.(consolidated);
 
