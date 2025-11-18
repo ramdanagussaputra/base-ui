@@ -83,6 +83,8 @@ interface AsyncPaginateCreatableFormFieldProps
   // Multiselect height constraints
   maxHeight?: number | string;
   autoUppercase?: boolean;
+  // Maximum number of selections (only applies when isMultiSelect is true)
+  maxSelected?: number;
 }
 
 export function AsyncPaginateCreatableFormField({
@@ -128,6 +130,7 @@ export function AsyncPaginateCreatableFormField({
   menuPlacement,
   maxHeight,
   autoUppercase = false,
+  maxSelected,
 }: Readonly<AsyncPaginateCreatableFormFieldProps>) {
   return (
     <Controller
@@ -213,6 +216,7 @@ export function AsyncPaginateCreatableFormField({
             checkboxPosition={checkboxPosition}
             maxHeight={maxHeight}
             autoUppercase={autoUppercase}
+            maxSelected={maxSelected}
           />
 
           {fieldState.error?.message && (

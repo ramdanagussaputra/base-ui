@@ -9,4 +9,5 @@ export {
   createOptionComponent,
   createValueContainerStyle,
   generateCreateLabel,
+  isMaxSelectedReached,
 } from "./multiselectUtils";

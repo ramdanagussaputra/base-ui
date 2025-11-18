@@ -16,6 +16,7 @@ import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/c
 import {
   calculateMaxHeight,
   createValueContainerStyle,
+  isMaxSelectedReached,
 } from "#/components/form/components/fieldset/utils";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
@@ -46,6 +47,8 @@ interface FieldsetAsyncSelectProps {
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  // Maximum number of selections (only applies when isMultiSelect is true)
+  maxSelected?: number;
 }
 
 export function FieldsetAsyncSelect({
@@ -67,6 +70,7 @@ export function FieldsetAsyncSelect({
   alreadySelectedText = "(Already selected)",
   menuPlacement = "auto",
   maxHeight,
+  maxSelected,
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -91,6 +95,13 @@ export function FieldsetAsyncSelect({
         })
       : FieldsetSelectDefaultOptionComponent);
 
+  // Check if max selected limit is reached
+  const maxLimitReached = isMaxSelectedReached(
+    value,
+    maxSelected,
+    isMultiSelect,
+  );
+
   return (
     <AsyncSelect
       defaultOptions={defaultOptions}
@@ -110,6 +121,16 @@ export function FieldsetAsyncSelect({
       closeMenuOnSelect={!isMultiSelect}
       value={value}
       menuPortalTarget={menuPortalTarget}
+      isOptionDisabled={(option) => {
+        // Disable option if max selected is reached and option is not already selected
+        if (maxLimitReached) {
+          if (Array.isArray(value)) {
+            const typedOption = option as FieldsetSelectOption;
+            return !value.some((v) => v.value === typedOption.value);
+          }
+        }
+        return false;
+      }}
       styles={{
         valueContainer: (provided) =>
           createValueContainerStyle(provided, calculatedMaxHeight),

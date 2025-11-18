@@ -22,6 +22,7 @@ import { cn } from "#/utils";
 import {
   calculateMaxHeight,
   createValueContainerStyle,
+  isMaxSelectedReached,
 } from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 const AsyncPaginateCreatable = withAsyncPaginate(CreatableSelect);
@@ -97,6 +98,8 @@ interface FieldsetAsyncPaginateCreatableProps {
   // Multiselect height constraints
   maxHeight?: number | string;
   autoUppercase?: boolean;
+  // Maximum number of selections (only applies when isMultiSelect is true)
+  maxSelected?: number;
 }
 
 export function FieldsetAsyncPaginateCreatable({
@@ -136,6 +139,7 @@ export function FieldsetAsyncPaginateCreatable({
   menuPlacement = "auto",
   maxHeight,
   autoUppercase = false,
+  maxSelected,
 }: Readonly<FieldsetAsyncPaginateCreatableProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -182,6 +186,13 @@ export function FieldsetAsyncPaginateCreatable({
     ...(getNewOptionData && { getNewOptionData }),
   };
 
+  // Check if max selected limit is reached
+  const maxLimitReached = isMaxSelectedReached(
+    value,
+    maxSelected,
+    isMultiSelect,
+  );
+
   return (
     <AsyncPaginateCreatable
       defaultOptions={defaultOptions}
@@ -227,6 +238,16 @@ export function FieldsetAsyncPaginateCreatable({
       clearCacheOnSearchChange={clearCacheOnSearchChange}
       clearCacheOnMenuClose={clearCacheOnMenuClose}
       reloadOnErrorTimeout={reloadOnErrorTimeout}
+      isOptionDisabled={(option) => {
+        // Disable option if max selected is reached and option is not already selected
+        if (maxLimitReached) {
+          if (Array.isArray(value)) {
+            const typedOption = option as FieldsetSelectOption;
+            return !value.some((v) => v.value === typedOption.value);
+          }
+        }
+        return false;
+      }}
       // Spread creatable props
       {...(creatableProps as any)}
       components={{

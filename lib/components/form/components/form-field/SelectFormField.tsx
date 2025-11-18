@@ -39,6 +39,8 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  // Maximum number of selections (only applies when isMultiSelect is true)
+  maxSelected?: number;
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -65,6 +67,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   alreadySelectedText,
   menuPlacement,
   maxHeight,
+  maxSelected,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -109,6 +112,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             showAlreadySelectedText={showAlreadySelectedText}
             alreadySelectedText={alreadySelectedText}
             maxHeight={maxHeight}
+            maxSelected={maxSelected}
           >
             {children}
           </Fieldset.Select>

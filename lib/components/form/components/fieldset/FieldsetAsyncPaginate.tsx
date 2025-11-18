@@ -20,6 +20,7 @@ import { cn } from "#/utils";
 import {
   calculateMaxHeight,
   createValueContainerStyle,
+  isMaxSelectedReached,
 } from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 interface LoadOptionsResponse {
@@ -79,6 +80,8 @@ interface FieldsetAsyncPaginateProps {
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  // Maximum number of selections (only applies when isMultiSelect is true)
+  maxSelected?: number;
 }
 
 export function FieldsetAsyncPaginate({
@@ -112,6 +115,7 @@ export function FieldsetAsyncPaginate({
   checkboxPosition = "left",
   menuPlacement = "auto",
   maxHeight,
+  maxSelected,
 }: Readonly<FieldsetAsyncPaginateProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -134,6 +138,13 @@ export function FieldsetAsyncPaginate({
             alreadySelectedText,
           })
         : FieldsetSelectDefaultOptionComponent);
+
+  // Check if max selected limit is reached
+  const maxLimitReached = isMaxSelectedReached(
+    value,
+    maxSelected,
+    isMultiSelect,
+  );
 
   return (
     <AsyncPaginate
@@ -166,6 +177,16 @@ export function FieldsetAsyncPaginate({
       clearCacheOnMenuClose={clearCacheOnMenuClose}
       isClearable={true}
       reloadOnErrorTimeout={reloadOnErrorTimeout}
+      isOptionDisabled={(option) => {
+        // Disable option if max selected is reached and option is not already selected
+        if (maxLimitReached) {
+          if (Array.isArray(value)) {
+            const typedOption = option as FieldsetSelectOption;
+            return !value.some((v) => v.value === typedOption.value);
+          }
+        }
+        return false;
+      }}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,

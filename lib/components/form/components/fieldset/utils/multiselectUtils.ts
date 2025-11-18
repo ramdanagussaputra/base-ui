@@ -87,3 +87,24 @@ export const generateCreateLabel = (
   inputValue: string,
   fieldName?: string,
 ): string => `Add new ${fieldName ? `${fieldName} "` : '"'}${inputValue}"`;
+
+/**
+ * Checks if the maximum selected limit has been reached
+ * @param value - Current selected value(s)
+ * @param maxSelected - Maximum number of selections allowed
+ * @param isMultiSelect - Whether multiselect is enabled
+ * @returns True if limit is reached, false otherwise
+ */
+export const isMaxSelectedReached = (
+  value: any,
+  maxSelected: number | undefined,
+  isMultiSelect: boolean,
+): boolean => {
+  if (!isMultiSelect || !maxSelected) return false;
+
+  if (Array.isArray(value)) {
+    return value.length >= maxSelected;
+  }
+
+  return false;
+};

@@ -17,6 +17,7 @@ import {
   calculateMaxHeight,
   createOptionComponent,
   createValueContainerStyle,
+  isMaxSelectedReached,
 } from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 interface FieldsetSelectProps<MultiSelect extends boolean = false> {
@@ -52,6 +53,8 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  // Maximum number of selections (only applies when isMultiSelect is true)
+  maxSelected?: number;
 }
 
 /**
@@ -80,6 +83,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   alreadySelectedText = "(Already selected)",
   menuPlacement = "auto",
   maxHeight,
+  maxSelected,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -97,6 +101,13 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   const calculatedMaxHeight = isMultiSelect
     ? calculateMaxHeight(maxHeight, isLarge, isMedium, isSmall)
     : undefined;
+
+  // Check if max selected limit is reached
+  const maxLimitReached = isMaxSelectedReached(
+    value,
+    maxSelected,
+    isMultiSelect,
+  );
 
   return (
     <Select
@@ -122,6 +133,16 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
       value={value}
+      isOptionDisabled={(option) => {
+        // Disable option if max selected is reached and option is not already selected
+        if (maxLimitReached) {
+          if (Array.isArray(value)) {
+            const typedOption = option as FieldsetSelectOption;
+            return !value.some((v) => v.value === typedOption.value);
+          }
+        }
+        return false;
+      }}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
