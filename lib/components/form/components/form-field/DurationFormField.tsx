@@ -310,14 +310,20 @@ export function DurationFormField({
 
   // Blur handlers - pad and normalize values
   const handleHoursBlur = () => {
-    const paddedHours = padHours(hours);
-    setHours(paddedHours);
+    const {
+      hours: normalizedHours,
+      minutes: normalizedMinutes,
+      seconds: normalizedSeconds,
+    } = normalizeDuration(hours, minutes, seconds, showHours);
+    setHours(normalizedHours);
+    setMinutes(normalizedMinutes);
+    setSeconds(normalizedSeconds);
 
     isUpdatingFromForm.current = true;
     const consolidated = convertUIToFormValue(
-      paddedHours,
-      minutes,
-      seconds,
+      normalizedHours,
+      normalizedMinutes,
+      normalizedSeconds,
       showHours,
       showMinutes,
       showSeconds,
