@@ -32,7 +32,11 @@ export function FieldsetLabel({
       {children}
       {isRequired && !withoutTag && <span className="text-error-500">*</span>}
       {!isRequired && !withoutTag && (
-        <span className="text-secondary-300">(optional)</span>
+        <span className={cn("text-secondary-300", {
+          "text-b2-400": isLarge,
+          "text-b3-400": isMedium,
+          "text-b4-400": isSmall,
+        })}>(optional)</span>
       )}
     </label>
   );
