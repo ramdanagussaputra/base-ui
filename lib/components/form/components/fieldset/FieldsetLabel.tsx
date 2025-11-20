@@ -20,11 +20,11 @@ export function FieldsetLabel({
     <label
       htmlFor={id}
       className={cn(
-        "flex w-fit items-center justify-between gap-1 text-neutral-900",
+        "flex w-fit items-center justify-between gap-1 text-secondary-900",
         {
-          "text-b2-600": isLarge,
-          "text-b3-600": isMedium,
-          "text-b4-600": isSmall,
+          "text-b2-500": isLarge,
+          "text-b3-500": isMedium,
+          "text-b4-500": isSmall,
         },
         className,
       )}
