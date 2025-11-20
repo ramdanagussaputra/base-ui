@@ -10,6 +10,7 @@ interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
   isResizable?: boolean;
   fieldSizeFollowContent?: boolean;
   autoUppercase?: boolean;
+  showCharacterCount?: boolean;
 }
 
 export function TextAreaFormField({
@@ -29,6 +30,7 @@ export function TextAreaFormField({
   isResizable = true,
   fieldSizeFollowContent = false,
   autoUppercase = false,
+  showCharacterCount = false,
 }: Readonly<TextAreaFormFieldProps>) {
   let maxLength: number;
 
@@ -54,9 +56,16 @@ export function TextAreaFormField({
           isDisabled={isDisabled}
         >
           {label && (
-            <Fieldset.Label withoutTag={withoutTagLabel}>
-              {label}
-            </Fieldset.Label>
+            <div className="flex items-center justify-between">
+              <Fieldset.Label withoutTag={withoutTagLabel}>
+                {label}
+              </Fieldset.Label>
+              {showCharacterCount && maxLength && (
+                <span className="text-b4-500 text-secondary-400">
+                  {field.value?.length || 0}/{maxLength}
+                </span>
+              )}
+            </div>
           )}
 
           <Fieldset.Textarea

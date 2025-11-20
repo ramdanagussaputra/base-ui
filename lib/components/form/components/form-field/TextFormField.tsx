@@ -27,6 +27,7 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   lettersAndNumbersMessage?: string;
   lettersAndNumbersWithSpaces?: boolean;
   lettersAndNumbersWithSpacesMessage?: string;
+  showCharacterCount?: boolean;
 };
 
 export function TextFormField({
@@ -60,6 +61,7 @@ export function TextFormField({
   lettersAndNumbersMessage,
   lettersAndNumbersWithSpaces = false,
   lettersAndNumbersWithSpacesMessage,
+  showCharacterCount = false,
 }: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
@@ -208,9 +210,16 @@ export function TextFormField({
           size={size}
         >
           {label && (
-            <Fieldset.Label withoutTag={withoutTagLabel}>
-              {label}
-            </Fieldset.Label>
+            <div className="flex items-center justify-between">
+              <Fieldset.Label withoutTag={withoutTagLabel}>
+                {label}
+              </Fieldset.Label>
+              {showCharacterCount && maxLength && (
+                <span className="text-b4-500 text-secondary-400">
+                  {field.value?.length || 0}/{maxLength}
+                </span>
+              )}
+            </div>
           )}
 
           <Fieldset.TextInput
