@@ -8,6 +8,7 @@ import {
   TextFormField,
   AsyncPaginateFormField,
   AsyncPaginateCreatableFormField,
+  DurationFormField,
 } from "massive-base-ui";
 
 import { RadioGroupFormField } from "#/components/form/components/form-field/RadioGroupFormField";
@@ -31,6 +32,7 @@ function FormsPage() {
         value: string | number | boolean;
         label: string;
       } | null,
+      duration: null,
     },
     mode: "all",
   });
@@ -289,6 +291,19 @@ function FormsPage() {
             debounceTimeout={500}
             enableCheckboxes={true}
             checkboxPosition="left"
+          />
+        </div>
+
+        <div className="w-1/3">
+          <DurationFormField
+            control={formMethods.control}
+            name="duration"
+            label="Duration"
+            placeholder="Enter duration"
+            isRequired
+            setValue={formMethods.setValue}
+            watch={formMethods.watch}
+
           />
         </div>
 

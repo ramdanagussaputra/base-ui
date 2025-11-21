@@ -196,8 +196,8 @@ export function DurationFormField({
   control,
   isRequired = false,
   isDisabled = false,
-  onChange = () => {},
-  onBlur = () => {},
+  onChange = () => { },
+  onBlur = () => { },
   size = "medium",
   withoutTagLabel = false,
   endElement,
@@ -253,7 +253,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated);
+    setValue(name, consolidated, { shouldValidate: true });
     onChange?.(consolidated);
 
     setTimeout(() => {
@@ -274,7 +274,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated);
+    setValue(name, consolidated, { shouldValidate: true });
     onChange?.(consolidated);
 
     setTimeout(() => {
@@ -297,7 +297,7 @@ export function DurationFormField({
       showSeconds,
     );
 
-    setValue(name, consolidated);
+    setValue(name, consolidated, { shouldValidate: true });
     onChange?.(consolidated);
 
     // Reset flag after a short delay to allow form update to complete
@@ -328,7 +328,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated);
+    setValue(name, consolidated, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
@@ -356,7 +356,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated);
+    setValue(name, consolidated, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
@@ -384,7 +384,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated);
+    setValue(name, consolidated, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
