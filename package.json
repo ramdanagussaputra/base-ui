@@ -21,7 +21,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "publish-alpha": "pnpm version prerelease --preid=alpha && pnpm publish --tag alpha"
+    "publish-alpha": "pnpm version prerelease --preid=alpha && pnpm publish --tag alpha",
+    "publish-lib": "pnpm build && pnpm version && pnpm publish"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
