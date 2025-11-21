@@ -22,9 +22,9 @@ export function FieldsetTextArea({
   placeholder,
   value,
   lengthCap,
-  onBlur = () => {},
-  onChange = () => {},
-  onFocus = () => {},
+  onBlur = () => { },
+  onChange = () => { },
+  onFocus = () => { },
   height = 200,
   minHeight,
   maxHeight,
@@ -89,7 +89,7 @@ export function FieldsetTextArea({
       onFocus={onFocus}
       onChange={handleChange}
       className={cn(
-        "text-b3-500 placeholder:text-b3-500 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-3 py-2.5 text-(--fieldset-text-color) duration-100 outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent focus:border-(--fieldset-border-color--focus) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
+        "text-b3-500 placeholder:text-b3-400 rounded-md border border-(--fieldset-border-color) bg-(--fieldset-bg) px-3 py-2.5 text-(--fieldset-text-color) duration-100 outline-none placeholder:text-(--fieldset-placeholder-color) autofill:bg-transparent focus:border-(--fieldset-border-color--focus) disabled:text-(--fieldset-text-color--disabled) disabled:placeholder:text-(--fieldset-placeholder-color--disabled)",
         {
           "resize-y": isResizable && !fieldSizeFollowContent,
           "resize-none": !isResizable || fieldSizeFollowContent,
