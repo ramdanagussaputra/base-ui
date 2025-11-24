@@ -66,5 +66,8 @@
     "vite": "^7.0.0",
     "vite-plugin-dts": "^4.5.0",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "publishConfig": {
+    "registry": "https://registry.composync.id/repository/massive-base-ui/"
   }
 }
