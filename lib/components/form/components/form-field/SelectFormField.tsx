@@ -41,6 +41,7 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   maxHeight?: number | string;
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
+  hintMessage?: string;
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -68,6 +69,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   menuPlacement,
   maxHeight,
   maxSelected,
+  hintMessage,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -116,6 +118,12 @@ export function SelectFormField<MultiSelect extends boolean = false>({
           >
             {children}
           </Fieldset.Select>
+
+          {hintMessage && (
+            <span className="text-b4-400 text-secondary-500">
+              {hintMessage}
+            </span>
+          )}
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
