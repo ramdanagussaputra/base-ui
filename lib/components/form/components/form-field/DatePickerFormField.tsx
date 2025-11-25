@@ -16,6 +16,8 @@ import { cn } from "#/utils";
 const DEFAULT_PLACEHOLDER = "DD/MM/YYYY";
 const DEFAULT_LABEL = "Select Date";
 
+type MenuPlacement = "auto" | "top" | "bottom";
+
 type FormattedDatePickerFormField = Omit<
   FormFieldProps,
   "type" | "onChange"
@@ -27,6 +29,7 @@ type FormattedDatePickerFormField = Omit<
   yearAfter?: number;
   disabledDate?: Matcher | Matcher[];
   jumpToSelectedDate?: boolean;
+  menuPlacement?: MenuPlacement;
 };
 
 export function DatePickerFormField({
@@ -47,6 +50,7 @@ export function DatePickerFormField({
   size = "medium",
   disabledDate,
   jumpToSelectedDate,
+  menuPlacement = "auto",
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -55,6 +59,21 @@ export function DatePickerFormField({
     triggerRef,
     calendarHeight: 320,
   });
+
+  // Determine final placement based on menuPlacement prop
+  const shouldOpenUpward =
+    menuPlacement === "top"
+      ? true
+      : menuPlacement === "bottom"
+        ? false
+        : openUpward;
+
+  const finalPosition =
+    menuPlacement === "auto"
+      ? position
+      : shouldOpenUpward
+        ? { bottom: "100%", top: undefined }
+        : { top: "100%", bottom: undefined };
 
   return (
     <Controller
@@ -135,10 +154,10 @@ export function DatePickerFormField({
               {open && (
                 <div
                   className={cn("absolute z-50", {
-                    "mt-2": !openUpward,
-                    "mb-2": openUpward,
+                    "mt-2": !shouldOpenUpward,
+                    "mb-2": shouldOpenUpward,
                   })}
-                  style={position}
+                  style={finalPosition}
                 >
                   <Fieldset.Calendar
                     mode={mode}
