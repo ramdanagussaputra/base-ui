@@ -9,6 +9,7 @@ import Tooltips from "@/component/styleguide/tooltip/Tooltips";
 import MessageBoxes from "@/component/styleguide/messagebox/MessageBoxes";
 import Avatars from "@/component/styleguide/avatars/Avatars";
 import Accordion from "@/component/styleguide/accordion/Accordion";
+import CardSlider from "@/component/styleguide/card-slider/CardSlider";
 
 function StyleguidePage() {
   return (
@@ -29,6 +30,7 @@ function StyleguidePage() {
         <MessageBoxes />
         <Avatars />
         <Accordion />
+        <CardSlider />
       </div>
     </section>
   );
