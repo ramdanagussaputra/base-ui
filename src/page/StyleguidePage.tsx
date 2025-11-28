@@ -9,7 +9,11 @@ import Tooltips from "@/component/styleguide/tooltip/Tooltips";
 import MessageBoxes from "@/component/styleguide/messagebox/MessageBoxes";
 import Avatars from "@/component/styleguide/avatars/Avatars";
 import Accordion from "@/component/styleguide/accordion/Accordion";
+<<<<<<< HEAD
 import CardSlider from "@/component/styleguide/card-slider/CardSlider";
+=======
+import Carousels from "@/component/styleguide/carousel/Carousels";
+>>>>>>> f034c8dc1e8dd505d069cad2ee594fbeb8b04a5b
 
 function StyleguidePage() {
   return (
@@ -30,7 +34,11 @@ function StyleguidePage() {
         <MessageBoxes />
         <Avatars />
         <Accordion />
+<<<<<<< HEAD
         <CardSlider />
+=======
+        <Carousels />
+>>>>>>> f034c8dc1e8dd505d069cad2ee594fbeb8b04a5b
       </div>
     </section>
   );
