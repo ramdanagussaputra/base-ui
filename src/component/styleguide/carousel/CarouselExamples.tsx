@@ -12,34 +12,38 @@ function CarouselExamples() {
     <div className="space-y-10">
       <div className="space-y-5">
         <StyleguideSubtitle>Basic Carousel</StyleguideSubtitle>
-        <Carousel className="w-full max-w-2xl h-96" autoPlay interval={1000} showArrows={false}>
-          {images.map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          ))}
+        <Carousel className="h-96 w-full max-w-2xl">
+          <Carousel.Content>
+            {images.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                alt={`Slide ${index + 1}`}
+                className="h-full w-full object-cover"
+              />
+            ))}
+          </Carousel.Content>
+          <Carousel.Arrow direction="left" />
+          <Carousel.Arrow direction="right" />
+          <Carousel.Dots />
         </Carousel>
       </div>
 
       <div className="space-y-5">
         <StyleguideSubtitle>Autoplay & No Dots</StyleguideSubtitle>
-        <Carousel
-          className="w-full max-w-2xl h-64"
-          autoPlay
-          interval={2000}
-          showDots={false}
-        >
-          {images.map((_, index) => (
-            <div
-              key={index}
-              className="w-full h-full flex items-center justify-center bg-gray-200 text-3xl font-bold text-gray-700"
-            >
-              Slide {index + 1}
-            </div>
-          ))}
+        <Carousel className="h-64 w-full max-w-2xl" autoPlay interval={2000}>
+          <Carousel.Content>
+            {images.map((_, index) => (
+              <div
+                key={index}
+                className="text-primary-300 bg-secondary-400 flex h-full w-full items-center justify-center text-3xl font-bold"
+              >
+                Slide {index + 1}
+              </div>
+            ))}
+          </Carousel.Content>
+          <Carousel.Arrow direction="left" />
+          <Carousel.Arrow direction="right" />
         </Carousel>
       </div>
     </div>
