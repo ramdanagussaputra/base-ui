@@ -21,6 +21,7 @@
 @import "./components/progresstooltip.css";
 @import "./components/messagebox.css";
 @import "./components/avatar.css";
+@import "./components//card-slider/slider-scrollbar.css";
 
 @layer base {
   html {
