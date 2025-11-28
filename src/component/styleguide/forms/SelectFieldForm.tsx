@@ -32,6 +32,7 @@ function SelectFieldForm() {
           label="Single Date Picker"
           name="singleDate"
           placeholder="DD/MM/YYYY"
+          menuPlacement="bottom"
         />
 
         <DatePickerFormField
