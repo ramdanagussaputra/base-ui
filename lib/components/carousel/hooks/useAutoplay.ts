@@ -11,7 +11,9 @@ export const useAutoplay = (
 ) => {
   useEffect(() => {
     if (!enabled || isPaused) return;
+
     const intervalId = setInterval(callback, delay);
+
     return () => clearInterval(intervalId);
   }, [callback, delay, enabled, isPaused]);
 };

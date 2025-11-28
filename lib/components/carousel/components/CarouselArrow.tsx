@@ -1,4 +1,3 @@
-import React from "react";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import { cn } from "#/utils";
 import { Button } from "#/components/button/Button";
