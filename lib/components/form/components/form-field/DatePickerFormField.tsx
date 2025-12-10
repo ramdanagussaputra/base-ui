@@ -53,6 +53,8 @@ export function DatePickerFormField({
   disabledDate,
   jumpToSelectedDate,
   menuPlacement = "auto",
+  locale,
+  numerals,
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -163,6 +165,8 @@ export function DatePickerFormField({
                 >
                   <Fieldset.Calendar
                     mode={mode}
+                    locale={locale}
+                    numerals={numerals}
                     disabledDate={disabledDate}
                     date={field.value}
                     onChange={(value: any) => {
