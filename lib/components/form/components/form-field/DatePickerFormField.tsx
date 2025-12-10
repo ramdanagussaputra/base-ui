@@ -1,4 +1,4 @@
-import { DateRange, Matcher } from "react-day-picker";
+import { DateRange, Matcher, Numerals } from "react-day-picker";
 import { Controller } from "react-hook-form";
 import { Add, Calendar } from "iconsax-react";
 import { useRef } from "react";
@@ -30,6 +30,8 @@ type FormattedDatePickerFormField = Omit<
   disabledDate?: Matcher | Matcher[];
   jumpToSelectedDate?: boolean;
   menuPlacement?: MenuPlacement;
+  locale?: "enUS" | "id" | "fr";
+  numerals?: Numerals;
 };
 
 export function DatePickerFormField({
