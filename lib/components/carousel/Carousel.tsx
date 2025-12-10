@@ -60,7 +60,13 @@ function CarouselRoot({
   );
 }
 
-export const Carousel = Object.assign(CarouselRoot, {
+type CarouselComponent = (props: CarouselProps) => React.ReactElement;
+
+export const Carousel: CarouselComponent & {
+  Content: typeof CarouselContent;
+  Arrow: typeof CarouselArrow;
+  Dots: typeof CarouselDots;
+} = Object.assign(CarouselRoot as unknown as CarouselComponent, {
   Content: CarouselContent,
   Arrow: CarouselArrow,
   Dots: CarouselDots,
