@@ -3,12 +3,14 @@ import {
   DayPicker,
   getDefaultClassNames,
   Matcher,
+  Numerals,
 } from "react-day-picker";
 import "react-day-picker/style.css";
 
 import { cn } from "#/utils";
 import { FieldsetCalendarDropdown } from "#/components/form/components/fieldset/FieldsetCalendarDropdown";
 import { Button } from "#/components/button/Button";
+import { enUS, id, fr } from "react-day-picker/locale";
 
 // Helper: Compute a safe default month Date for react-day-picker, simplified and type-safe
 function computeDefaultMonthValue(
@@ -62,6 +64,8 @@ type FieldsetCalendarProps = (
   handleClose?: () => void;
   disabledDate?: Matcher | Matcher[];
   jumpToSelectedDate?: boolean;
+  locale?: "enUS" | "id" | "fr";
+  numerals?: Numerals;
 };
 
 export function FieldsetCalendar(props: FieldsetCalendarProps) {
@@ -74,7 +78,15 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
     handleClose = () => {},
     disabledDate,
     jumpToSelectedDate = true,
+    locale = "enUS",
+    numerals,
   } = props;
+
+  const usedLocales = {
+    enUS: enUS,
+    id: id,
+    fr: fr,
+  };
 
   const defaultClassNames = getDefaultClassNames();
 
@@ -117,6 +129,7 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
   return (
     <DayPicker
       animate
+      locale={usedLocales[locale]}
       mode={mode as any}
       selected={date as any}
       onSelect={onChange as any}
@@ -137,6 +150,7 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
       }
       startMonth={new Date(startYear, 0)}
       endMonth={new Date(endYear, 11)}
+      numerals={numerals}
       classNames={{
         ...defaultClassNames,
         root: cn(
