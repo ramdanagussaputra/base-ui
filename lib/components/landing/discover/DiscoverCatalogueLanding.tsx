@@ -1,9 +1,15 @@
 import React from "react";
 import { DiscoverSearchInput } from "./components/DiscoverSearchInput";
 import { DiscoverBackground } from "./components/DiscoverBackground";
-import { textMask, ellipseOrange, ellipseLight } from "./assets";
+import { ellipseOrange, ellipseLight } from "./assets";
 
-export default function DiscoverCatalogueLanding() {
+interface DiscoverCatalogueLandingProps {
+  title?: string;
+}
+
+export default function DiscoverCatalogueLanding({
+  title = "Massive Catalogue",
+}: DiscoverCatalogueLandingProps) {
   const [searchValue, setSearchValue] = React.useState("Hati");
 
   return (
@@ -47,22 +53,9 @@ export default function DiscoverCatalogueLanding() {
 
           {/* Catalogue Text */}
           <div className="relative flex items-center justify-center">
-            <h1 className="sr-only">Massive Catalogue</h1>
-            <div className="relative h-[109px] w-[714px]">
-              <div
-                className="absolute inset-0 bg-[#ff5d01]"
-                style={{
-                  maskImage: `url(${textMask})`,
-                  WebkitMaskImage: `url(${textMask})`,
-                  maskSize: "704.42px 48.77px",
-                  WebkitMaskSize: "704.42px 48.77px",
-                  maskPosition: "6.2px 29.87px",
-                  WebkitMaskPosition: "6.2px 29.87px",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                }}
-              />
-            </div>
+            <h1 className="font-libre text-center text-[64px] leading-none font-medium tracking-tight text-[#ff5d01] uppercase">
+              {title}
+            </h1>
           </div>
         </div>
 

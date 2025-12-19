@@ -7,7 +7,6 @@ import item5 from "./item-5.svg";
 import item6 from "./item-6.svg";
 import item7 from "./item-7.svg";
 import catalogueMask from "./catalogue-mask.svg";
-import textMask from "./text-mask.svg";
 import ellipseOrange from "./ellipse-orange.svg";
 import ellipseLight from "./ellipse-light.svg";
 
@@ -21,7 +20,6 @@ export {
   item6,
   item7,
   catalogueMask,
-  textMask,
   ellipseOrange,
   ellipseLight,
 };
