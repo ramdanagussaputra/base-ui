@@ -82,6 +82,7 @@ function LandingComponent() {
                   additionalInformation={item.additionalInformation}
                   image={item.image}
                   isLastItem={index === items.length - 1}
+                  rightContent={index === 0 && "spotify-icon"}
                 />
               ))}
             </ListItemLanding.Item.Container>
