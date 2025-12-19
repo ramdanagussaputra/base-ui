@@ -11,6 +11,7 @@ import Avatars from "@/component/styleguide/avatars/Avatars";
 import Accordion from "@/component/styleguide/accordion/Accordion";
 import CardSlider from "@/component/styleguide/card-slider/CardSlider";
 import Carousels from "@/component/styleguide/carousel/Carousels";
+import LandingComponent from "@/component/styleguide/landing/LandingComponent";
 
 function StyleguidePage() {
   return (
@@ -33,6 +34,7 @@ function StyleguidePage() {
         <Accordion />
         <CardSlider />
         <Carousels />
+        <LandingComponent />
       </div>
     </section>
   );
