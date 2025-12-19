@@ -1,4 +1,4 @@
-import { Button, CarouselLanding } from "#/components";
+import { Button, CarouselLanding, HeaderLanding } from "massive-base-ui";
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 import { useState } from "react";
@@ -33,6 +33,10 @@ function LandingComponent() {
           <Button onClick={() => setActiveItem(2)}>Go To Slide 3</Button>
         </div>
         <div>Current Active Slide: {activeItem + 1}</div>
+      </div>
+
+      <div>
+        <HeaderLanding />
       </div>
     </StyleguideGroup>
   );
