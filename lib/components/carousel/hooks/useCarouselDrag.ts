@@ -8,6 +8,7 @@ export const useCarouselDrag = (
   nextSlide: () => void,
   prevSlide: () => void,
   containerRef: React.RefObject<HTMLDivElement | null>,
+  disableDrag: boolean = false,
 ) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -93,6 +94,23 @@ export const useCarouselDrag = (
       setDragOffset(0);
     }
   };
+
+  // If drag is disabled, return empty handlers
+  if (disableDrag) {
+    return {
+      isDragging: false,
+      dragOffset: 0,
+      handlers: {
+        onTouchStart: () => {},
+        onTouchMove: () => {},
+        onTouchEnd: () => {},
+        onMouseDown: () => {},
+        onMouseMove: () => {},
+        onMouseUp: () => {},
+        onMouseLeave: () => {},
+      },
+    };
+  }
 
   return {
     isDragging,

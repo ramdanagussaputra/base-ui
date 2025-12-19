@@ -52,6 +52,7 @@ function LandingComponent() {
           onItemChange={setActiveItem}
           withoutArrow
           withoutDot
+          disableDrag
         />
         <div className="flex items-center gap-5">
           <Button onClick={() => setActiveItem(0)}>Go To Slide 1</Button>
