@@ -13,6 +13,8 @@ export interface CarouselProps {
   className?: string;
   autoPlay?: boolean;
   interval?: number;
+  activeItem?: number;
+  onItemChange?: (index: number) => void;
 }
 
 function CarouselRoot({
@@ -20,13 +22,15 @@ function CarouselRoot({
   className,
   autoPlay = false,
   interval = 3000,
+  activeItem,
+  onItemChange,
 }: Readonly<CarouselProps>) {
   const [totalSlides, setTotalSlides] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentIndex, nextSlide, prevSlide, goToSlide } =
-    useCarouselNavigation(totalSlides);
+    useCarouselNavigation(totalSlides, activeItem, onItemChange);
 
   const { isDragging, dragOffset, handlers } = useCarouselDrag(
     nextSlide,

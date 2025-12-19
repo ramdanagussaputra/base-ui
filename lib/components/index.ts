@@ -25,3 +25,5 @@ export * from "#/components/progress-bar";
 export * from "#/components/spinner-overlay";
 export * from "#/components/accordion";
 export * from "#/components/card-slider";
+// Landing Page Component
+export * from "#/components/landing";
