@@ -1,4 +1,3 @@
-import React from "react";
 import { SingleValue } from "react-select";
 import {
   DiscoverSearchInput,
@@ -6,56 +5,38 @@ import {
 } from "./components/DiscoverSearchInput";
 import { DiscoverBackground } from "./components/DiscoverBackground";
 import { ellipseOrange, ellipseLight } from "./assets";
+import { cn } from "#/utils";
 
-interface DiscoverCatalogueLandingProps {
+export interface DiscoverCatalogueLandingProps {
   title?: string;
+  subtitle?: string;
+  searchPlaceholder?: string;
+  searchValue?: SingleValue<DiscoverSearchOption>;
+  onSearchChange?: (value: SingleValue<DiscoverSearchOption>) => void;
+  loadOptions?: (inputValue: string) => Promise<DiscoverSearchOption[]>;
+  onSearchEnter?: () => void;
+  defaultOptions?: DiscoverSearchOption[];
+  className?: string;
 }
 
 export default function DiscoverCatalogueLanding({
   title = "Catalogue",
+  subtitle = "Discover Our",
+  searchPlaceholder,
+  searchValue,
+  onSearchChange,
+  loadOptions,
+  onSearchEnter,
+  defaultOptions,
+  className,
 }: DiscoverCatalogueLandingProps) {
-  const [searchValue, setSearchValue] =
-    React.useState<SingleValue<DiscoverSearchOption>>(null);
-
-  const loadOptions = async (
-    inputValue: string,
-  ): Promise<DiscoverSearchOption[]> => {
-    if (!inputValue) return [];
-    // Mock data
-    const options: DiscoverSearchOption[] = [
-      {
-        value: "1",
-        label: "Monokrom",
-        secondLabel: "Tulus",
-        imageUrl:
-          "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a", // Placeholder
-        type: "song",
-      },
-      {
-        value: "2",
-        label: "Monokrom",
-        secondLabel: "Tulus",
-        imageUrl:
-          "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
-        type: "song",
-      },
-      {
-        value: "3",
-        label: "Monokrom",
-        secondLabel: "Songwriter",
-        type: "songwriter",
-        imageUrl:
-          "https://i.scdn.co/image/ab6761610000e5eb6d6a0a2d7e0a3a0a2d7e0a3a",
-      },
-    ];
-
-    return options.filter((i) =>
-      i.label.toLowerCase().includes(inputValue.toLowerCase()),
-    );
-  };
-
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-[1.75rem] overflow-hidden rounded-[0.75rem] bg-[#FDFDFD] py-[3.75rem]">
+    <div
+      className={cn(
+        "relative flex w-full flex-col items-center justify-center gap-[1.75rem] overflow-hidden rounded-[0.75rem] bg-[#FDFDFD] py-[3.75rem]",
+        className,
+      )}
+    >
       {/* Background Ellipses */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[0.75rem]">
         {/* Ellipse 3228 - Bottom Left Orange Glow */}
@@ -90,12 +71,12 @@ export default function DiscoverCatalogueLanding({
       <div className="relative z-10 flex w-[44.625rem] shrink-0 flex-col items-start gap-[1.75rem]">
         <div className="relative flex w-full flex-col items-center gap-[1.75rem]">
           <p className="font-libre text-secondary-800 min-w-full text-center text-xl leading-[1.4] font-normal">
-            Discover Our
+            {subtitle}
           </p>
 
           {/* Catalogue Text */}
           <div className="relative flex items-center justify-center">
-            <h1 className="font-libre text-center text-[4rem] leading-none font-medium tracking-tight text-[#ff5d01] uppercase">
+            <h1 className="font-libre text-center text-[4rem] leading-none font-medium tracking-wide text-[#ff5d01] uppercase">
               {title}
             </h1>
           </div>
@@ -104,9 +85,11 @@ export default function DiscoverCatalogueLanding({
         <div className="w-full">
           <DiscoverSearchInput
             value={searchValue}
-            onChange={setSearchValue}
+            onChange={onSearchChange}
             loadOptions={loadOptions}
-            onEnter={() => console.log("test")}
+            onEnter={onSearchEnter}
+            placeholder={searchPlaceholder}
+            defaultOptions={defaultOptions}
           />
         </div>
       </div>
