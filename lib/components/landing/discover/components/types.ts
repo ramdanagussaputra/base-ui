@@ -5,6 +5,7 @@ export type DiscoverSearchOption = FieldsetSelectOption & {
   secondLabel: string | null;
   imageUrl?: string | null;
   type: "song" | "songwriter";
+  onClick?: () => void;
 };
 
 export interface DiscoverSearchInputProps {
@@ -14,5 +15,6 @@ export interface DiscoverSearchInputProps {
   placeholder?: string;
   className?: string;
   defaultOptions?: DiscoverSearchOption[];
-  onEnter?: () => void;
+  onEnter?: (value: string) => void;
+  onInputChange?: (newValue: string) => void;
 }

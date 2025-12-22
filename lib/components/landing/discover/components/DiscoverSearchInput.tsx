@@ -1,5 +1,5 @@
 import React from "react";
-import { SingleValue, OptionProps } from "react-select";
+import { SingleValue, OptionProps, InputActionMeta } from "react-select";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { DiscoverSearchInputProps, DiscoverSearchOption } from "./types";
 import { DiscoverSearchControl } from "./DiscoverSearchControl";
@@ -15,10 +15,38 @@ export function DiscoverSearchInput({
   className,
   defaultOptions = [],
   onEnter,
+  onInputChange,
 }: DiscoverSearchInputProps) {
+  const [inputValue, setInputValue] = React.useState("");
+  const [menuIsOpen, setMenuIsOpen] = React.useState(false);
+
+  const handleInputChange = (newValue: string, actionMeta: InputActionMeta) => {
+    if (
+      actionMeta.action === "input-blur" ||
+      actionMeta.action === "menu-close"
+    ) {
+      return;
+    }
+    setInputValue(newValue);
+    onInputChange?.(newValue);
+    if (newValue) {
+      setMenuIsOpen(true);
+    } else {
+      setMenuIsOpen(false);
+    }
+  };
+
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === "Enter") {
-      onEnter?.();
+      event.preventDefault();
+      event.stopPropagation();
+      onEnter?.(inputValue);
+      setMenuIsOpen(false);
+    }
+
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      event.preventDefault();
+      event.stopPropagation();
     }
   };
 
@@ -27,15 +55,32 @@ export function DiscoverSearchInput({
       <Fieldset.AsyncSelect
         loadOptions={loadOptions}
         value={value ?? null}
-        onChange={(val) => onChange?.(val as SingleValue<DiscoverSearchOption>)}
+        onChange={(val) => {
+          const selectedOption = val as SingleValue<DiscoverSearchOption>;
+          if (selectedOption?.onClick) {
+            selectedOption.onClick();
+          }
+          onChange?.(selectedOption);
+        }}
         onKeyDown={handleKeyDown}
+        onInputChange={handleInputChange}
+        inputValue={inputValue}
+        menuIsOpen={menuIsOpen}
+        onBlur={() => setMenuIsOpen(false)}
         placeholder={
           placeholder || "Search by song title, artist, or songwriter"
         }
         defaultOptions={defaultOptions}
         isSearchable
+        menuPlacement="top"
         openMenuOnFocus={false}
         openMenuOnClick={false}
+        onFocus={() => {
+          onChange?.(null);
+          if (inputValue) {
+            setMenuIsOpen(true);
+          }
+        }}
         selectComponentOptions={{
           Control: DiscoverSearchControl as any,
           DropdownIndicator: () => null,

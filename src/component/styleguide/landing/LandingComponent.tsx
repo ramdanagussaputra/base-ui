@@ -11,6 +11,7 @@ import { SingleValue } from "react-select";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
+import { useNavigate } from "react-router";
 
 const images = [
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -48,6 +49,8 @@ function LandingComponent() {
   const [searchValue, setSearchValue] =
     useState<SingleValue<DiscoverSearchOption>>(null);
 
+  const navigate = useNavigate();
+
   const loadOptions = async (
     inputValue: string,
   ): Promise<DiscoverSearchOption[]> => {
@@ -60,20 +63,23 @@ function LandingComponent() {
         secondLabel: "Tulus",
         imageUrl: null,
         type: "song",
+        onClick: () => navigate("/discover/catalogue?song=1"),
       },
       {
         value: "2",
-        label: "Halo Halo Bandung",
+        label: "Monokrom",
         secondLabel: "RAN",
         // imageUrl:
         //   "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
         type: "song",
+        onClick: () => navigate("/discover/catalogue?song=2"),
       },
       {
         value: "3",
-        label: "Tulus",
+        label: "Monokrom",
         secondLabel: "Songwriter",
         type: "songwriter",
+        onClick: () => navigate("/discover/catalogue?composer=1"),
       },
     ];
 
@@ -145,7 +151,8 @@ function LandingComponent() {
         searchValue={searchValue}
         onSearchChange={setSearchValue}
         loadOptions={loadOptions}
-        onSearchEnter={() => console.log("Search entered:", searchValue)}
+        onSearchEnter={(value) => console.log("Search entered:", value)}
+        onSearchInputChange={(value) => console.log(value)}
       />
     </StyleguideGroup>
   );

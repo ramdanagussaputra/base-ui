@@ -15,7 +15,7 @@ export const DiscoverSearchOptionComponent = (
       {...props}
       className="flex! items-center justify-between px-2! py-2.5!"
     >
-      <div className="flex items-center gap-2">
+      <button className="flex items-center gap-2" onClick={data.onClick}>
         {isSong && (
           <img
             src={data.imageUrl || defaultSongImage}
@@ -42,7 +42,7 @@ export const DiscoverSearchOptionComponent = (
             {isSongwriter && data.secondLabel}
           </span>
         </div>
-      </div>
+      </button>
     </components.Option>
   );
 };

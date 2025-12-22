@@ -4,6 +4,7 @@ import {
   OptionProps,
   SelectComponentsConfig,
   SingleValue,
+  InputActionMeta,
 } from "react-select";
 import AsyncSelect from "react-select/async";
 
@@ -52,6 +53,9 @@ interface FieldsetAsyncSelectProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
   openMenuOnFocus?: boolean;
   openMenuOnClick?: boolean;
+  onInputChange?: (newValue: string, actionMeta: InputActionMeta) => void;
+  inputValue?: string;
+  menuIsOpen?: boolean;
 }
 
 export function FieldsetAsyncSelect({
@@ -77,6 +81,9 @@ export function FieldsetAsyncSelect({
   maxSelected,
   openMenuOnFocus,
   openMenuOnClick,
+  onInputChange,
+  inputValue,
+  menuIsOpen,
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -118,6 +125,9 @@ export function FieldsetAsyncSelect({
       }}
       onBlur={onBlur}
       onKeyDown={onKeyDown}
+      onInputChange={onInputChange}
+      inputValue={inputValue}
+      menuIsOpen={menuIsOpen}
       isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement={menuPlacement}

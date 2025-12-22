@@ -14,7 +14,8 @@ export interface DiscoverCatalogueLandingProps {
   searchValue?: SingleValue<DiscoverSearchOption>;
   onSearchChange?: (value: SingleValue<DiscoverSearchOption>) => void;
   loadOptions?: (inputValue: string) => Promise<DiscoverSearchOption[]>;
-  onSearchEnter?: () => void;
+  onSearchEnter?: (value: string) => void;
+  onSearchInputChange?: (newValue: string) => void;
   defaultOptions?: DiscoverSearchOption[];
   className?: string;
 }
@@ -27,6 +28,7 @@ export default function DiscoverCatalogueLanding({
   onSearchChange,
   loadOptions,
   onSearchEnter,
+  onSearchInputChange,
   defaultOptions,
   className,
 }: DiscoverCatalogueLandingProps) {
@@ -88,6 +90,7 @@ export default function DiscoverCatalogueLanding({
             onChange={onSearchChange}
             loadOptions={loadOptions}
             onEnter={onSearchEnter}
+            onInputChange={onSearchInputChange}
             placeholder={searchPlaceholder}
             defaultOptions={defaultOptions}
           />
