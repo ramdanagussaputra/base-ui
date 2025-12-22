@@ -1,6 +1,6 @@
-import CarouselLanding from "#/components/landing/Carousel/Carousel";
+import CarouselLanding from "#/components/landing/carousel/Carousel";
 import HeaderLanding from "#/components/landing/header/HeaderLanding";
-import DiscoverCatalogueLanding from "./discover/DiscoverCatalogueLanding";
+import DiscoverCatalogueLanding from "#/components/landing/discover/DiscoverCatalogueLanding";
 import { ListItemLanding } from "#/components/landing/list-item/ListItem";
 
 export {

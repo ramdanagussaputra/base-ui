@@ -20,7 +20,7 @@ export default function TopItem({
   number,
 }: TopItemProps) {
   return (
-    <div className="bg-secondary-50 border-secondary-100 mb-2 flex items-center justify-between rounded-xl border p-5">
+    <div className="border-secondary-100 mb-2 flex items-center justify-between rounded-xl border bg-[#f6f6f8f2] p-5">
       <div className="flex items-center gap-5">
         <img
           src={image.src}
