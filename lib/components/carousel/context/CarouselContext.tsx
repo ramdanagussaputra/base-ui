@@ -20,6 +20,7 @@ export interface CarouselContextType {
   };
   setIsHovered: (hovered: boolean) => void;
   setTotalSlides: (count: number) => void;
+  disableDrag: boolean;
 }
 
 const CarouselContext = createContext<CarouselContextType | null>(null);

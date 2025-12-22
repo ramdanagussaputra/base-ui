@@ -13,6 +13,7 @@ interface CarouselLandingProps {
   onItemChange?: (index: number) => void;
   withoutArrow?: boolean;
   withoutDot?: boolean;
+  disableDrag?: boolean;
 }
 
 export default function CarouselLanding({
@@ -28,6 +29,7 @@ export default function CarouselLanding({
   onItemChange,
   withoutArrow = false,
   withoutDot = false,
+  disableDrag = false,
 }: CarouselLandingProps) {
   const formatTotalStreams =
     totalStreams !== null && totalStreams !== undefined
@@ -41,6 +43,7 @@ export default function CarouselLanding({
         interval={interval}
         activeItem={activeItem}
         onItemChange={onItemChange}
+        disableDrag={disableDrag}
       >
         <Carousel.Content className="rounded-b-none">
           {images.map((src, index) => (

@@ -15,6 +15,7 @@ export interface CarouselProps {
   interval?: number;
   activeItem?: number;
   onItemChange?: (index: number) => void;
+  disableDrag?: boolean;
 }
 
 function CarouselRoot({
@@ -24,6 +25,7 @@ function CarouselRoot({
   interval = 3000,
   activeItem,
   onItemChange,
+  disableDrag = false,
 }: Readonly<CarouselProps>) {
   const [totalSlides, setTotalSlides] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,6 +38,7 @@ function CarouselRoot({
     nextSlide,
     prevSlide,
     containerRef,
+    disableDrag,
   );
 
   // Pause autoplay on hover or drag
@@ -55,6 +58,7 @@ function CarouselRoot({
         handlers,
         setIsHovered,
         setTotalSlides,
+        disableDrag,
       }}
     >
       <div className={cn("group relative h-96 w-full", className)}>
