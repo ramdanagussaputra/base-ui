@@ -1,5 +1,9 @@
 import React from "react";
-import { DiscoverSearchInput } from "./components/DiscoverSearchInput";
+import { SingleValue } from "react-select";
+import {
+  DiscoverSearchInput,
+  DiscoverSearchOption,
+} from "./components/DiscoverSearchInput";
 import { DiscoverBackground } from "./components/DiscoverBackground";
 import { ellipseOrange, ellipseLight } from "./assets";
 
@@ -10,7 +14,45 @@ interface DiscoverCatalogueLandingProps {
 export default function DiscoverCatalogueLanding({
   title = "Catalogue",
 }: DiscoverCatalogueLandingProps) {
-  const [searchValue, setSearchValue] = React.useState("Hati");
+  const [searchValue, setSearchValue] =
+    React.useState<SingleValue<DiscoverSearchOption>>(null);
+
+  const loadOptions = async (
+    inputValue: string,
+  ): Promise<DiscoverSearchOption[]> => {
+    if (!inputValue) return [];
+    // Mock data
+    const options: DiscoverSearchOption[] = [
+      {
+        value: "1",
+        label: "Monokrom",
+        secondLabel: "Tulus",
+        imageUrl:
+          "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a", // Placeholder
+        type: "song",
+      },
+      {
+        value: "2",
+        label: "Monokrom",
+        secondLabel: "Tulus",
+        imageUrl:
+          "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
+        type: "song",
+      },
+      {
+        value: "3",
+        label: "Monokrom",
+        secondLabel: "Songwriter",
+        type: "songwriter",
+        imageUrl:
+          "https://i.scdn.co/image/ab6761610000e5eb6d6a0a2d7e0a3a0a2d7e0a3a",
+      },
+    ];
+
+    return options.filter((i) =>
+      i.label.toLowerCase().includes(inputValue.toLowerCase()),
+    );
+  };
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center gap-[1.75rem] overflow-hidden rounded-[0.75rem] bg-[#FDFDFD] py-[3.75rem]">
@@ -59,12 +101,14 @@ export default function DiscoverCatalogueLanding({
           </div>
         </div>
 
-        <DiscoverSearchInput
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onClear={() => setSearchValue("")}
-          placeholder="Search..."
-        />
+        <div className="w-full">
+          <DiscoverSearchInput
+            value={searchValue}
+            onChange={setSearchValue}
+            loadOptions={loadOptions}
+            onEnter={() => console.log("test")}
+          />
+        </div>
       </div>
     </div>
   );

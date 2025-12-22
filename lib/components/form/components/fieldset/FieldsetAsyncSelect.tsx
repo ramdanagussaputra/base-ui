@@ -49,12 +49,16 @@ interface FieldsetAsyncSelectProps {
   maxHeight?: number | string;
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+  openMenuOnFocus?: boolean;
+  openMenuOnClick?: boolean;
 }
 
 export function FieldsetAsyncSelect({
   onBlur,
   onChange,
   onFocus,
+  onKeyDown,
   defaultOptions,
   placeholder,
   isSearchable = true,
@@ -71,6 +75,8 @@ export function FieldsetAsyncSelect({
   menuPlacement = "auto",
   maxHeight,
   maxSelected,
+  openMenuOnFocus,
+  openMenuOnClick,
 }: Readonly<FieldsetAsyncSelectProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -111,6 +117,7 @@ export function FieldsetAsyncSelect({
         onChange?.(value as SingleValue<FieldsetSelectOption>);
       }}
       onBlur={onBlur}
+      onKeyDown={onKeyDown}
       isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement={menuPlacement}
@@ -120,6 +127,8 @@ export function FieldsetAsyncSelect({
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
       value={value}
+      openMenuOnFocus={openMenuOnFocus}
+      openMenuOnClick={openMenuOnClick}
       menuPortalTarget={menuPortalTarget}
       isOptionDisabled={(option) => {
         // Disable option if max selected is reached and option is not already selected
