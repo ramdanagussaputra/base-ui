@@ -1,27 +1,18 @@
-import {
-  itemMask,
-  item1,
-  item2,
-  item3,
-  item4,
-  item5,
-  item6,
-  item7,
-} from "../assets";
+import { item1, item2, item3, item4, item5, item6, item7 } from "../assets";
 
 export function DiscoverBackground() {
   const items = [item1, item2, item3, item4, item5, item6, item7];
 
   return (
     <div
-      className="pointer-events-none absolute top-1/2 right-0 h-[422.36px] w-[461.71px] -translate-y-1/2 overflow-hidden"
+      className="pointer-events-none absolute top-1/2 right-0 h-[26.4rem] w-[28.86rem] -translate-y-1/2 overflow-hidden"
       style={{
-        maskImage: `url(${itemMask})`,
-        WebkitMaskImage: `url(${itemMask})`,
-        maskSize: "460px 359px",
-        WebkitMaskSize: "460px 359px",
-        maskPosition: "1.875px 32px",
-        WebkitMaskPosition: "1.875px 32px",
+        maskImage:
+          "radial-gradient(70% 70% at 50% 40%, black 20%, transparent 100%)",
+        WebkitMaskImage:
+          "radial-gradient(70% 70% at 50% 40%, black 20%, transparent 100%)",
+        maskSize: "100% 100%",
+        WebkitMaskSize: "100% 100%",
         maskRepeat: "no-repeat",
         WebkitMaskRepeat: "no-repeat",
       }}
@@ -30,7 +21,7 @@ export function DiscoverBackground() {
         {items.map((src, index) => (
           <div
             key={index}
-            className="relative mb-[-1px] h-[58.73px] w-[465px] shrink-0"
+            className="relative mb-[-0.0625rem] h-[3.67rem] w-[29.06rem] shrink-0"
           >
             <img src={src} alt="" className="h-full w-full object-cover" />
           </div>

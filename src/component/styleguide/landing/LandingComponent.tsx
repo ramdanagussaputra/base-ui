@@ -41,7 +41,7 @@ function LandingComponent() {
       </div>
 
       <HeaderLanding />
-      <DiscoverCatalogueLanding />
+      <DiscoverCatalogueLanding title="Catalogue" />
     </StyleguideGroup>
   );
 }
