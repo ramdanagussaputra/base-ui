@@ -4,8 +4,10 @@ import {
   DiscoverCatalogueLanding,
   HeaderLanding,
   ListItemLanding,
+  DiscoverSearchOption,
 } from "massive-base-ui";
 import { useState } from "react";
+import { SingleValue } from "react-select";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
@@ -44,6 +46,43 @@ function LandingComponent() {
   const maxPage = 3;
   const [page, setPage] = useState(1);
   const [activeItem, setActiveItem] = useState(0);
+  const [searchValue, setSearchValue] =
+    useState<SingleValue<DiscoverSearchOption>>(null);
+
+  const loadOptions = async (
+    inputValue: string,
+  ): Promise<DiscoverSearchOption[]> => {
+    if (!inputValue) return [];
+    // Mock data
+    const options: DiscoverSearchOption[] = [
+      {
+        value: "1",
+        label: "Monokrom",
+        secondLabel: "Tulus",
+        imageUrl: null,
+        type: "song",
+      },
+      {
+        value: "2",
+        label: "Halo Halo Bandung",
+        secondLabel: "RAN",
+        // imageUrl:
+        //   "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
+        type: "song",
+      },
+      {
+        value: "3",
+        label: "Tulus",
+        secondLabel: "Songwriter",
+        type: "songwriter",
+      },
+    ];
+
+    return options.filter((i) =>
+      i.label.toLowerCase().includes(inputValue.toLowerCase()),
+    );
+  };
+
   return (
     <StyleguideGroup>
       <StyleguideSubtitle>Landing Component</StyleguideSubtitle>
@@ -104,7 +143,14 @@ function LandingComponent() {
       </div>
 
       <HeaderLanding />
-      <DiscoverCatalogueLanding title="Catalogue" />
+      <DiscoverCatalogueLanding
+        title="Catalogue"
+        subtitle="Discover Our"
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+        loadOptions={loadOptions}
+        onSearchEnter={() => console.log("Search entered:", searchValue)}
+      />
     </StyleguideGroup>
   );
 }

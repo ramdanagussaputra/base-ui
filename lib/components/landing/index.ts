@@ -9,3 +9,10 @@ export {
   DiscoverCatalogueLanding,
   ListItemLanding,
 };
+
+export type {
+  DiscoverCatalogueLandingProps,
+  DiscoverSearchOption,
+  DiscoverSearchInputProps,
+} from "./discover";
+export { DiscoverSearchInput } from "./discover";

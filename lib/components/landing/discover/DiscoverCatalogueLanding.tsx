@@ -1,19 +1,42 @@
-import React from "react";
-import { DiscoverSearchInput } from "./components/DiscoverSearchInput";
+import { SingleValue } from "react-select";
+import {
+  DiscoverSearchInput,
+  DiscoverSearchOption,
+} from "./components/DiscoverSearchInput";
 import { DiscoverBackground } from "./components/DiscoverBackground";
 import { ellipseOrange, ellipseLight } from "./assets";
+import { cn } from "#/utils";
 
-interface DiscoverCatalogueLandingProps {
+export interface DiscoverCatalogueLandingProps {
   title?: string;
+  subtitle?: string;
+  searchPlaceholder?: string;
+  searchValue?: SingleValue<DiscoverSearchOption>;
+  onSearchChange?: (value: SingleValue<DiscoverSearchOption>) => void;
+  loadOptions?: (inputValue: string) => Promise<DiscoverSearchOption[]>;
+  onSearchEnter?: () => void;
+  defaultOptions?: DiscoverSearchOption[];
+  className?: string;
 }
 
 export default function DiscoverCatalogueLanding({
   title = "Catalogue",
+  subtitle = "Discover Our",
+  searchPlaceholder,
+  searchValue,
+  onSearchChange,
+  loadOptions,
+  onSearchEnter,
+  defaultOptions,
+  className,
 }: DiscoverCatalogueLandingProps) {
-  const [searchValue, setSearchValue] = React.useState("Hati");
-
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-[1.75rem] overflow-hidden rounded-[0.75rem] bg-[#FDFDFD] py-[3.75rem]">
+    <div
+      className={cn(
+        "relative flex w-full flex-col items-center justify-center gap-[1.75rem] overflow-hidden rounded-[0.75rem] bg-[#FDFDFD] py-[3.75rem]",
+        className,
+      )}
+    >
       {/* Background Ellipses */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[0.75rem]">
         {/* Ellipse 3228 - Bottom Left Orange Glow */}
@@ -48,23 +71,27 @@ export default function DiscoverCatalogueLanding({
       <div className="relative z-10 flex w-[44.625rem] shrink-0 flex-col items-start gap-[1.75rem]">
         <div className="relative flex w-full flex-col items-center gap-[1.75rem]">
           <p className="font-libre text-secondary-800 min-w-full text-center text-xl leading-[1.4] font-normal">
-            Discover Our
+            {subtitle}
           </p>
 
           {/* Catalogue Text */}
           <div className="relative flex items-center justify-center">
-            <h1 className="font-libre text-center text-[4rem] leading-none font-medium tracking-tight text-[#ff5d01] uppercase">
+            <h1 className="font-libre text-center text-[4rem] leading-none font-medium tracking-wide text-[#ff5d01] uppercase">
               {title}
             </h1>
           </div>
         </div>
 
-        <DiscoverSearchInput
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onClear={() => setSearchValue("")}
-          placeholder="Search..."
-        />
+        <div className="w-full">
+          <DiscoverSearchInput
+            value={searchValue}
+            onChange={onSearchChange}
+            loadOptions={loadOptions}
+            onEnter={onSearchEnter}
+            placeholder={searchPlaceholder}
+            defaultOptions={defaultOptions}
+          />
+        </div>
       </div>
     </div>
   );
