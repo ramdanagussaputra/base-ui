@@ -2,8 +2,8 @@ import { SingleValue } from "react-select";
 import { FieldsetSelectOption } from "#/components/form/model";
 
 export type DiscoverSearchOption = FieldsetSelectOption & {
-  secondLabel: string;
-  imageUrl?: string;
+  secondLabel: string | null;
+  imageUrl?: string | null;
   type: "song" | "songwriter";
 };
 

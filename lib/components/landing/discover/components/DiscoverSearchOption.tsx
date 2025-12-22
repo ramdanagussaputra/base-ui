@@ -1,6 +1,8 @@
 import { OptionProps, components } from "react-select";
 import { DiscoverSearchOption } from "./types";
 
+import defaultSongImage from "#/components/landing/discover/assets/rectangle.svg";
+
 export const DiscoverSearchOptionComponent = (
   props: Readonly<OptionProps<DiscoverSearchOption, false>>,
 ) => {
@@ -14,9 +16,9 @@ export const DiscoverSearchOptionComponent = (
       className="flex! items-center justify-between px-2! py-2.5!"
     >
       <div className="flex items-center gap-2">
-        {isSong && data.imageUrl && (
+        {isSong && (
           <img
-            src={data.imageUrl}
+            src={data.imageUrl || defaultSongImage}
             alt={`Artwork ${data.label}`}
             className="border-secondary-100 size-[2.25rem] rounded-md border"
           />

@@ -58,16 +58,15 @@ function LandingComponent() {
         value: "1",
         label: "Monokrom",
         secondLabel: "Tulus",
-        imageUrl:
-          "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
+        imageUrl: null,
         type: "song",
       },
       {
         value: "2",
         label: "Halo Halo Bandung",
         secondLabel: "RAN",
-        imageUrl:
-          "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
+        // imageUrl:
+        //   "https://i.scdn.co/image/ab67616d0000b2736d6a0a2d7e0a3a0a2d7e0a3a",
         type: "song",
       },
       {
