@@ -43,7 +43,7 @@ export default function Item({
   return (
     <>
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
+        <div className="flex w-full items-center gap-2.5">
           <span className="text-h5-600 text-secondary-800 me-1">{number}</span>
           <img
             src={image.src}
@@ -53,14 +53,18 @@ export default function Item({
               image.shape === "rounded" ? "rounded-full" : "rounded-lg",
             )}
           />
-          <div className="flex flex-col gap-1">
-            <p className="text-b2-500 text-secondary-800">{title}</p>
+          <div className="flex flex-col gap-1 overflow-hidden">
+            <p className="text-b2-500 text-secondary-800 truncate text-ellipsis">
+              {title}
+            </p>
             <div className="flex items-center gap-2.5">
-              <p className="text-b3-400 text-secondary-500">{description}</p>
+              <p className="text-b3-400 text-secondary-500 truncate text-ellipsis">
+                {description}
+              </p>
               {additionalInformation && (
                 <>
-                  <span className="bg-secondary-500 size-0.5" />
-                  <p className="text-b3-400 text-secondary-500">
+                  <span className="bg-secondary-500 size-0.5 shrink-0" />
+                  <p className="text-b3-400 text-secondary-500 truncate text-ellipsis">
                     {additionalInformation}
                   </p>
                 </>

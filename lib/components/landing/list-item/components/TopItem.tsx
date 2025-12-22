@@ -20,8 +20,8 @@ export default function TopItem({
   number,
 }: TopItemProps) {
   return (
-    <div className="border-secondary-100 bg-secondary-100 mb-2 flex items-center justify-between rounded-xl border p-5">
-      <div className="flex items-center gap-5">
+    <div className="border-secondary-100 mb-2 flex items-center justify-between gap-5 rounded-xl border bg-[#efeff3] p-5">
+      <div className="flex w-full items-center gap-5 overflow-hidden">
         <img
           src={image.src}
           alt={image.alt}
@@ -30,11 +30,15 @@ export default function TopItem({
             image.shape === "rounded" ? "rounded-full" : "rounded-md",
           )}
         />
-        <div className="flex flex-col gap-1">
-          <p className="text-b1-600 text-secondary-800">{title}</p>
-          <p className="text-b3-400 text-secondary-500">{description}</p>
+        <div className="flex w-full flex-col gap-1 overflow-hidden">
+          <p className="text-b1-600 text-secondary-800 truncate text-ellipsis">
+            {title}
+          </p>
+          <p className="text-b3-400 text-secondary-500 truncate text-ellipsis">
+            {description}
+          </p>
           {additionalInformation && (
-            <p className="text-b3-400 text-secondary-500 mt-2">
+            <p className="text-b3-400 text-secondary-500 mt-2 truncate text-ellipsis">
               {additionalInformation}
             </p>
           )}
