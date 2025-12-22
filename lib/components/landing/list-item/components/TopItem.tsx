@@ -1,6 +1,4 @@
-import Icon from "#/components/icon/Icon";
 import { cn } from "#/utils";
-import { Spotify } from "iconsax-react";
 
 interface TopItemProps {
   title: string;
