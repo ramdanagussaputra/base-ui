@@ -1,4 +1,4 @@
-import CarouselLanding from "./Carousel/Carousel";
+import CarouselLanding from "#/components/landing/carousel/Carousel";
 import HeaderLanding from "#/components/landing/header/HeaderLanding";
 import DiscoverCatalogueLanding from "./discover/DiscoverCatalogueLanding";
 import { ListItemLanding } from "#/components/landing/list-item/ListItem";

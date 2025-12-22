@@ -1,6 +1,7 @@
 import Icon from "#/components/icon/Icon";
 import { cn } from "#/utils";
 import { Spotify } from "iconsax-react";
+import TopItem from "./TopItem";
 
 interface ItemProps {
   title: string;
@@ -13,6 +14,7 @@ interface ItemProps {
   };
   isLastItem?: boolean;
   rightContent?: React.ReactNode | "spotify-icon";
+  number?: number;
 }
 
 export default function Item({
@@ -22,11 +24,13 @@ export default function Item({
   image,
   isLastItem,
   rightContent,
+  number,
 }: ItemProps) {
   return (
     <>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
+          <span className="text-h5-600 text-secondary-800 me-1">{number}</span>
           <img
             src={image.src}
             alt={image.alt}

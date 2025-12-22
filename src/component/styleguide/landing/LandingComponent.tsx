@@ -9,6 +9,7 @@ import { useState } from "react";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
+import TopItem from "#/components/landing/list-item/components/TopItem";
 
 const images = [
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -81,21 +82,24 @@ function LandingComponent() {
               <ListItemLanding.Header.PaginationControl />
             </ListItemLanding.Header>
             <ListItemLanding.Item.Container>
-              {items.map((item, index) => (
-                <ListItemLanding.Item.Content
-                  key={index}
-                  title={item.title}
-                  description={item.description}
-                  additionalInformation={item.additionalInformation}
-                  image={item.image}
-                  isLastItem={index === items.length - 1}
-                  rightContent={index === 0 && "spotify-icon"}
-                />
-              ))}
+              {items.map((item, index) => {
+                if (index === 0) {
+                  return <TopItem {...item} number={index + 1} />;
+                }
+                return (
+                  <ListItemLanding.Item.Content
+                    key={index}
+                    title={item.title}
+                    description={item.description}
+                    additionalInformation={item.additionalInformation}
+                    image={item.image}
+                    number={index + 1}
+                  />
+                );
+              })}
             </ListItemLanding.Item.Container>
             <ListItemLanding.PaginationIndicator />
           </ListItemLanding>
-          <p>{page}</p>
         </div>
       </div>
 
