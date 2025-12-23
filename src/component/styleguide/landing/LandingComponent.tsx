@@ -41,6 +41,26 @@ const items = [
       shape: "rounded" as any,
     },
   },
+  {
+    title: "Song Title 3",
+    description: "Performer Name",
+    additionalInformation: "Additional Information",
+    image: {
+      src: "https://i.pravatar.cc/300",
+      alt: "Performer Name",
+      shape: "string" as any,
+    },
+  },
+  {
+    title: "Song Title 4",
+    description: "Performer Name",
+    additionalInformation: "Additional Information",
+    image: {
+      src: "https://i.pravatar.cc/300",
+      alt: "Performer Name",
+      shape: "square" as any,
+    },
+  },
 ];
 
 function LandingComponent() {
@@ -126,6 +146,11 @@ function LandingComponent() {
               {/* <ListItemLanding.Header.ViewAllAction onClick={() => {}} /> */}
               <ListItemLanding.Header.PaginationControl />
             </ListItemLanding.Header>
+            <ListItemLanding.Searchbar
+              value={""}
+              onChange={() => {}}
+              placeholder="Discover"
+            />
             <ListItemLanding.Item.Container>
               {items.map((item, index) => {
                 if (index === 0) {
@@ -139,6 +164,7 @@ function LandingComponent() {
                     additionalInformation={item.additionalInformation}
                     image={item.image}
                     number={index + 1}
+                    rightContent="spotify-icon"
                   />
                 );
               })}

@@ -1,4 +1,5 @@
 import { Carousel } from "#/components/carousel";
+import { cn } from "#/utils";
 
 interface CarouselLandingProps {
   title: string;
@@ -14,6 +15,8 @@ interface CarouselLandingProps {
   withoutArrow?: boolean;
   withoutDot?: boolean;
   disableDrag?: boolean;
+  className?: string;
+  cardClassName?: string;
 }
 
 export default function CarouselLanding({
@@ -30,6 +33,8 @@ export default function CarouselLanding({
   withoutArrow = false,
   withoutDot = false,
   disableDrag = false,
+  className,
+  cardClassName,
 }: CarouselLandingProps) {
   const formatTotalStreams =
     totalStreams !== null && totalStreams !== undefined
@@ -37,13 +42,19 @@ export default function CarouselLanding({
       : "-";
 
   return (
-    <div className="bg-neutral-0 border-secondary-100 flex flex-col rounded-xl border">
+    <div
+      className={cn(
+        "bg-neutral-0 border-secondary-100 flex flex-col rounded-xl border",
+        cardClassName,
+      )}
+    >
       <Carousel
         autoPlay={autoPlay}
         interval={interval}
         activeItem={activeItem}
         onItemChange={onItemChange}
         disableDrag={disableDrag}
+        className={className}
       >
         <Carousel.Content className="rounded-b-none">
           {images.map((src, index) => (
