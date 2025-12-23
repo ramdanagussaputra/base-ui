@@ -9,6 +9,7 @@ export function Tabs({
   onTabClick,
   tabsContainerClassName,
   tabsWrapperClassName,
+  tabsOuterWrapperClassName,
   ...props
 }: Readonly<TabsProps>) {
   return (
@@ -21,7 +22,12 @@ export function Tabs({
       className="relative"
       {...props}
     >
-      <TabList className="sticky top-0 flex w-full items-end justify-between outline-hidden">
+      <TabList
+        className={cn(
+          "sticky top-0 flex w-full items-end justify-between outline-hidden",
+          tabsOuterWrapperClassName,
+        )}
+      >
         <div className={cn("w-full", tabsWrapperClassName)}>
           {tabs.map((tab) => (
             <Tab

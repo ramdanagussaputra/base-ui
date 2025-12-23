@@ -7,6 +7,7 @@ export interface TabsProps {
   tabsContainerClassName?: string;
   contentContainerClassName?: string;
   tabsWrapperClassName?: string;
+  tabsOuterWrapperClassName?: string;
   onTabClick?: (tabIndex: number) => void;
   selectedIndex?: number;
 }
