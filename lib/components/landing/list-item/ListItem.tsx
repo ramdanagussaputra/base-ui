@@ -1,8 +1,10 @@
+import FooterText from "./components/FooterText";
 import Header from "./components/Header";
 import Item from "./components/Item";
 import ItemContainer from "./components/ItemContainer";
 import PaginationControl from "./components/PaginationControl";
 import PaginationIndicator from "./components/PaginationIndicator";
+import Searchbar from "./components/Searchbar";
 import ViewAllAction from "./components/ViewAllAction";
 import { ListItemContext } from "./contexts/ListItemContext";
 
@@ -55,4 +57,6 @@ export const ListItemLanding = Object.assign(ListItemLandingRoot, {
   Header: HeaderWithSubComponents,
   Item: ItemNamespace,
   PaginationIndicator,
+  FooterText,
+  Searchbar,
 });
