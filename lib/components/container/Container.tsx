@@ -1,4 +1,4 @@
-import type { JSX, ReactNode } from "react";
+import { forwardRef, type JSX, ReactNode } from "react";
 import { cn } from "#/utils";
 
 interface ContainerProps {
@@ -7,9 +7,17 @@ interface ContainerProps {
   readonly as?: JSX.ElementType;
 }
 
-function Container({ className, as, children }: ContainerProps) {
-  const Comp = as || "div";
-  return <Comp className={cn("px-10", className)}>{children}</Comp>;
-}
+const Container = forwardRef<HTMLElement, ContainerProps>(
+  ({ className, as, children }, ref) => {
+    const Comp = as || "div";
+    return (
+      <Comp ref={ref} className={cn("px-10", className)}>
+        {children}
+      </Comp>
+    );
+  },
+);
 
-export default Container; 
+Container.displayName = "Container";
+
+export default Container;
