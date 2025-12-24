@@ -72,7 +72,7 @@ export function DiscoverSearchInput({
         }
         defaultOptions={defaultOptions}
         isSearchable
-        menuPlacement="top"
+        menuPlacement="auto"
         openMenuOnFocus={false}
         openMenuOnClick={false}
         onFocus={() => {
