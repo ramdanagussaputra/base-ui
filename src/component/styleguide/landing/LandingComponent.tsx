@@ -5,7 +5,7 @@ import {
   HeaderLanding,
   ListItemLanding,
   DiscoverSearchOption,
-  TableOfContent,
+  TableOfContentLanding,
 } from "massive-base-ui";
 import { useState } from "react";
 import { SingleValue } from "react-select";
@@ -232,7 +232,7 @@ function LandingComponent() {
         onSearchInputChange={(value) => console.log(value)}
       />
 
-      <TableOfContent items={tableOfContents} />
+      <TableOfContentLanding items={tableOfContents} />
     </StyleguideGroup>
   );
 }
