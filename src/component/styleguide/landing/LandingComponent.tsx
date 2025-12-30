@@ -5,6 +5,7 @@ import {
   HeaderLanding,
   ListItemLanding,
   DiscoverSearchOption,
+  TableOfContent,
 } from "massive-base-ui";
 import { useState } from "react";
 import { SingleValue } from "react-select";
@@ -60,6 +61,52 @@ const items = [
       alt: "Performer Name",
       shape: "square" as any,
     },
+  },
+];
+
+const tableOfContents: Array<{
+  groupTitle?: string;
+  list: Array<{ title: string; href: string }>;
+}> = [
+  {
+    list: [
+      { title: "Introduction", href: "#introduction" },
+      { title: "General Terms", href: "#general-terms" },
+      { title: "Use of Site, Application, and Services", href: "#use-of-site" },
+      { title: "Signing-up and Signing-in", href: "#signing-up-signing-in" },
+      { title: "Rate and Fees", href: "#rate-and-fees" },
+      {
+        title: "Content Information and Accuracy",
+        href: "#content-information",
+      },
+      { title: "Personal Information", href: "#personal-information" },
+      { title: "Application Software", href: "#application-software" },
+    ],
+  },
+  {
+    groupTitle: "What We Expect From You",
+    list: [
+      { title: "Your Account", href: "#your-account" },
+      { title: "Account Deactivation", href: "#account-deactivation" },
+      { title: "Your Statement", href: "#your-statement" },
+      { title: "Your Responsibility", href: "#your-responsibility" },
+    ],
+  },
+  {
+    groupTitle: "Intellectual Property Terms",
+    list: [
+      { title: "Intellectual Property", href: "#intellectual-property" },
+      { title: "Troubleshoot", href: "#troubleshoot" },
+      {
+        title: "Actions We Consider Necessary",
+        href: "#actions-we-consider-necessary",
+      },
+      { title: "Force Majeure", href: "#force-majeure" },
+      { title: "Governing Laws", href: "#governing-laws" },
+      { title: "Dispute", href: "#dispute" },
+      { title: "Miscellaneous", href: "#miscellaneous" },
+      { title: "Contact Us", href: "#contact-us" },
+    ],
   },
 ];
 
@@ -184,6 +231,8 @@ function LandingComponent() {
         onSearchEnter={(value) => console.log("Search entered:", value)}
         onSearchInputChange={(value) => console.log(value)}
       />
+
+      <TableOfContent items={tableOfContents} />
     </StyleguideGroup>
   );
 }
