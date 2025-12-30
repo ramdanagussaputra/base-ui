@@ -1,5 +1,3 @@
-import { Link, useLocation } from "react-router";
-
 import { cn } from "#/utils";
 
 interface TableOfContentLandingProps {
@@ -9,19 +7,19 @@ interface TableOfContentLandingProps {
     groupTitle?: string;
     list: Array<{ title: string; href: string }>;
   }>;
+  activeHref?: string;
 }
 
 export default function TableOfContentLanding({
   className,
   title = "Table of Content",
   items,
+  activeHref,
 }: TableOfContentLandingProps) {
-  const location = useLocation();
-
   return (
     <div
       className={cn(
-        "bg-secondary-50 flex max-w-[20rem] flex-col gap-5 rounded-[1.25rem] p-10",
+        "bg-secondary-50 flex h-fit max-w-[20rem] flex-col gap-5 rounded-[1.25rem] p-10",
         className,
       )}
     >
@@ -32,14 +30,12 @@ export default function TableOfContentLanding({
             <p className="text-b3-500 text-secondary-500">{group.groupTitle}</p>
           )}
           {group.list.map((item, itemIndex) => {
-            const isActive = item.href.startsWith("#")
-              ? location.hash === item.href
-              : location.pathname === item.href;
+            const isActive = item.href === activeHref;
 
             return (
-              <Link
+              <a
                 key={`${groupIndex}-${itemIndex}`}
-                to={item.href}
+                href={item.href}
                 className={cn(
                   "text-b3-400 text-secondary-800 hover mx-2.5 flex items-center gap-[1.21875rem] rounded-lg",
                   isActive && "text-primary-600 bg-[#4B4A5E]/30",
@@ -54,7 +50,7 @@ export default function TableOfContentLanding({
                 <span className="truncate py-[0.5625rem] pe-3.5">
                   {item.title}
                 </span>
-              </Link>
+              </a>
             );
           })}
         </div>
