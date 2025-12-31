@@ -185,6 +185,7 @@ function SelectFieldForm() {
           control={formMethods.control}
           label="Phone number input"
           name="phoneNumber"
+          disablePrefix
           placeholder="Enter phone number"
           options={[
             {

@@ -19,6 +19,7 @@ type PhoneNumberFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   options: FieldsetSelectOption[];
   prefixDefaultValue?: string;
   onPrefixChange?: (value: string) => void;
+  disablePrefix?: boolean;
 };
 
 const DEFAULT_PREFIX = "+62";
@@ -40,6 +41,7 @@ export function PhoneNumberFormField({
   options = [],
   prefixDefaultValue = DEFAULT_PREFIX,
   onPrefixChange = () => {},
+  disablePrefix = false,
 }: Readonly<PhoneNumberFormFieldProps>) {
   const [prefix, setPrefix] = useState<string>(
     options?.[0]?.value?.toString() || prefixDefaultValue,
@@ -117,6 +119,7 @@ export function PhoneNumberFormField({
 
           <Fieldset.SelectPrefix
             value={prefix}
+            disablePrefix={disablePrefix}
             onChange={(value) =>
               handlePrefixChange(value, field.onChange, field.value)
             }

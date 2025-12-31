@@ -14,6 +14,7 @@ interface FieldsetSelectPrefixProps {
   onChange: (value: string | number | boolean) => void;
   options: FieldsetSelectOption[];
   children: React.ReactNode;
+  disablePrefix?: boolean;
 }
 
 export function FieldsetSelectPrefix({
@@ -21,6 +22,7 @@ export function FieldsetSelectPrefix({
   children,
   options,
   onChange,
+  disablePrefix = false,
 }: Readonly<FieldsetSelectPrefixProps>) {
   const [searchValue, setSearchValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -34,9 +36,9 @@ export function FieldsetSelectPrefix({
   });
 
   const handleToggle = useCallback(() => {
-    if (isDisabled) return;
+    if (isDisabled || disablePrefix) return;
     setIsOpen((prev) => !prev);
-  }, [isDisabled]);
+  }, [isDisabled, disablePrefix]);
 
   const handleOptionClick = useCallback(
     (optionValue: string | number | boolean) => {
@@ -73,13 +75,13 @@ export function FieldsetSelectPrefix({
               isMedium,
             "h-(--fieldset-height-small) gap-(--fieldset-container-gap-small)":
               isSmall,
-            "cursor-default": isDisabled,
+            "cursor-default": isDisabled || disablePrefix,
           },
           {
             "bg-secondary-50 border-secondary-200": !isOpen,
             "border-secondary-300 bg-secondary-100": isOpen,
             "border-secondary-100 [&>span]:text-secondary-400! [&>svg]:text-secondary-400!":
-              isDisabled,
+              isDisabled || disablePrefix,
           },
         )}
       >
