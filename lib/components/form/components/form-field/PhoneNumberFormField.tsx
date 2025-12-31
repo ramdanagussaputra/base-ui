@@ -125,17 +125,19 @@ export function PhoneNumberFormField({
             }
             options={options}
           >
-            <Fieldset.TextInput
-              type={type}
-              placeholder={placeholder}
-              value={getInputDisplayValue(field.value)}
-              onChange={(inputValue) =>
-                handleInputChange(inputValue, field.onChange)
-              }
-              onBlur={field.onBlur}
-              lengthCap={maxLength}
-              className="grow rounded-s-none border-s-0"
-            />
+            <div className="w-full">
+              <Fieldset.TextInput
+                type={type}
+                placeholder={placeholder}
+                value={getInputDisplayValue(field.value)}
+                onChange={(inputValue) =>
+                  handleInputChange(inputValue, field.onChange)
+                }
+                onBlur={field.onBlur}
+                lengthCap={maxLength}
+                className="grow rounded-s-none border-s-0"
+              />
+            </div>
           </Fieldset.SelectPrefix>
 
           {fieldState.error?.message && (
