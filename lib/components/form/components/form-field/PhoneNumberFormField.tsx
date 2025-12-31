@@ -135,7 +135,7 @@ export function PhoneNumberFormField({
                 }
                 onBlur={field.onBlur}
                 lengthCap={maxLength}
-                className="grow rounded-s-none border-s-0"
+                className="grow rounded-l-none border-l-0"
               />
             </div>
           </Fieldset.SelectPrefix>
