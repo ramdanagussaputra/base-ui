@@ -67,7 +67,7 @@ export function FieldsetSelectPrefix({
         type="button"
         onClick={handleToggle}
         className={cn(
-          "flex cursor-pointer items-center gap-2 rounded-md rounded-e-none border px-[0.75em]",
+          "flex cursor-pointer items-center gap-2 rounded-md rounded-r-none border px-[0.75em]",
           {
             "h-(--fieldset-height-large) gap-(--fieldset-container-gap-large)":
               isLarge,
