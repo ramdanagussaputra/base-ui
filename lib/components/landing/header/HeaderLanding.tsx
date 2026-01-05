@@ -23,7 +23,7 @@ const HeaderLanding = forwardRef<HTMLElement, HeaderLandingProps>(
       <header
         ref={ref}
         className={cn(
-          `flex h-[5.5rem] w-full items-center justify-between`,
+          `flex h-[5.5rem] w-full max-w-375 items-center justify-between`,
           className,
         )}
       >
