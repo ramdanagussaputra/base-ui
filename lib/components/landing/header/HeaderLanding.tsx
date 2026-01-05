@@ -6,10 +6,19 @@ interface HeaderLandingProps {
   className?: string;
   brandLogo?: string;
   children?: ReactNode;
+  brandRedirect?: () => void;
 }
 
 const HeaderLanding = forwardRef<HTMLElement, HeaderLandingProps>(
-  ({ className, brandLogo = composyncLogo, children }, ref) => {
+  (
+    {
+      className,
+      brandLogo = composyncLogo,
+      children,
+      brandRedirect = () => {},
+    },
+    ref,
+  ) => {
     return (
       <header
         ref={ref}
@@ -18,11 +27,13 @@ const HeaderLanding = forwardRef<HTMLElement, HeaderLandingProps>(
           className,
         )}
       >
-        <img
-          src={brandLogo}
-          alt="Brand Logo"
-          className="h-[1.5rem] w-[13.740625rem]"
-        />
+        <button onClick={brandRedirect}>
+          <img
+            src={brandLogo}
+            alt="Brand Logo"
+            className="h-[1.5rem] w-[13.740625rem]"
+          />
+        </button>
 
         {children}
       </header>
