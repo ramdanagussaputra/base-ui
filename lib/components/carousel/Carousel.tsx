@@ -7,6 +7,8 @@ import { CarouselProvider } from "./context/CarouselContext";
 import { CarouselContent } from "./components/CarouselContent";
 import { CarouselArrow } from "./components/CarouselArrow";
 import { CarouselDots } from "./components/CarouselDots";
+import { CarouselArrow2 } from "./components/CarouselArrow2";
+import { CarouselDots2 } from "./components/CarouselDots2";
 
 export interface CarouselProps {
   children: React.ReactNode;
@@ -73,9 +75,13 @@ type CarouselComponent = (props: CarouselProps) => React.ReactElement;
 export const Carousel: CarouselComponent & {
   Content: typeof CarouselContent;
   Arrow: typeof CarouselArrow;
+  Arrow2: typeof CarouselArrow2;
   Dots: typeof CarouselDots;
+  Dots2: typeof CarouselDots2;
 } = Object.assign(CarouselRoot as unknown as CarouselComponent, {
   Content: CarouselContent,
   Arrow: CarouselArrow,
+  Arrow2: CarouselArrow2,
   Dots: CarouselDots,
+  Dots2: CarouselDots2,
 });
