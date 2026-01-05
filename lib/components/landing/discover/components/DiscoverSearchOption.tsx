@@ -32,7 +32,7 @@ export const DiscoverSearchOptionComponent = (
           </div>
         )}
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col items-start gap-1">
           <span className="text-secondary-900 text-[0.8125rem] leading-[1.25rem] font-normal! hover:font-normal!">
             {data.label}
           </span>
