@@ -23,9 +23,9 @@ function CarouselExamples() {
               />
             ))}
           </Carousel.Content>
-          <Carousel.Arrow direction="left" />
-          <Carousel.Arrow direction="right" />
-          <Carousel.Dots />
+          <Carousel.Arrow2 direction="left" />
+          <Carousel.Arrow2 direction="right" />
+          <Carousel.Dots2 />
         </Carousel>
       </div>
 
