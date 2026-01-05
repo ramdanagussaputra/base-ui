@@ -24,7 +24,15 @@ export const DiscoverSearchOptionComponent = (
           />
         )}
 
-        {isSongwriter && (
+        {isSongwriter && data.imageUrl && (
+          <img
+            src={data.imageUrl}
+            alt={`Artwork ${data.label}`}
+            className="border-secondary-100 size-[2.25rem] rounded-full border"
+          />
+        )}
+
+        {isSongwriter && !data.imageUrl && (
           <div className="border-secondary-100 bg-secondary-50 flex size-[2.25rem] items-center justify-center rounded-full border">
             <span className="text-secondary-500 text-xs font-medium">
               {data.label.charAt(0)}
