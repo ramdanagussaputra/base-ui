@@ -160,19 +160,21 @@ function LandingComponent() {
     <StyleguideGroup>
       <StyleguideSubtitle>Landing Component</StyleguideSubtitle>
       <div className="flex flex-col gap-4">
-        <CarouselLanding
-          title="Song Title"
-          performerImg="https://i.pravatar.cc/300"
-          performerName="Performer Name"
-          totalStreams={1000000}
-          actionButton={<Button>Request License</Button>}
-          images={images}
-          activeItem={activeItem}
-          onItemChange={setActiveItem}
-          withoutArrow
-          withoutDot
-          disableDrag
-        />
+        <div className="max-w-[30rem]">
+          <CarouselLanding
+            title="Song Title lorem ipsum dolor sit amet, consectetur adipiscing elit dolor sit amet lorem ipsum mamam"
+            performerImg="https://i.pravatar.cc/300"
+            performerName="Performer Name lorem ipsum dolor sit amet lalala mamama kakaka kukuku hihihi hohoho papapa kokoko bububu bababa"
+            totalStreams={1000000}
+            actionButton={<Button>Request License</Button>}
+            images={images}
+            activeItem={activeItem}
+            onItemChange={setActiveItem}
+            withoutArrow
+            withoutDot
+            disableDrag
+          />
+        </div>
         <div className="flex items-center gap-5">
           <Button onClick={() => setActiveItem(0)}>Go To Slide 1</Button>
           <Button onClick={() => setActiveItem(1)}>Go To Slide 2</Button>

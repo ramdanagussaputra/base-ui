@@ -79,11 +79,11 @@ export default function CarouselLanding({
               alt={performerName}
               className="size-9 rounded-full object-cover object-center"
             />
-            <span className="text-b2-400 text-secondary-500 leading-none">
+            <span className="text-b2-400 text-secondary-500 truncate leading-none">
               {performerName}
             </span>
-            <span className="bg-secondary-500 size-1 rounded-full" />
-            <span className="text-b2-400 text-secondary-500 leading-none">
+            <span className="bg-secondary-500 size-1 shrink-0 rounded-full" />
+            <span className="text-b2-400 text-secondary-500 shrink-0 leading-none">
               {formatTotalStreams} streams
             </span>
           </div>
