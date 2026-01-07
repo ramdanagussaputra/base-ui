@@ -43,6 +43,14 @@ export function FieldsetCalendarDropdown(props: FieldsetCalendarDropdownProps) {
     setOpen(false);
   };
 
+  const selectedRef = useCallback((node: HTMLButtonElement | null) => {
+    if (node && node.parentElement) {
+      const parent = node.parentElement;
+      parent.scrollTop =
+        node.offsetTop - parent.clientHeight / 2 + node.clientHeight / 2;
+    }
+  }, []);
+
   return (
     <div ref={containerRef} className="relative inline-block">
       <Button
@@ -87,6 +95,7 @@ export function FieldsetCalendarDropdown(props: FieldsetCalendarDropdownProps) {
             return (
               <button
                 key={option.value}
+                ref={selected ? selectedRef : undefined}
                 type="button"
                 role="option"
                 aria-selected={selected}
