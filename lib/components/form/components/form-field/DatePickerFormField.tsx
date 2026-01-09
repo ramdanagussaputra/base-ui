@@ -149,7 +149,13 @@ export function DatePickerFormField({
                       e.stopPropagation();
                       e.preventDefault();
                       setOpen(false);
-                      field.onChange(undefined);
+                      if (mode === "single") {
+                        field.onChange(null);
+                      } else if (mode === "multiple") {
+                        field.onChange([]);
+                      } else if (mode === "range") {
+                        field.onChange({ from: null, to: null });
+                      }
                     }}
                   />
                 </Fieldset.Icon>
