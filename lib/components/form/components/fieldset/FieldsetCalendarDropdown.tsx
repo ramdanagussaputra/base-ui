@@ -27,7 +27,7 @@ export function FieldsetCalendarDropdown(props: FieldsetCalendarDropdownProps) {
   });
 
   const getDisplayLabel = useCallback(() => {
-    if (!value) return placeholder;
+    if (typeof value !== "number") return placeholder;
     const selectedOption = options?.find((option) => option.value === value);
     const label = selectedOption?.label;
     return formatLabel ? formatLabel(label) : label || placeholder;
