@@ -28,6 +28,7 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   lettersAndNumbersWithSpaces?: boolean;
   lettersAndNumbersWithSpacesMessage?: string;
   showCharacterCount?: boolean;
+  hint?: string;
 };
 
 export function TextFormField({
@@ -49,6 +50,7 @@ export function TextFormField({
   prefix,
   noWhitespace = false,
   autoUppercase = false,
+  hint = "",
   // New validation props
   blockedValues,
   blockedValuesMessage,
@@ -248,6 +250,10 @@ export function TextFormField({
           >
             <div className="flex items-center gap-1">{endElement}</div>
           </Fieldset.TextInput>
+
+          {hint && !fieldState.error?.message && (
+            <Fieldset.Message>{hint}</Fieldset.Message>
+          )}
 
           {fieldState.error?.message && (
             <Fieldset.Message>{fieldState.error.message}</Fieldset.Message>
