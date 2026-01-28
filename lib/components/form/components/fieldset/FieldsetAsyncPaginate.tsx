@@ -1,4 +1,5 @@
 import {
+  components,
   GroupBase,
   MenuPlacement,
   OptionProps,
@@ -82,6 +83,8 @@ interface FieldsetAsyncPaginateProps {
   maxHeight?: number | string;
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
+  // Maximum character length for search input
+  maxLength?: number;
 }
 
 export function FieldsetAsyncPaginate({
@@ -116,6 +119,7 @@ export function FieldsetAsyncPaginate({
   menuPlacement = "auto",
   maxHeight,
   maxSelected,
+  maxLength,
 }: Readonly<FieldsetAsyncPaginateProps>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall } =
     useFieldsetContext();
@@ -194,6 +198,9 @@ export function FieldsetAsyncPaginate({
 
         Option: OptionComponent,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
+        Input: maxLength
+          ? (props) => <components.Input {...props} maxLength={maxLength} />
+          : undefined,
         ...selectComponentOptions,
       }}
       styles={{

@@ -71,6 +71,8 @@ interface AsyncPaginateFormFieldProps
   maxHeight?: number | string;
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
+  // Maximum character length for search input
+  maxLength?: number;
 }
 
 export function AsyncPaginateFormField({
@@ -111,6 +113,7 @@ export function AsyncPaginateFormField({
   menuPlacement,
   maxHeight,
   maxSelected,
+  maxLength,
 }: Readonly<AsyncPaginateFormFieldProps>) {
   return (
     <Controller
@@ -172,6 +175,7 @@ export function AsyncPaginateFormField({
             checkboxPosition={checkboxPosition}
             maxHeight={maxHeight}
             maxSelected={maxSelected}
+            maxLength={maxLength}
           />
 
           {fieldState.error?.message && (
