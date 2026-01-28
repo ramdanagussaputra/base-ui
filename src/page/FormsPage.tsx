@@ -240,6 +240,7 @@ function FormsPage() {
             debounceTimeout={500}
             isRequired
             isMultiSelect
+            maxLength={3}
           />
         </div>
 
@@ -303,7 +304,6 @@ function FormsPage() {
             isRequired
             setValue={formMethods.setValue}
             watch={formMethods.watch}
-
           />
         </div>
 

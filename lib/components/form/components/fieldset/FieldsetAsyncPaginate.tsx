@@ -1,6 +1,7 @@
 import {
   components,
   GroupBase,
+  InputProps,
   MenuPlacement,
   OptionProps,
   SelectComponentsConfig,
@@ -150,6 +151,17 @@ export function FieldsetAsyncPaginate({
     isMultiSelect,
   );
 
+  // Create custom Input component with maxLength if needed
+  const InputComponent = maxLength
+    ? (
+        props: InputProps<
+          FieldsetSelectOption,
+          boolean,
+          GroupBase<FieldsetSelectOption>
+        >,
+      ) => <components.Input {...props} maxLength={maxLength} />
+    : undefined;
+
   return (
     <AsyncPaginate
       defaultOptions={defaultOptions}
@@ -159,7 +171,7 @@ export function FieldsetAsyncPaginate({
         onChange?.(value as SingleValue<FieldsetSelectOption>);
       }}
       onBlur={onBlur}
-      isMulti={isMultiSelect}
+      isMulti={isMultiSelect as any}
       onFocus={onFocus}
       menuPlacement={menuPlacement}
       menuPosition="fixed"
@@ -191,18 +203,20 @@ export function FieldsetAsyncPaginate({
         }
         return false;
       }}
-      components={{
-        IndicatorSeparator: () => null,
-        DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
-        ClearIndicator: FieldsetSelectClearIndicator,
+      components={
+        {
+          IndicatorSeparator: () => null,
+          DropdownIndicator: isDisabled
+            ? null
+            : FieldsetSelectDropdownIndicator,
+          ClearIndicator: FieldsetSelectClearIndicator,
 
-        Option: OptionComponent,
-        MultiValueRemove: FieldsetSelectMultiValueRemove,
-        Input: maxLength
-          ? (props) => <components.Input {...props} maxLength={maxLength} />
-          : undefined,
-        ...selectComponentOptions,
-      }}
+          Option: OptionComponent,
+          MultiValueRemove: FieldsetSelectMultiValueRemove,
+          ...(InputComponent && { Input: InputComponent }),
+          ...selectComponentOptions,
+        } as any
+      }
       styles={{
         valueContainer: (provided) =>
           createValueContainerStyle(provided, calculatedMaxHeight),
