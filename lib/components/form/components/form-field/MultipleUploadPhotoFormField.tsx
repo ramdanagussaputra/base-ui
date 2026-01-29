@@ -8,6 +8,8 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { SmallMessageBox } from "#/components/messagebox";
 import Icon from "#/components/icon/Icon";
+import { useModal } from "#/components/modal";
+import { ImageCropModal } from "#/components/form/components/image-crop/ImageCropModal";
 
 type MultipleUploadPhotoFormFieldProps = Omit<
   FormFieldProps,
@@ -37,6 +39,44 @@ export function MultipleUploadPhotoFormField({
   maxFiles = 3,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
+  const { showModal, closeModal } = useModal();
+
+  const readFileAsDataURL = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        resolve(reader.result as string);
+      });
+      reader.addEventListener("error", reject);
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleCropImage = async (file: File): Promise<File | null> => {
+    const imageSrc = await readFileAsDataURL(file);
+
+    return new Promise((resolve) => {
+      showModal({
+        component: (
+          <ImageCropModal
+            aspectRatio={1}
+            imageSrc={imageSrc}
+            fileName={file.name}
+            onSave={(croppedFile) => {
+              closeModal();
+              resolve(croppedFile);
+            }}
+            onCancel={() => {
+              closeModal();
+              resolve(null);
+            }}
+          />
+        ),
+        isClickOutsideClose: false,
+      });
+    });
+  };
+
   return (
     <Controller
       name={name}
@@ -118,6 +158,7 @@ export function MultipleUploadPhotoFormField({
                 onChange={(file: File | null) =>
                   handleAdditionalUpload(file, slotIndex)
                 }
+                onBeforeChange={handleCropImage}
                 value={currentFiles[slotIndex] || null}
               />
             );
@@ -142,6 +183,7 @@ export function MultipleUploadPhotoFormField({
                   value={currentFiles[0] || null}
                   accept={accept}
                   onChange={handleMainUpload}
+                  onBeforeChange={handleCropImage}
                   placeholderIcon={placeholderIcon}
                 />
                 {maxFiles > 1 && field?.value?.length > 0 && (

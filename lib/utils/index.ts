@@ -1,4 +1,5 @@
 export * from "./fileValidation";
+export * from "./imageCrop";
 import clsx, { ClassValue } from "clsx";
 import { ValidationRule } from "react-hook-form";
 import { extendTailwindMerge } from "tailwind-merge";

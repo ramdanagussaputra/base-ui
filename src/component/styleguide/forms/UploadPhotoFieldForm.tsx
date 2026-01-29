@@ -7,7 +7,13 @@ import {
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
 function UploadPhotoFieldForm() {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+
+  const photos = watch("photos");
+
+  console.log({
+    photos,
+  });
 
   return (
     <>

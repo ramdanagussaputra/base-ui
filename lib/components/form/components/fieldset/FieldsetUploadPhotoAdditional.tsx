@@ -10,6 +10,7 @@ interface FieldsetUploadPhotoAdditionalProps {
   placeholderIcon?: React.ReactNode;
   value?: File | null;
   onChange?: (file: File | null) => void;
+  onBeforeChange?: (file: File) => Promise<File | null>;
   className?: string;
 }
 
@@ -18,6 +19,7 @@ export function FieldsetUploadPhotoAdditional({
   placeholderIcon = <Icon icon={Add} />,
   value,
   onChange,
+  onBeforeChange,
   className,
 }: Readonly<FieldsetUploadPhotoAdditionalProps>) {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -28,10 +30,21 @@ export function FieldsetUploadPhotoAdditional({
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    if (file) {
-      onChange?.(file);
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const selectedFile = event.target.files?.[0] || null;
+
+    if (selectedFile && onBeforeChange) {
+      const processedFile = await onBeforeChange(selectedFile);
+      onChange?.(processedFile);
+    } else if (selectedFile) {
+      onChange?.(selectedFile);
+    }
+
+    // Reset input
+    if (inputFileRef.current) {
+      inputFileRef.current.value = "";
     }
   };
 
