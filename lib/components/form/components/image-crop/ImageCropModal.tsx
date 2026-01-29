@@ -24,6 +24,8 @@ interface ImageCropModalProps {
   onCancel: () => void;
   /** Initial aspect ratio (e.g., 1 for square, 16/9 for widescreen) */
   aspectRatio?: number;
+  /** Whether to show aspect ratio toggle control */
+  toggleAspectRatio?: boolean;
 }
 
 export function ImageCropModal({
@@ -31,6 +33,7 @@ export function ImageCropModal({
   fileName,
   onSave,
   onCancel,
+  toggleAspectRatio = false,
   aspectRatio: initialAspectRatio,
 }: Readonly<ImageCropModalProps>) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -103,46 +106,42 @@ export function ImageCropModal({
 
       {/* Controls */}
       <div className="border-secondary-100 flex flex-col gap-4 border-t px-6 py-4">
-        <AspectRatioToggle
-          currentValue={aspectRatio}
-          onChange={setAspectRatio}
-        />
+        {toggleAspectRatio && (
+          <AspectRatioToggle
+            currentValue={aspectRatio}
+            onChange={setAspectRatio}
+          />
+        )}
 
-        <SliderControl
-          label="Zoom"
-          value={zoom}
-          min={ZOOM_CONFIG.min}
-          max={ZOOM_CONFIG.max}
-          step={ZOOM_CONFIG.step}
-          onChange={setZoom}
-        />
-
-        <SliderControl
-          label="Rotation"
-          value={rotation}
-          min={ROTATION_CONFIG.min}
-          max={ROTATION_CONFIG.max}
-          step={ROTATION_CONFIG.step}
-          onChange={setRotation}
-        />
-
-        {/* Flip Controls and Action Buttons */}
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex gap-2">
-            <FlipButton
-              isActive={flip.horizontal}
-              onClick={toggleFlipHorizontal}
-              icon="horizontal"
-              label="Flip H"
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center">
+            <SliderControl
+              label="Zoom"
+              value={zoom}
+              min={ZOOM_CONFIG.min}
+              max={ZOOM_CONFIG.max}
+              step={ZOOM_CONFIG.step}
+              onChange={setZoom}
             />
-            <FlipButton
-              isActive={flip.vertical}
-              onClick={toggleFlipVertical}
-              icon="vertical"
-              label="Flip V"
+
+            <SliderControl
+              label="Rotation"
+              value={rotation}
+              min={ROTATION_CONFIG.min}
+              max={ROTATION_CONFIG.max}
+              step={ROTATION_CONFIG.step}
+              onChange={setRotation}
             />
           </div>
 
+          <div className="flex gap-3">
+            <FlipButton onClick={toggleFlipHorizontal} icon="horizontal" />
+            <FlipButton onClick={toggleFlipVertical} icon="vertical" />
+          </div>
+        </div>
+
+        {/* Flip Controls and Action Buttons */}
+        <div className="flex items-center justify-between pt-2">
           <ActionButtons
             onCancel={onCancel}
             onSave={handleSave}
