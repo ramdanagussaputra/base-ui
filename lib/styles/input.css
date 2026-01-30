@@ -10,4 +10,59 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
+
+  /* Custom slider styling */
+  .slider-input {
+    @apply w-full cursor-pointer appearance-none;
+    height: 16px;
+  }
+
+  /* Track styling */
+  .slider-input::-webkit-slider-runnable-track,
+  .slider-input::-moz-range-track {
+    @apply rounded-full;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+  }
+
+  /* .slider-input::-moz-range-track {
+    @apply rounded-full;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+  } */
+
+  /* Progress fill for Firefox */
+  .slider-input::-moz-range-progress {
+    @apply bg-primary-600 rounded-full;
+    height: 4px;
+  }
+
+  /* Thumb styling */
+  .slider-input::-webkit-slider-thumb {
+    @apply bg-primary-600 cursor-pointer rounded-full border-none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    margin-top: -6px; /* Centers the thumb on the track */
+    box-shadow: 0 0 0 0 rgba(255, 93, 1, 0.2);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .slider-input::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 8px rgba(255, 93, 1, 0.2);
+  }
+
+  .slider-input::-moz-range-thumb {
+    @apply bg-primary-600 cursor-pointer rounded-full border-none;
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 0 0 0 rgba(255, 93, 1, 0.2);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .slider-input::-moz-range-thumb:active {
+    box-shadow: 0 0 0 8px rgba(255, 93, 1, 0.2);
+  }
 }

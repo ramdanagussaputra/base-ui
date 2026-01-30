@@ -1,5 +1,3 @@
-import { getSliderBackground } from "#/utils/imageCrop";
-
 interface SliderControlProps {
   label: string;
   value: number;
@@ -17,21 +15,31 @@ export function SliderControl({
   step,
   onChange,
 }: Readonly<SliderControlProps>) {
+  const percentage = ((value - min) / (max - min)) * 100;
+
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-small-text-600 text-secondary-600 uppercase">
+    <div className="flex items-center gap-3">
+      <label className="text-b3-500 text-secondary-800 uppercase">
         {label}
       </label>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="bg-secondary-100 h-2 w-full cursor-pointer appearance-none rounded-lg"
-        style={{ background: getSliderBackground(value, min, max) }}
-      />
+
+      <div className="relative h-4 w-full">
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className="slider-input"
+          style={{
+            backgroundImage: `linear-gradient(to right, #FF5D01 0%, #FF5D01 ${percentage}%, #E9EAF0 ${percentage}%, #E9EAF0 100%)`,
+            backgroundSize: "100% 4px",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      </div>
     </div>
   );
 }

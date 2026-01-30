@@ -113,8 +113,8 @@ export function ImageCropModal({
           />
         )}
 
-        <div className="flex w-full items-center justify-between">
-          <div className="flex items-center">
+        <div className="flex w-full items-center justify-between gap-5 px-5">
+          <div className="grid w-full grid-cols-2 items-center gap-5">
             <SliderControl
               label="Zoom"
               value={zoom}
