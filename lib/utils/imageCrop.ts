@@ -5,6 +5,20 @@ export interface FlipState {
   vertical: boolean;
 }
 
+/**
+ * Reads a File as a base64 Data URL string
+ */
+export function readFileAsDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      resolve(reader.result as string);
+    });
+    reader.addEventListener("error", reject);
+    reader.readAsDataURL(file);
+  });
+}
+
 export async function getCroppedImg(
   imageSrc: string,
   croppedAreaPixels: Area,

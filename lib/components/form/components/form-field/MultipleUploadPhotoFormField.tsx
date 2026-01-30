@@ -1,7 +1,7 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
-import { validateFileExtension } from "#/utils";
+import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -40,17 +40,6 @@ export function MultipleUploadPhotoFormField({
   maxSize = 1 * 1024 * 1024,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
   const { showModal, closeModal } = useModal();
-
-  const readFileAsDataURL = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        resolve(reader.result as string);
-      });
-      reader.addEventListener("error", reject);
-      reader.readAsDataURL(file);
-    });
-  };
 
   const handleCropImage = async (file: File): Promise<File | null> => {
     const imageSrc = await readFileAsDataURL(file);

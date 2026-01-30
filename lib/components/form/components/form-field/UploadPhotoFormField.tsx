@@ -1,13 +1,15 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller } from "react-hook-form";
-import { validateFileExtension } from "#/utils";
+import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { SmallMessageBox } from "#/components/messagebox";
 import Icon from "#/components/icon/Icon";
+import { useModal } from "#/components/modal";
+import { ImageCropModal } from "#/components/form/components/image-crop/ImageCropModal";
 
 type UploadPhotoFormFieldProps = Omit<
   FormFieldProps,
@@ -35,6 +37,33 @@ export function UploadPhotoFormField({
   footerElement: endElement,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<UploadPhotoFormFieldProps>) {
+  const { showModal, closeModal } = useModal();
+
+  const handleCropImage = async (file: File): Promise<File | null> => {
+    const imageSrc = await readFileAsDataURL(file);
+
+    return new Promise((resolve) => {
+      showModal({
+        component: (
+          <ImageCropModal
+            aspectRatio={1}
+            imageSrc={imageSrc}
+            fileName={file.name}
+            onSave={(croppedFile) => {
+              closeModal();
+              resolve(croppedFile);
+            }}
+            onCancel={() => {
+              closeModal();
+              resolve(null);
+            }}
+          />
+        ),
+        isClickOutsideClose: false,
+      });
+    });
+  };
+
   return (
     <Controller
       name={name}
@@ -84,6 +113,7 @@ export function UploadPhotoFormField({
                 field.onChange(file);
                 onChange(file);
               }}
+              onBeforeChange={handleCropImage}
               placeholderIcon={placeholderIcon}
             />
 
