@@ -25,6 +25,7 @@ type FormattedDatePickerFormField = Omit<
   mode: "single" | "multiple" | "range";
   onChange?: ((value: Date | Date[]) => void) | ((range: DateRange) => void);
   onCalendarClose?: () => void;
+  onCalendarClear?: () => void;
   yearBefore?: number;
   yearAfter?: number;
   disabledDate?: Matcher | Matcher[];
@@ -55,6 +56,7 @@ export function DatePickerFormField({
   menuPlacement = "auto",
   locale,
   numerals,
+  onCalendarClear,
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -156,6 +158,7 @@ export function DatePickerFormField({
                       } else if (mode === "range") {
                         field.onChange({ from: null, to: null });
                       }
+                      onCalendarClear?.();
                     }}
                   />
                 </Fieldset.Icon>
