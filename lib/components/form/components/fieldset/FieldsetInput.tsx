@@ -20,6 +20,7 @@ interface FieldsetInputProps {
   defaultValue?: any;
   suffix?: string;
   prefix?: string;
+  isSuffixPrefixTransparent?: boolean;
   autoUppercase?: boolean;
 }
 
@@ -40,6 +41,7 @@ export function FieldsetInput({
   defaultValue,
   suffix,
   prefix,
+  isSuffixPrefixTransparent = false,
   autoUppercase = false,
 }: Readonly<FieldsetInputProps>) {
   const [isFocus, setIsFocus] = useState<boolean>(false);
@@ -93,6 +95,7 @@ export function FieldsetInput({
           isMedium={isMedium}
           isSmall={isSmall}
           type="prefix"
+          isTransparent={isSuffixPrefixTransparent}
         >
           {prefix}
         </PrefixSuffix>
@@ -154,6 +157,7 @@ export function FieldsetInput({
           isMedium={isMedium}
           isSmall={isSmall}
           type="suffix"
+          isTransparent={isSuffixPrefixTransparent}
         >
           {suffix}
         </PrefixSuffix>
@@ -169,6 +173,7 @@ function PrefixSuffix({
   isSmall,
   type,
   children,
+  isTransparent = false,
 }: {
   isFocus: boolean;
   isLarge: boolean;
@@ -176,6 +181,7 @@ function PrefixSuffix({
   isSmall: boolean;
   type: "prefix" | "suffix";
   children: React.ReactNode;
+  isTransparent?: boolean;
 }) {
   const isPrefix = type === "prefix";
   const isSuffix = type === "suffix";
@@ -183,19 +189,21 @@ function PrefixSuffix({
   return (
     <div
       className={cn(
-        "bg-primary-50 border-primary-600/20 flex h-full w-fit items-center justify-center border",
+        "border-secondary-100 bg-neutral-0 flex h-full w-fit items-center justify-center border border-l-0",
         {
           "border-(--fieldset-border-color--focus)": isFocus,
           "rounded-r-md": isSuffix,
           "rounded-l-md": isPrefix,
+          "bg-primary-50 border-primary-600/20 border": !isTransparent,
         },
       )}
     >
       <span
-        className={cn("text-b4-400 text-primary-600 px-[0.8125em]", {
+        className={cn("text-b4-400 px-[0.8125em]", {
           "text-b2-400 placeholder:text-b2-400": isLarge,
           "text-b3-400 placeholder:text-b3-400": isMedium,
           "text-b4-400 placeholder:text-b4-400": isSmall,
+          "text-primary-600": !isTransparent,
         })}
       >
         {children}

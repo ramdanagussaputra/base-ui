@@ -13,6 +13,7 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   endElement?: React.ReactNode;
   suffix?: string;
   prefix?: string;
+  isSuffixPrefixTransparent?: boolean;
   noWhitespace?: boolean;
   autoUppercase?: boolean;
   // New validation props
@@ -48,6 +49,7 @@ export function TextFormField({
   endElement,
   suffix,
   prefix,
+  isSuffixPrefixTransparent = false,
   noWhitespace = false,
   autoUppercase = false,
   hint = "",
@@ -246,6 +248,7 @@ export function TextFormField({
             lengthCap={maxLength}
             prefix={prefix}
             suffix={suffix}
+            isSuffixPrefixTransparent={isSuffixPrefixTransparent}
             autoUppercase={autoUppercase}
           >
             <div className="flex items-center gap-1">{endElement}</div>
