@@ -12,20 +12,21 @@ export function ActionButtons({
   isProcessing,
 }: Readonly<ActionButtonsProps>) {
   return (
-    <div className="flex gap-2">
+    <div className="flex w-full justify-between gap-2">
       <Button
         variant="outline"
         color="secondary"
-        size="medium"
+        size="small"
         onClick={onCancel}
         isDisabled={isProcessing}
       >
         Cancel
       </Button>
+
       <Button
         variant="solid"
         color="primary"
-        size="medium"
+        size="small"
         onClick={onSave}
         isLoading={isProcessing}
         isDisabled={isProcessing}

@@ -105,43 +105,44 @@ export function ImageCropModal({
       </div>
 
       {/* Controls */}
-      <div className="border-secondary-100 flex flex-col gap-4 border-t px-6 py-4">
-        {toggleAspectRatio && (
-          <AspectRatioToggle
-            currentValue={aspectRatio}
-            onChange={setAspectRatio}
-          />
-        )}
-
-        <div className="flex w-full items-center justify-between gap-5 px-5">
-          <div className="grid w-full grid-cols-2 items-center gap-5">
-            <SliderControl
-              label="Zoom"
-              value={zoom}
-              min={ZOOM_CONFIG.min}
-              max={ZOOM_CONFIG.max}
-              step={ZOOM_CONFIG.step}
-              onChange={setZoom}
+      <div className="border-secondary-100 flex flex-col gap-4 border-t">
+        <div className="px-6 pt-4">
+          {toggleAspectRatio && (
+            <AspectRatioToggle
+              currentValue={aspectRatio}
+              onChange={setAspectRatio}
             />
+          )}
 
-            <SliderControl
-              label="Rotation"
-              value={rotation}
-              min={ROTATION_CONFIG.min}
-              max={ROTATION_CONFIG.max}
-              step={ROTATION_CONFIG.step}
-              onChange={setRotation}
-            />
-          </div>
+          <div className="flex w-full items-center justify-between gap-5 px-5">
+            <div className="grid w-full grid-cols-2 items-center gap-5">
+              <SliderControl
+                label="Zoom"
+                value={zoom}
+                min={ZOOM_CONFIG.min}
+                max={ZOOM_CONFIG.max}
+                step={ZOOM_CONFIG.step}
+                onChange={setZoom}
+              />
 
-          <div className="flex gap-3">
-            <FlipButton onClick={toggleFlipHorizontal} icon="horizontal" />
-            <FlipButton onClick={toggleFlipVertical} icon="vertical" />
+              <SliderControl
+                label="Rotation"
+                value={rotation}
+                min={ROTATION_CONFIG.min}
+                max={ROTATION_CONFIG.max}
+                step={ROTATION_CONFIG.step}
+                onChange={setRotation}
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <FlipButton onClick={toggleFlipHorizontal} icon="horizontal" />
+              <FlipButton onClick={toggleFlipVertical} icon="vertical" />
+            </div>
           </div>
         </div>
 
-        {/* Flip Controls and Action Buttons */}
-        <div className="flex items-center justify-between pt-2">
+        <div className="border-secondary-100 flex items-center justify-between border-t px-5 py-3.5">
           <ActionButtons
             onCancel={onCancel}
             onSave={handleSave}
