@@ -18,20 +18,19 @@
   }
 
   /* Track styling */
-  .slider-input::-webkit-slider-runnable-track,
-  .slider-input::-moz-range-track {
+  .slider-input::-webkit-slider-runnable-track {
     @apply rounded-full;
     width: 100%;
     height: 4px;
     background: transparent;
   }
 
-  /* .slider-input::-moz-range-track {
+  .slider-input::-moz-range-track {
     @apply rounded-full;
     width: 100%;
     height: 4px;
     background: transparent;
-  } */
+  }
 
   /* Progress fill for Firefox */
   .slider-input::-moz-range-progress {
