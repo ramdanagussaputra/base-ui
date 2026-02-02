@@ -11,8 +11,8 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   onChange?: (value: string) => void;
   onBlur?: () => void;
   endElement?: React.ReactNode;
-  suffix?: string;
-  prefix?: string;
+  suffix?: string | React.ReactNode;
+  prefix?: string | React.ReactNode;
   isSuffixPrefixTransparent?: boolean;
   noWhitespace?: boolean;
   autoUppercase?: boolean;

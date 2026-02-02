@@ -18,8 +18,8 @@ interface FieldsetInputProps {
   tabIndex?: number;
   id?: string;
   defaultValue?: any;
-  suffix?: string;
-  prefix?: string;
+  suffix?: string | React.ReactNode;
+  prefix?: string | React.ReactNode;
   isSuffixPrefixTransparent?: boolean;
   autoUppercase?: boolean;
 }
