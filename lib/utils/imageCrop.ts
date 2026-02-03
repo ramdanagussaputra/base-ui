@@ -85,6 +85,10 @@ export async function getCroppedImg(
     croppedAreaPixels.height,
   );
 
+  const mimeType = fileName.toLowerCase().endsWith(".png")
+    ? "image/png"
+    : "image/jpeg";
+
   return new Promise((resolve, reject) => {
     croppedCanvas.toBlob(
       (blob) => {
@@ -93,12 +97,12 @@ export async function getCroppedImg(
           return;
         }
         const file = new File([blob], fileName, {
-          type: "image/jpeg",
+          type: mimeType,
           lastModified: Date.now(),
         });
         resolve(file);
       },
-      "image/jpeg",
+      mimeType,
       0.92,
     );
   });

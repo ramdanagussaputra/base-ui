@@ -1,13 +1,15 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { Camera, Edit2, User } from "iconsax-react";
 
 import Icon from "#/components/icon/Icon";
 
+import { cn } from "#/utils";
+
 interface FieldsetUploadPhotoProps {
   accept?: string;
   placeholderIcon?: React.ReactNode;
-  value?: File | null;
+  value?: File | string | null;
   onChange?: (file: File | null) => void;
   onBeforeChange?: (file: File) => Promise<File | null>;
 }
@@ -66,6 +68,26 @@ export function FieldsetUploadPhoto({
     );
   };
 
+  const isPng = useMemo(() => {
+    if (!value) return false;
+
+    if (value instanceof File) {
+      return (
+        value.type === "image/png" || value.name.toLowerCase().endsWith(".png")
+      );
+    }
+
+    if (typeof value === "string") {
+      return (
+        value.toLowerCase().includes(".png") ||
+        value.startsWith("data:image/png")
+      );
+    }
+
+    return false;
+  }, [value]);
+
+
   return (
     <div className="group w-fit">
       <input
@@ -77,7 +99,10 @@ export function FieldsetUploadPhoto({
       />
       <button
         type="button"
-        className="bg-secondary-100 relative flex size-[12.75rem] cursor-pointer items-center justify-center rounded-xl"
+        className={cn(
+          "relative flex size-[12.75rem] cursor-pointer items-center justify-center rounded-xl",
+          isPng ? "bg-neutral-0 border-1 border-secondary-100" : "bg-secondary-100",
+        )}
         onClick={handleOpenFile}
       >
         {renderImage()}

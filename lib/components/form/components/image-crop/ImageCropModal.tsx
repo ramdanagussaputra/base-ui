@@ -99,6 +99,10 @@ export function ImageCropModal({
               onZoomChange={setZoom}
               onRotationChange={setRotation}
               onCropComplete={handleCropComplete}
+              classes={{
+                containerClassName: "bg-neutral-900/50",
+                mediaClassName: "bg-neutral-0",
+              }}
             />
           )
         )}
