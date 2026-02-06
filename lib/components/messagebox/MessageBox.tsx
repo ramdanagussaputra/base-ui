@@ -12,8 +12,8 @@ export function MessageBox({
   onClose,
   icon,
 }: Readonly<{
-  variant?: "success" | "info" | "warning" | "error" | 'secondary';
-  title: string;
+  variant?: "success" | "info" | "warning" | "error" | "secondary";
+  title?: string;
   children: React.ReactNode;
   action?: React.ReactNode;
   onClose?: () => void;
@@ -52,12 +52,24 @@ export function MessageBox({
         {icon}
       </Slot>
 
-      <div className="flex flex-1 flex-col gap-1">
-        <h6 className={cn("text-b2-600 text-[var(--messagebox-title-color)]")}>
-          {title}
-        </h6>
+      <div
+        className={cn("flex flex-1 flex-col gap-1", {
+          "gap-0!": !title,
+        })}
+      >
+        {title && (
+          <h6
+            className={cn("text-b2-600 text-[var(--messagebox-title-color)]")}
+          >
+            {title}
+          </h6>
+        )}
 
-        <div className={cn("text-b3-400 text-[var(--messagebox-description-color)]")}>
+        <div
+          className={cn(
+            "text-b3-400 text-[var(--messagebox-description-color)]",
+          )}
+        >
           {children}
         </div>
       </div>
