@@ -9,7 +9,7 @@ import { FieldsetSelectSongOptionComponent } from "#/components/form/components/
 
 type SelectSongOptions = FieldsetSelectOption & {
   secondLabel: string;
-  imageUrl: string;
+  imageUrl?: string;
 };
 
 interface AsyncSelectSongFormFieldProps

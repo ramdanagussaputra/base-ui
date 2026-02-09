@@ -9,7 +9,7 @@ export function FieldsetSelectSongOptionComponent(
 ) {
   const data = props.data as FieldsetSelectOption & {
     secondLabel: string;
-    imageUrl: string;
+    imageUrl?: string;
   };
 
   return (
@@ -18,11 +18,13 @@ export function FieldsetSelectSongOptionComponent(
       className="flex! items-center justify-between px-2! py-2.5!"
     >
       <div className="flex items-center gap-2">
-        <img
-          src={data.imageUrl}
-          alt={`Artwork ${data.label}`}
-          className="border-secondary-100 size-[2.25rem] rounded-md border"
-        />
+        {data?.imageUrl && (
+          <img
+            src={data.imageUrl}
+            alt={`Artwork ${data.label}`}
+            className="border-secondary-100 size-[2.25rem] rounded-md border"
+          />
+        )}
         <div className="flex flex-col gap-1">
           <span className="text-secondary-900 text-[0.8125rem] leading-[1.25rem] font-normal! hover:font-normal!">
             {data.label}

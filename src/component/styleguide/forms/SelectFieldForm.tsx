@@ -109,6 +109,12 @@ function SelectFieldForm() {
               imageUrl: "https://i.pravatar.cc/301",
               value: "option-2",
             },
+            {
+              label: "Pupus",
+              secondLabel: "Dewa 19",
+              // imageUrl: "https://i.pravatar.cc/302",
+              value: "option-3",
+            },
           ]}
           placeholder="Placeholder"
           label="Select Song"
