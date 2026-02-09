@@ -4,7 +4,7 @@ import { Area } from "react-easy-crop";
 import { FlipState, createFlippedImageUrl } from "#/utils/imageCrop";
 
 const ZOOM_CONFIG = { min: 1, max: 3, step: 0.1 };
-const ROTATION_CONFIG = { min: 0, max: 360, step: 1 };
+const ROTATION_CONFIG = { min: -180, max: 180, step: 1 };
 const CROPPER_READY_DELAY_MS = 500;
 
 export { ZOOM_CONFIG, ROTATION_CONFIG };
@@ -16,7 +16,7 @@ export function useImageCropState(
   const [displayImageUrl, setDisplayImageUrl] = useState(imageSrc);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(ZOOM_CONFIG.min);
-  const [rotation, setRotation] = useState(ROTATION_CONFIG.min);
+  const [rotation, setRotation] = useState(0);
   const [aspectRatio, setAspectRatio] = useState<number | undefined>(undefined);
   const [flip, setFlip] = useState<FlipState>({
     horizontal: false,
@@ -24,6 +24,17 @@ export function useImageCropState(
   });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [isReady, setIsReady] = useState(false);
+
+  // Derived state for zoom percentage
+  // Using a 0–100 zoom range results in an overly aggressive zoom scale
+  const zoomPercentage =
+    ((zoom - ZOOM_CONFIG.min) / (ZOOM_CONFIG.max - ZOOM_CONFIG.min)) * 100;
+  const setZoomPercentage = (percentage: number) => {
+    const newZoom =
+      ZOOM_CONFIG.min +
+      (percentage / 100) * (ZOOM_CONFIG.max - ZOOM_CONFIG.min);
+    setZoom(newZoom);
+  };
 
   // Delay cropper rendering to ensure proper layout calculation
   useEffect(() => {
@@ -88,5 +99,8 @@ export function useImageCropState(
     handleCropComplete,
     toggleFlipHorizontal,
     toggleFlipVertical,
+    // Derived
+    zoomPercentage,
+    setZoomPercentage,
   };
 }

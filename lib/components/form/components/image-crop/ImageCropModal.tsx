@@ -3,7 +3,11 @@ import Cropper from "react-easy-crop";
 
 import { getCroppedImg } from "#/utils/imageCrop";
 
-import { useImageCropState, ZOOM_CONFIG, ROTATION_CONFIG } from "./hooks";
+import {
+  useImageCropState,
+  ZOOM_CONFIG,
+  ROTATION_CONFIG,
+} from "#/components/form/components/image-crop/hooks/useImageCropState";
 import {
   ModalHeader,
   LoadingState,
@@ -11,7 +15,9 @@ import {
   SliderControl,
   FlipButton,
   ActionButtons,
-} from "./components";
+  TwoWaySliderControl,
+} from "#/components/form/components/image-crop/components";
+import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
 interface ImageCropModalProps {
   /** Image source as Data URL or URL string */
@@ -54,6 +60,8 @@ export function ImageCropModal({
     handleCropComplete,
     toggleFlipHorizontal,
     toggleFlipVertical,
+    zoomPercentage,
+    setZoomPercentage,
   } = useImageCropState(imageSrc, initialAspectRatio);
 
   const handleSave = async () => {
@@ -77,6 +85,10 @@ export function ImageCropModal({
   };
 
   const shouldShowCropper = isReady && aspectRatio !== undefined;
+
+  const [rotationTemp, setRotationTemp] = useState<number | string>(rotation);
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), max);
 
   return (
     <div className="bg-neutral-0 flex w-full flex-col rounded-2xl">
@@ -120,23 +132,95 @@ export function ImageCropModal({
 
           <div className="flex w-full items-center justify-between gap-5 px-5">
             <div className="grid w-full grid-cols-2 items-center gap-5">
-              <SliderControl
-                label="Zoom"
-                value={zoom}
-                min={ZOOM_CONFIG.min}
-                max={ZOOM_CONFIG.max}
-                step={ZOOM_CONFIG.step}
-                onChange={setZoom}
-              />
+              <div className="flex flex-col gap-1">
+                <label className="text-b3-500 text-secondary-800 min-w-[60px] uppercase">
+                  ZOOM
+                </label>
+                <div className="flex items-center gap-3">
+                  <SliderControl
+                    label=""
+                    value={zoom}
+                    min={ZOOM_CONFIG.min}
+                    max={ZOOM_CONFIG.max}
+                    step={ZOOM_CONFIG.step}
+                    onChange={setZoom}
+                  />
+                  <Fieldset className="w-[5.5rem]">
+                    <Fieldset.TextInput
+                      placeholder=""
+                      type="number"
+                      value={zoomPercentage?.toFixed(0)}
+                      onChange={(val) => {
+                        const numberVal = Number(val);
 
-              <SliderControl
-                label="Rotation"
-                value={rotation}
-                min={ROTATION_CONFIG.min}
-                max={ROTATION_CONFIG.max}
-                step={ROTATION_CONFIG.step}
-                onChange={setRotation}
-              />
+                        const clamped = clamp(numberVal, 0, 100);
+                        setZoomPercentage(clamped);
+                      }}
+                    />
+                  </Fieldset>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-b3-500 text-secondary-800 min-w-[60px] uppercase">
+                  ROTATION
+                </label>
+
+                <div className="flex items-center gap-3">
+                  <TwoWaySliderControl
+                    label=""
+                    value={rotation}
+                    min={ROTATION_CONFIG.min}
+                    max={ROTATION_CONFIG.max}
+                    step={ROTATION_CONFIG.step}
+                    onChange={(val) => {
+                      setRotationTemp(val);
+                      setRotation(val);
+                    }}
+                  />
+                  <Fieldset className="w-[5.4rem]">
+                    <Fieldset.TextInput
+                      placeholder=""
+                      type="text"
+                      value={String(rotationTemp)}
+                      onChange={(val) => {
+                        // Allow:
+                        // "" (empty)
+                        // "-"
+                        // "-123"
+                        // "123"
+                        if (!/^-?\d*$/.test(val)) return;
+
+                        setRotationTemp(val);
+
+                        // Kalau cuma "-" atau kosong, jangan diparse dulu
+                        if (val === "" || val === "-") return;
+
+                        const parsed = Number(val);
+                        if (isNaN(parsed)) return;
+
+                        const clamped = clamp(
+                          parsed,
+                          ROTATION_CONFIG.min,
+                          ROTATION_CONFIG.max,
+                        );
+
+                        setRotationTemp(String(clamped));
+                        setRotation(clamped);
+                      }}
+                      onBlur={() => {
+                        if (
+                          rotationTemp === "" ||
+                          rotationTemp === "-" ||
+                          isNaN(Number(rotationTemp))
+                        ) {
+                          setRotationTemp(String(rotation));
+                        }
+                      }}
+                    />
+                  </Fieldset>
+                </div>
+              </div>
             </div>
 
             <div className="flex gap-3">
