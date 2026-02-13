@@ -5,6 +5,7 @@ import {
   UseFormSetError,
   UseFormClearErrors,
   FormState,
+  get,
 } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
@@ -52,7 +53,7 @@ export function UploadPhotoFormField({
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const fieldError = formState.errors[name];
+  const fieldError = get(formState.errors, name);
 
   // Auto-clear error after 5 seconds
   useEffect(() => {
