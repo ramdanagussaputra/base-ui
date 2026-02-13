@@ -7,7 +7,7 @@ import {
 import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 
 function UploadPhotoFieldForm() {
-  const { control, watch } = useFormContext();
+  const { control, watch, setError, clearErrors, formState } = useFormContext();
 
   const photos = watch("photos");
 
@@ -26,6 +26,9 @@ function UploadPhotoFieldForm() {
           label="Upload Photo"
           maxSize={1 * 1024 * 1024}
           accept=".jpg,.jpeg,.png"
+          setError={setError}
+          clearErrors={clearErrors}
+          formState={formState}
           footerElement={
             <div className="[&>span]:text-b4-400 [&>span]:text-secondary-500 flex items-center justify-between">
               <span>*Up to 1MB</span>
@@ -41,6 +44,9 @@ function UploadPhotoFieldForm() {
           maxFiles={3}
           maxSize={1 * 1024 * 1024}
           accept=".jpg,.jpeg,.png"
+          setError={setError}
+          clearErrors={clearErrors}
+          formState={formState}
           footerElement={
             <div className="[&>span]:text-b4-400 [&>span]:text-secondary-500 flex items-center justify-between">
               <span>*Up to 1MB</span>

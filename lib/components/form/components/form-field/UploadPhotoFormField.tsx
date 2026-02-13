@@ -1,6 +1,11 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  UseFormSetError,
+  UseFormClearErrors,
+  FormState,
+} from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
@@ -21,6 +26,9 @@ type UploadPhotoFormFieldProps = Omit<
   placeholderIcon?: React.ReactNode;
   footerElement?: React.ReactNode;
   maxSize?: number;
+  setError: UseFormSetError<any>;
+  clearErrors: UseFormClearErrors<any>;
+  formState: FormState<any>;
 };
 
 export function UploadPhotoFormField({
@@ -37,8 +45,10 @@ export function UploadPhotoFormField({
   placeholderIcon,
   footerElement: endElement,
   maxSize = 1 * 1024 * 1024,
+  setError,
+  clearErrors,
+  formState,
 }: Readonly<UploadPhotoFormFieldProps>) {
-  const { setError, clearErrors, formState } = useFormContext();
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 

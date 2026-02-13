@@ -1,6 +1,11 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  UseFormSetError,
+  UseFormClearErrors,
+  FormState,
+} from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
@@ -22,6 +27,9 @@ type MultipleUploadPhotoFormFieldProps = Omit<
   footerElement?: React.ReactNode;
   maxFiles?: number;
   maxSize?: number;
+  setError: UseFormSetError<any>;
+  clearErrors: UseFormClearErrors<any>;
+  formState: FormState<any>;
 };
 
 export function MultipleUploadPhotoFormField({
@@ -39,8 +47,10 @@ export function MultipleUploadPhotoFormField({
   footerElement: endElement,
   maxFiles = 3,
   maxSize = 1 * 1024 * 1024,
+  setError,
+  clearErrors,
+  formState,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
-  const { setError, clearErrors, formState } = useFormContext();
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
