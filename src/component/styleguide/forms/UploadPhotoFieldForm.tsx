@@ -24,6 +24,7 @@ function UploadPhotoFieldForm() {
           control={control}
           name="photo"
           label="Upload Photo"
+          maxSize={1 * 1024 * 1024}
           accept=".jpg,.jpeg,.png"
           footerElement={
             <div className="[&>span]:text-b4-400 [&>span]:text-secondary-500 flex items-center justify-between">
@@ -38,6 +39,7 @@ function UploadPhotoFieldForm() {
           name="photos"
           label="Upload Multiple Photos"
           maxFiles={3}
+          maxSize={1 * 1024 * 1024}
           accept=".jpg,.jpeg,.png"
           footerElement={
             <div className="[&>span]:text-b4-400 [&>span]:text-secondary-500 flex items-center justify-between">

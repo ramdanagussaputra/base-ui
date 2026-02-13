@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { Add } from "iconsax-react";
 
@@ -12,6 +12,9 @@ interface FieldsetUploadPhotoAdditionalProps {
   onChange?: (file: File | null) => void;
   onBeforeChange?: (file: File) => Promise<File | null>;
   className?: string;
+  maxSize?: number; // in bytes
+  setError?: (message: string | null) => void;
+  customMaxSizeMessage?: string;
 }
 
 export function FieldsetUploadPhotoAdditional({
@@ -21,6 +24,9 @@ export function FieldsetUploadPhotoAdditional({
   onChange,
   onBeforeChange,
   className,
+  maxSize,
+  setError,
+  customMaxSizeMessage = "One or more images are too large",
 }: Readonly<FieldsetUploadPhotoAdditionalProps>) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
@@ -30,15 +36,46 @@ export function FieldsetUploadPhotoAdditional({
     }
   };
 
+  // Cleanup blob URLs on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (value && typeof value !== "string") {
+        const url = URL.createObjectURL(value);
+        URL.revokeObjectURL(url);
+      }
+    };
+  }, [value]);
+
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const selectedFile = event.target.files?.[0] || null;
 
-    if (selectedFile && onBeforeChange) {
+    if (!selectedFile) {
+      if (inputFileRef.current) {
+        inputFileRef.current.value = "";
+      }
+      return;
+    }
+
+    // Validate file size first, regardless of onBeforeChange
+    if (maxSize && selectedFile.size > maxSize) {
+      if (inputFileRef.current) {
+        inputFileRef.current.value = "";
+      }
+      setError?.(customMaxSizeMessage);
+      return;
+    }
+
+    // Process file through onBeforeChange if provided
+    if (onBeforeChange) {
       const processedFile = await onBeforeChange(selectedFile);
+      if (processedFile) {
+        setError?.(null);
+      }
       onChange?.(processedFile);
-    } else if (selectedFile) {
+    } else {
+      setError?.(null);
       onChange?.(selectedFile);
     }
 

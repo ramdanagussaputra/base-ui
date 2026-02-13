@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { Camera, Edit2, User } from "iconsax-react";
 
@@ -12,6 +12,9 @@ interface FieldsetUploadPhotoProps {
   value?: File | string | null;
   onChange?: (file: File | null) => void;
   onBeforeChange?: (file: File) => Promise<File | null>;
+  maxSize?: number; // in bytes
+  setError?: (message: string | null) => void;
+  customMaxSizeMessage?: string;
 }
 
 export function FieldsetUploadPhoto({
@@ -20,6 +23,9 @@ export function FieldsetUploadPhoto({
   value,
   onChange,
   onBeforeChange,
+  maxSize,
+  setError,
+  customMaxSizeMessage = "Image is too large",
 }: Readonly<FieldsetUploadPhotoProps>) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
@@ -34,10 +40,31 @@ export function FieldsetUploadPhoto({
   ) => {
     const selectedFile = event.target.files?.[0] || null;
 
-    if (selectedFile && onBeforeChange) {
+    if (!selectedFile) {
+      if (inputFileRef.current) {
+        inputFileRef.current.value = "";
+      }
+      return;
+    }
+
+    // Validate file size first, regardless of onBeforeChange
+    if (maxSize && selectedFile.size > maxSize) {
+      if (inputFileRef.current) {
+        inputFileRef.current.value = "";
+      }
+      setError?.(customMaxSizeMessage);
+      return;
+    }
+
+    // Process file through onBeforeChange if provided
+    if (onBeforeChange) {
       const processedFile = await onBeforeChange(selectedFile);
+      if (processedFile) {
+        setError?.(null);
+      }
       onChange?.(processedFile);
-    } else if (selectedFile) {
+    } else {
+      setError?.(null);
       onChange?.(selectedFile);
     }
 
@@ -87,6 +114,15 @@ export function FieldsetUploadPhoto({
     return false;
   }, [value]);
 
+  // Cleanup blob URLs on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (value && typeof value !== "string") {
+        const url = URL.createObjectURL(value);
+        URL.revokeObjectURL(url);
+      }
+    };
+  }, [value]);
 
   return (
     <div className="group w-fit">
@@ -101,7 +137,9 @@ export function FieldsetUploadPhoto({
         type="button"
         className={cn(
           "relative flex size-[12.75rem] cursor-pointer items-center justify-center rounded-xl",
-          isPng ? "bg-neutral-0 border-1 border-secondary-100" : "bg-secondary-100",
+          isPng
+            ? "bg-neutral-0 border-secondary-100 border-1"
+            : "bg-secondary-100",
         )}
         onClick={handleOpenFile}
       >

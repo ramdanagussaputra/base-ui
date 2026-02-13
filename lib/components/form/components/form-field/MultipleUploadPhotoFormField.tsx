@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
 
@@ -39,6 +39,7 @@ export function MultipleUploadPhotoFormField({
   maxFiles = 3,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<MultipleUploadPhotoFormFieldProps>) {
+  const { setError, clearErrors } = useFormContext();
   const { showModal, closeModal } = useModal();
 
   const handleCropImage = async (file: File): Promise<File | null> => {
@@ -76,15 +77,6 @@ export function MultipleUploadPhotoFormField({
           message: `${fieldName || label} is required`,
         },
         validate: {
-          maxSize: (files: File[] | null) => {
-            if (!files || files.length === 0) return true;
-            for (const file of files) {
-              if (file.size > maxSize) {
-                return "One or more images are too large";
-              }
-            }
-            return true;
-          },
           fileExtension: (files: (File | string)[] | null) => {
             if (!files || files.length === 0) return true;
             for (const file of files) {
@@ -149,6 +141,15 @@ export function MultipleUploadPhotoFormField({
                 }
                 onBeforeChange={handleCropImage}
                 value={currentFiles[slotIndex] || null}
+                maxSize={maxSize}
+                setError={(message) => {
+                  if (message) {
+                    setError(name, { type: "manual", message });
+                  } else {
+                    clearErrors(name);
+                  }
+                }}
+                customMaxSizeMessage="One or more images are too large"
               />
             );
           },
@@ -174,6 +175,15 @@ export function MultipleUploadPhotoFormField({
                   onChange={handleMainUpload}
                   onBeforeChange={handleCropImage}
                   placeholderIcon={placeholderIcon}
+                  maxSize={maxSize}
+                  setError={(message) => {
+                    if (message) {
+                      setError(name, { type: "manual", message });
+                    } else {
+                      clearErrors(name);
+                    }
+                  }}
+                  customMaxSizeMessage="One or more images are too large"
                 />
                 {maxFiles > 1 && field?.value?.length > 0 && (
                   <div className="grid w-fit grid-cols-2 gap-3">

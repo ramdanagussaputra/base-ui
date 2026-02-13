@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
 
@@ -37,6 +37,7 @@ export function UploadPhotoFormField({
   footerElement: endElement,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<UploadPhotoFormFieldProps>) {
+  const { setError, clearErrors } = useFormContext();
   const { showModal, closeModal } = useModal();
 
   const handleCropImage = async (file: File): Promise<File | null> => {
@@ -74,13 +75,6 @@ export function UploadPhotoFormField({
           message: `${fieldName || label} is required`,
         },
         validate: {
-          maxSize: (file: File | null) => {
-            if (!file) return true;
-            if (file.size > maxSize) {
-              return "Image is too large";
-            }
-            return true;
-          },
           fileExtension: (file: File | string | null) => {
             if (!file) return true;
             // Skip validation if value is a URL string (pre-uploaded image)
@@ -115,6 +109,14 @@ export function UploadPhotoFormField({
               }}
               onBeforeChange={handleCropImage}
               placeholderIcon={placeholderIcon}
+              maxSize={maxSize}
+              setError={(message) => {
+                if (message) {
+                  setError(name, { type: "manual", message });
+                } else {
+                  clearErrors(name);
+                }
+              }}
             />
 
             {endElement}
