@@ -1,6 +1,7 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
 import { Controller, useFormContext } from "react-hook-form";
+import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
 import { Warning2 } from "iconsax-react";
 
@@ -37,8 +38,36 @@ export function UploadPhotoFormField({
   footerElement: endElement,
   maxSize = 1 * 1024 * 1024,
 }: Readonly<UploadPhotoFormFieldProps>) {
-  const { setError, clearErrors } = useFormContext();
+  const { setError, clearErrors, formState } = useFormContext();
   const { showModal, closeModal } = useModal();
+  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const fieldError = formState.errors[name];
+
+  // Auto-clear error after 5 seconds
+  useEffect(() => {
+    // Clear any existing timeout
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+      errorTimeoutRef.current = null;
+    }
+
+    // Set new timeout if there's an error
+    if (fieldError) {
+      errorTimeoutRef.current = setTimeout(() => {
+        clearErrors(name);
+        errorTimeoutRef.current = null;
+      }, 5000);
+    }
+
+    // Cleanup on unmount or when error changes
+    return () => {
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+        errorTimeoutRef.current = null;
+      }
+    };
+  }, [fieldError, name, clearErrors]);
 
   const handleCropImage = async (file: File): Promise<File | null> => {
     const imageSrc = await readFileAsDataURL(file);
