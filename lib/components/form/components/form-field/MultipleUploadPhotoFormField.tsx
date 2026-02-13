@@ -183,7 +183,11 @@ export function MultipleUploadPhotoFormField({
                       clearErrors(name);
                     }
                   }}
-                  customMaxSizeMessage="One or more images are too large"
+                  customMaxSizeMessage={
+                    currentFiles?.length > 0
+                      ? "One or more images are too large"
+                      : "Image is too large"
+                  }
                 />
                 {maxFiles > 1 && field?.value?.length > 0 && (
                   <div className="grid w-fit grid-cols-2 gap-3">
