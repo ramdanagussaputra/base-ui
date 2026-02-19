@@ -97,7 +97,8 @@ export function FieldsetCalendar(props: FieldsetCalendarProps) {
   const isRangeMode = mode === "range";
   const isRangeWithDifferentDates =
     isRangeMode &&
-    (date as DateRange)?.to?.getTime() !== (date as DateRange)?.from?.getTime();
+    (date as DateRange)?.to?.toDateString() !==
+      (date as DateRange)?.from?.toDateString();
 
   const formatMonthLabel = (label: string | undefined) => {
     if (!label) return "Month";
