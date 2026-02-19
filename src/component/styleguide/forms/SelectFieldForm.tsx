@@ -49,6 +49,7 @@ function SelectFieldForm() {
           label="Range Date Picker"
           name="rangeDate"
           placeholder="DD/MM/YYYY"
+          useEndOfDayForRangeEnd
         />
 
         <SelectFormField

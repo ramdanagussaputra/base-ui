@@ -11,6 +11,7 @@ import { useCalendarState } from "#/components/form/hook/useCalendarState";
 import { useCalendarPosition } from "#/components/form/hook/useCalendarPosition";
 
 import { cn } from "#/utils";
+import { endOfDay } from "date-fns";
 
 // Constants
 const DEFAULT_PLACEHOLDER = "DD/MM/YYYY";
@@ -33,6 +34,7 @@ type FormattedDatePickerFormField = Omit<
   menuPlacement?: MenuPlacement;
   locale?: "enUS" | "id" | "fr";
   numerals?: Numerals;
+  useEndOfDayForRangeEnd?: boolean;
 };
 
 export function DatePickerFormField({
@@ -57,6 +59,7 @@ export function DatePickerFormField({
   locale,
   numerals,
   onCalendarClear,
+  useEndOfDayForRangeEnd = false,
 }: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -180,8 +183,24 @@ export function DatePickerFormField({
                     date={field.value}
                     onChange={(value: any) => {
                       console.log(value);
-                      field.onChange(value);
-                      onChange?.(value);
+                      if (
+                        value?.to &&
+                        value?.from &&
+                        useEndOfDayForRangeEnd &&
+                        mode === "range"
+                      ) {
+                        field.onChange({
+                          from: value.from,
+                          to: endOfDay(value.to),
+                        });
+                        (onChange as (range: DateRange) => void)?.({
+                          from: value.from,
+                          to: endOfDay(value.to),
+                        });
+                      } else {
+                        field.onChange(value);
+                        onChange?.(value);
+                      }
                       handleClose();
                     }}
                     yearBefore={yearBefore}
