@@ -86,6 +86,7 @@ interface FieldsetAsyncPaginateProps {
   maxSelected?: number;
   // Maximum character length for search input
   maxLength?: number;
+  isClearable?: boolean;
 }
 
 export function FieldsetAsyncPaginate({
@@ -121,8 +122,9 @@ export function FieldsetAsyncPaginate({
   maxHeight,
   maxSelected,
   maxLength,
+  isClearable,
 }: Readonly<FieldsetAsyncPaginateProps>) {
-  const { isDisabled, isError, isLarge, isMedium, isSmall } =
+  const { isDisabled, isError, isLarge, isMedium, isSmall, isRequired } =
     useFieldsetContext();
 
   // Calculate max height for multiselect using shared utility
@@ -137,11 +139,11 @@ export function FieldsetAsyncPaginate({
       ? createFieldsetSelectCheckboxOption(checkboxPosition)
       : alreadySelectedValues.length > 0
         ? createFieldsetSelectOptionWithSelectedState({
-            alreadySelectedValues,
-            currentValue: value,
-            showAlreadySelectedText,
-            alreadySelectedText,
-          })
+          alreadySelectedValues,
+          currentValue: value,
+          showAlreadySelectedText,
+          alreadySelectedText,
+        })
         : FieldsetSelectDefaultOptionComponent);
 
   // Check if max selected limit is reached
@@ -154,12 +156,12 @@ export function FieldsetAsyncPaginate({
   // Create custom Input component with maxLength if needed
   const InputComponent = maxLength
     ? (
-        props: InputProps<
-          FieldsetSelectOption,
-          boolean,
-          GroupBase<FieldsetSelectOption>
-        >,
-      ) => <components.Input {...props} maxLength={maxLength} />
+      props: InputProps<
+        FieldsetSelectOption,
+        boolean,
+        GroupBase<FieldsetSelectOption>
+      >,
+    ) => <components.Input {...props} maxLength={maxLength} />
     : undefined;
 
   return (
@@ -191,7 +193,7 @@ export function FieldsetAsyncPaginate({
       loadOptionsOnMenuOpen={loadOptionsOnMenuOpen}
       clearCacheOnSearchChange={clearCacheOnSearchChange}
       clearCacheOnMenuClose={clearCacheOnMenuClose}
-      isClearable={true}
+      isClearable={isClearable ?? !isRequired}
       reloadOnErrorTimeout={reloadOnErrorTimeout}
       isOptionDisabled={(option) => {
         // Disable option if max selected is reached and option is not already selected

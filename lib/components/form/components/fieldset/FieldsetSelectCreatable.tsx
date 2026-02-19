@@ -35,11 +35,11 @@ interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: MultiSelect extends true
-    ? FieldsetSelectOption[] | null
-    : SingleValue<FieldsetSelectOption> | null;
+  ? FieldsetSelectOption[] | null
+  : SingleValue<FieldsetSelectOption> | null;
   value: MultiSelect extends true
-    ? FieldsetSelectOption[] | null
-    : SingleValue<FieldsetSelectOption> | null;
+  ? FieldsetSelectOption[] | null
+  : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -52,6 +52,7 @@ interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   menuPlacement?: MenuPlacement;
   // Multiselect height constraints
   maxHeight?: number | string;
+  isClearable?: boolean;
 }
 
 export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
@@ -71,8 +72,9 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
   onInputChange,
   menuPlacement = "auto",
   maxHeight,
+  isClearable,
 }: Readonly<FieldsetSelectCreatableProps<MultiSelect>>) {
-  const { isDisabled, isError, isLarge, isMedium, isSmall } =
+  const { isDisabled, isError, isLarge, isMedium, isSmall, isRequired } =
     useFieldsetContext();
 
   // Calculate max height for multiselect using shared utility
@@ -83,12 +85,13 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
   return (
     <CreatableSelect
       options={options}
+      isClearable={isClearable ?? !isRequired}
       placeholder={placeholder}
       onChange={(value) => {
         onChange?.(
           value as MultiSelect extends true
-            ? FieldsetSelectOption[]
-            : SingleValue<FieldsetSelectOption>,
+          ? FieldsetSelectOption[]
+          : SingleValue<FieldsetSelectOption>,
         );
       }}
       onBlur={onBlur}

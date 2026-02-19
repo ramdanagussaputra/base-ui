@@ -33,11 +33,11 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: MultiSelect extends true
-    ? FieldsetSelectOption[] | null
-    : SingleValue<FieldsetSelectOption> | null;
+  ? FieldsetSelectOption[] | null
+  : SingleValue<FieldsetSelectOption> | null;
   value: MultiSelect extends true
-    ? FieldsetSelectOption[] | null
-    : SingleValue<FieldsetSelectOption> | null;
+  ? FieldsetSelectOption[] | null
+  : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -55,6 +55,7 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   maxHeight?: number | string;
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
+  isClearable?: boolean;
 }
 
 /**
@@ -84,8 +85,9 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   menuPlacement = "auto",
   maxHeight,
   maxSelected,
+  isClearable,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
-  const { isDisabled, isError, isLarge, isMedium, isSmall } =
+  const { isDisabled, isError, isLarge, isMedium, isSmall, isRequired } =
     useFieldsetContext();
 
   // Create the option component with proper configuration
@@ -112,13 +114,13 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   return (
     <Select
       options={options}
-      isClearable={true}
+      isClearable={isClearable ?? !isRequired}
       placeholder={placeholder}
       onChange={(value) => {
         onChange?.(
           value as MultiSelect extends true
-            ? FieldsetSelectOption[]
-            : SingleValue<FieldsetSelectOption>,
+          ? FieldsetSelectOption[]
+          : SingleValue<FieldsetSelectOption>,
         );
       }}
       onBlur={onBlur}

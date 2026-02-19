@@ -37,6 +37,7 @@ interface AsyncSelectFormFieldProps
   maxHeight?: number | string;
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
+  isClearable?: boolean;
 }
 
 export function AsyncSelectFormField({
@@ -45,7 +46,7 @@ export function AsyncSelectFormField({
   label,
   defaultOptions,
   onChange,
-  onBlur = () => {},
+  onBlur = () => { },
   isSearchable = true,
   isMultiSelect = false,
   defaultValue,
@@ -66,6 +67,7 @@ export function AsyncSelectFormField({
   menuPlacement,
   maxHeight,
   maxSelected,
+  isClearable,
 }: Readonly<AsyncSelectFormFieldProps>) {
   return (
     <Controller
@@ -115,6 +117,7 @@ export function AsyncSelectFormField({
             alreadySelectedText={alreadySelectedText}
             maxHeight={maxHeight}
             maxSelected={maxSelected}
+            isClearable={isClearable}
           >
             {children}
           </Fieldset.AsyncSelect>

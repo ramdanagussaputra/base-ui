@@ -23,8 +23,8 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   isSearchable?: boolean;
   isMultiSelect?: boolean;
   defaultValue?: MultiSelect extends true
-    ? FieldsetSelectOption[]
-    : SingleValue<FieldsetSelectOption> | null;
+  ? FieldsetSelectOption[]
+  : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -42,6 +42,7 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
   hintMessage?: string;
+  isClearable?: boolean;
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -70,6 +71,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   maxHeight,
   maxSelected,
   hintMessage,
+  isClearable,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -115,6 +117,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             alreadySelectedText={alreadySelectedText}
             maxHeight={maxHeight}
             maxSelected={maxSelected}
+            isClearable={isClearable}
           >
             {children}
           </Fieldset.Select>

@@ -56,6 +56,7 @@ interface FieldsetAsyncSelectProps {
   onInputChange?: (newValue: string, actionMeta: InputActionMeta) => void;
   inputValue?: string;
   menuIsOpen?: boolean;
+  isClearable?: boolean;
 }
 
 export function FieldsetAsyncSelect({
@@ -84,8 +85,9 @@ export function FieldsetAsyncSelect({
   onInputChange,
   inputValue,
   menuIsOpen,
+  isClearable,
 }: Readonly<FieldsetAsyncSelectProps>) {
-  const { isDisabled, isError, isLarge, isMedium, isSmall } =
+  const { isDisabled, isError, isLarge, isMedium, isSmall, isRequired } =
     useFieldsetContext();
 
   // Calculate maxHeight for multiselect when specified
@@ -101,11 +103,11 @@ export function FieldsetAsyncSelect({
     children ??
     (alreadySelectedValues.length > 0
       ? createFieldsetSelectOptionWithSelectedState({
-          alreadySelectedValues,
-          currentValue: value,
-          showAlreadySelectedText,
-          alreadySelectedText,
-        })
+        alreadySelectedValues,
+        currentValue: value,
+        showAlreadySelectedText,
+        alreadySelectedText,
+      })
       : FieldsetSelectDefaultOptionComponent);
 
   // Check if max selected limit is reached
@@ -119,6 +121,7 @@ export function FieldsetAsyncSelect({
     <AsyncSelect
       defaultOptions={defaultOptions}
       loadOptions={loadOptions}
+      isClearable={isClearable ?? !isRequired}
       placeholder={placeholder}
       onChange={(value) => {
         onChange?.(value as SingleValue<FieldsetSelectOption>);
