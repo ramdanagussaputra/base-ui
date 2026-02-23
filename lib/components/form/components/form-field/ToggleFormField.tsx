@@ -7,6 +7,7 @@ interface ToggleFormFieldProps {
   control: Control<any>;
   size?: "extra-small" | "small" | "medium" | "large";
   isDisabled?: boolean;
+  onChange?: (value: boolean) => void;
 }
 
 export function ToggleFormField({
@@ -14,14 +15,22 @@ export function ToggleFormField({
   control,
   size,
   isDisabled = false,
+  onChange,
 }: Readonly<ToggleFormFieldProps>) {
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value } }) => (
+      render={({ field: { onChange: fieldOnChange, value } }) => (
         <Fieldset size={size} isDisabled={isDisabled}>
-          <Fieldset.Toggle onChange={onChange} value={value} />
+          <Fieldset.Toggle
+            onChange={(state) => {
+              fieldOnChange(state);
+              // Additional onChange callback for external use
+              onChange?.(state);
+            }}
+            value={value}
+          />
         </Fieldset>
       )}
     />
