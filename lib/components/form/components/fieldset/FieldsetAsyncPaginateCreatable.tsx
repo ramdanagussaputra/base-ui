@@ -159,21 +159,21 @@ export function FieldsetAsyncPaginateCreatable({
       ? createFieldsetSelectCheckboxOption(checkboxPosition)
       : alreadySelectedValues.length > 0
         ? createFieldsetSelectOptionWithSelectedState({
-            alreadySelectedValues,
-            currentValue: value,
-            showAlreadySelectedText,
-            alreadySelectedText,
-          })
+          alreadySelectedValues,
+          currentValue: value,
+          showAlreadySelectedText,
+          alreadySelectedText,
+        })
         : FieldsetSelectDefaultOptionComponent);
 
   // Wrap formatCreateLabel to apply uppercase transformation if autoUppercase is enabled
   const wrappedFormatCreateLabel = autoUppercase
     ? (inputValue: string) => {
-        const upperValue = inputValue.toUpperCase();
-        return formatCreateLabel
-          ? formatCreateLabel(upperValue)
-          : `Create "${upperValue}"`;
-      }
+      const upperValue = inputValue.toUpperCase();
+      return formatCreateLabel
+        ? formatCreateLabel(upperValue)
+        : `Create "${upperValue}"`;
+    }
     : formatCreateLabel;
 
   const creatableProps = {
@@ -212,11 +212,11 @@ export function FieldsetAsyncPaginateCreatable({
       onInputChange={
         autoUppercase
           ? (newValue) => {
-              // Update state with uppercase value
-              const upperValue = newValue.toUpperCase();
-              setInputValue(upperValue);
-              return upperValue;
-            }
+            // Update state with uppercase value
+            const upperValue = newValue.toUpperCase();
+            setInputValue(upperValue);
+            return upperValue;
+          }
           : undefined
       }
       menuPlacement={menuPlacement}
@@ -227,7 +227,9 @@ export function FieldsetAsyncPaginateCreatable({
       closeMenuOnSelect={enableCheckboxes ? false : !isMultiSelect}
       hideSelectedOptions={enableCheckboxes ? false : undefined}
       value={value}
-      menuPortalTarget={menuPortalTarget}
+      menuPortalTarget={menuPortalTarget ?? (typeof document !== "undefined" ? document.body : null)}
+      menuShouldScrollIntoView={false}
+      minMenuHeight={300}
       additional={additional}
       defaultAdditional={defaultAdditional}
       debounceTimeout={debounceTimeout}

@@ -101,8 +101,10 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
       isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement={menuPlacement}
-      menuPortalTarget={menuPortalTarget}
+      menuPortalTarget={menuPortalTarget ?? (typeof document !== "undefined" ? document.body : null)}
       menuPosition="fixed"
+      menuShouldScrollIntoView={false}
+      minMenuHeight={300}
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       onInputChange={onInputChange}

@@ -135,6 +135,8 @@ export function FieldsetAsyncSelect({
       onFocus={onFocus}
       menuPlacement={menuPlacement}
       menuPosition="fixed"
+      menuShouldScrollIntoView={false}
+      minMenuHeight={300}
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       defaultValue={defaultValue}
@@ -142,7 +144,7 @@ export function FieldsetAsyncSelect({
       value={value}
       openMenuOnFocus={openMenuOnFocus}
       openMenuOnClick={openMenuOnClick}
-      menuPortalTarget={menuPortalTarget}
+      menuPortalTarget={menuPortalTarget ?? (typeof document !== "undefined" ? document.body : null)}
       isOptionDisabled={(option) => {
         // Disable option if max selected is reached and option is not already selected
         if (maxLimitReached) {
