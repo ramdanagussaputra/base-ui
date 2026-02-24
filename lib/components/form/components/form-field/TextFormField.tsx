@@ -28,6 +28,9 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   lettersAndNumbersMessage?: string;
   lettersAndNumbersWithSpaces?: boolean;
   lettersAndNumbersWithSpacesMessage?: string;
+  // ASCII validation
+  asciiOnly?: boolean;
+  asciiOnlyMessage?: string;
   showCharacterCount?: boolean;
   hint?: string;
 };
@@ -41,8 +44,8 @@ export function TextFormField({
   control,
   isRequired = false,
   isDisabled = false,
-  onChange = () => {},
-  onBlur = () => {},
+  onChange = () => { },
+  onBlur = () => { },
   type = "text",
   size = "medium",
   withoutTagLabel = false,
@@ -65,16 +68,19 @@ export function TextFormField({
   lettersAndNumbersMessage,
   lettersAndNumbersWithSpaces = false,
   lettersAndNumbersWithSpacesMessage,
+  // ASCII validation
+  asciiOnly = false,
+  asciiOnlyMessage,
   showCharacterCount = false,
 }: Readonly<FormatedFormFieldProps>) {
   const emailValidation =
     type === "email"
       ? {
-          pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Enter a valid email address",
-          },
-        }
+        pattern: {
+          value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          message: "Enter a valid email address",
+        },
+      }
       : {};
 
   // Build additional validation rules based on props
@@ -126,6 +132,20 @@ export function TextFormField({
         formValidations.lettersAndNumbersWithSpaces(
           lettersAndNumbersWithSpacesMessage,
         ),
+      );
+    }
+  }
+  // Add ascii validation
+  else if (asciiOnly) {
+    if (noSpacesValidation) {
+      Object.assign(
+        additionalValidations,
+        formValidations.asciiOnlyNoSpaces(asciiOnlyMessage || noSpacesMessage),
+      );
+    } else {
+      Object.assign(
+        additionalValidations,
+        formValidations.asciiOnly(asciiOnlyMessage),
       );
     }
   }

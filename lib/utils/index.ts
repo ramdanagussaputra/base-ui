@@ -192,6 +192,33 @@ export const formValidations = {
       );
     },
   }),
+
+  /**
+   * Creates a validation rule for ASCII characters only
+   */
+  asciiOnly: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      // eslint-disable-next-line no-control-regex
+      const isAsciiOnly = /^[\x00-\x7F]*$/.test(value);
+      return isAsciiOnly || message || "Only standard (ASCII) characters are allowed";
+    },
+  }),
+
+  /**
+   * Creates a validation rule for ASCII characters only without spaces
+   */
+  asciiOnlyNoSpaces: (message?: string) => ({
+    validate: (value: string) => {
+      if (!value) return true; // Allow empty values
+      // eslint-disable-next-line no-control-regex
+      const isAsciiOnly = /^[\x00-\x7F]*$/.test(value);
+      const hasNoSpaces = !/\s/.test(value);
+      if (!isAsciiOnly) return message || "Only standard (ASCII) characters are allowed";
+      if (!hasNoSpaces) return message || "Spaces are not allowed";
+      return true;
+    },
+  }),
 };
 
 export function formatToShortScale(value: number): string {
