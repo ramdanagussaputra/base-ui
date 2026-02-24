@@ -183,7 +183,9 @@ export function FieldsetAsyncPaginate({
       closeMenuOnSelect={enableCheckboxes ? false : !isMultiSelect}
       hideSelectedOptions={enableCheckboxes ? false : undefined}
       value={value}
-      menuPortalTarget={menuPortalTarget}
+      menuPortalTarget={menuPortalTarget ?? (typeof document !== "undefined" ? document.body : null)}
+      menuShouldScrollIntoView={false}
+      minMenuHeight={300}
       additional={additional}
       defaultAdditional={defaultAdditional}
       debounceTimeout={debounceTimeout}

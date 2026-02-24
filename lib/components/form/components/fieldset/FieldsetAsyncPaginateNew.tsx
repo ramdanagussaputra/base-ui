@@ -100,11 +100,11 @@ export function FieldsetAsyncPaginate({
     children ??
     (alreadySelectedValues.length > 0
       ? createFieldsetSelectOptionWithSelectedState({
-          alreadySelectedValues,
-          currentValue: value,
-          showAlreadySelectedText,
-          alreadySelectedText,
-        })
+        alreadySelectedValues,
+        currentValue: value,
+        showAlreadySelectedText,
+        alreadySelectedText,
+      })
       : FieldsetSelectDefaultOptionComponent);
 
   return (
@@ -120,12 +120,14 @@ export function FieldsetAsyncPaginate({
       onFocus={onFocus}
       menuPlacement="auto"
       menuPosition="fixed"
+      menuPortalTarget={menuPortalTarget ?? (typeof document !== "undefined" ? document.body : null)}
+      menuShouldScrollIntoView={false}
+      minMenuHeight={300}
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
       value={value}
-      menuPortalTarget={menuPortalTarget}
       additional={additional}
       defaultAdditional={defaultAdditional}
       debounceTimeout={debounceTimeout}
