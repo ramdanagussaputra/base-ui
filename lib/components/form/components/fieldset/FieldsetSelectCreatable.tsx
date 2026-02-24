@@ -8,7 +8,10 @@ import {
 
 import CreatableSelect from "react-select/creatable";
 
-import { FieldsetSelectOption } from "#/components/form/model";
+import {
+  FieldsetSelectOption,
+  FieldsetSelectOptionOrGroup,
+} from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
 import { FieldsetSelectDefaultOptionComponent } from "#/components/form/components/fieldset/FieldsetSelectDefaultOptionComponent";
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
@@ -24,7 +27,7 @@ import {
 
 interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   placeholder: string;
-  options: FieldsetSelectOption[];
+  options: FieldsetSelectOptionOrGroup[];
   onChange: (
     value: MultiSelect extends true
       ? FieldsetSelectOption[]
@@ -35,11 +38,11 @@ interface FieldsetSelectCreatableProps<MultiSelect extends boolean = false> {
   isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: MultiSelect extends true
-  ? FieldsetSelectOption[] | null
-  : SingleValue<FieldsetSelectOption> | null;
+    ? FieldsetSelectOption[] | null
+    : SingleValue<FieldsetSelectOption> | null;
   value: MultiSelect extends true
-  ? FieldsetSelectOption[] | null
-  : SingleValue<FieldsetSelectOption> | null;
+    ? FieldsetSelectOption[] | null
+    : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -90,8 +93,8 @@ export function FieldsetSelectCreatable<MultiSelect extends boolean = false>({
       onChange={(value) => {
         onChange?.(
           value as MultiSelect extends true
-          ? FieldsetSelectOption[]
-          : SingleValue<FieldsetSelectOption>,
+            ? FieldsetSelectOption[]
+            : SingleValue<FieldsetSelectOption>,
         );
       }}
       onBlur={onBlur}

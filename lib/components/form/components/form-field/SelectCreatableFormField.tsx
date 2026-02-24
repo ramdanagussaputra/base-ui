@@ -9,12 +9,16 @@ import {
   SingleValue,
 } from "react-select";
 
-import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
+import {
+  FieldsetSelectOption,
+  FieldsetSelectOptionOrGroup,
+  FormFieldProps,
+} from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
 interface SelectCreatableFormFieldProps<MultiSelect extends boolean = false>
   extends Omit<FormFieldProps, "type" | "onChange"> {
-  options: FieldsetSelectOption[];
+  options: FieldsetSelectOptionOrGroup[];
   onChange?: (
     value: MultiSelect extends true
       ? FieldsetSelectOption[]

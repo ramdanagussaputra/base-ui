@@ -2,6 +2,7 @@ import { OptionProps, GroupBase } from "react-select";
 import { FieldsetSelectOption } from "#/components/form/model";
 import { createFieldsetSelectOptionWithSelectedState } from "#/components/form/components/fieldset/FieldsetSelectOptionWithSelectedState";
 import { FieldsetSelectDefaultOptionComponent } from "#/components/form/components/fieldset/FieldsetSelectDefaultOptionComponent";
+import { FieldsetSelectMultiCheckboxOption } from "#/components/form/components/fieldset/FieldsetSelectMultiCheckboxOption";
 
 /**
  * Calculates the maximum height for multiselect valueContainer
@@ -35,6 +36,7 @@ export const calculateMaxHeight = (
  * @param value - Current value
  * @param showAlreadySelectedText - Show already selected text
  * @param alreadySelectedText - Already selected text
+ * @param isMultiSelect - Whether multiselect is enabled
  * @returns Option component
  */
 export const createOptionComponent = (
@@ -45,8 +47,14 @@ export const createOptionComponent = (
   value: any,
   showAlreadySelectedText: boolean,
   alreadySelectedText: string,
+  useCheckboxOptions: boolean = false,
 ) => {
   if (children) return children;
+
+  // Use checkbox option for multiselect
+  if (useCheckboxOptions) {
+    return FieldsetSelectMultiCheckboxOption;
+  }
 
   if (alreadySelectedValues.length > 0) {
     return createFieldsetSelectOptionWithSelectedState({
@@ -107,4 +115,42 @@ export const isMaxSelectedReached = (
   }
 
   return false;
+};
+
+/**
+ * Handles exclusive group logic for multi-select
+ * When an option with exclusiveGroup is selected, it removes all other options (both exclusive and non-exclusive)
+ * When an option without exclusiveGroup is selected, it removes all options with exclusiveGroup
+ * @param currentValue - Current selected values
+ * @param newOption - Newly selected/deselected option
+ * @param isSelected - Whether the option is being selected (true) or deselected (false)
+ * @returns Filtered array of selected options
+ */
+export const handleExclusiveGroupSelection = (
+  currentValue: FieldsetSelectOption[],
+  newOption: FieldsetSelectOption,
+  isSelected: boolean,
+): FieldsetSelectOption[] => {
+  // If deselecting, just remove the option
+  if (!isSelected) {
+    return currentValue.filter((item) => item.value !== newOption.value);
+  }
+
+  // If the new option has an exclusive group
+  if (newOption.exclusiveGroup) {
+    // Remove ALL other options - only keep the new one
+    // This ensures that selecting any exclusive option clears everything else
+    return [newOption];
+  }
+
+  // If the new option DOESN'T have an exclusive group
+  // Remove all options that have an exclusive group
+  const withoutExclusive = currentValue.filter((item) => !item.exclusiveGroup);
+
+  // Add the new option if not already present
+  if (!withoutExclusive.some((item) => item.value === newOption.value)) {
+    return [...withoutExclusive, newOption];
+  }
+
+  return withoutExclusive;
 };

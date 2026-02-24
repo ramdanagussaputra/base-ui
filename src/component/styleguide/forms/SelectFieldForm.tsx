@@ -152,12 +152,63 @@ function SelectFieldForm() {
           label="Multi Select"
           isMultiSelect
           options={[
-            { label: "Option 1", value: "option-1" },
-            { label: "Option 2", value: "option-2" },
-            { label: "Option 3", value: "option-3" },
+            {
+              label: "Option 1",
+              value: "option-1",
+              hideCheckbox: true,
+              exclusiveGroup: "primary",
+            },
+            {
+              label: "Option 2",
+              value: "option-2",
+              hideCheckbox: true,
+              exclusiveGroup: "primary",
+            },
+            {
+              label: "Option 3",
+              value: "option-3",
+              hideCheckbox: true,
+              exclusiveGroup: "primary",
+            },
+            {
+              label: "Options 5",
+              options: [
+                {
+                  label: "Option 5-1",
+                  value: "option-5-1",
+                },
+                {
+                  label: "Option 5-2",
+                  value: "option-5-2",
+                },
+              ],
+            },
           ]}
           placeholder="Placeholder"
-          maxSelected={2}
+          hideSelectedOptions={false}
+          useCheckboxOptions
+        />
+
+        <SelectFormField
+          name="multiSelectNormal"
+          control={formMethods.control}
+          label="Multi Select"
+          isMultiSelect
+          options={[
+            {
+              label: "Option 1",
+              value: "option-1",
+            },
+            {
+              label: "Option 2",
+              value: "option-2",
+            },
+            {
+              label: "Option 3",
+              value: "option-3",
+            },
+          ]}
+          placeholder="Placeholder"
         />
 
         <SelectFormField

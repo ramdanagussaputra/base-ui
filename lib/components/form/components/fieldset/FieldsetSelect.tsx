@@ -6,10 +6,14 @@ import Select, {
   SingleValue,
 } from "react-select";
 
-import { FieldsetSelectOption } from "#/components/form/model";
+import {
+  FieldsetSelectOption,
+  FieldsetSelectOptionOrGroup,
+} from "#/components/form/model";
 import { FieldsetSelectDropdownIndicator } from "#/components/form/components/fieldset/FieldsetSelectDropdownIndicator";
 import { FieldsetSelectClearIndicator } from "#/components/form/components/fieldset/FieldsetSelectClearIndicator";
 import { FieldsetSelectMultiValueRemove } from "#/components/form/components/fieldset/FieldsetSelectMultiValueRemove";
+import { FieldsetSelectMultiValue } from "#/components/form/components/fieldset/FieldsetSelectMultiValue";
 
 import { useFieldsetContext } from "#/components/form/context/useFieldsetContext";
 import { cn } from "#/utils";
@@ -18,11 +22,12 @@ import {
   createOptionComponent,
   createValueContainerStyle,
   isMaxSelectedReached,
+  handleExclusiveGroupSelection,
 } from "#/components/form/components/fieldset/utils/multiselectUtils";
 
 interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   placeholder: string;
-  options: FieldsetSelectOption[];
+  options: FieldsetSelectOptionOrGroup[];
   onChange: (
     value: MultiSelect extends true
       ? FieldsetSelectOption[]
@@ -33,11 +38,11 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   isMultiSelect?: boolean;
   isSearchable?: boolean;
   defaultValue?: MultiSelect extends true
-  ? FieldsetSelectOption[] | null
-  : SingleValue<FieldsetSelectOption> | null;
+    ? FieldsetSelectOption[] | null
+    : SingleValue<FieldsetSelectOption> | null;
   value: MultiSelect extends true
-  ? FieldsetSelectOption[] | null
-  : SingleValue<FieldsetSelectOption> | null;
+    ? FieldsetSelectOption[] | null
+    : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -56,6 +61,8 @@ interface FieldsetSelectProps<MultiSelect extends boolean = false> {
   // Maximum number of selections (only applies when isMultiSelect is true)
   maxSelected?: number;
   isClearable?: boolean;
+  hideSelectedOptions?: boolean;
+  useCheckboxOptions?: boolean; // Whether to use checkbox options for multiselect
 }
 
 /**
@@ -86,6 +93,8 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
   maxHeight,
   maxSelected,
   isClearable,
+  hideSelectedOptions = true,
+  useCheckboxOptions = false,
 }: Readonly<FieldsetSelectProps<MultiSelect>>) {
   const { isDisabled, isError, isLarge, isMedium, isSmall, isRequired } =
     useFieldsetContext();
@@ -97,6 +106,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
     value,
     showAlreadySelectedText,
     alreadySelectedText,
+    useCheckboxOptions,
   );
 
   // Calculate max height for multiselect
@@ -116,12 +126,53 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       options={options}
       isClearable={isClearable ?? !isRequired}
       placeholder={placeholder}
-      onChange={(value) => {
-        onChange?.(
-          value as MultiSelect extends true
-          ? FieldsetSelectOption[]
-          : SingleValue<FieldsetSelectOption>,
-        );
+      onChange={(newValue) => {
+        if (isMultiSelect && Array.isArray(newValue)) {
+          const currentArray = (value as FieldsetSelectOption[]) || [];
+          const newArray = newValue as FieldsetSelectOption[];
+
+          // Find what changed
+          const addedOption = newArray.find(
+            (item) => !currentArray.some((curr) => curr.value === item.value),
+          );
+          const removedOption = currentArray.find(
+            (item) => !newArray.some((newItem) => newItem.value === item.value),
+          );
+
+          let processedValue: FieldsetSelectOption[];
+
+          if (addedOption) {
+            // Something was added, apply exclusive group logic
+            processedValue = handleExclusiveGroupSelection(
+              currentArray,
+              addedOption,
+              true,
+            );
+          } else if (removedOption) {
+            // Something was removed
+            processedValue = handleExclusiveGroupSelection(
+              currentArray,
+              removedOption,
+              false,
+            );
+          } else {
+            // Fallback to new value
+            processedValue = newArray;
+          }
+
+          onChange?.(
+            processedValue as MultiSelect extends true
+              ? FieldsetSelectOption[]
+              : SingleValue<FieldsetSelectOption>,
+          );
+        } else {
+          // Single select, use as-is
+          onChange?.(
+            newValue as MultiSelect extends true
+              ? FieldsetSelectOption[]
+              : SingleValue<FieldsetSelectOption>,
+          );
+        }
       }}
       onBlur={onBlur}
       isMulti={isMultiSelect}
@@ -134,6 +185,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       onInputChange={onInputChange}
       defaultValue={defaultValue}
       closeMenuOnSelect={!isMultiSelect}
+      hideSelectedOptions={hideSelectedOptions}
       value={value}
       isOptionDisabled={(option) => {
         // Disable option if max selected is reached and option is not already selected
@@ -150,6 +202,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
         ClearIndicator: FieldsetSelectClearIndicator,
         Option: OptionComponent,
+        MultiValue: FieldsetSelectMultiValue,
         MultiValueRemove: FieldsetSelectMultiValueRemove,
         ...selectComponentOptions,
       }}

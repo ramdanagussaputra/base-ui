@@ -9,12 +9,16 @@ import {
   SingleValue,
 } from "react-select";
 
-import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
+import {
+  FieldsetSelectOption,
+  FieldsetSelectOptionOrGroup,
+  FormFieldProps,
+} from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
 interface SelectFormFieldProps<MultiSelect extends boolean = false>
   extends Omit<FormFieldProps, "type" | "onChange"> {
-  options: FieldsetSelectOption[];
+  options: FieldsetSelectOptionOrGroup[];
   onChange?: (
     value: MultiSelect extends true
       ? FieldsetSelectOption[]
@@ -23,8 +27,8 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   isSearchable?: boolean;
   isMultiSelect?: boolean;
   defaultValue?: MultiSelect extends true
-  ? FieldsetSelectOption[]
-  : SingleValue<FieldsetSelectOption> | null;
+    ? FieldsetSelectOption[]
+    : SingleValue<FieldsetSelectOption> | null;
   children?: React.ComponentType<
     OptionProps<unknown, boolean, GroupBase<unknown>>
   >; // for option component
@@ -43,6 +47,8 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   maxSelected?: number;
   hintMessage?: string;
   isClearable?: boolean;
+  hideSelectedOptions?: boolean;
+  useCheckboxOptions?: boolean; // Whether to use checkbox options for multiselect
 }
 
 export function SelectFormField<MultiSelect extends boolean = false>({
@@ -72,6 +78,8 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   maxSelected,
   hintMessage,
   isClearable,
+  hideSelectedOptions,
+  useCheckboxOptions,
 }: Readonly<SelectFormFieldProps<MultiSelect>>) {
   return (
     <Controller
@@ -101,6 +109,8 @@ export function SelectFormField<MultiSelect extends boolean = false>({
             isMultiSelect={isMultiSelect}
             isSearchable={isSearchable}
             placeholder={placeholder}
+            hideSelectedOptions={hideSelectedOptions}
+            useCheckboxOptions={useCheckboxOptions}
             options={options}
             onChange={(value) => {
               field.onChange(value);
