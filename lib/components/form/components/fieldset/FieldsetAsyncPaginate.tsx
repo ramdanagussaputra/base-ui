@@ -224,6 +224,20 @@ export function FieldsetAsyncPaginate({
       styles={{
         valueContainer: (provided) =>
           createValueContainerStyle(provided, calculatedMaxHeight),
+        loadingMessage: (provided) => ({
+          ...provided,
+          minHeight: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }),
+        noOptionsMessage: (provided) => ({
+          ...provided,
+          minHeight: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }),
       }}
       classNames={{
         container: () => cn("cursor-pointer"),

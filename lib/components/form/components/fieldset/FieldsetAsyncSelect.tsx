@@ -158,6 +158,20 @@ export function FieldsetAsyncSelect({
       styles={{
         valueContainer: (provided) =>
           createValueContainerStyle(provided, calculatedMaxHeight),
+        loadingMessage: (provided) => ({
+          ...provided,
+          minHeight: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }),
+        noOptionsMessage: (provided) => ({
+          ...provided,
+          minHeight: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }),
       }}
       components={{
         IndicatorSeparator: () => null,

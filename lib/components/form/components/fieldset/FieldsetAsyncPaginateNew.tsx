@@ -138,6 +138,22 @@ export function FieldsetAsyncPaginate({
       clearCacheOnSearchChange={clearCacheOnSearchChange}
       clearCacheOnMenuClose={clearCacheOnMenuClose}
       reloadOnErrorTimeout={reloadOnErrorTimeout}
+      styles={{
+        loadingMessage: (provided) => ({
+          ...provided,
+          minHeight: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }),
+        noOptionsMessage: (provided) => ({
+          ...provided,
+          minHeight: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }),
+      }}
       components={{
         IndicatorSeparator: () => null,
         DropdownIndicator: isDisabled ? null : FieldsetSelectDropdownIndicator,
