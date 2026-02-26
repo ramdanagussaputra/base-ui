@@ -23,4 +23,15 @@ export interface FormFieldProps
 export interface FieldsetSelectOption {
   value: string | number | boolean;
   label: string;
+  hideCheckbox?: boolean; // Hide checkbox for this option in multi-select
+  exclusiveGroup?: string; // Options with the same exclusiveGroup behave like single select
 }
+
+export interface FieldsetSelectOptionGroup {
+  label: string;
+  options: FieldsetSelectOption[];
+}
+
+export type FieldsetSelectOptionOrGroup =
+  | FieldsetSelectOption
+  | FieldsetSelectOptionGroup;

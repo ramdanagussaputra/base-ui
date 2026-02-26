@@ -23,3 +23,10 @@ export { SelectCreatableFormField } from "#/components/form/components/form-fiel
 export { UploadFileFormField } from "#/components/form/components/form-field/UploadFileFormField";
 
 export { Searchbar } from "#/components/form/components/searchbar/Searchbar";
+
+// Export types
+export type {
+  FieldsetSelectOption,
+  FieldsetSelectOptionGroup,
+  FieldsetSelectOptionOrGroup,
+} from "#/components/form/model";
