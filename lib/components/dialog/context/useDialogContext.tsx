@@ -15,7 +15,7 @@ interface DialogButtonConfig {
   className?: string;
 }
 
-interface DialogConfig {
+export interface DialogConfig {
   title?: string;
   description?: string;
   confirmText?: string;
@@ -41,7 +41,7 @@ interface DialogState extends DialogConfig, DialogCallbacks {
 interface DialogActions {
   show: (config?: Partial<DialogConfig>) => void;
   close: () => void;
-  updateConfig: (config: Partial<DialogConfig>) => void;
+  updateConfig: (cyonfig: Partial<DialogConfig>) => void;
   setCallbacks: (callbacks: Partial<DialogCallbacks>) => void;
   setLoading: (loading: boolean) => void;
 }
