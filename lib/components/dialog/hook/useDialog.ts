@@ -99,7 +99,8 @@ export type {
  * @note Property priority: `content` > `dialogContent` > null
  */
 export function useDialog() {
-  const { show, close, setCallbacks, setLoading } = useDialogContext();
+  const { show, close, setCallbacks, setLoading, updateConfig } =
+    useDialogContext();
 
   function showDialog({
     title,
@@ -207,5 +208,7 @@ export function useDialog() {
     showDialog,
     closeDialog,
     confirm,
+    setConfirmLoading: setLoading,
+    updateConfig,
   };
 }
