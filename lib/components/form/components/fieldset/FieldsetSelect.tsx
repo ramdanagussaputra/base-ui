@@ -178,7 +178,10 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
       isMulti={isMultiSelect}
       onFocus={onFocus}
       menuPlacement={menuPlacement}
-      menuPortalTarget={menuPortalTarget ?? (typeof document !== "undefined" ? document.body : null)}
+      menuPortalTarget={
+        menuPortalTarget ??
+        (typeof document !== "undefined" ? document.body : null)
+      }
       menuPosition="fixed"
       menuShouldScrollIntoView={false}
       minMenuHeight={300}
@@ -217,7 +220,7 @@ export function FieldsetSelect<MultiSelect extends boolean = false>({
         menuPortal: () => cn("z-[1000]!"),
         control: (state) =>
           cn(
-            "ring-0! rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem]",
+            "ring-0! rounded-md! border-(--fieldset-border-color)! duration-150! cursor-pointer! gap-[0.625rem] bg-(--fieldset-bg)!",
             {
               "border-(--fieldset-border-color--error)! hover:border-(--fieldset-border-color--error)! bg-(--fieldset-bg--error)!":
                 isError,
