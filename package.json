@@ -69,6 +69,6 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "publishConfig": {
-    "registry": "https://registry.composync.id/repository/massive-base-ui/"
+    "registry": "https://repohub.composync.id/repository/massive-base-ui-hosted/"
   }
 }
