@@ -1,21 +1,21 @@
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { useState } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface CheckboxFormFieldProps {
-  name: string;
+interface CheckboxFormFieldProps<TFieldValues extends FieldValues = any> {
+  name: Path<TFieldValues>;
   label: string;
-  control: Control<any>;
+  control: Control<TFieldValues>;
   onChange?: () => void;
 }
 
-export function CheckboxFormField({
+export function CheckboxFormField<TFieldValues extends FieldValues = any>({
   label,
   name,
   control,
   onChange = () => {},
-}: Readonly<CheckboxFormFieldProps>) {
+}: Readonly<CheckboxFormFieldProps<TFieldValues>>) {
   const [checked, setChecked] = useState(false);
 
   return (

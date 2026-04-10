@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import {
   GroupBase,
   MenuPlacement,
@@ -16,8 +16,10 @@ import {
 } from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface SelectFormFieldProps<MultiSelect extends boolean = false>
-  extends Omit<FormFieldProps, "type" | "onChange"> {
+interface SelectFormFieldProps<
+  TFieldValues extends FieldValues = any,
+  MultiSelect extends boolean = false,
+> extends Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> {
   options: FieldsetSelectOptionOrGroup[];
   onChange?: (
     value: MultiSelect extends true
@@ -51,7 +53,10 @@ interface SelectFormFieldProps<MultiSelect extends boolean = false>
   useCheckboxOptions?: boolean; // Whether to use checkbox options for multiselect
 }
 
-export function SelectFormField<MultiSelect extends boolean = false>({
+export function SelectFormField<
+  TFieldValues extends FieldValues = any,
+  MultiSelect extends boolean = false,
+>({
   control,
   name,
   label,
@@ -80,7 +85,7 @@ export function SelectFormField<MultiSelect extends boolean = false>({
   isClearable,
   hideSelectedOptions,
   useCheckboxOptions,
-}: Readonly<SelectFormFieldProps<MultiSelect>>) {
+}: Readonly<SelectFormFieldProps<TFieldValues, MultiSelect>>) {
   return (
     <Controller
       name={name}

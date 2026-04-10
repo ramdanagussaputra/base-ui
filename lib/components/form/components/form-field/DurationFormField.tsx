@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import type { ReactNode } from "react";
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
+import type { Path } from "react-hook-form";
 import type { UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -173,13 +174,16 @@ const generateGridColumns = (
 
 // ========== TYPES ==========
 
-type DurationFormFieldProp = Omit<FormFieldProps, "type" | "onChange"> & {
+type DurationFormFieldProp<TFieldValues extends FieldValues = any> = Omit<
+  FormFieldProps<TFieldValues>,
+  "type" | "onChange"
+> & {
   onChange?: (value: string) => void;
   onBlur?: () => void;
   endElement?: ReactNode;
-  name: string;
-  setValue: UseFormSetValue<any>;
-  watch: UseFormWatch<any>;
+  name: Path<TFieldValues>;
+  setValue: UseFormSetValue<TFieldValues>;
+  watch: UseFormWatch<TFieldValues>;
   /** Whether to show the hours field (2 digits max). Default: true */
   showHours?: boolean;
   /** Whether to show the minutes field (2 digits max). Default: true */
@@ -188,7 +192,7 @@ type DurationFormFieldProp = Omit<FormFieldProps, "type" | "onChange"> & {
   showSeconds?: boolean;
 };
 
-export function DurationFormField({
+export function DurationFormField<TFieldValues extends FieldValues = any>({
   name,
   rules,
   label = "Duration",
@@ -196,8 +200,8 @@ export function DurationFormField({
   control,
   isRequired = false,
   isDisabled = false,
-  onChange = () => { },
-  onBlur = () => { },
+  onChange = () => {},
+  onBlur = () => {},
   size = "medium",
   withoutTagLabel = false,
   endElement,
@@ -206,7 +210,7 @@ export function DurationFormField({
   showHours = true,
   showMinutes = true,
   showSeconds = true,
-}: Readonly<DurationFormFieldProp>) {
+}: Readonly<DurationFormFieldProp<TFieldValues>>) {
   // Ensure at least one field is enabled
   if (!showHours && !showMinutes && !showSeconds) {
     console.warn(
@@ -253,7 +257,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated, { shouldValidate: true });
+    setValue(name, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
 
     setTimeout(() => {
@@ -274,7 +278,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated, { shouldValidate: true });
+    setValue(name, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
 
     setTimeout(() => {
@@ -297,7 +301,7 @@ export function DurationFormField({
       showSeconds,
     );
 
-    setValue(name, consolidated, { shouldValidate: true });
+    setValue(name, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
 
     // Reset flag after a short delay to allow form update to complete
@@ -328,7 +332,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated, { shouldValidate: true });
+    setValue(name, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
@@ -356,7 +360,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated, { shouldValidate: true });
+    setValue(name, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
@@ -384,7 +388,7 @@ export function DurationFormField({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated, { shouldValidate: true });
+    setValue(name, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 

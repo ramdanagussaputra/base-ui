@@ -1,12 +1,15 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { extractMaxLengthValue, formValidations } from "#/utils";
 
-type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
+type FormatedFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
+  FormFieldProps<TFieldValues>,
+  "type" | "onChange"
+> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
   onBlur?: () => void;
@@ -35,7 +38,7 @@ type FormatedFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   hint?: string;
 };
 
-export function TextFormField({
+export function TextFormField<TFieldValues extends FieldValues = any>({
   name,
   rules,
   label,
@@ -44,8 +47,8 @@ export function TextFormField({
   control,
   isRequired = false,
   isDisabled = false,
-  onChange = () => { },
-  onBlur = () => { },
+  onChange = () => {},
+  onBlur = () => {},
   type = "text",
   size = "medium",
   withoutTagLabel = false,
@@ -72,7 +75,7 @@ export function TextFormField({
   asciiOnly = false,
   asciiOnlyMessage,
   showCharacterCount = false,
-}: Readonly<FormatedFormFieldProps>) {
+}: Readonly<FormatedFormFieldProps<TFieldValues>>) {
   const emailValidation =
     type === "email"
       ? {
@@ -177,7 +180,7 @@ export function TextFormField({
     if (rules?.validate) {
       // Handle both single function and object with multiple validators
       if (typeof rules.validate === "function") {
-        const customValidationResult = rules.validate(value, formValues);
+        const customValidationResult = (rules.validate as any)(value, formValues);
         if (
           customValidationResult !== true &&
           customValidationResult !== undefined
@@ -187,7 +190,7 @@ export function TextFormField({
       } else if (typeof rules.validate === "object") {
         // Handle multiple validators
         for (const [, validator] of Object.entries(rules.validate)) {
-          const result = validator(value, formValues);
+          const result = (validator as any)(value, formValues);
           if (result !== true && result !== undefined) {
             return result;
           }

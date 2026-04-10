@@ -1,22 +1,22 @@
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface ToggleFormFieldProps {
-  name: string;
-  control: Control<any>;
+interface ToggleFormFieldProps<TFieldValues extends FieldValues = any> {
+  name: Path<TFieldValues>;
+  control: Control<TFieldValues>;
   size?: "extra-small" | "small" | "medium" | "large";
   isDisabled?: boolean;
   onChange?: (value: boolean) => void;
 }
 
-export function ToggleFormField({
+export function ToggleFormField<TFieldValues extends FieldValues = any>({
   name,
   control,
   size,
   isDisabled = false,
   onChange,
-}: Readonly<ToggleFormFieldProps>) {
+}: Readonly<ToggleFormFieldProps<TFieldValues>>) {
   return (
     <Controller
       name={name}

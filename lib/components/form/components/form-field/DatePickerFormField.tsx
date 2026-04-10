@@ -1,5 +1,5 @@
 import { DateRange, Matcher, Numerals } from "react-day-picker";
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import { Add, Calendar } from "iconsax-react";
 import { useRef } from "react";
 
@@ -19,25 +19,23 @@ const DEFAULT_LABEL = "Select Date";
 
 type MenuPlacement = "auto" | "top" | "bottom";
 
-type FormattedDatePickerFormField = Omit<
-  FormFieldProps,
-  "type" | "onChange"
-> & {
-  mode: "single" | "multiple" | "range";
-  onChange?: ((value: Date | Date[]) => void) | ((range: DateRange) => void);
-  onCalendarClose?: () => void;
-  onCalendarClear?: () => void;
-  yearBefore?: number;
-  yearAfter?: number;
-  disabledDate?: Matcher | Matcher[];
-  jumpToSelectedDate?: boolean;
-  menuPlacement?: MenuPlacement;
-  locale?: "enUS" | "id" | "fr";
-  numerals?: Numerals;
-  useEndOfDayForRangeEnd?: boolean;
-};
+type FormattedDatePickerFormField<TFieldValues extends FieldValues = any> =
+  Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> & {
+    mode: "single" | "multiple" | "range";
+    onChange?: ((value: Date | Date[]) => void) | ((range: DateRange) => void);
+    onCalendarClose?: () => void;
+    onCalendarClear?: () => void;
+    yearBefore?: number;
+    yearAfter?: number;
+    disabledDate?: Matcher | Matcher[];
+    jumpToSelectedDate?: boolean;
+    menuPlacement?: MenuPlacement;
+    locale?: "enUS" | "id" | "fr";
+    numerals?: Numerals;
+    useEndOfDayForRangeEnd?: boolean;
+  };
 
-export function DatePickerFormField({
+export function DatePickerFormField<TFieldValues extends FieldValues = any>({
   placeholder = DEFAULT_PLACEHOLDER,
   label = DEFAULT_LABEL,
   withoutTagLabel = false,
@@ -60,7 +58,7 @@ export function DatePickerFormField({
   numerals,
   onCalendarClear,
   useEndOfDayForRangeEnd = false,
-}: Readonly<FormattedDatePickerFormField>) {
+}: Readonly<FormattedDatePickerFormField<TFieldValues>>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { openUpward, position } = useCalendarPosition({

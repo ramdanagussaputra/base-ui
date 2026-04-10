@@ -1,6 +1,4 @@
-// WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
-
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import { GroupBase, SelectComponentsConfig, SingleValue } from "react-select";
 
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
@@ -12,8 +10,8 @@ type SelectSongOptions = FieldsetSelectOption & {
   imageUrl?: string;
 };
 
-interface AsyncSelectSongFormFieldProps
-  extends Omit<FormFieldProps, "type" | "onChange"> {
+interface AsyncSelectSongFormFieldProps<TFieldValues extends FieldValues = any>
+  extends Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> {
   defaultOptions: SelectSongOptions[];
   onChange?: (value: SingleValue<SelectSongOptions>) => void;
   onBlur?: () => void;
@@ -29,7 +27,9 @@ interface AsyncSelectSongFormFieldProps
   maxHeight?: number | string;
 }
 
-export function AsyncSelectSongFormField({
+export function AsyncSelectSongFormField<
+  TFieldValues extends FieldValues = any,
+>({
   control,
   name,
   label,
@@ -50,7 +50,7 @@ export function AsyncSelectSongFormField({
   loadOptions,
   menuPortalTarget,
   maxHeight,
-}: Readonly<AsyncSelectSongFormFieldProps>) {
+}: Readonly<AsyncSelectSongFormFieldProps<TFieldValues>>) {
   return (
     <Controller
       name={name}

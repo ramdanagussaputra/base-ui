@@ -3,6 +3,7 @@ import {
   Control,
   Controller,
   FieldValues,
+  Path,
   RegisterOptions,
 } from "react-hook-form";
 import { useRef } from "react";
@@ -13,11 +14,11 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { Button } from "#/components/button/Button";
 import Icon from "#/components/icon/Icon";
 
-interface UploadFileFormFieldProps {
-  name: string;
+interface UploadFileFormFieldProps<TFieldValues extends FieldValues = any> {
+  name: Path<TFieldValues>;
   accept?: string;
   rules?: Omit<
-    RegisterOptions<FieldValues, string>,
+    RegisterOptions<TFieldValues, Path<TFieldValues>>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   withoutTagLabel?: boolean;
@@ -28,11 +29,11 @@ interface UploadFileFormFieldProps {
   isRequired?: boolean;
   isDisabled?: boolean;
   buttonText?: string;
-  control: Control<any, any>;
+  control: Control<TFieldValues>;
   footerElement?: React.ReactNode;
 }
 
-export function UploadFileFormField({
+export function UploadFileFormField<TFieldValues extends FieldValues = any>({
   name,
   accept,
   rules,
@@ -46,7 +47,7 @@ export function UploadFileFormField({
   buttonText = "Browse File",
   control,
   footerElement,
-}: Readonly<UploadFileFormFieldProps>) {
+}: Readonly<UploadFileFormFieldProps<TFieldValues>>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -108,12 +109,12 @@ export function UploadFileFormField({
                     placeholder={placeholder}
                     className="pointer-events-none relative"
                     value={
-                      field.value instanceof File
-                        ? field.value.name
+                      (field.value as any) instanceof File
+                        ? (field.value as any).name
                         : field.value
                     }
                   />
-                  {field.value instanceof File ? (
+                  {(field.value as any) instanceof File ? (
                     <button
                       type="button"
                       className="absolute top-0 right-0 z-50 me-2 h-full cursor-pointer"

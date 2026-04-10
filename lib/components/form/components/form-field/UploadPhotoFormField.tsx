@@ -6,6 +6,7 @@ import {
   UseFormClearErrors,
   FormState,
   get,
+  FieldValues,
 } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
@@ -18,8 +19,8 @@ import Icon from "#/components/icon/Icon";
 import { useModal } from "#/components/modal";
 import { ImageCropModal } from "#/components/form/components/image-crop/ImageCropModal";
 
-type UploadPhotoFormFieldProps = Omit<
-  FormFieldProps,
+type UploadPhotoFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
+  FormFieldProps<TFieldValues>,
   "onChange" | "type" | "placeholder"
 > & {
   onChange?: (value: File | null) => void;
@@ -27,12 +28,12 @@ type UploadPhotoFormFieldProps = Omit<
   placeholderIcon?: React.ReactNode;
   footerElement?: React.ReactNode;
   maxSize?: number;
-  setError: UseFormSetError<any>;
-  clearErrors: UseFormClearErrors<any>;
-  formState: FormState<any>;
+  setError: UseFormSetError<TFieldValues>;
+  clearErrors: UseFormClearErrors<TFieldValues>;
+  formState: FormState<TFieldValues>;
 };
 
-export function UploadPhotoFormField({
+export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
   name,
   rules,
   label,
@@ -49,7 +50,7 @@ export function UploadPhotoFormField({
   setError,
   clearErrors,
   formState,
-}: Readonly<UploadPhotoFormFieldProps>) {
+}: Readonly<UploadPhotoFormFieldProps<TFieldValues>>) {
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 

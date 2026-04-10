@@ -1,6 +1,7 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
+import type { Path } from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeSlash } from "iconsax-react";
 import Icon from "#/components/icon/Icon";
@@ -8,14 +9,14 @@ import Icon from "#/components/icon/Icon";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 
-interface PasswordFormFieldProps
-  extends Omit<FormFieldProps, "type" | "isError"> {
+interface PasswordFormFieldProps<TFieldValues extends FieldValues = any>
+  extends Omit<FormFieldProps<TFieldValues>, "type" | "isError"> {
   isConfirmPassword?: boolean;
-  passwordName?: string;
+  passwordName?: Path<TFieldValues>;
   endElement?: React.ReactNode;
 }
 
-export function PasswordFormField({
+export function PasswordFormField<TFieldValues extends FieldValues = any>({
   name,
   rules,
   label,
@@ -30,7 +31,7 @@ export function PasswordFormField({
   passwordName,
   withoutTagLabel = false,
   endElement,
-}: Readonly<PasswordFormFieldProps>) {
+}: Readonly<PasswordFormFieldProps<TFieldValues>>) {
   const [isShow, setIsShow] = useState(false);
 
   return (

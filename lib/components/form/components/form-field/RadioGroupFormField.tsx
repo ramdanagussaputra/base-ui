@@ -1,14 +1,14 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { Field } from "@headlessui/react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { cn } from "#/utils";
 
-interface RadioGroupFormFieldProps {
-  name: string;
-  control: Control<any>;
+interface RadioGroupFormFieldProps<TFieldValues extends FieldValues = any> {
+  name: Path<TFieldValues>;
+  control: Control<TFieldValues>;
   fields: { label?: string; value: string }[];
   isVertical?: boolean;
   isRequired?: boolean;
@@ -18,7 +18,7 @@ interface RadioGroupFormFieldProps {
   fieldName?: string;
 }
 
-export function RadioGroupFormField({
+export function RadioGroupFormField<TFieldValues extends FieldValues = any>({
   control,
   name,
   fields,
@@ -28,7 +28,7 @@ export function RadioGroupFormField({
   isDisabled = false,
   containerClassName,
   fieldName,
-}: Readonly<RadioGroupFormFieldProps>) {
+}: Readonly<RadioGroupFormFieldProps<TFieldValues>>) {
   return (
     <Controller
       control={control}

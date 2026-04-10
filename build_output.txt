@@ -1,0 +1,45 @@
+Hi, Ramdan (massivemusic) 
+Welcome back
+
+> @massivemusicui/massive-base-ui@0.0.56 prebuild /Users/massivemusic/Document/Projects/library/massive-base-ui
+> rm -rf dist
+
+
+> @massivemusicui/massive-base-ui@0.0.56 build /Users/massivemusic/Document/Projects/library/massive-base-ui
+> tsc -b && vite build
+
+lib/components/form/components/form-field/AsyncPaginateCreatableFormField.tsx(3,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/AsyncPaginateFormField.tsx(3,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/AsyncSelectFormField.tsx(3,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/AsyncSelectSongFormField.tsx(1,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/DatePickerFormField.tsx(2,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/DurationFormField.tsx(5,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/DurationFormField.tsx(16,7): error TS6133: 'MINUTES_PER_HOUR' is declared but its value is never read.
+lib/components/form/components/form-field/DurationFormField.tsx(17,7): error TS6133: 'SECONDS_PER_MINUTE' is declared but its value is never read.
+lib/components/form/components/form-field/DurationFormField.tsx(80,11): error TS2304: Cannot find name 'convertFormValueToUI'.
+lib/components/form/components/form-field/DurationFormField.tsx(98,26): error TS2304: Cannot find name 'convertUIToFormValue'.
+lib/components/form/components/form-field/DurationFormField.tsx(119,26): error TS2304: Cannot find name 'convertUIToFormValue'.
+lib/components/form/components/form-field/DurationFormField.tsx(141,26): error TS2304: Cannot find name 'convertUIToFormValue'.
+lib/components/form/components/form-field/DurationFormField.tsx(167,9): error TS2304: Cannot find name 'normalizeDuration'.
+lib/components/form/components/form-field/DurationFormField.tsx(173,26): error TS2304: Cannot find name 'convertUIToFormValue'.
+lib/components/form/components/form-field/DurationFormField.tsx(195,9): error TS2304: Cannot find name 'normalizeDuration'.
+lib/components/form/components/form-field/DurationFormField.tsx(201,26): error TS2304: Cannot find name 'convertUIToFormValue'.
+lib/components/form/components/form-field/DurationFormField.tsx(223,9): error TS2304: Cannot find name 'normalizeDuration'.
+lib/components/form/components/form-field/DurationFormField.tsx(229,26): error TS2304: Cannot find name 'convertUIToFormValue'.
+lib/components/form/components/form-field/DurationFormField.tsx(247,23): error TS2304: Cannot find name 'generateGridColumns'.
+lib/components/form/components/form-field/MultipleUploadPhotoFormField.tsx(2,3): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/PassportFormField.tsx(2,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/PasswordFormField.tsx(3,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/PhoneNumberFormField.tsx(2,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/SelectCreatableFormField.tsx(1,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/SelectFormField.tsx(3,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/TextAreaFormField.tsx(1,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/TextFormField.tsx(3,10): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/TextFormField.tsx(3,44): error TS6133: 'Path' is declared but its value is never read.
+lib/components/form/components/form-field/TextFormField.tsx(183,55): error TS2345: Argument of type 'string' is not assignable to parameter of type 'PathValueImpl<TFieldValues, Path<TFieldValues>>'.
+lib/components/form/components/form-field/TextFormField.tsx(193,36): error TS2345: Argument of type 'string' is not assignable to parameter of type 'PathValueImpl<TFieldValues, Path<TFieldValues>>'.
+lib/components/form/components/form-field/UploadFileFormField.tsx(112,23): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+lib/components/form/components/form-field/UploadFileFormField.tsx(117,20): error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
+lib/components/form/components/form-field/UploadPhotoFormField.tsx(4,3): error TS6133: 'Control' is declared but its value is never read.
+lib/components/form/components/form-field/WebsiteFormField.tsx(1,10): error TS6133: 'Control' is declared but its value is never read.
+ ELIFECYCLE  Command failed with exit code 2.

@@ -33,6 +33,9 @@ function FormsPage() {
         label: string;
       } | null,
       duration: null,
+      checkbox: false,
+      async_paginate_multi_checkbox: null as any,
+      async_paginate_with_clear_indicator: null as any,
     },
     mode: "all",
   });

@@ -1,19 +1,19 @@
-import { Control, FieldValues, RegisterOptions } from "react-hook-form";
+import { Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import type { FieldsetProps } from "#/components/form/components/fieldset/Fieldset";
 
-export interface FormFieldProps
+export interface FormFieldProps<TFieldValues extends FieldValues = any>
   extends Omit<
     FieldsetProps,
     "children" | "className" | "isError" | "isSuccess"
   > {
   label: string;
-  name: string;
+  name: Path<TFieldValues>;
   placeholder: string;
-  control: Control<any, any>;
+  control: Control<TFieldValues>;
   fieldName?: string;
   type?: "text" | "email" | "password" | "number";
   rules?: Omit<
-    RegisterOptions<FieldValues, string>,
+    RegisterOptions<TFieldValues, Path<TFieldValues>>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   onChange?: (event: React.ChangeEvent<HTMLInputElement> | string) => void;

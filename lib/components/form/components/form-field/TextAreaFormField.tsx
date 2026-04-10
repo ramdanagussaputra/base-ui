@@ -1,9 +1,10 @@
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FormFieldProps } from "#/components/form/model";
 import { extractMaxLengthValue } from "#/utils";
 
-interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
+interface TextAreaFormFieldProps<TFieldValues extends FieldValues = any>
+  extends Omit<FormFieldProps<TFieldValues>, "type" | "size"> {
   height?: number;
   minHeight?: number;
   maxHeight?: number;
@@ -13,7 +14,7 @@ interface TextAreaFormFieldProps extends Omit<FormFieldProps, "type" | "size"> {
   showCharacterCount?: boolean;
 }
 
-export function TextAreaFormField({
+export function TextAreaFormField<TFieldValues extends FieldValues = any>({
   control,
   label,
   name,
@@ -31,7 +32,7 @@ export function TextAreaFormField({
   fieldSizeFollowContent = false,
   autoUppercase = false,
   showCharacterCount = false,
-}: Readonly<TextAreaFormFieldProps>) {
+}: Readonly<TextAreaFormFieldProps<TFieldValues>>) {
   let maxLength: number;
 
   if (rules?.maxLength) {
