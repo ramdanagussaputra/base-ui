@@ -11,7 +11,7 @@ const POSITION_CALCULATION_DELAYS = [0, 10, 50];
 interface TooltipProps {
   children: ReactNode;
   message: string;
-  position?: "top" | "bottom" | "left" | "right";
+  position?: "top" | "bottom" | "left" | "right" | "top-right";
   variant?: "default" | "without-tail";
   isPortal?: boolean;
   portalContainer?: Element | null;
@@ -70,6 +70,10 @@ export function Tooltip({
         top: triggerRect.top + triggerRect.height / 2,
         left: triggerRect.left + triggerRect.width + OFFSET,
       },
+      "top-right": {
+        top: triggerRect.bottom + OFFSET,
+        left: triggerRect.left + triggerRect.width / 2,
+      },
     };
 
     setTooltipPosition(positions[position]);
@@ -84,6 +88,7 @@ export function Tooltip({
       bottom: "translateX(-50%)",
       left: "translate(-100%, -50%)",
       right: "translateY(-50%)",
+      "top-right": "translateX(calc(-100% + 15px))",
     };
 
     return transforms[position];
@@ -134,6 +139,7 @@ export function Tooltip({
       bottom: "absolute top-full left-1/2 mt-2 -translate-x-1/2",
       left: "absolute top-1/2 right-full mr-2 -translate-y-1/2",
       right: "absolute top-1/2 left-full ml-2 -translate-y-1/2",
+      "top-right": "absolute top-full right-[calc(50%-15px)] mt-2",
     };
 
     return cn(baseClasses, nonPortalClasses[position]);
@@ -147,6 +153,8 @@ export function Tooltip({
       left: "border-l-secondary-900 top-1/2 left-full -translate-y-1/2 border-t-[3px] border-b-[3px] border-l-[6px] border-t-transparent border-b-transparent",
       right:
         "border-r-secondary-900 top-1/2 right-full -translate-y-1/2 border-t-[3px] border-r-[6px] border-b-[3px] border-t-transparent border-b-transparent",
+      "top-right":
+        "border-b-secondary-900 bottom-full right-[12px] border-r-[3px] border-b-[6px] border-l-[3px] border-r-transparent border-l-transparent",
     };
 
     return cn("absolute h-0 w-0", tailClasses[position]);
