@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import {
   GroupBase,
   MenuPlacement,
@@ -12,8 +12,8 @@ import {
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface AsyncSelectFormFieldProps<TFieldValues extends FieldValues = any>
-  extends Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> {
+interface AsyncSelectFormFieldProps
+  extends Omit<FormFieldProps, "type" | "onChange"> {
   defaultOptions: FieldsetSelectOption[];
   onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
   onBlur?: () => void;
@@ -40,13 +40,13 @@ interface AsyncSelectFormFieldProps<TFieldValues extends FieldValues = any>
   isClearable?: boolean;
 }
 
-export function AsyncSelectFormField<TFieldValues extends FieldValues = any>({
+export function AsyncSelectFormField({
   control,
   name,
   label,
   defaultOptions,
   onChange,
-  onBlur = () => {},
+  onBlur = () => { },
   isSearchable = true,
   isMultiSelect = false,
   defaultValue,
@@ -68,10 +68,10 @@ export function AsyncSelectFormField<TFieldValues extends FieldValues = any>({
   maxHeight,
   maxSelected,
   isClearable,
-}: Readonly<AsyncSelectFormFieldProps<TFieldValues>>) {
+}: Readonly<AsyncSelectFormFieldProps>) {
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {

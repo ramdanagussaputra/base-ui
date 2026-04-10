@@ -1,5 +1,7 @@
+// WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
+
 import { useState, useCallback } from "react";
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
@@ -10,10 +12,7 @@ import {
   getFullValue,
 } from "#/components/form/utils/inputWithPrefix";
 
-type PhoneNumberFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
-  FormFieldProps<TFieldValues>,
-  "type" | "onChange"
-> & {
+type PhoneNumberFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
   includePrefix?: boolean;
@@ -25,7 +24,7 @@ type PhoneNumberFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
 
 const DEFAULT_PREFIX = "+62";
 
-export function PhoneNumberFormField<TFieldValues extends FieldValues = any>({
+export function PhoneNumberFormField({
   name,
   rules,
   label,
@@ -43,7 +42,7 @@ export function PhoneNumberFormField<TFieldValues extends FieldValues = any>({
   prefixDefaultValue = DEFAULT_PREFIX,
   onPrefixChange = () => {},
   disablePrefix = false,
-}: Readonly<PhoneNumberFormFieldProps<TFieldValues>>) {
+}: Readonly<PhoneNumberFormFieldProps>) {
   const [prefix, setPrefix] = useState<string>(
     options?.[0]?.value?.toString() || prefixDefaultValue,
   );
@@ -96,7 +95,7 @@ export function PhoneNumberFormField<TFieldValues extends FieldValues = any>({
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {

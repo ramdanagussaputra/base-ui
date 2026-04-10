@@ -1,33 +1,27 @@
-import { Control, Controller, FieldValues, Path, RegisterOptions } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import { useState } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
-interface CheckboxFormFieldProps<TFieldValues extends FieldValues = any> {
-  name: Path<TFieldValues> | string;
+interface CheckboxFormFieldProps {
+  name: string;
   label: string;
-  control: Control<TFieldValues>;
+  control: Control<any>;
   onChange?: () => void;
-  rules?: Omit<
-    RegisterOptions<TFieldValues, any>,
-    "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
-  >;
 }
 
-export function CheckboxFormField<TFieldValues extends FieldValues = any>({
+export function CheckboxFormField({
   label,
   name,
   control,
   onChange = () => {},
-  rules,
-}: Readonly<CheckboxFormFieldProps<TFieldValues>>) {
+}: Readonly<CheckboxFormFieldProps>) {
   const [checked, setChecked] = useState(false);
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
-      rules={rules}
       render={({ field }) => (
         <Fieldset>
           <div className="flex items-center gap-2">

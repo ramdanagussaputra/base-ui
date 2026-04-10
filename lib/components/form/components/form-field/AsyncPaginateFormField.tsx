@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import {
   GroupBase,
   MenuPlacement,
@@ -19,8 +19,8 @@ interface LoadOptionsResponse {
   additional?: any;
 }
 
-interface AsyncPaginateFormFieldProps<TFieldValues extends FieldValues = any>
-  extends Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> {
+interface AsyncPaginateFormFieldProps
+  extends Omit<FormFieldProps, "type" | "onChange"> {
   defaultOptions?: FieldsetSelectOption[] | boolean;
   onChange?: (value: SingleValue<FieldsetSelectOption>) => void;
   onBlur?: () => void;
@@ -75,9 +75,7 @@ interface AsyncPaginateFormFieldProps<TFieldValues extends FieldValues = any>
   maxLength?: number;
 }
 
-export function AsyncPaginateFormField<
-  TFieldValues extends FieldValues = any,
->({
+export function AsyncPaginateFormField({
   control,
   name,
   label,
@@ -116,11 +114,11 @@ export function AsyncPaginateFormField<
   maxHeight,
   maxSelected,
   maxLength,
-}: Readonly<AsyncPaginateFormFieldProps<TFieldValues>>) {
+}: Readonly<AsyncPaginateFormFieldProps>) {
   return (
     <Controller
       control={control}
-      name={name as any}
+      name={name}
       rules={{
         required: {
           value: isRequired,

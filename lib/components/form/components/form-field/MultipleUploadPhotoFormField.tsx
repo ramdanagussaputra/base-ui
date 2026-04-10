@@ -1,10 +1,11 @@
+// WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
+
 import {
   Controller,
   UseFormSetError,
   UseFormClearErrors,
   FormState,
   get,
-  FieldValues,
 } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
@@ -17,22 +18,22 @@ import Icon from "#/components/icon/Icon";
 import { useModal } from "#/components/modal";
 import { ImageCropModal } from "#/components/form/components/image-crop/ImageCropModal";
 
-type MultipleUploadPhotoFormFieldProps<TFieldValues extends FieldValues = any> =
-  Omit<FormFieldProps<TFieldValues>, "onChange" | "type" | "placeholder"> & {
-    onChange?: (value: File[] | null) => void;
-    accept?: string;
-    placeholderIcon?: React.ReactNode;
-    footerElement?: React.ReactNode;
-    maxFiles?: number;
-    maxSize?: number;
-    setError: UseFormSetError<TFieldValues>;
-    clearErrors: UseFormClearErrors<TFieldValues>;
-    formState: FormState<TFieldValues>;
-  };
+type MultipleUploadPhotoFormFieldProps = Omit<
+  FormFieldProps,
+  "onChange" | "type" | "placeholder"
+> & {
+  onChange?: (value: File[] | null) => void;
+  accept?: string;
+  placeholderIcon?: React.ReactNode;
+  footerElement?: React.ReactNode;
+  maxFiles?: number;
+  maxSize?: number;
+  setError: UseFormSetError<any>;
+  clearErrors: UseFormClearErrors<any>;
+  formState: FormState<any>;
+};
 
-export function MultipleUploadPhotoFormField<
-  TFieldValues extends FieldValues = any,
->({
+export function MultipleUploadPhotoFormField({
   name,
   rules,
   label,
@@ -50,11 +51,11 @@ export function MultipleUploadPhotoFormField<
   setError,
   clearErrors,
   formState,
-}: Readonly<MultipleUploadPhotoFormFieldProps<TFieldValues>>) {
+}: Readonly<MultipleUploadPhotoFormFieldProps>) {
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const fieldError = get(formState.errors, name as any);
+  const fieldError = get(formState.errors, name);
 
   // Auto-clear error after 5 seconds
   useEffect(() => {
@@ -67,7 +68,7 @@ export function MultipleUploadPhotoFormField<
     // Set new timeout if there's an error
     if (fieldError) {
       errorTimeoutRef.current = setTimeout(() => {
-        clearErrors(name as any);
+        clearErrors(name);
         errorTimeoutRef.current = null;
       }, 5000);
     }
@@ -108,7 +109,7 @@ export function MultipleUploadPhotoFormField<
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {
@@ -183,9 +184,9 @@ export function MultipleUploadPhotoFormField<
                 maxSize={maxSize}
                 setError={(message) => {
                   if (message) {
-                    setError(name as any, { type: "manual", message });
+                    setError(name, { type: "manual", message });
                   } else {
-                    clearErrors(name as any);
+                    clearErrors(name);
                   }
                 }}
                 customMaxSizeMessage="One or more images are too large"
@@ -217,9 +218,9 @@ export function MultipleUploadPhotoFormField<
                   maxSize={maxSize}
                   setError={(message) => {
                     if (message) {
-                      setError(name as any, { type: "manual", message });
+                      setError(name, { type: "manual", message });
                     } else {
-                      clearErrors(name as any);
+                      clearErrors(name);
                     }
                   }}
                   customMaxSizeMessage={

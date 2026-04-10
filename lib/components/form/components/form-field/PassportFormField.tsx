@@ -1,15 +1,14 @@
+// WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
+
 import { useState } from "react";
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { FieldsetSelectOption, FormFieldProps } from "#/components/form/model";
 
 import { extractMaxLengthValue } from "#/utils";
 
-type PassportFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
-  FormFieldProps<TFieldValues>,
-  "type" | "onChange"
-> & {
+type PassportFormFieldProps = Omit<FormFieldProps, "type" | "onChange"> & {
   type?: "text" | "email" | "number";
   onChange?: (value: string) => void;
   options: FieldsetSelectOption[];
@@ -19,7 +18,7 @@ type PassportFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
 
 const DEFAULT_PREFIX = "ID";
 
-export function PassportFormField<TFieldValues extends FieldValues = any>({
+export function PassportFormField({
   name,
   rules,
   label,
@@ -35,7 +34,7 @@ export function PassportFormField<TFieldValues extends FieldValues = any>({
   options = [],
   prefixDefaultValue = DEFAULT_PREFIX,
   onPrefixChange = () => {},
-}: Readonly<PassportFormFieldProps<TFieldValues>>) {
+}: Readonly<PassportFormFieldProps>) {
   const [prefix, setPrefix] = useState<string>(
     options?.[0]?.value?.toString() || prefixDefaultValue,
   );
@@ -52,7 +51,7 @@ export function PassportFormField<TFieldValues extends FieldValues = any>({
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {

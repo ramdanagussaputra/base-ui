@@ -1,5 +1,5 @@
 import { DateRange, Matcher, Numerals } from "react-day-picker";
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { Add, Calendar } from "iconsax-react";
 import { useRef } from "react";
 
@@ -19,23 +19,25 @@ const DEFAULT_LABEL = "Select Date";
 
 type MenuPlacement = "auto" | "top" | "bottom";
 
-type FormattedDatePickerFormField<TFieldValues extends FieldValues = any> =
-  Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> & {
-    mode: "single" | "multiple" | "range";
-    onChange?: ((value: Date | Date[]) => void) | ((range: DateRange) => void);
-    onCalendarClose?: () => void;
-    onCalendarClear?: () => void;
-    yearBefore?: number;
-    yearAfter?: number;
-    disabledDate?: Matcher | Matcher[];
-    jumpToSelectedDate?: boolean;
-    menuPlacement?: MenuPlacement;
-    locale?: "enUS" | "id" | "fr";
-    numerals?: Numerals;
-    useEndOfDayForRangeEnd?: boolean;
-  };
+type FormattedDatePickerFormField = Omit<
+  FormFieldProps,
+  "type" | "onChange"
+> & {
+  mode: "single" | "multiple" | "range";
+  onChange?: ((value: Date | Date[]) => void) | ((range: DateRange) => void);
+  onCalendarClose?: () => void;
+  onCalendarClear?: () => void;
+  yearBefore?: number;
+  yearAfter?: number;
+  disabledDate?: Matcher | Matcher[];
+  jumpToSelectedDate?: boolean;
+  menuPlacement?: MenuPlacement;
+  locale?: "enUS" | "id" | "fr";
+  numerals?: Numerals;
+  useEndOfDayForRangeEnd?: boolean;
+};
 
-export function DatePickerFormField<TFieldValues extends FieldValues = any>({
+export function DatePickerFormField({
   placeholder = DEFAULT_PLACEHOLDER,
   label = DEFAULT_LABEL,
   withoutTagLabel = false,
@@ -58,7 +60,7 @@ export function DatePickerFormField<TFieldValues extends FieldValues = any>({
   numerals,
   onCalendarClear,
   useEndOfDayForRangeEnd = false,
-}: Readonly<FormattedDatePickerFormField<TFieldValues>>) {
+}: Readonly<FormattedDatePickerFormField>) {
   const { open, setOpen, calendarRef } = useCalendarState();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { openUpward, position } = useCalendarPosition({
@@ -84,7 +86,7 @@ export function DatePickerFormField<TFieldValues extends FieldValues = any>({
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {

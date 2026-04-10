@@ -1,4 +1,6 @@
-import { Controller, FieldValues } from "react-hook-form";
+// WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
+
+import { Controller } from "react-hook-form";
 import { useCallback } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -11,14 +13,16 @@ import {
 
 import { extractMaxLengthValue } from "#/utils";
 
-type FormatedWebsiteFormFieldProps<TFieldValues extends FieldValues = any> =
-  Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> & {
-    type?: "text" | "email" | "number";
-    onChange?: (value: string) => void;
-    includePrefix?: boolean;
-  };
+type FormatedWebsiteFormFieldProps = Omit<
+  FormFieldProps,
+  "type" | "onChange"
+> & {
+  type?: "text" | "email" | "number";
+  onChange?: (value: string) => void;
+  includePrefix?: boolean;
+};
 
-export function WebsiteFormField<TFieldValues extends FieldValues = any>({
+export function WebsiteFormField({
   name,
   rules,
   label,
@@ -32,7 +36,7 @@ export function WebsiteFormField<TFieldValues extends FieldValues = any>({
   size = "medium",
   withoutTagLabel = false,
   includePrefix = true,
-}: Readonly<FormatedWebsiteFormFieldProps<TFieldValues>>) {
+}: Readonly<FormatedWebsiteFormFieldProps>) {
   const maxLength = rules?.maxLength
     ? extractMaxLengthValue(rules.maxLength)
     : undefined;
@@ -58,7 +62,7 @@ export function WebsiteFormField<TFieldValues extends FieldValues = any>({
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {

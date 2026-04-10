@@ -6,7 +6,6 @@ import {
   UseFormClearErrors,
   FormState,
   get,
-  FieldValues,
 } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { validateFileExtension, readFileAsDataURL } from "#/utils";
@@ -19,8 +18,8 @@ import Icon from "#/components/icon/Icon";
 import { useModal } from "#/components/modal";
 import { ImageCropModal } from "#/components/form/components/image-crop/ImageCropModal";
 
-type UploadPhotoFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
-  FormFieldProps<TFieldValues>,
+type UploadPhotoFormFieldProps = Omit<
+  FormFieldProps,
   "onChange" | "type" | "placeholder"
 > & {
   onChange?: (value: File | null) => void;
@@ -28,12 +27,12 @@ type UploadPhotoFormFieldProps<TFieldValues extends FieldValues = any> = Omit<
   placeholderIcon?: React.ReactNode;
   footerElement?: React.ReactNode;
   maxSize?: number;
-  setError: UseFormSetError<TFieldValues>;
-  clearErrors: UseFormClearErrors<TFieldValues>;
-  formState: FormState<TFieldValues>;
+  setError: UseFormSetError<any>;
+  clearErrors: UseFormClearErrors<any>;
+  formState: FormState<any>;
 };
 
-export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
+export function UploadPhotoFormField({
   name,
   rules,
   label,
@@ -50,11 +49,11 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
   setError,
   clearErrors,
   formState,
-}: Readonly<UploadPhotoFormFieldProps<TFieldValues>>) {
+}: Readonly<UploadPhotoFormFieldProps>) {
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const fieldError = get(formState.errors, name as any);
+  const fieldError = get(formState.errors, name);
 
   // Auto-clear error after 5 seconds
   useEffect(() => {
@@ -67,7 +66,7 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
     // Set new timeout if there's an error
     if (fieldError) {
       errorTimeoutRef.current = setTimeout(() => {
-        clearErrors(name as any);
+        clearErrors(name);
         errorTimeoutRef.current = null;
       }, 5000);
     }
@@ -108,7 +107,7 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {
@@ -153,9 +152,9 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
               maxSize={maxSize}
               setError={(message) => {
                 if (message) {
-                  setError(name as any, { type: "manual", message });
+                  setError(name, { type: "manual", message });
                 } else {
-                  clearErrors(name as any);
+                  clearErrors(name);
                 }
               }}
             />

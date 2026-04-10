@@ -3,7 +3,6 @@ import {
   Control,
   Controller,
   FieldValues,
-  Path,
   RegisterOptions,
 } from "react-hook-form";
 import { useRef } from "react";
@@ -14,11 +13,11 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { Button } from "#/components/button/Button";
 import Icon from "#/components/icon/Icon";
 
-interface UploadFileFormFieldProps<TFieldValues extends FieldValues = any> {
-  name: Path<TFieldValues> | string;
+interface UploadFileFormFieldProps {
+  name: string;
   accept?: string;
   rules?: Omit<
-    RegisterOptions<TFieldValues, any>,
+    RegisterOptions<FieldValues, string>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   withoutTagLabel?: boolean;
@@ -29,11 +28,11 @@ interface UploadFileFormFieldProps<TFieldValues extends FieldValues = any> {
   isRequired?: boolean;
   isDisabled?: boolean;
   buttonText?: string;
-  control: Control<TFieldValues>;
+  control: Control<any, any>;
   footerElement?: React.ReactNode;
 }
 
-export function UploadFileFormField<TFieldValues extends FieldValues = any>({
+export function UploadFileFormField({
   name,
   accept,
   rules,
@@ -47,12 +46,12 @@ export function UploadFileFormField<TFieldValues extends FieldValues = any>({
   buttonText = "Browse File",
   control,
   footerElement,
-}: Readonly<UploadFileFormFieldProps<TFieldValues>>) {
+}: Readonly<UploadFileFormFieldProps>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       rules={{
         required: {
@@ -109,12 +108,12 @@ export function UploadFileFormField<TFieldValues extends FieldValues = any>({
                     placeholder={placeholder}
                     className="pointer-events-none relative"
                     value={
-                      (field.value as any) instanceof File
-                        ? (field.value as any).name
+                      field.value instanceof File
+                        ? field.value.name
                         : field.value
                     }
                   />
-                  {(field.value as any) instanceof File ? (
+                  {field.value instanceof File ? (
                     <button
                       type="button"
                       className="absolute top-0 right-0 z-50 me-2 h-full cursor-pointer"
