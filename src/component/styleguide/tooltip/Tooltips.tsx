@@ -26,6 +26,7 @@ function Tooltips() {
           {tooltipConfigs.map((config) => (
             <Tooltip
               message={config.message}
+              // position={config.position}
               position={config.position}
               key={`portal-${config.position}-${config.variant}`}
               variant={config.variant}
@@ -76,6 +77,22 @@ function Tooltips() {
               </Badge>
             </ProgressTooltip>
           ))}
+        </div>
+      </div>
+
+      {/* Specific top-right (Maintenance) Example */}
+      <div className="mb-8">
+        <h3 className="mb-4 text-lg font-medium">Top Right (Anchor) Example</h3>
+        <div className="flex items-center gap-5">
+          <Tooltip
+            message="Under Maintenance / This menu is temporarily unavailable and will be available again soon."
+            position="top-right"
+            variant="default"
+          >
+            <Badge color="warning">
+              Maintenance Tooltip (Top Right Anchor)
+            </Badge>
+          </Tooltip>
         </div>
       </div>
     </StyleguideGroup>

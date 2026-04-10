@@ -1,7 +1,7 @@
 import { ProgressTooltipContent } from "#/components/tooltip/model";
 
 type TooltipConfig = {
-  position: "top" | "bottom" | "left" | "right";
+  position: "top" | "bottom" | "left" | "right" | "top-right";
   message: string;
   variant: "default" | "without-tail";
 };
@@ -34,6 +34,11 @@ export const tooltipConfigs: TooltipConfig[] = [
     position: "right",
     message:
       "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    variant: "default",
+  },
+  {
+    position: "top-right",
+    message: "Under Maintanance / This menu is temporarily unavailable and will be available again soon.",
     variant: "default",
   },
   {
