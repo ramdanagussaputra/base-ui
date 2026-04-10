@@ -1,13 +1,13 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import { Control, Controller, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import { Field } from "@headlessui/react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 import { cn } from "#/utils";
 
 interface RadioGroupFormFieldProps<TFieldValues extends FieldValues = any> {
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues> | string;
   control: Control<TFieldValues>;
   fields: { label?: string; value: string }[];
   isVertical?: boolean;
@@ -16,6 +16,10 @@ interface RadioGroupFormFieldProps<TFieldValues extends FieldValues = any> {
   label?: string;
   containerClassName?: string;
   fieldName?: string;
+  rules?: Omit<
+    RegisterOptions<TFieldValues, any>,
+    "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
+  >;
 }
 
 export function RadioGroupFormField<TFieldValues extends FieldValues = any>({
@@ -28,16 +32,18 @@ export function RadioGroupFormField<TFieldValues extends FieldValues = any>({
   isDisabled = false,
   containerClassName,
   fieldName,
+  rules,
 }: Readonly<RadioGroupFormFieldProps<TFieldValues>>) {
   return (
     <Controller
       control={control}
-      name={name}
+      name={name as any}
       rules={{
         required: {
           value: isRequired,
           message: `${fieldName || label} is required`,
         },
+        ...rules,
       }}
       render={({ field, fieldState }) => (
         <Fieldset
@@ -49,7 +55,7 @@ export function RadioGroupFormField<TFieldValues extends FieldValues = any>({
           {label && <Fieldset.Label>{label}</Fieldset.Label>}
 
           <Fieldset.RadioGroup
-            name={name}
+            name={name as any}
             value={field.value}
             onChange={field.onChange}
             isVertical={isVertical}

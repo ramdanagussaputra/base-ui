@@ -108,7 +108,7 @@ export function MultipleUploadPhotoFormField<
 
   return (
     <Controller
-      name={name}
+      name={name as any}
       control={control}
       rules={{
         required: {

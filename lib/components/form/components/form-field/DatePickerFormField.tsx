@@ -84,7 +84,7 @@ export function DatePickerFormField<TFieldValues extends FieldValues = any>({
 
   return (
     <Controller
-      name={name}
+      name={name as any}
       control={control}
       rules={{
         required: {

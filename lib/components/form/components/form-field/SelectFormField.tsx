@@ -88,7 +88,7 @@ export function SelectFormField<
 }: Readonly<SelectFormFieldProps<MultiSelect, TFieldValues>>) {
   return (
     <Controller
-      name={name}
+      name={name as any}
       control={control}
       rules={{
         required: {

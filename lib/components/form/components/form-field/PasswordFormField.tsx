@@ -12,7 +12,7 @@ import { FormFieldProps } from "#/components/form/model";
 interface PasswordFormFieldProps<TFieldValues extends FieldValues = any>
   extends Omit<FormFieldProps<TFieldValues>, "type" | "isError"> {
   isConfirmPassword?: boolean;
-  passwordName?: Path<TFieldValues>;
+  passwordName?: Path<TFieldValues> | string;
   endElement?: React.ReactNode;
 }
 
@@ -37,7 +37,7 @@ export function PasswordFormField<TFieldValues extends FieldValues = any>({
   return (
     <Controller
       control={control}
-      name={name}
+      name={name as any}
       rules={{
         required: {
           value: isRequired,

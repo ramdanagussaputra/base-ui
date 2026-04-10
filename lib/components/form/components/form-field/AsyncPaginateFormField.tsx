@@ -120,7 +120,7 @@ export function AsyncPaginateFormField<
   return (
     <Controller
       control={control}
-      name={name}
+      name={name as any}
       rules={{
         required: {
           value: isRequired,

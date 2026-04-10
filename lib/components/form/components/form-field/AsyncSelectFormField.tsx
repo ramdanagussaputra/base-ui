@@ -71,7 +71,7 @@ export function AsyncSelectFormField<TFieldValues extends FieldValues = any>({
 }: Readonly<AsyncSelectFormFieldProps<TFieldValues>>) {
   return (
     <Controller
-      name={name}
+      name={name as any}
       control={control}
       rules={{
         required: {

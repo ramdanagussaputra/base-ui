@@ -68,7 +68,7 @@ export function SelectCreatableFormField<
 }: Readonly<SelectCreatableFormFieldProps<MultiSelect, TFieldValues>>) {
   return (
     <Controller
-      name={name}
+      name={name as any}
       control={control}
       rules={{
         required: {

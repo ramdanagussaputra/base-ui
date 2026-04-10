@@ -53,7 +53,7 @@ export function AsyncSelectSongFormField<
 }: Readonly<AsyncSelectSongFormFieldProps<TFieldValues>>) {
   return (
     <Controller
-      name={name}
+      name={name as any}
       control={control}
       rules={{
         required: {
