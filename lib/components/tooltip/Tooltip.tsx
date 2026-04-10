@@ -15,6 +15,7 @@ interface TooltipProps {
   variant?: "default" | "without-tail";
   isPortal?: boolean;
   portalContainer?: Element | null;
+  title?: string;
 }
 
 export function Tooltip({
@@ -24,6 +25,7 @@ export function Tooltip({
   variant = "default",
   isPortal = true,
   portalContainer,
+  title,
 }: Readonly<TooltipProps>) {
   const triggerRef = useRef<HTMLSpanElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -121,7 +123,7 @@ export function Tooltip({
 
   const getTooltipClasses = () => {
     const baseClasses =
-      "bg-secondary-900 text-secondary-200 text-small-text-400 pointer-events-none z-[9999] w-max max-w-[13rem] rounded-sm p-2";
+      "bg-secondary-900 text-secondary-200 text-small-text-400 pointer-events-none z-[9999] w-max max-w-[13rem] rounded-sm p-2 flex flex-col gap-2";
 
     if (isPortal) {
       return cn(baseClasses, "fixed");
@@ -164,7 +166,8 @@ export function Tooltip({
           : undefined
       }
     >
-      {message}
+      {title && <span className="text-secondary-50">{title}</span>}
+      {message && <span>{message}</span>}
       {variant === "default" && <div className={getTailClasses()} />}
     </div>
   );
