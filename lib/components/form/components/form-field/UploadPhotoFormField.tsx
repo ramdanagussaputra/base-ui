@@ -54,7 +54,7 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
   const { showModal, closeModal } = useModal();
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const fieldError = get(formState.errors, name);
+  const fieldError = get(formState.errors, name as any);
 
   // Auto-clear error after 5 seconds
   useEffect(() => {
@@ -67,7 +67,7 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
     // Set new timeout if there's an error
     if (fieldError) {
       errorTimeoutRef.current = setTimeout(() => {
-        clearErrors(name);
+        clearErrors(name as any);
         errorTimeoutRef.current = null;
       }, 5000);
     }
@@ -153,9 +153,9 @@ export function UploadPhotoFormField<TFieldValues extends FieldValues = any>({
               maxSize={maxSize}
               setError={(message) => {
                 if (message) {
-                  setError(name, { type: "manual", message });
+                  setError(name as any, { type: "manual", message });
                 } else {
-                  clearErrors(name);
+                  clearErrors(name as any);
                 }
               }}
             />

@@ -15,8 +15,8 @@ import {
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
 interface SelectCreatableFormFieldProps<
-  TFieldValues extends FieldValues = any,
   MultiSelect extends boolean = false,
+  TFieldValues extends FieldValues = any,
 > extends Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> {
   options: FieldsetSelectOptionOrGroup[];
   onChange?: (
@@ -42,8 +42,8 @@ interface SelectCreatableFormFieldProps<
 }
 
 export function SelectCreatableFormField<
-  TFieldValues extends FieldValues = any,
   MultiSelect extends boolean = false,
+  TFieldValues extends FieldValues = any,
 >({
   control,
   name,
@@ -65,7 +65,7 @@ export function SelectCreatableFormField<
   menuPortalTarget,
   menuPlacement,
   maxHeight,
-}: Readonly<SelectCreatableFormFieldProps<TFieldValues, MultiSelect>>) {
+}: Readonly<SelectCreatableFormFieldProps<MultiSelect, TFieldValues>>) {
   return (
     <Controller
       name={name}

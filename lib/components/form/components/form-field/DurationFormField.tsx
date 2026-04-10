@@ -181,7 +181,7 @@ type DurationFormFieldProp<TFieldValues extends FieldValues = any> = Omit<
   onChange?: (value: string) => void;
   onBlur?: () => void;
   endElement?: ReactNode;
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues> | string;
   setValue: UseFormSetValue<TFieldValues>;
   watch: UseFormWatch<TFieldValues>;
   /** Whether to show the hours field (2 digits max). Default: true */
@@ -218,7 +218,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
     );
   }
 
-  const formValue = watch(name) || "";
+  const formValue = watch(name as any) || "";
   const [hours, setHours] = React.useState("");
   const [minutes, setMinutes] = React.useState("");
   const [seconds, setSeconds] = React.useState("");
@@ -257,7 +257,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated as any, { shouldValidate: true });
+    setValue(name as any, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
 
     setTimeout(() => {
@@ -278,7 +278,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated as any, { shouldValidate: true });
+    setValue(name as any, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
 
     setTimeout(() => {
@@ -301,7 +301,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
       showSeconds,
     );
 
-    setValue(name, consolidated as any, { shouldValidate: true });
+    setValue(name as any, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
 
     // Reset flag after a short delay to allow form update to complete
@@ -332,7 +332,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated as any, { shouldValidate: true });
+    setValue(name as any, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
@@ -360,7 +360,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated as any, { shouldValidate: true });
+    setValue(name as any, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 
@@ -388,7 +388,7 @@ export function DurationFormField<TFieldValues extends FieldValues = any>({
       showMinutes,
       showSeconds,
     );
-    setValue(name, consolidated as any, { shouldValidate: true });
+    setValue(name as any, consolidated as any, { shouldValidate: true });
     onChange?.(consolidated);
     onBlur?.();
 

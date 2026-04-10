@@ -7,13 +7,13 @@ export interface FormFieldProps<TFieldValues extends FieldValues = any>
     "children" | "className" | "isError" | "isSuccess"
   > {
   label: string;
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues> | string;
   placeholder: string;
   control: Control<TFieldValues>;
   fieldName?: string;
   type?: "text" | "email" | "password" | "number";
   rules?: Omit<
-    RegisterOptions<TFieldValues, Path<TFieldValues>>,
+    RegisterOptions<TFieldValues, any>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   onChange?: (event: React.ChangeEvent<HTMLInputElement> | string) => void;

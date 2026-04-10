@@ -15,10 +15,10 @@ import { Button } from "#/components/button/Button";
 import Icon from "#/components/icon/Icon";
 
 interface UploadFileFormFieldProps<TFieldValues extends FieldValues = any> {
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues> | string;
   accept?: string;
   rules?: Omit<
-    RegisterOptions<TFieldValues, Path<TFieldValues>>,
+    RegisterOptions<TFieldValues, any>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   withoutTagLabel?: boolean;

@@ -17,8 +17,8 @@ import {
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
 interface SelectFormFieldProps<
-  TFieldValues extends FieldValues = any,
   MultiSelect extends boolean = false,
+  TFieldValues extends FieldValues = any,
 > extends Omit<FormFieldProps<TFieldValues>, "type" | "onChange"> {
   options: FieldsetSelectOptionOrGroup[];
   onChange?: (
@@ -54,8 +54,8 @@ interface SelectFormFieldProps<
 }
 
 export function SelectFormField<
-  TFieldValues extends FieldValues = any,
   MultiSelect extends boolean = false,
+  TFieldValues extends FieldValues = any,
 >({
   control,
   name,
@@ -85,7 +85,7 @@ export function SelectFormField<
   isClearable,
   hideSelectedOptions,
   useCheckboxOptions,
-}: Readonly<SelectFormFieldProps<TFieldValues, MultiSelect>>) {
+}: Readonly<SelectFormFieldProps<MultiSelect, TFieldValues>>) {
   return (
     <Controller
       name={name}
