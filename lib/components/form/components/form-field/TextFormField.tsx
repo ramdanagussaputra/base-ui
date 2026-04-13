@@ -187,7 +187,7 @@ export function TextFormField({
       } else if (typeof rules.validate === "object") {
         // Handle multiple validators
         for (const [, validator] of Object.entries(rules.validate)) {
-          const result = validator(value, formValues);
+          const result = (validator as any)(value, formValues);
           if (result !== true && result !== undefined) {
             return result;
           }

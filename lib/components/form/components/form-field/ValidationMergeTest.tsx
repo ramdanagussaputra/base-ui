@@ -35,7 +35,7 @@ export function ValidationMergeTest() {
           lettersOnlyMessage="Username must contain only letters"
           rules={{
             // Custom validation: additional rules
-            validate: (value) => {
+            validate: (value: any) => {
               if (value === "admin") return 'Username "admin" is not allowed';
               if (value.length < 3)
                 return "Username must be at least 3 characters";
@@ -60,7 +60,7 @@ export function ValidationMergeTest() {
           isRequired
           rules={{
             // Custom validation: block specific domains
-            validate: (value) => {
+            validate: (value: any) => {
               if (value.endsWith("@example.com")) {
                 return "Emails from example.com are not allowed";
               }

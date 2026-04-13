@@ -1,4 +1,4 @@
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { useState } from "react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -6,7 +6,7 @@ import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 interface CheckboxFormFieldProps {
   name: string;
   label: string;
-  control: Control<any>;
+  control: any;
   onChange?: () => void;
 }
 

@@ -1,4 +1,3 @@
-import { Control, FieldValues, RegisterOptions } from "react-hook-form";
 import type { FieldsetProps } from "#/components/form/components/fieldset/Fieldset";
 
 export interface FormFieldProps
@@ -9,13 +8,10 @@ export interface FormFieldProps
   label: string;
   name: string;
   placeholder: string;
-  control: Control<any, any>;
+  control: any;
   fieldName?: string;
   type?: "text" | "email" | "password" | "number";
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
-  >;
+  rules?: any;
   onChange?: (event: React.ChangeEvent<HTMLInputElement> | string) => void;
   withoutTagLabel?: boolean;
 }

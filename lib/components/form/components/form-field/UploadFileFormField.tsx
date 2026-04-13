@@ -1,9 +1,6 @@
 import { Add } from "iconsax-react";
 import {
-  Control,
   Controller,
-  FieldValues,
-  RegisterOptions,
 } from "react-hook-form";
 import { useRef } from "react";
 
@@ -16,10 +13,7 @@ import Icon from "#/components/icon/Icon";
 interface UploadFileFormFieldProps {
   name: string;
   accept?: string;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
-  >;
+  rules?: any;
   withoutTagLabel?: boolean;
   placeholder: string;
   label: string;
@@ -28,7 +22,7 @@ interface UploadFileFormFieldProps {
   isRequired?: boolean;
   isDisabled?: boolean;
   buttonText?: string;
-  control: Control<any, any>;
+  control: any;
   footerElement?: React.ReactNode;
 }
 

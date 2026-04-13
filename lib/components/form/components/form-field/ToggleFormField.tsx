@@ -1,10 +1,10 @@
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
 
 interface ToggleFormFieldProps {
   name: string;
-  control: Control<any>;
+  control: any;
   size?: "extra-small" | "small" | "medium" | "large";
   isDisabled?: boolean;
   onChange?: (value: boolean) => void;

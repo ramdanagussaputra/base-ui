@@ -1,6 +1,6 @@
 // WARNING: This component should use within FormProvider from react-hook-form. learn how to use it in https://react-hook-form.com/docs/formprovider
 
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { Field } from "@headlessui/react";
 
 import { Fieldset } from "#/components/form/components/fieldset/Fieldset";
@@ -8,7 +8,7 @@ import { cn } from "#/utils";
 
 interface RadioGroupFormFieldProps {
   name: string;
-  control: Control<any>;
+  control: any;
   fields: { label?: string; value: string }[];
   isVertical?: boolean;
   isRequired?: boolean;
