@@ -52,19 +52,6 @@ function SelectFieldForm() {
           useEndOfDayForRangeEnd
         />
 
-        <SelectFormField
-          name="select"
-          control={formMethods.control}
-          label="Single Select"
-          options={[
-            { label: "Option 1", value: "option-1" },
-            { label: "Option 2", value: "option-2" },
-            { label: "Option 3", value: "option-3" },
-          ]}
-          placeholder="Placeholder"
-          size="small"
-        />
-
         {/* Local calendar demo (self-contained) */}
         <Fieldset>
           <div className="mb-2 flex items-center space-x-2">
@@ -90,6 +77,73 @@ function SelectFieldForm() {
             />
           )}
         </Fieldset>
+
+        <SelectFormField
+          name="selectXS"
+          control={formMethods.control}
+          label="XS Select"
+          options={[
+            { label: "Option 1", value: "option-1" },
+            { label: "Option 2", value: "option-2" },
+            { label: "Option 3", value: "option-3" },
+          ]}
+          placeholder="Placeholder"
+          size="extra-small"
+        />
+
+        <SelectFormField
+          name="selectSmall"
+          control={formMethods.control}
+          label="Small Select"
+          options={[
+            { label: "Option 1", value: "option-1" },
+            { label: "Option 2", value: "option-2" },
+            { label: "Option 3", value: "option-3" },
+          ]}
+          placeholder="Placeholder"
+          size="small"
+        />
+
+        <SelectFormField
+          name="select"
+          control={formMethods.control}
+          label="Medium Select"
+          options={[
+            { label: "Option 1", value: "option-1" },
+            { label: "Option 2", value: "option-2" },
+            { label: "Option 3", value: "option-3" },
+          ]}
+          placeholder="Placeholder"
+          size="medium"
+        />
+
+        <SelectFormField
+          name="selectLarge"
+          control={formMethods.control}
+          label="Large Select"
+          options={[
+            { label: "Option 1", value: "option-1" },
+            { label: "Option 2", value: "option-2" },
+            { label: "Option 3", value: "option-3" },
+          ]}
+          placeholder="Placeholder"
+          size="large"
+        />
+
+        <SelectFormField
+          name="select"
+          control={formMethods.control}
+          label="Single Select w/ Disabled Options"
+          options={[
+            { label: "Option 1", value: "option-1" },
+            { label: "Option 2", value: "option-2" },
+            { label: "Option 3", value: "option-3" },
+          ]}
+          alreadySelectedValues={[
+            { label: "Option 1", value: "option-1" },
+          ]}
+          placeholder="Placeholder"
+        />
 
         <AsyncSelectSongFormField
           name="select-song"
@@ -121,35 +175,10 @@ function SelectFieldForm() {
           label="Select Song"
         />
 
-        <SelectCreatableFormField
-          label="Creatable Select"
-          control={formMethods.control}
-          name="creatable-select"
-          options={[
-            {
-              label: "Option 1",
-              value: "option-1",
-            },
-            {
-              label: "Option 2",
-              value: "option-2",
-            },
-            {
-              label: "Option 3",
-              value: "option-3",
-            },
-          ]}
-          onChange={(e) => {
-            console.log(e, "change");
-          }}
-          placeholder="Creatable Select"
-          isMultiSelect={true}
-        />
-
         <SelectFormField
           name="multiSelect"
           control={formMethods.control}
-          label="Multi Select"
+          label="Hybrid Select"
           isMultiSelect
           options={[
             {
@@ -171,15 +200,15 @@ function SelectFieldForm() {
               exclusiveGroup: "primary",
             },
             {
-              label: "Options 5",
+              label: "Options 4",
               options: [
                 {
-                  label: "Option 5-1",
-                  value: "option-5-1",
+                  label: "Option 4-1",
+                  value: "option-4-1",
                 },
                 {
-                  label: "Option 5-2",
-                  value: "option-5-2",
+                  label: "Option 4-2",
+                  value: "option-4-2",
                 },
               ],
             },
@@ -209,6 +238,32 @@ function SelectFieldForm() {
             },
           ]}
           placeholder="Placeholder"
+        />
+
+
+        <SelectCreatableFormField
+          label="Creatable Multi Select"
+          control={formMethods.control}
+          name="creatable-select"
+          options={[
+            {
+              label: "Option 1",
+              value: "option-1",
+            },
+            {
+              label: "Option 2",
+              value: "option-2",
+            },
+            {
+              label: "Option 3",
+              value: "option-3",
+            },
+          ]}
+          onChange={(e) => {
+            console.log(e, "change");
+          }}
+          placeholder="Creatable Select"
+          isMultiSelect={true}
         />
 
         <SelectFormField

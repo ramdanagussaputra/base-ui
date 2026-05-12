@@ -41,7 +41,14 @@ function Forms() {
 
           <div className="grow space-y-5">
             <SelectFieldForm />
+          </div>
+        </div>
+
+        <div className="flex w-full gap-5">
+          <div className="grow space-y-5">
             <ControlFieldForm />
+          </div>
+          <div className="grow space-y-5">
             <UploadPhotoFieldForm />
             <UploadFileFieldForm />
           </div>
