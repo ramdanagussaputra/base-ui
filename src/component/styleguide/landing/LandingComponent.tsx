@@ -11,9 +11,9 @@ import { useState } from "react";
 import { SingleValue } from "react-select";
 
 import StyleguideGroup from "@/component/styleguide/StyleguideGroup";
-import StyleguideSubtitle from "@/component/styleguide/StyleguideSubtitle";
 import { useNavigate } from "react-router";
 import TopItem from "#/components/landing/list-item/components/TopItem";
+import StyleguideTitle from "../StyleguideTitle";
 
 const images = [
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -158,7 +158,7 @@ function LandingComponent() {
 
   return (
     <StyleguideGroup>
-      <StyleguideSubtitle>Landing Component</StyleguideSubtitle>
+      <StyleguideTitle>Landing Component</StyleguideTitle>
       <div className="flex flex-col gap-4">
         <div className="max-w-[30rem]">
           <CarouselLanding
