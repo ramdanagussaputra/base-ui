@@ -11,6 +11,7 @@ import {
 import Icon from "#/components/icon/Icon";
 import StyleguideGroup from "../StyleguideGroup";
 import StyleguideTitle from "../StyleguideTitle";
+import StyleguideSubtitle from "../StyleguideSubtitle";
 
 // Component demonstrating AccordionManagerProvider approach
 function AccordionWithManagerProvider() {
@@ -250,12 +251,10 @@ function Accordion() {
     <StyleguideGroup>
       <StyleguideTitle>Accordion</StyleguideTitle>
 
-      <div className="flex flex-col gap-12">
+      <div className="flex justify-between gap-x-5">
         {/* Original Examples */}
-        <div>
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">
-            Original Examples
-          </h3>
+        <div className="w-full space-y-4">
+          <StyleguideSubtitle>Original Examples</StyleguideSubtitle>
           <div className="flex flex-col gap-8">
             <AccordionComponent>
               {(open) => (
@@ -321,20 +320,18 @@ function Accordion() {
         </div>
 
         {/* Global Control with Provider */}
-        <div>
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">
-            Global Control with AccordionManagerProvider
-          </h3>
+        <div className="w-full space-y-4">
+          <StyleguideSubtitle>
+              Global w/ AccordionManagerProvider
+          </StyleguideSubtitle>
           <AccordionManagerProvider>
             <AccordionWithManagerProvider />
           </AccordionManagerProvider>
         </div>
 
         {/* Global Control with Standalone Hook */}
-        <div>
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">
-            Global Control with Standalone Hook
-          </h3>
+        <div className="w-full space-y-4">
+          <StyleguideSubtitle>Global Control w/ Standalone Manager</StyleguideSubtitle>
           <AccordionWithStandaloneManager />
         </div>
       </div>

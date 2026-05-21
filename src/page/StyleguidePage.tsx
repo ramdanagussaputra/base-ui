@@ -3,7 +3,6 @@ import Buttons from "@/component/styleguide/buttons/Buttons";
 import Colors from "@/component/styleguide/colors/Colors";
 import Fonts from "@/component/styleguide/fonts/Fonts";
 import Forms from "@/component/styleguide/forms/Forms";
-import FormSelects from "@/component/styleguide/form-selects/FormSelects";
 import Navigation from "@/component/styleguide/navigations/Navigations";
 import Tooltips from "@/component/styleguide/tooltip/Tooltips";
 import MessageBoxes from "@/component/styleguide/messagebox/MessageBoxes";
@@ -27,7 +26,6 @@ function StyleguidePage() {
         <BadgesTags />
         <Tooltips />
         <Forms />
-        <FormSelects />
         <Navigation />
         <MessageBoxes />
         <Avatars />
